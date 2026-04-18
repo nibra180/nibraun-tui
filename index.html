@@ -1,0 +1,1439 @@
+<!DOCTYPE html>
+<html lang="de" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Niklas Braun — Shopware 6 & Flutter Developer</title>
+    <meta name="description" content="Niklas Braun ist Full-Stack Developer mit 7+ Jahren Erfahrung in Shopware 6, Flutter, Vue.js, TypeScript, PHP/Symfony und individuellen E-Commerce-Lösungen.">
+    <meta name="keywords" content="Niklas Braun, Full-Stack Developer, Shopware 6 Entwickler, Flutter Entwickler, Cross-Device App Entwicklung, Vue.js, TypeScript, PHP, Symfony, Shopware Plugin Entwicklung, Shopware Theme Entwicklung, ERP Anbindung, PIM, Supabase, OCR, OAuth, E-Commerce Entwicklung">
+    <meta name="author" content="Niklas Braun">
+    <meta name="robots" content="index, follow">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Niklas Braun — Shopware 6 & Flutter Developer">
+    <meta property="og:description" content="Full-Stack Development mit 7+ Jahren Erfahrung in Shopware 6, Flutter, Vue.js und individuellen Softwarelösungen.">
+    <meta property="og:url" content="https://niklasbraun.dev">
+    <meta property="og:image" content="https://picsum.photos/seed/sw6dev-og/1200/630.jpg">
+
+    <!-- Favicon (inline SVG data URI) -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⌘</text></svg>">
+    <meta name="theme-color" content="#f8f4eb">
+
+    <script>
+        (() => {
+            try {
+                const storedTheme = localStorage.getItem('theme');
+                const initialTheme = storedTheme === 'light' || storedTheme === 'dark' ? storedTheme : 'light';
+                document.documentElement.dataset.theme = initialTheme;
+            } catch {
+                document.documentElement.dataset.theme = 'light';
+            }
+        })();
+    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        terminal: {
+                            bg: 'rgb(var(--terminal-bg) / <alpha-value>)',
+                            surface: 'rgb(var(--terminal-surface) / <alpha-value>)',
+                            border: 'rgb(var(--terminal-border) / <alpha-value>)',
+                            borderHover: 'rgb(var(--terminal-borderHover) / <alpha-value>)',
+                            muted: 'rgb(var(--terminal-muted) / <alpha-value>)',
+                            text: 'rgb(var(--terminal-text) / <alpha-value>)',
+                            heading: 'rgb(var(--terminal-heading) / <alpha-value>)',
+                            prompt: 'rgb(var(--terminal-prompt) / <alpha-value>)',
+                            accent: 'rgb(var(--terminal-accent) / <alpha-value>)',
+                            green: 'rgb(var(--terminal-green) / <alpha-value>)',
+                            red: 'rgb(var(--terminal-red) / <alpha-value>)',
+                            cyan: 'rgb(var(--terminal-cyan) / <alpha-value>)',
+                            purple: 'rgb(var(--terminal-purple) / <alpha-value>)',
+                            amber: 'rgb(var(--terminal-amber) / <alpha-value>)',
+                        }
+                    },
+                    fontFamily: {
+                        mono: ['"JetBrains Mono"', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            color-scheme: dark;
+            --terminal-bg: 10 14 20;
+            --terminal-surface: 17 22 29;
+            --terminal-border: 46 56 72;
+            --terminal-borderHover: 74 88 112;
+            --terminal-muted: 118 131 156;
+            --terminal-text: 191 189 182;
+            --terminal-heading: 230 225 207;
+            --terminal-prompt: 230 180 80;
+            --terminal-accent: 57 186 230;
+            --terminal-green: 127 217 98;
+            --terminal-red: 242 109 120;
+            --terminal-cyan: 89 194 255;
+            --terminal-purple: 210 166 255;
+            --terminal-amber: 230 180 80;
+            --terminal-scanline: 0 0 0;
+            --terminal-scanline-opacity: 0.03;
+            --terminal-theme-meta: #0a0e14;
+        }
+
+        html[data-theme="light"] {
+            color-scheme: light;
+            --terminal-bg: 248 244 235;
+            --terminal-surface: 255 251 243;
+            --terminal-border: 214 204 190;
+            --terminal-borderHover: 176 160 142;
+            --terminal-muted: 123 111 96;
+            --terminal-text: 84 70 55;
+            --terminal-heading: 40 31 24;
+            --terminal-prompt: 176 98 0;
+            --terminal-accent: 0 122 204;
+            --terminal-green: 36 137 86;
+            --terminal-red: 191 76 94;
+            --terminal-cyan: 17 113 163;
+            --terminal-purple: 118 89 176;
+            --terminal-amber: 176 98 0;
+            --terminal-scanline: 74 56 39;
+            --terminal-scanline-opacity: 0.035;
+            --terminal-theme-meta: #f8f4eb;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: rgb(var(--terminal-bg));
+            color: rgb(var(--terminal-text));
+            font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            transition: background-color 0.25s ease, color 0.25s ease;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: rgb(var(--terminal-bg)); }
+        ::-webkit-scrollbar-thumb { background: rgb(var(--terminal-borderHover)); border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: rgb(var(--terminal-muted)); }
+
+        /* Blinking cursor */
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+        .cursor-blink {
+            display: inline-block;
+            width: 0.55em;
+            height: 1.2em;
+            background-color: rgb(var(--terminal-green));
+            vertical-align: text-bottom;
+            animation: blink 1s step-end infinite;
+            margin-left: 2px;
+        }
+
+        /* Status dot pulse */
+        @keyframes statusPulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgb(var(--terminal-green) / 0.4); }
+            50% { box-shadow: 0 0 0 4px rgb(var(--terminal-green) / 0); }
+        }
+        .status-dot {
+            width: 6px; height: 6px;
+            background: rgb(var(--terminal-green));
+            border-radius: 50%;
+            animation: statusPulse 2.5s ease-in-out infinite;
+        }
+
+        /* Glow border on hover */
+        .glow-border {
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        .glow-border:hover {
+            border-color: rgb(var(--terminal-accent));
+            box-shadow: 0 0 12px rgb(var(--terminal-accent) / 0.08), inset 0 0 12px rgb(var(--terminal-accent) / 0.03);
+        }
+
+        /* Subtle scan line overlay for terminal panels */
+        .scanlines::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 2px,
+                    rgb(var(--terminal-scanline) / 0) 2px,
+                    rgb(var(--terminal-scanline) / var(--terminal-scanline-opacity)) 4px
+            );
+            pointer-events: none;
+            border-radius: inherit;
+        }
+
+        /* Code line highlight */
+        .code-line { transition: background-color 0.15s ease; }
+        .code-line:hover { background-color: rgb(var(--terminal-accent) / 0.04); }
+
+        /* Tab active indicator */
+        .tab-btn { position: relative; transition: color 0.2s ease; }
+        .tab-btn.active { color: rgb(var(--terminal-heading)); }
+        .tab-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px; left: 0; right: 0;
+            height: 1px;
+            background: rgb(var(--terminal-accent));
+        }
+
+        /* Typewriter lines hidden initially */
+        .type-line { opacity: 0; }
+        .type-line.visible { opacity: 1; }
+
+        /* Section reveal */
+        .reveal-section {
+            opacity: 0;
+            transform: translateY(16px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        .reveal-section.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Smooth nav link underline */
+        .nav-link {
+            position: relative;
+            transition: color 0.2s ease;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -2px; left: 0;
+            width: 0; height: 1px;
+            background: rgb(var(--terminal-accent));
+            transition: width 0.25s ease;
+        }
+        .nav-link:hover::after,
+        .nav-link.active::after { width: 100%; }
+        .nav-link:hover, .nav-link.active { color: rgb(var(--terminal-heading)); }
+
+        /* Theme toggle command */
+        .theme-toggle {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            border: 1px solid rgb(var(--terminal-border));
+            border-radius: 0.375rem;
+            padding: 0.35rem 0.55rem;
+            background: rgb(var(--terminal-surface) / 0.45);
+            color: rgb(var(--terminal-muted));
+            transition: color 0.2s ease, border-color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+        }
+        .theme-toggle:hover {
+            color: rgb(var(--terminal-heading));
+            border-color: rgb(var(--terminal-accent) / 0.45);
+            background: rgb(var(--terminal-accent) / 0.08);
+            box-shadow: 0 0 0 1px rgb(var(--terminal-accent) / 0.08);
+        }
+        .theme-toggle:focus-visible {
+            outline: none;
+            border-color: rgb(var(--terminal-accent));
+            box-shadow: 0 0 0 2px rgb(var(--terminal-accent) / 0.18);
+        }
+
+        /* Terminal input styling */
+        .terminal-input {
+            background: transparent;
+            border: none;
+            outline: none;
+            color: rgb(var(--terminal-heading));
+            font-family: inherit;
+            font-size: inherit;
+            width: 100%;
+            caret-color: rgb(var(--terminal-green));
+        }
+        .terminal-input::placeholder { color: rgb(var(--terminal-muted)); }
+
+        /* Command hint */
+        .cmd-hint {
+            transition: background-color 0.15s ease, color 0.15s ease;
+            cursor: pointer;
+        }
+        .cmd-hint:hover {
+            background-color: rgb(var(--terminal-accent) / 0.08);
+            color: rgb(var(--terminal-heading));
+        }
+
+        /* Mobile menu */
+        .mobile-menu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, opacity 0.3s ease;
+            opacity: 0;
+        }
+        .mobile-menu.open {
+            max-height: 420px;
+            opacity: 1;
+        }
+
+        /* Checkbox styling */
+        .check-item::before {
+            content: '✓';
+            color: rgb(var(--terminal-green));
+            font-weight: 700;
+            margin-right: 0.5em;
+        }
+
+        /* Respect reduced motion */
+        @media (prefers-reduced-motion: reduce) {
+            .cursor-blink { animation: none; opacity: 1; }
+            .status-dot { animation: none; }
+            .reveal-section { opacity: 1; transform: none; transition: none; }
+            .type-line { opacity: 1; }
+            * { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
+        }
+
+        /* Long code lines wrap on mobile */
+        @media (max-width: 640px) {
+            .code-wrap { white-space: pre-wrap; word-break: break-all; }
+        }
+    </style>
+</head>
+
+<body class="min-h-screen">
+
+<!-- ==================== NAVIGATION ==================== -->
+<nav class="fixed top-0 left-0 right-0 z-50 border-b border-terminal-border bg-terminal-bg/90 backdrop-blur-md" role="navigation" aria-label="Hauptnavigation">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+        <div class="flex items-center justify-between h-12">
+            <!-- Path indicator -->
+            <a href="#hero" class="text-terminal-muted text-xs sm:text-sm truncate flex-shrink-0" aria-label="Zur Startseite">
+                <span class="text-terminal-accent">~/</span><span class="text-terminal-text">niklas-braun</span>
+            </a>
+
+            <!-- Desktop nav links -->
+            <div class="hidden md:flex items-center gap-6 text-xs">
+                <a href="#about" class="nav-link text-terminal-muted" data-nav>about</a>
+                <a href="#skills" class="nav-link text-terminal-muted" data-nav>skills</a>
+                <a href="#experience" class="nav-link text-terminal-muted" data-nav>experience</a>
+                <a href="#warikoda" class="nav-link text-terminal-muted" data-nav>warikoda</a>
+                <a href="#stack" class="nav-link text-terminal-muted" data-nav>stack</a>
+                <a href="#contact" class="nav-link text-terminal-muted" data-nav>contact</a>
+            </div>
+
+            <!-- Status + theme + Mobile toggle -->
+            <div class="flex items-center gap-2 sm:gap-3">
+                <button
+                    type="button"
+                    class="theme-toggle hidden sm:inline-flex text-[10px]"
+                    data-theme-toggle
+                    aria-label="Farbmodus umschalten"
+                    title="Light/Dark Mode umschalten"
+                >
+                    <span class="text-terminal-prompt">$</span>
+                    <span>theme --toggle</span>
+                    <span class="text-terminal-accent/80" data-theme-state>dark</span>
+                </button>
+                <div class="hidden sm:flex items-center gap-2 text-[10px] text-terminal-muted">
+                    <div class="status-dot" aria-hidden="true"></div>
+                    <span>system online</span>
+                </div>
+                <button id="mobileToggle" class="md:hidden text-terminal-muted hover:text-terminal-heading transition-colors" aria-label="Menü öffnen" aria-expanded="false">
+                    <svg id="menuIconOpen" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                    <svg id="menuIconClose" class="w-4 h-4 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile menu -->
+        <div id="mobileMenu" class="mobile-menu md:hidden border-t border-terminal-border">
+            <div class="py-3 flex flex-col gap-1 text-xs">
+                <button
+                    type="button"
+                    class="theme-toggle mx-2 mb-2 justify-between text-xs"
+                    data-theme-toggle
+                    aria-label="Farbmodus umschalten"
+                    title="Light/Dark Mode umschalten"
+                >
+                    <span class="flex items-center gap-1.5">
+                        <span class="text-terminal-prompt">$</span>
+                        <span>theme --toggle</span>
+                    </span>
+                    <span class="text-terminal-accent/80" data-theme-state>dark</span>
+                </button>
+                <a href="#about" class="nav-link text-terminal-muted px-2 py-1.5" data-nav data-mobile>about</a>
+                <a href="#skills" class="nav-link text-terminal-muted px-2 py-1.5" data-nav data-mobile>skills</a>
+                <a href="#experience" class="nav-link text-terminal-muted px-2 py-1.5" data-nav data-mobile>experience</a>
+                <a href="#warikoda" class="nav-link text-terminal-muted px-2 py-1.5" data-nav data-mobile>warikoda</a>
+                <a href="#stack" class="nav-link text-terminal-muted px-2 py-1.5" data-nav data-mobile>stack</a>
+                <a href="#contact" class="nav-link text-terminal-muted px-2 py-1.5" data-nav data-mobile>contact</a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<main class="pt-12">
+
+    <!-- ==================== HERO SECTION ==================== -->
+    <section id="hero" class="min-h-[calc(100vh-3rem)] flex items-center justify-center px-4 py-12 sm:py-16">
+        <div class="w-full max-w-4xl">
+
+            <!-- Terminal Window -->
+            <div class="border border-terminal-border rounded-lg overflow-hidden scanlines relative reveal-section">
+
+                <!-- Title bar -->
+                <div class="flex items-center gap-2 px-4 py-2.5 bg-terminal-surface border-b border-terminal-border">
+                    <div class="w-2.5 h-2.5 rounded-full bg-terminal-red/70"></div>
+                    <div class="w-2.5 h-2.5 rounded-full bg-terminal-amber/70"></div>
+                    <div class="w-2.5 h-2.5 rounded-full bg-terminal-green/70"></div>
+                    <span class="ml-2 text-[10px] text-terminal-muted">niklas@shopware-dev:~</span>
+                </div>
+
+                <!-- Terminal body -->
+                <div class="p-4 sm:p-6 bg-terminal-bg space-y-3 text-sm sm:text-[15px]">
+
+                    <!-- Line 1: whoami -->
+                    <div class="type-line flex items-start gap-2">
+                        <span class="text-terminal-prompt flex-shrink-0">$</span>
+                        <span class="text-terminal-heading">whoami</span>
+                    </div>
+                    <div class="type-line pl-4 text-terminal-heading text-base sm:text-lg font-medium" style="transition-delay: 0.04s">
+                        Niklas Braun — Shopware 6 &amp; Flutter Developer
+                    </div>
+
+                    <!-- Line 2: focus -->
+                    <div class="type-line flex items-start gap-2" style="transition-delay: 0.1s">
+                        <span class="text-terminal-prompt flex-shrink-0">$</span>
+                        <span class="text-terminal-heading">focus</span>
+                    </div>
+                    <div class="type-line pl-4 sm:pl-4 flex flex-col sm:flex-row sm:flex-wrap gap-y-1 sm:gap-x-2 sm:gap-y-1" style="transition-delay: 0.16s">
+                        <span class="text-terminal-accent">Custom Plugins</span>
+                        <span class="text-terminal-muted hidden sm:inline">·</span>
+                        <span class="text-terminal-cyan">Flutter Apps</span>
+                        <span class="text-terminal-muted hidden sm:inline">·</span>
+                        <span class="text-terminal-purple">ERP Integrations</span>
+                        <span class="text-terminal-muted hidden sm:inline">·</span>
+                        <span class="text-terminal-green">Cross-Device Solutions</span>
+                    </div>
+
+                    <!-- Line 3: current -->
+                    <div class="type-line flex items-start gap-2" style="transition-delay: 0.22s">
+                        <span class="text-terminal-prompt flex-shrink-0">$</span>
+                        <span class="text-terminal-heading">current</span>
+                    </div>
+                    <div class="type-line pl-4 sm:pl-4 text-terminal-text" style="transition-delay: 0.28s">
+                        <div class="flex flex-col sm:flex-row sm:flex-wrap sm:items-center gap-y-1 sm:gap-x-2">
+                            <span>Full-Stack Developer @</span>
+                            <span class="text-terminal-accent">Sharpness Solutions GmbH</span>
+                            <span class="text-terminal-muted hidden sm:inline">·</span>
+                            <span class="text-terminal-muted">Oldenburg</span>
+                        </div>
+                    </div>
+
+                    <!-- Line 4: status -->
+                    <div class="type-line flex items-start gap-2" style="transition-delay: 0.34s">
+                        <span class="text-terminal-prompt flex-shrink-0">$</span>
+                        <span class="text-terminal-heading">status</span>
+                    </div>
+                    <div class="type-line pl-4 flex items-center gap-2" style="transition-delay: 0.4s">
+                        <div class="status-dot" aria-hidden="true"></div>
+                        <span class="text-terminal-green">Anfragen gerne direkt an Sharpness Solutions</span>
+                    </div>
+
+                    <!-- Separator -->
+                    <div class="type-line border-t border-terminal-border my-4" style="transition-delay: 0.46s"></div>
+
+                    <!-- Subheadline -->
+                    <div class="type-line text-terminal-text text-xs sm:text-sm leading-relaxed max-w-2xl" style="transition-delay: 0.52s">
+                        Shopware 6 und Flutter Entwicklung für individuelle digitale Produkte.<br>
+                        Aktuell entwickle ich bei Sharpness Solutions GmbH anspruchsvolle E-Commerce- und App-Lösungen — Projektanfragen gerne direkt über Sharpness Solutions.
+                    </div>
+
+                    <!-- CTAs -->
+                    <div class="type-line flex flex-wrap gap-3 pt-3" style="transition-delay: 0.58s">
+                        <a href="#contact" class="inline-flex items-center gap-1.5 px-4 py-2 bg-terminal-accent/10 border border-terminal-accent/30 rounded text-terminal-accent text-xs hover:bg-terminal-accent/20 hover:border-terminal-accent/50 transition-all focus:outline-none focus:ring-1 focus:ring-terminal-accent/50">
+                            <span class="text-terminal-prompt">$</span> anfrage an sharpness
+                        </a>
+                        <a href="#experience" class="inline-flex items-center gap-1.5 px-4 py-2 border border-terminal-border rounded text-terminal-text text-xs hover:border-terminal-muted hover:text-terminal-heading transition-all focus:outline-none focus:ring-1 focus:ring-terminal-border">
+                            <span class="text-terminal-prompt">$</span> beruflicher werdegang
+                        </a>
+                        <a href="#skills" class="inline-flex items-center gap-1.5 px-4 py-2 border border-terminal-border rounded text-terminal-muted text-xs hover:border-terminal-muted hover:text-terminal-heading transition-all focus:outline-none focus:ring-1 focus:ring-terminal-border">
+                            <span class="text-terminal-prompt">$</span> skills ansehen
+                        </a>
+                    </div>
+
+                    <!-- Blinking cursor -->
+                    <div class="type-line flex items-center gap-0 pt-1" style="transition-delay: 0.64s">
+                        <span class="text-terminal-prompt">$&nbsp;</span>
+                        <span class="cursor-blink" aria-hidden="true"></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Command hints below terminal -->
+            <div class="mt-4 flex flex-wrap gap-2 text-[10px] text-terminal-muted reveal-section" style="transition-delay: 0.3s">
+                <span class="text-terminal-muted/50">tip:</span>
+                <button class="cmd-hint px-1.5 py-0.5 rounded border border-terminal-border" data-cmd="about">about</button>
+                <button class="cmd-hint px-1.5 py-0.5 rounded border border-terminal-border" data-cmd="skills">skills</button>
+                <button class="cmd-hint px-1.5 py-0.5 rounded border border-terminal-border" data-cmd="warikoda">warikoda</button>
+                <button class="cmd-hint px-1.5 py-0.5 rounded border border-terminal-border" data-cmd="contact">contact</button>
+                <button class="cmd-hint px-1.5 py-0.5 rounded border border-terminal-border" data-cmd="help">help</button>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ==================== ABOUT SECTION ==================== -->
+    <section id="about" class="px-4 py-16 sm:py-24">
+        <div class="max-w-4xl mx-auto reveal-section">
+            <!-- Section header -->
+            <div class="flex items-center gap-3 mb-6">
+                <span class="text-terminal-prompt text-sm">$</span>
+                <h2 class="text-terminal-heading text-base sm:text-lg font-medium">cat profile.config</h2>
+            </div>
+
+            <!-- Config file panel -->
+            <div class="border border-terminal-border rounded-lg overflow-hidden glow-border">
+                <!-- File tab -->
+                <div class="flex items-center gap-0 border-b border-terminal-border text-xs">
+                    <div class="px-4 py-2 border-b border-terminal-accent text-terminal-heading bg-terminal-surface/50">profile.config</div>
+                </div>
+
+                <!-- File content -->
+                <div class="p-4 sm:p-6 bg-terminal-surface/30 space-y-3 text-sm">
+
+                    <div class="code-line px-2 py-1 rounded">
+                        <span class="text-terminal-purple">name</span><span class="text-terminal-muted">:</span>
+                        <span class="text-terminal-green">"Niklas Braun"</span>
+                    </div>
+
+                    <div class="code-line px-2 py-1 rounded">
+                        <span class="text-terminal-purple">role</span><span class="text-terminal-muted">:</span>
+                        <span class="text-terminal-green">"Full-Stack Developer"</span>
+                    </div>
+
+                    <div class="code-line px-2 py-1 rounded">
+                        <span class="text-terminal-purple">experience</span><span class="text-terminal-muted">:</span>
+                        <span class="text-terminal-green">"7+ Jahre"</span>
+                    </div>
+
+                    <div class="code-line px-2 py-1 rounded">
+                        <span class="text-terminal-purple">location</span><span class="text-terminal-muted">:</span>
+                        <span class="text-terminal-green">"Löningen, Niedersachsen"</span>
+                    </div>
+
+                    <div class="code-line px-2 py-1 rounded mt-4">
+                        <span class="text-terminal-purple">focus</span><span class="text-terminal-muted">:</span>
+                    </div>
+                    <div class="code-line px-4 py-1 rounded">
+                        <span class="text-terminal-muted">- </span><span class="text-terminal-accent">Custom Plugin Development</span>
+                    </div>
+                    <div class="code-line px-4 py-1 rounded">
+                        <span class="text-terminal-muted">- </span><span class="text-terminal-accent">Theme Development</span>
+                    </div>
+                    <div class="code-line px-4 py-1 rounded">
+                        <span class="text-terminal-muted">- </span><span class="text-terminal-accent">ERP Integrations</span>
+                    </div>
+                    <div class="code-line px-4 py-1 rounded">
+                        <span class="text-terminal-muted">- </span><span class="text-terminal-accent">E-Commerce Architecture</span>
+                    </div>
+                    <div class="code-line px-4 py-1 rounded">
+                        <span class="text-terminal-muted">- </span><span class="text-terminal-accent">Flutter &amp; Cross-Device Apps</span>
+                    </div>
+                    <div class="code-line px-4 py-1 rounded">
+                        <span class="text-terminal-muted">- </span><span class="text-terminal-accent">Vue.js / TypeScript Frontends</span>
+                    </div>
+                    <div class="code-line px-4 py-1 rounded">
+                        <span class="text-terminal-muted">- </span><span class="text-terminal-accent">Open-Source Collaboration</span>
+                    </div>
+                    <div class="code-line px-4 py-1 rounded">
+                        <span class="text-terminal-muted">- </span><span class="text-terminal-accent">Individual Software Solutions</span>
+                    </div>
+
+                    <div class="border-t border-terminal-border my-4"></div>
+
+                    <div class="code-line px-2 py-1 rounded">
+                        <span class="text-terminal-muted"># </span><span class="text-terminal-muted/60">description</span>
+                    </div>
+                    <div class="code-line px-2 py-1 rounded text-terminal-text leading-relaxed text-xs sm:text-sm">
+                        Ich bin Niklas Braun, Full-Stack Developer mit über 7 Jahren Erfahrung in E-Commerce, Mobile Development und modernen Webanwendungen. Besonders zu Hause bin ich in Shopware 6, individueller Plugin- und Theme-Entwicklung, ERP- und PIM-Anbindungen sowie Cross-Device Apps mit Flutter. Dazu kommen praktische Erfahrung mit Vue.js, TypeScript, Symfony/PHP und UI/UX-Design in Figma — geprägt durch zahlreiche Projekte mit Shopware 5 und 6. Gemeinsam mit <a href="https://github.com/bdgraue" target="_blank" rel="noopener noreferrer" class="text-terminal-accent hover:text-terminal-heading transition-colors">@bdgraue</a> veröffentliche ich über <span class="text-terminal-accent">WariKoda</span> außerdem Open-Source-Software. Wichtig sind mir saubere Architektur, wartbarer Code und Lösungen, die nicht nur gut aussehen, sondern im Alltag zuverlässig funktionieren.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== SKILLS SECTION ==================== -->
+    <section id="skills" class="px-4 py-16 sm:py-24 border-t border-terminal-border/50">
+        <div class="max-w-4xl mx-auto reveal-section">
+            <!-- Section header -->
+            <div class="flex items-center gap-3 mb-6">
+                <span class="text-terminal-prompt text-sm">$</span>
+                <h2 class="text-terminal-heading text-base sm:text-lg font-medium">ls --skills</h2>
+            </div>
+
+            <!-- Tab navigation -->
+            <div class="flex gap-0 border-b border-terminal-border overflow-x-auto text-xs mb-0 -mx-1 px-1" role="tablist" aria-label="Skill-Kategorien">
+                <button class="tab-btn active px-3 py-2.5 text-terminal-muted whitespace-nowrap" role="tab" aria-selected="true" aria-controls="tab-shopware" data-tab="shopware">shopware 6</button>
+                <button class="tab-btn px-3 py-2.5 text-terminal-muted whitespace-nowrap" role="tab" aria-selected="false" aria-controls="tab-ecommerce" data-tab="ecommerce">e-commerce</button>
+                <button class="tab-btn px-3 py-2.5 text-terminal-muted whitespace-nowrap" role="tab" aria-selected="false" aria-controls="tab-backend" data-tab="backend">backend</button>
+                <button class="tab-btn px-3 py-2.5 text-terminal-muted whitespace-nowrap" role="tab" aria-selected="false" aria-controls="tab-frontend" data-tab="frontend">frontend</button>
+                <button class="tab-btn px-3 py-2.5 text-terminal-muted whitespace-nowrap" role="tab" aria-selected="false" aria-controls="tab-workflow" data-tab="workflow">dev workflow</button>
+            </div>
+
+            <!-- Tab panels -->
+            <div class="border border-t-0 border-terminal-border rounded-b-lg bg-terminal-surface/20">
+
+                <!-- Shopware 6 -->
+                <div id="tab-shopware" class="tab-panel p-4 sm:p-6" role="tabpanel">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-1 text-sm">
+                        <div class="code-line flex items-start gap-2 px-2 py-1.5 rounded">
+                            <span class="text-terminal-green mt-0.5 flex-shrink-0">▸</span>
+                            <span>Plugin-Entwicklung</span>
+                        </div>
+                        <div class="code-line flex items-start gap-2 px-2 py-1.5 rounded">
+                            <span class="text-terminal-green mt-0.5 flex-shrink-0">▸</span>
+                            <span>Theme-Entwicklung</span>
+                        </div>
+                        <div class="code-line flex items-start gap-2 px-2 py-1.5 rounded">
+                            <span class="text-terminal-green mt-0.5 flex-shrink-0">▸</span>
+                            <span>Administration-Erweiterungen</span>
+                        </div>
+                        <div class="code-line flex items-start gap-2 px-2 py-1.5 rounded">
+                            <span class="text-terminal-green mt-0.5 flex-shrink-0">▸</span>
+                            <span>Storefront-Anpassungen</span>
+                        </div>
+                        <div class="code-line flex items-start gap-2 px-2 py-1.5 rounded">
+                            <span class="text-terminal-green mt-0.5 flex-shrink-0">▸</span>
+                            <span>DAL / Entities / Repositories</span>
+                        </div>
+                        <div class="code-line flex items-start gap-2 px-2 py-1.5 rounded">
+                            <span class="text-terminal-green mt-0.5 flex-shrink-0">▸</span>
+                            <span>Events, Subscribers, Services</span>
+                        </div>
+                        <div class="code-line flex items-start gap-2 px-2 py-1.5 rounded">
+                            <span class="text-terminal-green mt-0.5 flex-shrink-0">▸</span>
+                            <span>Rule Builder / Flow Builder</span>
+                        </div>
+                        <div class="code-line flex items-start gap-2 px-2 py-1.5 rounded">
+                            <span class="text-terminal-green mt-0.5 flex-shrink-0">▸</span>
+                            <span>API-Integrationen</span>
+                        </div>
+                        <div class="code-line flex items-start gap-2 px-2 py-1.5 rounded sm:col-span-2">
+                            <span class="text-terminal-green mt-0.5 flex-shrink-0">▸</span>
+                            <span>Performance-Optimierung</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- E-Commerce -->
+                <div id="tab-ecommerce" class="tab-panel p-4 sm:p-6 hidden" role="tabpanel">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-1 text-sm">
+                        <div class="code-line flex items-start gap-2 px-2 py-1.5 rounded">
+                            <span class="text-terminal-cyan mt-0.5 flex-shrink-0">▸</span>
+                            <span>ERP-Anbindungen</span>
+                        </div>
+                        <div class="code-line flex items-start gap-2 px-2 py-1.5 rounded">
+                            <span class="text-terminal-cyan mt-0.5 flex-shrink-0">▸</span>
+                            <span>Schnittstellen zu Drittsystemen</span>
+                        </div>
+                        <div class="code-line flex items-start gap-2 px-2 py-1.5 rounded">
+                            <span class="text-terminal-cyan mt-0.5 flex-shrink-0">▸</span>
+                            <span>Produktdaten-Workflows</span>
+                        </div>
+                        <div class="code-line flex items-start gap-2 px-2 py-1.5 rounded">
+                            <span class="text-terminal-cyan mt-0.5 flex-shrink-0">▸</span>
+                            <span>Bestellprozesse</span>
+                        </div>
+                        <div class="code-line flex items-start gap-2 px-2 py-1.5 rounded">
+                            <span class="text-terminal-cyan mt-0.5 flex-shrink-0">▸</span>
+                            <span>Zahlungs- und Versandlogik</span>
+                        </div>
+                        <div class="code-line flex items-start gap-2 px-2 py-1.5 rounded">
+                            <span class="text-terminal-cyan mt-0.5 flex-shrink-0">▸</span>
+                            <span>individuelle Geschäftsprozesse</span>
+                        </div>
+                        <div class="code-line flex items-start gap-2 px-2 py-1.5 rounded">
+                            <span class="text-terminal-cyan mt-0.5 flex-shrink-0">▸</span>
+                            <span>B2B-Features</span>
+                        </div>
+                        <div class="code-line flex items-start gap-2 px-2 py-1.5 rounded">
+                            <span class="text-terminal-cyan mt-0.5 flex-shrink-0">▸</span>
+                            <span>Automatisierungen</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Backend -->
+                <div id="tab-backend" class="tab-panel p-4 sm:p-6 hidden" role="tabpanel">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-1 text-sm">
+                        <div class="code-line flex items-start gap-2 px-2 py-1.5 rounded">
+                            <span class="text-terminal-amber mt-0.5 flex-shrink-0">▸</span>
+                            <span>PHP</span>
+                        </div>
+                        <div class="code-line flex items-start gap-2 px-2 py-1.5 rounded">
+                            <span class="text-terminal-amber mt-0.5 flex-shrink-0">▸</span>
+                            <span>Symfony</span>
+                        </div>
+                        <div class="code-line flex items-start gap-2 px-2 py-1.5 rounded">
+                            <span class="text-terminal-amber mt-0.5 flex-shrink-0">▸</span>
+                            <span>MySQL</span>
+                        </div>
+                        <div class="code-line flex items-start gap-2 px-2 py-1.5 rounded">
+                            <span class="text-terminal-amber mt-0.5 flex-shrink-0">▸</span>
+                            <span>REST APIs</span>
+                        </div>
+                        <div class="code-line flex items-start gap-2 px-2 py-1.5 rounded">
+                            <span class="text-terminal-amber mt-0.5 flex-shrink-0">▸</span>
+                            <span>Message Queues</span>
+                        </div>
+                        <div class="code-line flex items-start gap-2 px-2 py-1.5 rounded">
+                            <span class="text-terminal-amber mt-0.5 flex-shrink-0">▸</span>
+                            <span>saubere Service-Architektur</span>
+                        </div>
+                        <div class="code-line flex items-start gap-2 px-2 py-1.5 rounded">
+                            <span class="text-terminal-amber mt-0.5 flex-shrink-0">▸</span>
+                            <span>Testing / Debugging</span>
+                        </div>
+                        <div class="code-line flex items-start gap-2 px-2 py-1.5 rounded">
+                            <span class="text-terminal-amber mt-0.5 flex-shrink-0">▸</span>
+                            <span>technische Dokumentation</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Frontend -->
+                <div id="tab-frontend" class="tab-panel p-4 sm:p-6 hidden" role="tabpanel">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-1 text-sm">
+                        <div class="code-line flex items-start gap-2 px-2 py-1.5 rounded">
+                            <span class="text-terminal-purple mt-0.5 flex-shrink-0">▸</span>
+                            <span>Twig</span>
+                        </div>
+                        <div class="code-line flex items-start gap-2 px-2 py-1.5 rounded">
+                            <span class="text-terminal-purple mt-0.5 flex-shrink-0">▸</span>
+                            <span>Vue.js</span>
+                        </div>
+                        <div class="code-line flex items-start gap-2 px-2 py-1.5 rounded">
+                            <span class="text-terminal-purple mt-0.5 flex-shrink-0">▸</span>
+                            <span>JavaScript</span>
+                        </div>
+                        <div class="code-line flex items-start gap-2 px-2 py-1.5 rounded">
+                            <span class="text-terminal-purple mt-0.5 flex-shrink-0">▸</span>
+                            <span>TypeScript</span>
+                        </div>
+                        <div class="code-line flex items-start gap-2 px-2 py-1.5 rounded">
+                            <span class="text-terminal-purple mt-0.5 flex-shrink-0">▸</span>
+                            <span>SCSS / Tailwind / Bootstrap</span>
+                        </div>
+                        <div class="code-line flex items-start gap-2 px-2 py-1.5 rounded">
+                            <span class="text-terminal-purple mt-0.5 flex-shrink-0">▸</span>
+                            <span>Flutter / Cross-Device Apps</span>
+                        </div>
+                        <div class="code-line flex items-start gap-2 px-2 py-1.5 rounded">
+                            <span class="text-terminal-purple mt-0.5 flex-shrink-0">▸</span>
+                            <span>Responsive Layouts</span>
+                        </div>
+                        <div class="code-line flex items-start gap-2 px-2 py-1.5 rounded">
+                            <span class="text-terminal-purple mt-0.5 flex-shrink-0">▸</span>
+                            <span>Storefront UX</span>
+                        </div>
+                        <div class="code-line flex items-start gap-2 px-2 py-1.5 rounded">
+                            <span class="text-terminal-purple mt-0.5 flex-shrink-0">▸</span>
+                            <span>Theme-Strukturen</span>
+                        </div>
+                        <div class="code-line flex items-start gap-2 px-2 py-1.5 rounded">
+                            <span class="text-terminal-purple mt-0.5 flex-shrink-0">▸</span>
+                            <span>Provider / State Management</span>
+                        </div>
+                        <div class="code-line flex items-start gap-2 px-2 py-1.5 rounded">
+                            <span class="text-terminal-purple mt-0.5 flex-shrink-0">▸</span>
+                            <span>OCR, OAuth &amp; Supabase</span>
+                        </div>
+                        <div class="code-line flex items-start gap-2 px-2 py-1.5 rounded">
+                            <span class="text-terminal-purple mt-0.5 flex-shrink-0">▸</span>
+                            <span>UI/UX Design mit Figma</span>
+                        </div>
+                        <div class="code-line flex items-start gap-2 px-2 py-1.5 rounded">
+                            <span class="text-terminal-purple mt-0.5 flex-shrink-0">▸</span>
+                            <span>moderne UI-Komponenten</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dev Workflow -->
+                <div id="tab-workflow" class="tab-panel p-4 sm:p-6 hidden" role="tabpanel">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-1 text-sm">
+                        <div class="code-line flex items-start gap-2 px-2 py-1.5 rounded">
+                            <span class="text-terminal-red mt-0.5 flex-shrink-0">▸</span>
+                            <span>Git</span>
+                        </div>
+                        <div class="code-line flex items-start gap-2 px-2 py-1.5 rounded">
+                            <span class="text-terminal-red mt-0.5 flex-shrink-0">▸</span>
+                            <span>Docker / DDEV</span>
+                        </div>
+                        <div class="code-line flex items-start gap-2 px-2 py-1.5 rounded">
+                            <span class="text-terminal-red mt-0.5 flex-shrink-0">▸</span>
+                            <span>Composer</span>
+                        </div>
+                        <div class="code-line flex items-start gap-2 px-2 py-1.5 rounded">
+                            <span class="text-terminal-red mt-0.5 flex-shrink-0">▸</span>
+                            <span>CI/CD-Grundlagen</span>
+                        </div>
+                        <div class="code-line flex items-start gap-2 px-2 py-1.5 rounded">
+                            <span class="text-terminal-red mt-0.5 flex-shrink-0">▸</span>
+                            <span>Code Reviews</span>
+                        </div>
+                        <div class="code-line flex items-start gap-2 px-2 py-1.5 rounded">
+                            <span class="text-terminal-red mt-0.5 flex-shrink-0">▸</span>
+                            <span>saubere Deployments</span>
+                        </div>
+                        <div class="code-line flex items-start gap-2 px-2 py-1.5 rounded sm:col-span-2">
+                            <span class="text-terminal-red mt-0.5 flex-shrink-0">▸</span>
+                            <span>technische Analyse und Debugging</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== EXPERIENCE SECTION ==================== -->
+    <section id="experience" class="px-4 py-16 sm:py-24 border-t border-terminal-border/50">
+        <div class="max-w-4xl mx-auto reveal-section">
+            <!-- Section header -->
+            <div class="flex items-center gap-3 mb-6">
+                <span class="text-terminal-prompt text-sm">$</span>
+                <h2 class="text-terminal-heading text-base sm:text-lg font-medium">history --timeline</h2>
+                <span class="text-terminal-muted text-xs ml-2"># Beruflicher Werdegang</span>
+            </div>
+
+            <div class="grid grid-cols-1 gap-4">
+                <div class="border border-terminal-border rounded-lg overflow-hidden glow-border bg-terminal-surface/10">
+                    <div class="flex items-center gap-0 border-b border-terminal-border text-xs">
+                        <div class="px-4 py-2 border-b border-terminal-accent text-terminal-heading bg-terminal-surface/50">career.log</div>
+                    </div>
+                    <div class="p-4 sm:p-5 space-y-4 text-sm font-mono">
+                        <div class="code-line px-2 py-2 rounded">
+                            <div class="flex items-start gap-3">
+                                <span class="text-terminal-green flex-shrink-0 w-20 sm:w-24 text-right">[2025→]</span>
+                                <div>
+                                    <div class="text-terminal-heading">Full-Stack-Entwickler</div>
+                                    <div class="text-terminal-text">Sharpness Solutions GmbH · Oldenburg</div>
+                                    <div class="text-terminal-muted text-xs mt-1">Fokus auf Shopware, Flutter, API-Schnittstellen, ERP/PIM und technische Architektur.</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="code-line px-2 py-2 rounded">
+                            <div class="flex items-start gap-3">
+                                <span class="text-terminal-cyan flex-shrink-0 w-20 sm:w-24 text-right">[2021→]</span>
+                                <div>
+                                    <div class="text-terminal-heading">Lead Frontend Entwickler &amp; Webdesigner</div>
+                                    <div class="text-terminal-text">WL Online GmbH · Garrel</div>
+                                    <div class="text-terminal-muted text-xs mt-1">Leitung und Umsetzung von E-Commerce-Projekten mit Shopware, Twig, Vue.js, TypeScript und SCSS.</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="code-line px-2 py-2 rounded">
+                            <div class="flex items-start gap-3">
+                                <span class="text-terminal-purple flex-shrink-0 w-20 sm:w-24 text-right">[2018→21]</span>
+                                <div>
+                                    <div class="text-terminal-heading">Mediengestalter Digital/Print</div>
+                                    <div class="text-terminal-text">WL Online GmbH · Garrel</div>
+                                    <div class="text-terminal-muted text-xs mt-1">UX/UI-Design, Frontend-Applikationen sowie Theme- und Plugin-Entwicklung in Shopware 5.</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="code-line px-2 py-2 rounded">
+                            <div class="flex items-start gap-3">
+                                <span class="text-terminal-amber flex-shrink-0 w-20 sm:w-24 text-right">[2018→21]</span>
+                                <div>
+                                    <div class="text-terminal-heading">Ausbildung Mediengestalter Print &amp; Digital</div>
+                                    <div class="text-terminal-text">BZT Oldenburg</div>
+                                    <div class="text-terminal-muted text-xs mt-1">Abschlussnote 1.4 · Jahrgangsbester (IHK) · Fokus auf digitale Konzeption und Content Creation.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--
+                <div class="border border-terminal-border rounded-lg overflow-hidden bg-terminal-surface/10">
+                    <div class="flex items-center gap-0 border-b border-terminal-border text-xs">
+                        <div class="px-4 py-2 border-b border-terminal-green text-terminal-heading bg-terminal-surface/50">highlights.log</div>
+                    </div>
+                    <div class="p-4 sm:p-5 space-y-0 text-sm font-mono">
+                        <div class="code-line flex items-start gap-3 px-2 py-1.5 rounded">
+                            <span class="text-terminal-green flex-shrink-0 w-10 text-right">[done]</span>
+                            <span class="text-terminal-text">Custom Plugin für individuelle Checkout-Logik</span>
+                        </div>
+                        <div class="code-line flex items-start gap-3 px-2 py-1.5 rounded">
+                            <span class="text-terminal-green flex-shrink-0 w-10 text-right">[done]</span>
+                            <span class="text-terminal-text">ERP- und PIM-Anbindungen für Produkt- und Bestelldaten</span>
+                        </div>
+                        <div class="code-line flex items-start gap-3 px-2 py-1.5 rounded">
+                            <span class="text-terminal-green flex-shrink-0 w-10 text-right">[done]</span>
+                            <span class="text-terminal-text">Flutter Apps für iOS und Android mit Cross-Platform-Ansatz</span>
+                        </div>
+                        <div class="code-line flex items-start gap-3 px-2 py-1.5 rounded">
+                            <span class="text-terminal-green flex-shrink-0 w-10 text-right">[done]</span>
+                            <span class="text-terminal-text">Shopware-Projekte von Version 5 bis 6 sowie Migration gewachsener Setups</span>
+                        </div>
+                        <div class="code-line flex items-start gap-3 px-2 py-1.5 rounded">
+                            <span class="text-terminal-green flex-shrink-0 w-10 text-right">[done]</span>
+                            <span class="text-terminal-text">Storefront-, Admin- und Frontend-Umsetzungen mit Twig, Vue.js und TypeScript</span>
+                        </div>
+                        <div class="code-line flex items-start gap-3 px-2 py-1.5 rounded">
+                            <span class="text-terminal-green flex-shrink-0 w-10 text-right">[done]</span>
+                            <span class="text-terminal-text">Technische Analyse, Debugging und Architekturentscheidungen im Team</span>
+                        </div>
+
+                        <div class="border-t border-terminal-border/50 my-3"></div>
+
+                        <div class="code-line flex items-start gap-3 px-2 py-1.5 rounded">
+                            <span class="text-terminal-red flex-shrink-0 w-10 text-right">[note]</span>
+                            <span class="text-terminal-muted">Aktuell nicht für private / persönliche Projekte verfügbar</span>
+                        </div>
+                    </div>
+                </div>
+                -->
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== TECH STACK SECTION ==================== -->
+    <section id="stack" class="px-4 py-16 sm:py-24 border-t border-terminal-border/50">
+        <div class="max-w-4xl mx-auto reveal-section">
+            <!-- Section header -->
+            <div class="flex items-center gap-3 mb-6">
+                <span class="text-terminal-prompt text-sm">$</span>
+                <h2 class="text-terminal-heading text-base sm:text-lg font-medium">stack list</h2>
+            </div>
+
+            <!-- Stack output -->
+            <div class="border border-terminal-border rounded-lg overflow-hidden">
+                <div class="p-4 sm:p-5 bg-terminal-surface/20 space-y-0 text-sm">
+
+                    <div class="code-line flex items-center gap-3 px-2 py-1.5 rounded">
+                        <span class="text-terminal-muted flex-shrink-0 w-44 sm:w-56 code-wrap">shopware5/shopware6</span>
+                        <span class="text-terminal-green text-xs font-medium bg-terminal-green/10 px-2 py-0.5 rounded">active</span>
+                    </div>
+                    <div class="code-line flex items-center gap-3 px-2 py-1.5 rounded">
+                        <span class="text-terminal-muted flex-shrink-0 w-44 sm:w-56 code-wrap">php/symfony</span>
+                        <span class="text-terminal-green text-xs font-medium bg-terminal-green/10 px-2 py-0.5 rounded">active</span>
+                    </div>
+                    <div class="code-line flex items-center gap-3 px-2 py-1.5 rounded">
+                        <span class="text-terminal-muted flex-shrink-0 w-44 sm:w-56 code-wrap">twig/storefront</span>
+                        <span class="text-terminal-green text-xs font-medium bg-terminal-green/10 px-2 py-0.5 rounded">active</span>
+                    </div>
+                    <div class="code-line flex items-center gap-3 px-2 py-1.5 rounded">
+                        <span class="text-terminal-muted flex-shrink-0 w-44 sm:w-56 code-wrap">javascript/typescript</span>
+                        <span class="text-terminal-green text-xs font-medium bg-terminal-green/10 px-2 py-0.5 rounded">active</span>
+                    </div>
+                    <div class="code-line flex items-center gap-3 px-2 py-1.5 rounded">
+                        <span class="text-terminal-muted flex-shrink-0 w-44 sm:w-56 code-wrap">vuejs/frontend</span>
+                        <span class="text-terminal-green text-xs font-medium bg-terminal-green/10 px-2 py-0.5 rounded">active</span>
+                    </div>
+                    <div class="code-line flex items-center gap-3 px-2 py-1.5 rounded">
+                        <span class="text-terminal-muted flex-shrink-0 w-44 sm:w-56 code-wrap">scss/styling</span>
+                        <span class="text-terminal-green text-xs font-medium bg-terminal-green/10 px-2 py-0.5 rounded">active</span>
+                    </div>
+                    <div class="code-line flex items-center gap-3 px-2 py-1.5 rounded">
+                        <span class="text-terminal-muted flex-shrink-0 w-44 sm:w-56 code-wrap">flutter/cross-device</span>
+                        <span class="text-terminal-green text-xs font-medium bg-terminal-green/10 px-2 py-0.5 rounded">active</span>
+                    </div>
+                    <div class="code-line flex items-center gap-3 px-2 py-1.5 rounded">
+                        <span class="text-terminal-muted flex-shrink-0 w-44 sm:w-56 code-wrap">supabase/postgresql</span>
+                        <span class="text-terminal-green text-xs font-medium bg-terminal-green/10 px-2 py-0.5 rounded">active</span>
+                    </div>
+                    <div class="code-line flex items-center gap-3 px-2 py-1.5 rounded">
+                        <span class="text-terminal-muted flex-shrink-0 w-44 sm:w-56 code-wrap">mysql/database</span>
+                        <span class="text-terminal-green text-xs font-medium bg-terminal-green/10 px-2 py-0.5 rounded">active</span>
+                    </div>
+                    <div class="code-line flex items-center gap-3 px-2 py-1.5 rounded">
+                        <span class="text-terminal-muted flex-shrink-0 w-44 sm:w-56 code-wrap">api/integrations</span>
+                        <span class="text-terminal-green text-xs font-medium bg-terminal-green/10 px-2 py-0.5 rounded">active</span>
+                    </div>
+                    <div class="code-line flex items-center gap-3 px-2 py-1.5 rounded">
+                        <span class="text-terminal-muted flex-shrink-0 w-44 sm:w-56 code-wrap">docker/ddev</span>
+                        <span class="text-terminal-green text-xs font-medium bg-terminal-green/10 px-2 py-0.5 rounded">active</span>
+                    </div>
+                    <div class="code-line flex items-center gap-3 px-2 py-1.5 rounded">
+                        <span class="text-terminal-muted flex-shrink-0 w-44 sm:w-56 code-wrap">git/workflow</span>
+                        <span class="text-terminal-green text-xs font-medium bg-terminal-green/10 px-2 py-0.5 rounded">active</span>
+                    </div>
+                    <div class="code-line flex items-center gap-3 px-2 py-1.5 rounded">
+                        <span class="text-terminal-muted flex-shrink-0 w-44 sm:w-56 code-wrap">composer/dependencies</span>
+                        <span class="text-terminal-green text-xs font-medium bg-terminal-green/10 px-2 py-0.5 rounded">active</span>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== WARIKODA SECTION ==================== -->
+    <section id="warikoda" class="px-4 py-16 sm:py-24 border-t border-terminal-border/50">
+        <div class="max-w-4xl mx-auto reveal-section">
+            <div class="flex items-center gap-3 mb-6">
+                <span class="text-terminal-prompt text-sm">$</span>
+                <h2 class="text-terminal-heading text-base sm:text-lg font-medium">cat warikoda/open-source.log</h2>
+                <span class="text-terminal-muted text-xs ml-2"># Open Source mit @bdgraue</span>
+            </div>
+
+            <p class="text-terminal-text text-sm leading-relaxed mb-6 max-w-3xl">
+                WariKoda steht für Open Source mit Sorgfalt, Klarheit und Anspruch an gute Software. Gemeinsam mit meinem Freund und Kollegen <a href="https://github.com/bdgraue" target="_blank" rel="noopener noreferrer" class="text-terminal-accent hover:text-terminal-heading transition-colors">@bdgraue</a> entstehen dort Tools und Anwendungen, die bewusst einfach, wartbar und langfristig nützlich gebaut werden.
+            </p>
+
+            <div class="border border-terminal-border rounded-lg overflow-hidden glow-border bg-terminal-surface/10">
+                <div class="flex items-center gap-0 border-b border-terminal-border text-xs">
+                    <div class="px-4 py-2 border-b border-terminal-purple text-terminal-heading bg-terminal-surface/50">open-source.log</div>
+                </div>
+                <div class="p-4 sm:p-5 space-y-4 text-sm font-mono">
+                    <div class="code-line px-2 py-2 rounded">
+                        <div class="flex flex-col sm:flex-row sm:items-start gap-2 sm:gap-3">
+                            <span class="text-terminal-purple flex-shrink-0 sm:w-20 sm:text-right">[team]</span>
+                            <div>
+                                <div class="text-terminal-heading">WariKoda · mit <a href="https://github.com/bdgraue" target="_blank" rel="noopener noreferrer" class="text-terminal-accent hover:text-terminal-heading transition-colors">@bdgraue</a></div>
+                                <div class="text-terminal-text">
+                                    <a href="https://github.com/WariKoda" target="_blank" rel="noopener noreferrer" class="text-terminal-accent hover:text-terminal-heading transition-colors">github.com/WariKoda</a>
+                                </div>
+                                <div class="text-terminal-muted text-xs mt-1">Gemeinsame Veröffentlichung von Open-Source-Software für Shopware und Flutter.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="code-line px-2 py-2 rounded">
+                        <div class="flex flex-col sm:flex-row sm:items-start gap-2 sm:gap-3">
+                            <span class="text-terminal-green flex-shrink-0 sm:w-20 sm:text-right">[oss]</span>
+                            <div>
+                                <div class="text-terminal-heading">
+                                    <a href="https://github.com/WariKoda/WakoPluginAdminToolbar" target="_blank" rel="noopener noreferrer" class="hover:text-terminal-accent transition-colors">Shopware 6 Admin Toolbar Plugin</a>
+                                </div>
+                                <div class="text-terminal-muted text-xs mt-1">Open-Source Plugin, das im Storefront eine Admin-Toolbar einblendet – ähnlich wie bei WordPress.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="code-line px-2 py-2 rounded">
+                        <div class="flex flex-col sm:flex-row sm:items-start gap-2 sm:gap-3">
+                            <span class="text-terminal-cyan flex-shrink-0 sm:w-20 sm:text-right">[app]</span>
+                            <div>
+                                <div class="text-terminal-heading">
+                                    <a href="https://github.com/WariKoda/FocusJournal" target="_blank" rel="noopener noreferrer" class="hover:text-terminal-accent transition-colors">Focus Journal</a>
+                                </div>
+                                <div class="text-terminal-muted text-xs mt-1">Local-first Journaling-App mit Flutter für Fokus und Reflexion – ohne Account, ohne Cloud, ohne Tracking; Einträge bleiben verschlüsselt auf dem Gerät.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== CONTACT SECTION ==================== -->
+    <section id="contact" class="px-4 py-16 sm:py-24 border-t border-terminal-border/50">
+        <div class="max-w-4xl mx-auto reveal-section">
+            <!-- Section header -->
+            <div class="flex items-center gap-3 mb-6">
+                <span class="text-terminal-prompt text-sm">$</span>
+                <h2 class="text-terminal-heading text-base sm:text-lg font-medium">contact --niklas</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-5 gap-6">
+
+                <!-- Contact info (left) -->
+                <div class="md:col-span-3 space-y-6">
+                    <!-- Contact panel -->
+                    <div class="border border-terminal-border rounded-lg overflow-hidden glow-border">
+                        <div class="flex items-center gap-0 border-b border-terminal-border text-xs">
+                            <div class="px-4 py-2 border-b border-terminal-accent text-terminal-heading bg-terminal-surface/50">contact.info</div>
+                        </div>
+                        <div class="p-4 sm:p-5 bg-terminal-surface/20 space-y-3 text-sm">
+                            <div class="code-line flex items-start gap-3 px-2 py-1.5 rounded">
+                                <span class="text-terminal-muted flex-shrink-0 w-16">company</span>
+                                <a href="https://sharpness.de" target="_blank" rel="noopener noreferrer" class="text-terminal-accent hover:text-terminal-heading transition-colors">sharpness.de</a>
+                            </div>
+                            <div class="code-line flex items-start gap-3 px-2 py-1.5 rounded">
+                                <span class="text-terminal-muted flex-shrink-0 w-16">email</span>
+                                <a href="mailto:hello@nibraun.de" class="text-terminal-accent hover:text-terminal-heading transition-colors">hello@nibraun.de</a>
+                            </div>
+                            <div class="code-line flex items-start gap-3 px-2 py-1.5 rounded">
+                                <span class="text-terminal-muted flex-shrink-0 w-16">github</span>
+                                <a href="https://github.com/nibra180" target="_blank" rel="noopener noreferrer" class="text-terminal-accent hover:text-terminal-heading transition-colors">github.com/nibra180</a>
+                            </div>
+                            <div class="code-line flex items-start gap-3 px-2 py-1.5 rounded">
+                                <span class="text-terminal-muted flex-shrink-0 w-16">oss</span>
+                                <a href="https://github.com/WariKoda" target="_blank" rel="noopener noreferrer" class="text-terminal-accent hover:text-terminal-heading transition-colors">github.com/WariKoda</a>
+                            </div>
+                            <div class="code-line flex items-start gap-3 px-2 py-1.5 rounded">
+                                <span class="text-terminal-muted flex-shrink-0 w-16">location</span>
+                                <span class="text-terminal-text">Oldenburg / Löningen, Deutschland</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Text -->
+                    <p class="text-terminal-text text-sm leading-relaxed">
+                        Du hast eine geschäftliche Anfrage zu Shopware 6, Plugin-Entwicklung, ERP-/PIM-Anbindungen, Flutter oder individuellen Softwarelösungen? Dann kontaktiere mich gerne über Sharpness Solutions.
+                    </p>
+
+                    <!-- CTA -->
+                    <a href="https://sharpness.de" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-5 py-2.5 bg-terminal-accent/10 border border-terminal-accent/30 rounded text-terminal-accent text-sm hover:bg-terminal-accent/20 hover:border-terminal-accent/50 transition-all focus:outline-none focus:ring-1 focus:ring-terminal-accent/50">
+                        <span class="text-terminal-prompt">$</span>
+                        anfrage über sharpness
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<!-- ==================== FOOTER ==================== -->
+<footer class="border-t border-terminal-border px-4 py-8 sm:py-10">
+    <div class="max-w-4xl mx-auto text-center space-y-3">
+        <div class="text-terminal-text text-sm">
+            © <span id="footerYear"></span> Niklas Braun
+        </div>
+        <div class="text-terminal-muted text-xs">
+            Shopware 6 &amp; Flutter Developer
+        </div>
+        <div class="text-terminal-muted/60 text-[10px] pt-2">
+            Built with clean code, caffeine and curiosity.
+        </div>
+    </div>
+</footer>
+
+<!-- ==================== JAVASCRIPT ==================== -->
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+
+        // ---- Footer year ----
+        document.getElementById('footerYear').textContent = new Date().getFullYear();
+
+        // ---- Theme toggle ----
+        const root = document.documentElement;
+        const themeToggleButtons = document.querySelectorAll('[data-theme-toggle]');
+        const themeStateLabels = document.querySelectorAll('[data-theme-state]');
+        const themeColorMeta = document.querySelector('meta[name="theme-color"]');
+        const themeMetaColors = {
+            dark: '#0a0e14',
+            light: '#f8f4eb',
+        };
+
+        function getCurrentTheme() {
+            return root.dataset.theme === 'light' ? 'light' : 'dark';
+        }
+
+        function applyTheme(theme) {
+            root.dataset.theme = theme;
+            try {
+                localStorage.setItem('theme', theme);
+            } catch {}
+            themeStateLabels.forEach(label => {
+                label.textContent = theme;
+            });
+            themeToggleButtons.forEach(button => {
+                button.setAttribute('aria-pressed', String(theme === 'light'));
+            });
+            if (themeColorMeta) {
+                themeColorMeta.setAttribute('content', themeMetaColors[theme]);
+            }
+        }
+
+        function toggleTheme() {
+            const nextTheme = getCurrentTheme() === 'dark' ? 'light' : 'dark';
+            applyTheme(nextTheme);
+            return nextTheme;
+        }
+
+        applyTheme(getCurrentTheme());
+        themeToggleButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                toggleTheme();
+            });
+        });
+
+        // ---- Typewriter effect for hero ----
+        const typeLines = document.querySelectorAll('.type-line');
+        const baseDelay = 40;
+        const lineDelay = 18;
+
+        typeLines.forEach((line, index) => {
+            const computedDelay = parseFloat(line.style.transitionDelay) || (index * 0.2);
+            setTimeout(() => {
+                line.classList.add('visible');
+            }, baseDelay + computedDelay * 1000 + index * lineDelay);
+        });
+
+        // ---- Scroll reveal (IntersectionObserver) ----
+        const revealSections = document.querySelectorAll('.reveal-section');
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('revealed');
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+        revealSections.forEach(section => revealObserver.observe(section));
+
+        // ---- Active nav link on scroll ----
+        const sections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('[data-nav]');
+
+        function updateActiveNav() {
+            let current = '';
+            sections.forEach(section => {
+                const top = section.offsetTop - 80;
+                if (window.scrollY >= top) {
+                    current = section.getAttribute('id');
+                }
+            });
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', updateActiveNav, { passive: true });
+        updateActiveNav();
+
+        // ---- Mobile menu toggle ----
+        const mobileToggle = document.getElementById('mobileToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const menuIconOpen = document.getElementById('menuIconOpen');
+        const menuIconClose = document.getElementById('menuIconClose');
+        let menuOpen = false;
+
+        mobileToggle.addEventListener('click', () => {
+            menuOpen = !menuOpen;
+            mobileMenu.classList.toggle('open', menuOpen);
+            menuIconOpen.classList.toggle('hidden', menuOpen);
+            menuIconClose.classList.toggle('hidden', !menuOpen);
+            mobileToggle.setAttribute('aria-expanded', menuOpen);
+        });
+
+        // Close mobile menu on link click
+        document.querySelectorAll('[data-mobile]').forEach(link => {
+            link.addEventListener('click', () => {
+                menuOpen = false;
+                mobileMenu.classList.remove('open');
+                menuIconOpen.classList.remove('hidden');
+                menuIconClose.classList.add('hidden');
+                mobileToggle.setAttribute('aria-expanded', false);
+            });
+        });
+
+        // ---- Skills tabs ----
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const tabPanels = document.querySelectorAll('.tab-panel');
+
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const target = btn.dataset.tab;
+
+                tabBtns.forEach(b => {
+                    b.classList.remove('active');
+                    b.setAttribute('aria-selected', 'false');
+                });
+                btn.classList.add('active');
+                btn.setAttribute('aria-selected', 'true');
+
+                tabPanels.forEach(panel => {
+                    panel.classList.add('hidden');
+                });
+                document.getElementById('tab-' + target).classList.remove('hidden');
+            });
+
+            // Keyboard navigation for tabs
+            btn.addEventListener('keydown', (e) => {
+                const tabs = Array.from(tabBtns);
+                const index = tabs.indexOf(btn);
+                let newIndex = index;
+
+                if (e.key === 'ArrowRight') newIndex = (index + 1) % tabs.length;
+                else if (e.key === 'ArrowLeft') newIndex = (index - 1 + tabs.length) % tabs.length;
+                else return;
+
+                e.preventDefault();
+                tabs[newIndex].click();
+                tabs[newIndex].focus();
+            });
+        });
+
+        // ---- Command hint buttons (hero) ----
+        const cmdHints = document.querySelectorAll('[data-cmd]');
+        cmdHints.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const cmd = btn.dataset.cmd;
+                if (cmd === 'help') {
+                    scrollToSection('#contact');
+                    // Focus terminal input after scroll
+                    setTimeout(() => {
+                        document.getElementById('terminalInput').focus();
+                        processCommand('help');
+                    }, 600);
+                } else {
+                    const mapping = {
+                        'about': '#about',
+                        'skills': '#skills',
+                        'warikoda': '#warikoda',
+                        'contact': '#contact'
+                    };
+                    if (mapping[cmd]) scrollToSection(mapping[cmd]);
+                }
+            });
+        });
+
+        function scrollToSection(selector) {
+            const el = document.querySelector(selector);
+            if (el) {
+                el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+
+        // ---- Mini terminal (contact section) ----
+        const terminalInput = document.getElementById('terminalInput');
+        const terminalOutput = document.getElementById('terminalOutput');
+
+        const commands = {
+            help: () => [
+                { text: 'Verfügbare Befehle:', color: 'text-terminal-heading' },
+                { text: '  about          → Über mich', color: 'text-terminal-text' },
+                { text: '  skills         → Kompetenzen', color: 'text-terminal-text' },
+                { text: '  warikoda       → Open Source & Projekte', color: 'text-terminal-text' },
+                { text: '  stack          → Tech Stack', color: 'text-terminal-text' },
+                { text: '  contact        → Kontaktdaten', color: 'text-terminal-text' },
+                { text: '  theme --toggle → Light/Dark Mode wechseln', color: 'text-terminal-text' },
+                { text: '  clear          → Terminal leeren', color: 'text-terminal-text' },
+                { text: '  whoami         → Identität', color: 'text-terminal-text' },
+                { text: '  status         → Verfügbarkeit', color: 'text-terminal-text' },
+            ],
+            about: () => [
+                { text: 'Niklas Braun — Full-Stack Developer mit 7+ Jahren Erfahrung', color: 'text-terminal-heading' },
+                { text: 'Fokus: Shopware 6, Flutter, Vue.js, ERP/PIM, E-Commerce und Open Source.', color: 'text-terminal-text' },
+                { text: '→ Scroll zur About-Section', color: 'text-terminal-muted' },
+            ],
+            skills: () => [
+                { text: 'Shopware 6 · Flutter · Vue.js · Backend · Frontend · Dev Workflow', color: 'text-terminal-heading' },
+                { text: '→ Scroll zur Skills-Section', color: 'text-terminal-muted' },
+            ],
+            warikoda: () => [
+                { text: 'WariKoda · Open Source mit @bdgraue', color: 'text-terminal-heading' },
+                { text: 'Shopware Admin Toolbar Plugin · Focus Journal', color: 'text-terminal-text' },
+                { text: '→ Scroll zur WariKoda-Section', color: 'text-terminal-muted' },
+            ],
+            stack: () => [
+                { text: 'Shopware 5/6 · PHP · Symfony · Vue.js · Flutter · JS/TS · Supabase', color: 'text-terminal-heading' },
+                { text: '→ Scroll zur Stack-Section', color: 'text-terminal-muted' },
+            ],
+            contact: () => [
+                { text: 'company:   sharpness.de', color: 'text-terminal-accent' },
+                { text: 'email:     hello@nibraun.de', color: 'text-terminal-accent' },
+                { text: 'github:    github.com/nibra180', color: 'text-terminal-accent' },
+                { text: 'oss:       github.com/WariKoda', color: 'text-terminal-accent' },
+                { text: 'location:  Oldenburg / Löningen, Deutschland', color: 'text-terminal-muted' },
+            ],
+            whoami: () => [
+                { text: 'niklas-braun', color: 'text-terminal-heading' },
+                { text: 'Full-Stack Developer · Shopware 6 · Flutter · Vue.js', color: 'text-terminal-text' },
+            ],
+            status: () => [
+                { text: '● Aktuell Full-Stack-Entwickler bei Sharpness Solutions GmbH in Oldenburg', color: 'text-terminal-heading' },
+                { text: '● Projektanfragen gerne direkt über Sharpness Solutions', color: 'text-terminal-green' },
+            ],
+            'theme --toggle': () => {
+                const nextTheme = toggleTheme();
+                return [
+                    { text: `Theme switched to ${nextTheme} mode.`, color: 'text-terminal-accent' },
+                    { text: 'TUI palette, borders and accents updated.', color: 'text-terminal-muted' },
+                ];
+            },
+            clear: () => 'clear',
+        };
+
+        function processCommand(input) {
+            const cmd = input.trim().toLowerCase();
+            const handler = commands[cmd];
+
+            if (!handler) {
+                addTerminalLine('$ ' + input, 'text-terminal-prompt');
+                addTerminalLine('command not found: ' + cmd + '. Type "help" for available commands.', 'text-terminal-red');
+                return;
+            }
+
+            addTerminalLine('$ ' + input, 'text-terminal-prompt');
+
+            const result = handler();
+            if (result === 'clear') {
+                terminalOutput.innerHTML = '';
+                return;
+            }
+
+            result.forEach(line => addTerminalLine(line.text, line.color));
+        }
+
+        function addTerminalLine(text, colorClass) {
+            const div = document.createElement('div');
+            div.className = colorClass + ' code-wrap';
+            div.textContent = text;
+            terminalOutput.appendChild(div);
+            // Auto-scroll terminal
+            const container = document.getElementById('miniTerminal');
+            container.scrollTop = container.scrollHeight;
+        }
+
+        // Command history for up/down navigation
+        let cmdHistory = [];
+        let historyIndex = -1;
+
+        terminalInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                const value = terminalInput.value;
+                if (value.trim()) {
+                    cmdHistory.unshift(value.trim());
+                    historyIndex = -1;
+                    processCommand(value);
+                    terminalInput.value = '';
+                }
+            } else if (e.key === 'ArrowUp') {
+                e.preventDefault();
+                if (cmdHistory.length > 0 && historyIndex < cmdHistory.length - 1) {
+                    historyIndex++;
+                    terminalInput.value = cmdHistory[historyIndex];
+                }
+            } else if (e.key === 'ArrowDown') {
+                e.preventDefault();
+                if (historyIndex > 0) {
+                    historyIndex--;
+                    terminalInput.value = cmdHistory[historyIndex];
+                } else {
+                    historyIndex = -1;
+                    terminalInput.value = '';
+                }
+            }
+        });
+
+    });
+</script>
+
+</body>
+</html>
