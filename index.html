@@ -105,6 +105,16 @@
         ::-webkit-scrollbar-thumb { background: rgb(var(--terminal-borderHover)); border-radius: 3px; }
         ::-webkit-scrollbar-thumb:hover { background: rgb(var(--terminal-muted)); }
 
+        /* Text selection */
+        ::selection {
+            background: rgb(var(--terminal-accent) / 0.28);
+            color: rgb(var(--terminal-heading));
+        }
+        ::-moz-selection {
+            background: rgb(var(--terminal-accent) / 0.28);
+            color: rgb(var(--terminal-heading));
+        }
+
         /* Blinking cursor */
         @keyframes blink {
             0%, 50% { opacity: 1; }
