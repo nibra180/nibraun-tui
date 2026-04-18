@@ -23,32 +23,6 @@ Persönliche Portfolio-Website im TUI/Terminal-Stil.
 - Vanilla JavaScript
 - Everforest Color Palette
 
-## Projektstruktur
-
-```
-new-tui-idea/
-├── index.html          # Komplette Website (HTML + CSS + JS)
-├── img/
-│   └── warikoda-logo.png
-├── AGENTS.md           # Guidelines für AI-Assistenten
-└── README.md
-```
-
-## Lokale Entwicklung
-
-```bash
-# Mit Python
-python -m http.server 8000
-
-# Mit Node.js
-npx serve .
-
-# Mit PHP
-php -S localhost:8000
-```
-
-Dann öffne [http://localhost:8000](http://localhost:8000)
-
 ## Farbschema
 
 Das Design nutzt die [Everforest](https://github.com/sainnhe/everforest) Farbpalette:
@@ -63,16 +37,6 @@ Das Design nutzt die [Everforest](https://github.com/sainnhe/everforest) Farbpal
 | `--terminal-amber` | `#dbbc7f` | `#dfa000` | Backend |
 | `--terminal-red` | `#e67e80` | `#f85552` | Dev Workflow |
 
-## Sections
-
-1. **Hero** – Terminal-Fenster mit Intro + Pinned Projects
-2. **About** – `cat profile.config`
-3. **Skills** – Accordion mit 5 Kategorien
-4. **Experience** – Timeline mit Karriere-Stationen
-5. **Stack** – Aktive Technologien
-6. **WariKoda** – Open Source Projekte
-7. **Contact** – Kontaktmöglichkeiten
-
 ## Links
 
 - **Live**: [nibraun.de](https://nibraun.de)
@@ -83,7 +47,3 @@ Das Design nutzt die [Everforest](https://github.com/sainnhe/everforest) Farbpal
 ## Lizenz
 
 Privates Projekt. Code dient als Referenz.
-
----
-
-Built with clean code, caffeine and curiosity.
