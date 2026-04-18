@@ -10,7 +10,7 @@ Persönliche Portfolio-Website im TUI/Terminal-Stil.
 
 - **Terminal-Ästhetik** – Inspiriert von klassischen CLI-Interfaces
 - **Everforest Farbschema** – Dark & Light Mode mit System-Präferenz-Erkennung
-- **Statisches Deployment** – Keine Build-Tools, kein Server-Setup
+- **Statisches Deployment** – Fertige Dateien können ohne Server-Logik deployed werden
 - **Responsive Design** – Mobile-first mit Tailwind CSS
 - **DE/EN i18n** – Sprachumschaltung mit Browser-/LocalStorage-Fallback
 - **Typewriter-Effekt** – Animierte Command-Eingabe im Hero
@@ -20,7 +20,7 @@ Persönliche Portfolio-Website im TUI/Terminal-Stil.
 ## Tech Stack
 
 - HTML5
-- Tailwind CSS (CDN)
+- Tailwind CSS (CLI-build)
 - Vanilla JavaScript
 - `translations.js` für i18n
 - Everforest Color Palette
@@ -38,6 +38,26 @@ Das Design nutzt die [Everforest](https://github.com/sainnhe/everforest) Farbpal
 | `--terminal-purple` | `#d699b6` | `#df69ba` | Frontend |
 | `--terminal-amber` | `#dbbc7f` | `#dfa000` | Backend |
 | `--terminal-red` | `#e67e80` | `#f85552` | Dev Workflow |
+
+## Entwicklung
+
+```bash
+npm install
+npm run build
+```
+
+Für Tailwind während der Entwicklung:
+
+```bash
+npm run dev:css
+```
+
+Für Deployment werden diese Dateien benötigt:
+
+- `index.html`
+- `translations.js`
+- `dist/tailwind.css`
+- `img/`
 
 ## Links
 

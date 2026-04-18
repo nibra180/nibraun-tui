@@ -39,36 +39,7 @@
             }
         })();
     </script>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        terminal: {
-                            bg: 'rgb(var(--terminal-bg) / <alpha-value>)',
-                            surface: 'rgb(var(--terminal-surface) / <alpha-value>)',
-                            border: 'rgb(var(--terminal-border) / <alpha-value>)',
-                            borderHover: 'rgb(var(--terminal-borderHover) / <alpha-value>)',
-                            muted: 'rgb(var(--terminal-muted) / <alpha-value>)',
-                            text: 'rgb(var(--terminal-text) / <alpha-value>)',
-                            heading: 'rgb(var(--terminal-heading) / <alpha-value>)',
-                            prompt: 'rgb(var(--terminal-prompt) / <alpha-value>)',
-                            accent: 'rgb(var(--terminal-accent) / <alpha-value>)',
-                            green: 'rgb(var(--terminal-green) / <alpha-value>)',
-                            red: 'rgb(var(--terminal-red) / <alpha-value>)',
-                            cyan: 'rgb(var(--terminal-cyan) / <alpha-value>)',
-                            purple: 'rgb(var(--terminal-purple) / <alpha-value>)',
-                            amber: 'rgb(var(--terminal-amber) / <alpha-value>)',
-                        }
-                    },
-                    fontFamily: {
-                        mono: ['"JetBrains Mono"', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'monospace'],
-                    }
-                }
-            }
-        }
-    </script>
+    <link rel="stylesheet" href="dist/tailwind.css">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -1028,7 +999,7 @@
                     </summary>
                     <div class="p-4 sm:p-6 grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-1 text-sm">
                         <div class="code-line flex items-start gap-2 px-2 py-1.5 rounded"><span class="text-terminal-red mt-0.5 flex-shrink-0">▸</span><span>Git</span></div>
-                        <div class="code-line flex items-start gap-2 px-2 py-1.5 rounded"><span class="text-terminal-red mt-0.5 flex-shrink-0">▸</span><span>Docker / DDEV</span></div>
+                        <div class="code-line flex items-start gap-2 px-2 py-1.5 rounded"><span class="text-terminal-red mt-0.5 flex-shrink-0">▸</span><span>Docker</span></div>
                         <div class="code-line flex items-start gap-2 px-2 py-1.5 rounded"><span class="text-terminal-red mt-0.5 flex-shrink-0">▸</span><span>Composer</span></div>
                         <div class="code-line flex items-start gap-2 px-2 py-1.5 rounded"><span class="text-terminal-red mt-0.5 flex-shrink-0">▸</span><span data-i18n="skills.workflow.cicd">CI/CD-Grundlagen</span></div>
                         <div class="code-line flex items-start gap-2 px-2 py-1.5 rounded"><span class="text-terminal-red mt-0.5 flex-shrink-0">▸</span><span>Code Reviews</span></div>
