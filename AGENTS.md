@@ -64,6 +64,7 @@ Persönliche Portfolio-Website für Niklas Braun im TUI/Terminal-Stil mit Everfo
 - Keine separaten CSS/JS-Dateien erstellen
 - Keine englischen Inhalte (außer Tech-Begriffe)
 - Keine Breaking Changes am Theme-System
+- Keine Emojis in Dokumentationen (README, AGENTS, etc.)
 
 ## Deployment
 
