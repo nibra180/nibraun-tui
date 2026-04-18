@@ -161,13 +161,13 @@
             animation: statusPulse 2.5s ease-in-out infinite;
         }
 
-        /* Glow border on hover */
+        /* Border accent on hover */
         .glow-border {
-            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            transition: border-color 0.3s ease, background-color 0.3s ease;
         }
         .glow-border:hover {
             border-color: rgb(var(--terminal-accent));
-            box-shadow: 0 0 12px rgb(var(--terminal-accent) / 0.08), inset 0 0 12px rgb(var(--terminal-accent) / 0.03);
+            background-color: rgb(var(--terminal-surface) / 0.18);
         }
 
         /* Subtle scan line overlay for terminal panels */
@@ -190,9 +190,57 @@
         .code-line { transition: background-color 0.15s ease; }
         .code-line:hover { background-color: rgb(var(--terminal-accent) / 0.04); }
 
+        /* Hero avatar */
+        .hero-avatar-wrap {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.25rem;
+            border: 1px solid rgb(var(--terminal-border) / 0.75);
+            border-radius: 999px;
+            background: rgb(var(--terminal-surface) / 0.16);
+            transition: border-color 0.2s ease, background-color 0.2s ease;
+        }
+        .hero-avatar-wrap:hover {
+            border-color: rgb(var(--terminal-accent) / 0.65);
+            background: rgb(var(--terminal-surface) / 0.24);
+        }
+        .hero-avatar-wrap:focus-visible {
+            outline: none;
+            border-color: rgb(var(--terminal-accent));
+            box-shadow: 0 0 0 2px rgb(var(--terminal-accent) / 0.18), 0 0 18px rgb(var(--terminal-accent) / 0.12);
+        }
+        .hero-avatar {
+            width: 3.5rem;
+            height: 3.5rem;
+            object-fit: cover;
+            border-radius: 999px;
+            border: 1px solid rgb(var(--terminal-border) / 0.55);
+            background: rgb(var(--terminal-surface) / 0.28);
+        }
+        @media (min-width: 768px) {
+            .hero-avatar {
+                width: 4.5rem;
+                height: 4.5rem;
+            }
+        }
+
         /* Skills accordion */
+        .skill-group {
+            transition: border-color 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease;
+        }
+        .skill-group:hover {
+            border-color: rgb(var(--terminal-accent) / 0.5);
+            background: rgb(var(--terminal-surface) / 0.3);
+            box-shadow: none;
+        }
         .skill-group summary {
             list-style: none;
+            transition: color 0.2s ease, background-color 0.2s ease;
+        }
+        .skill-group:hover summary {
+            color: rgb(var(--terminal-heading));
+            background: rgb(var(--terminal-surface) / 0.55);
         }
         .skill-group summary::-webkit-details-marker {
             display: none;
@@ -302,18 +350,141 @@
             padding: 0.35rem 0.55rem;
             background: rgb(var(--terminal-surface) / 0.45);
             color: rgb(var(--terminal-muted));
-            transition: color 0.2s ease, border-color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+            transition: color 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
         }
         .theme-toggle:hover {
             color: rgb(var(--terminal-heading));
             border-color: rgb(var(--terminal-accent) / 0.45);
             background: rgb(var(--terminal-accent) / 0.08);
-            box-shadow: 0 0 0 1px rgb(var(--terminal-accent) / 0.08);
         }
         .theme-toggle:focus-visible {
             outline: none;
             border-color: rgb(var(--terminal-accent));
             box-shadow: 0 0 0 2px rgb(var(--terminal-accent) / 0.18);
+        }
+
+        /* Language toggle */
+        .lang-toggle {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 2.5rem;
+            padding: 0.35rem 0.6rem;
+            border: 1px solid rgb(var(--terminal-border));
+            border-radius: 0.375rem;
+            background: rgb(var(--terminal-surface) / 0.45);
+            color: rgb(var(--terminal-muted));
+            transition: color 0.2s ease, border-color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+        }
+        .lang-toggle:hover {
+            color: rgb(var(--terminal-heading));
+            border-color: rgb(var(--terminal-accent) / 0.45);
+            background: rgb(var(--terminal-accent) / 0.08);
+        }
+        .lang-toggle:focus-visible {
+            outline: none;
+            border-color: rgb(var(--terminal-accent));
+            box-shadow: 0 0 0 2px rgb(var(--terminal-accent) / 0.18);
+        }
+
+        /* Mobile controls */
+        .mobile-controls {
+            margin: 0 0.5rem 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.5rem;
+        }
+        .mobile-theme-toggle {
+            gap: 0.35rem;
+            height: 2rem;
+            min-width: 4.4rem;
+            justify-content: center;
+            padding: 0 0.5rem;
+            background: rgb(var(--terminal-surface) / 0.24);
+        }
+        .mobile-theme-toggle svg {
+            width: 0.8rem;
+            height: 0.8rem;
+            color: rgb(var(--terminal-muted));
+            transition: color 0.2s ease;
+        }
+        .mobile-theme-toggle:hover svg {
+            color: rgb(var(--terminal-heading));
+        }
+        .mobile-lang-group {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            height: 2rem;
+            padding: 0.15rem;
+            border: 1px solid rgb(var(--terminal-border));
+            border-radius: 0.45rem;
+            background: rgb(var(--terminal-surface) / 0.24);
+        }
+        .mobile-lang-group .lang-toggle {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            min-width: 2.1rem;
+            padding: 0 0.45rem;
+            border-color: transparent;
+            background: transparent;
+            box-shadow: none;
+        }
+
+        .desktop-nav {
+            display: inline-flex;
+            align-items: center;
+            gap: 1.25rem;
+            font-size: 0.72rem;
+        }
+        .desktop-utilities {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.375rem;
+            padding-left: 0.75rem;
+            margin-left: 0.25rem;
+            border-left: 1px solid rgb(var(--terminal-border) / 0.7);
+        }
+        .desktop-lang-group {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            height: 2rem;
+            padding: 0.15rem;
+            border: 1px solid rgb(var(--terminal-border));
+            border-radius: 0.45rem;
+            background: rgb(var(--terminal-surface) / 0.24);
+        }
+        .desktop-lang-group .lang-toggle {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            min-width: 2.1rem;
+            padding: 0 0.45rem;
+            border-color: transparent;
+            background: transparent;
+            box-shadow: none;
+        }
+        .desktop-theme-toggle {
+            gap: 0.35rem;
+            height: 2rem;
+            padding: 0 0.5rem;
+            min-width: 4.4rem;
+            justify-content: center;
+            background: rgb(var(--terminal-surface) / 0.24);
+        }
+        .desktop-theme-toggle svg {
+            width: 0.8rem;
+            height: 0.8rem;
+            color: rgb(var(--terminal-muted));
+            transition: color 0.2s ease;
+        }
+        .desktop-theme-toggle:hover svg {
+            color: rgb(var(--terminal-heading));
         }
 
         /* Nav icon links */
@@ -361,6 +532,7 @@
             color: rgb(var(--terminal-heading));
             border-color: rgb(var(--terminal-accent) / 0.5);
             background: rgb(var(--terminal-accent) / 0.08);
+            box-shadow: none;
         }
         .back-to-top:focus-visible {
             outline: none;
@@ -399,7 +571,7 @@
             opacity: 0;
         }
         .mobile-menu.open {
-            max-height: 420px;
+            max-height: 520px;
             opacity: 1;
         }
 
@@ -429,16 +601,16 @@
 <body class="min-h-screen">
 
 <!-- ==================== NAVIGATION ==================== -->
-<nav class="fixed top-0 left-0 right-0 z-50 border-b border-terminal-border bg-terminal-bg/90 backdrop-blur-md" role="navigation" aria-label="Hauptnavigation">
+<nav class="fixed top-0 left-0 right-0 z-50 border-b border-terminal-border bg-terminal-bg/90 backdrop-blur-md" role="navigation" data-i18n-aria-label="nav.main" aria-label="Hauptnavigation">
     <div class="max-w-6xl mx-auto px-4 sm:px-6">
         <div class="flex items-center justify-between h-12">
             <!-- Path indicator -->
-            <a href="#hero" class="text-terminal-muted text-xs sm:text-sm truncate flex-shrink-0" aria-label="Zur Startseite">
+            <a href="#hero" class="text-terminal-muted text-xs sm:text-sm truncate flex-shrink-0" data-i18n-aria-label="nav.home" aria-label="Zur Startseite">
                 <span class="text-terminal-accent">~/</span><span class="text-terminal-text">nibraun</span>
             </a>
 
             <!-- Desktop nav links -->
-            <div class="hidden md:flex items-center gap-6 text-xs">
+            <div class="desktop-nav hidden md:flex">
                 <a href="#about" class="nav-link text-terminal-muted" data-nav>about</a>
                 <a href="#skills" class="nav-link text-terminal-muted" data-nav>skills</a>
                 <a href="#experience" class="nav-link text-terminal-muted" data-nav>experience</a>
@@ -447,29 +619,33 @@
                 <a href="#contact" class="nav-link text-terminal-muted" data-nav>contact</a>
             </div>
 
-            <!-- Status + theme + links + Mobile toggle -->
+            <!-- Desktop utilities + mobile toggle -->
             <div class="flex items-center gap-2 sm:gap-3">
-                <div class="hidden sm:flex items-center gap-3 text-[10px]">
-                    <a href="https://github.com/nibra180" target="_blank" rel="noopener noreferrer" class="nav-icon-link" aria-label="GitHub Profil von Niklas Braun">
-                        <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.866-.013-1.7-2.782.605-3.369-1.344-3.369-1.344-.455-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.091-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.987 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.56 9.56 0 0 1 2.504.337c1.909-1.296 2.748-1.026 2.748-1.026.546 1.378.202 2.397.1 2.65.64.701 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.31.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.481A10.02 10.02 0 0 0 22 12.017C22 6.484 17.523 2 12 2Z"/></svg>
-                        <span>github</span>
-                    </a>
-                    <a href="https://github.com/WariKoda" target="_blank" rel="noopener noreferrer" class="nav-icon-link" aria-label="WariKoda auf GitHub">
-                        <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.866-.013-1.7-2.782.605-3.369-1.344-3.369-1.344-.455-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.091-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.987 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.56 9.56 0 0 1 2.504.337c1.909-1.296 2.748-1.026 2.748-1.026.546 1.378.202 2.397.1 2.65.64.701 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.31.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.481A10.02 10.02 0 0 0 22 12.017C22 6.484 17.523 2 12 2Z"/></svg>
-                        <span>warikoda</span>
-                    </a>
+                <div class="desktop-utilities hidden md:flex text-[10px]">
+                    <div class="desktop-lang-group">
+                        <button type="button" class="lang-toggle text-[10px]" data-lang-switch="de" aria-pressed="true" aria-label="Deutsch" lang="de">DE</button>
+                        <button type="button" class="lang-toggle text-[10px]" data-lang-switch="en" aria-pressed="false" aria-label="English" lang="en">EN</button>
+                    </div>
+                    <button
+                        type="button"
+                        class="theme-toggle desktop-theme-toggle text-[10px]"
+                        data-theme-toggle
+                        data-i18n-aria-label="nav.themeToggle"
+                        data-i18n-title="nav.themeToggleTitle"
+                        aria-label="Farbmodus umschalten"
+                        title="Light/Dark Mode umschalten"
+                    >
+                        <svg data-theme-icon-dark viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7" d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/>
+                        </svg>
+                        <svg data-theme-icon-light class="hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                            <circle cx="12" cy="12" r="4" stroke-width="1.7"/>
+                            <path stroke-linecap="round" stroke-width="1.7" d="M12 2.5v2.2M12 19.3v2.2M21.5 12h-2.2M4.7 12H2.5M18.72 5.28l-1.56 1.56M6.84 17.16l-1.56 1.56M18.72 18.72l-1.56-1.56M6.84 6.84 5.28 5.28"/>
+                        </svg>
+                        <span class="text-terminal-accent/80" data-theme-state>dark</span>
+                    </button>
                 </div>
-                <button
-                    type="button"
-                    class="theme-toggle hidden sm:inline-flex text-[10px]"
-                    data-theme-toggle
-                    aria-label="Farbmodus umschalten"
-                    title="Light/Dark Mode umschalten"
-                >
-                    <span class="text-terminal-prompt">$</span>
-                    <span class="text-terminal-accent/80" data-theme-state>dark</span>
-                </button>
-                <button id="mobileToggle" class="md:hidden text-terminal-muted hover:text-terminal-heading transition-colors" aria-label="Menü öffnen" aria-expanded="false">
+                <button id="mobileToggle" class="md:hidden text-terminal-muted hover:text-terminal-heading transition-colors" data-i18n-aria-label="nav.mobileMenuOpen" aria-label="Menü öffnen" aria-expanded="false">
                     <svg id="menuIconOpen" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
                     <svg id="menuIconClose" class="w-4 h-4 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
                 </button>
@@ -479,34 +655,36 @@
         <!-- Mobile menu -->
         <div id="mobileMenu" class="mobile-menu md:hidden border-t border-terminal-border">
             <div class="py-3 flex flex-col gap-1 text-xs">
-                <button
-                    type="button"
-                    class="theme-toggle mx-2 mb-2 justify-between text-xs"
-                    data-theme-toggle
-                    aria-label="Farbmodus umschalten"
-                    title="Light/Dark Mode umschalten"
-                >
-                    <span class="flex items-center gap-1.5">
-                        <span class="text-terminal-prompt">$</span>
+                <div class="mobile-controls">
+                    <div class="mobile-lang-group">
+                        <button type="button" class="lang-toggle text-xs" data-lang-switch="de" aria-pressed="true" aria-label="Deutsch" lang="de">DE</button>
+                        <button type="button" class="lang-toggle text-xs" data-lang-switch="en" aria-pressed="false" aria-label="English" lang="en">EN</button>
+                    </div>
+                    <button
+                        type="button"
+                        class="theme-toggle mobile-theme-toggle text-xs"
+                        data-theme-toggle
+                        data-i18n-aria-label="nav.themeToggle"
+                        data-i18n-title="nav.themeToggleTitle"
+                        aria-label="Farbmodus umschalten"
+                        title="Light/Dark Mode umschalten"
+                    >
+                        <svg data-theme-icon-dark viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7" d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/>
+                        </svg>
+                        <svg data-theme-icon-light class="hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                            <circle cx="12" cy="12" r="4" stroke-width="1.7"/>
+                            <path stroke-linecap="round" stroke-width="1.7" d="M12 2.5v2.2M12 19.3v2.2M21.5 12h-2.2M4.7 12H2.5M18.72 5.28l-1.56 1.56M6.84 17.16l-1.56 1.56M18.72 18.72l-1.56-1.56M6.84 6.84 5.28 5.28"/>
+                        </svg>
                         <span class="text-terminal-accent/80" data-theme-state>dark</span>
-                    </span>
-                </button>
+                    </button>
+                </div>
                 <a href="#about" class="nav-link text-terminal-muted px-2 py-1.5" data-nav data-mobile>about</a>
                 <a href="#skills" class="nav-link text-terminal-muted px-2 py-1.5" data-nav data-mobile>skills</a>
                 <a href="#experience" class="nav-link text-terminal-muted px-2 py-1.5" data-nav data-mobile>experience</a>
                 <a href="#stack" class="nav-link text-terminal-muted px-2 py-1.5" data-nav data-mobile>stack</a>
                 <a href="#warikoda" class="nav-link text-terminal-muted px-2 py-1.5" data-nav data-mobile>warikoda</a>
                 <a href="#contact" class="nav-link text-terminal-muted px-2 py-1.5" data-nav data-mobile>contact</a>
-                <div class="mx-2 mt-2 pt-2 border-t border-terminal-border space-y-1.5">
-                    <a href="https://github.com/nibra180" target="_blank" rel="noopener noreferrer" class="nav-icon-link px-2 py-1.5" aria-label="GitHub Profil von Niklas Braun">
-                        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.866-.013-1.7-2.782.605-3.369-1.344-3.369-1.344-.455-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.091-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.987 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.56 9.56 0 0 1 2.504.337c1.909-1.296 2.748-1.026 2.748-1.026.546 1.378.202 2.397.1 2.65.64.701 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.31.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.481A10.02 10.02 0 0 0 22 12.017C22 6.484 17.523 2 12 2Z"/></svg>
-                        <span>GitHub · nibra180</span>
-                    </a>
-                    <a href="https://github.com/WariKoda" target="_blank" rel="noopener noreferrer" class="nav-icon-link px-2 py-1.5" aria-label="WariKoda auf GitHub">
-                        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.866-.013-1.7-2.782.605-3.369-1.344-3.369-1.344-.455-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.091-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.987 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.56 9.56 0 0 1 2.504.337c1.909-1.296 2.748-1.026 2.748-1.026.546 1.378.202 2.397.1 2.65.64.701 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.31.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.481A10.02 10.02 0 0 0 22 12.017C22 6.484 17.523 2 12 2Z"/></svg>
-                        <span>GitHub · WariKoda</span>
-                    </a>
-                </div>
             </div>
         </div>
     </div>
@@ -519,7 +697,7 @@
         <div class="w-full max-w-4xl">
 
             <!-- Terminal Window -->
-            <div class="border border-terminal-border rounded-lg overflow-hidden scanlines relative reveal-section">
+            <div class="border border-terminal-border rounded-lg overflow-hidden scanlines relative reveal-section glow-border">
 
                 <!-- Title bar -->
                 <div class="flex items-center gap-2 px-4 py-2.5 bg-terminal-surface border-b border-terminal-border">
@@ -530,95 +708,114 @@
                 </div>
 
                 <!-- Terminal body -->
-                <div class="p-4 sm:p-6 bg-terminal-bg space-y-3 text-sm sm:text-[15px]">
+                <div class="p-4 sm:p-6 bg-terminal-bg text-sm sm:text-[15px]">
+                    <div class="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
+                        <a href="https://github.com/nibra180" target="_blank" rel="noopener noreferrer" class="hero-avatar-wrap hidden md:inline-flex self-center md:self-start md:order-last md:ml-6 md:flex-shrink-0" data-i18n-aria-label="nav.github" aria-label="GitHub Profil von Niklas Braun">
+                            <img src="img/avatar.png" alt="Comic Avatar von Niklas Braun" class="hero-avatar">
+                        </a>
 
-                    <!-- Line 1: whoami -->
-                    <div class="type-line flex items-start gap-2">
-                        <span class="text-terminal-prompt flex-shrink-0">$</span>
-                        <span class="text-terminal-heading">whoami</span>
-                    </div>
-                    <div class="type-line pl-4 text-terminal-heading">
-                        Niklas Braun — Shopware 6 &amp; Flutter Development
-                    </div>
+                        <div class="space-y-3 flex-1 min-w-0">
+                            <!-- Line 1: whoami -->
+                            <div class="type-line flex items-start gap-2">
+                                <span class="text-terminal-prompt flex-shrink-0">$</span>
+                                <span class="text-terminal-heading">whoami</span>
+                            </div>
+                            <div class="type-line pl-4 text-terminal-heading" data-i18n="hero.role">
+                                Niklas Braun — Shopware 6 &amp; Flutter Development
+                            </div>
 
-                    <!-- Line 2: focus -->
-                    <div class="type-line flex items-start gap-2">
-                        <span class="text-terminal-prompt flex-shrink-0">$</span>
-                        <span class="text-terminal-heading">focus</span>
-                    </div>
-                    <div class="type-line pl-4 sm:pl-4 flex flex-col sm:flex-row sm:flex-wrap gap-y-1 sm:gap-x-2 sm:gap-y-1">
-                        <span class="text-terminal-accent">Plugins/Themes</span>
-                        <span class="text-terminal-muted hidden sm:inline">·</span>
-                        <span class="text-terminal-purple">ERP Anbindungen</span>
-                        <span class="text-terminal-muted hidden sm:inline">·</span>
-                        <span class="text-terminal-green">Flutter Apps</span>
-                        <span class="text-terminal-muted hidden sm:inline">·</span>
-                        <span class="text-terminal-cyan">REST Api</span>
-                    </div>
+                            <!-- Line 2: focus -->
+                            <div class="type-line flex items-start gap-2">
+                                <span class="text-terminal-prompt flex-shrink-0">$</span>
+                                <span class="text-terminal-heading">focus</span>
+                            </div>
+                            <div class="type-line pl-4 sm:pl-4 flex flex-col sm:flex-row sm:flex-wrap gap-y-1 sm:gap-x-2 sm:gap-y-1">
+                                <span class="text-terminal-accent" data-i18n="hero.focus.plugins">Plugins/Themes</span>
+                                <span class="text-terminal-muted hidden sm:inline">·</span>
+                                <span class="text-terminal-purple" data-i18n="hero.focus.erp">ERP Anbindungen</span>
+                                <span class="text-terminal-muted hidden sm:inline">·</span>
+                                <span class="text-terminal-green" data-i18n="hero.focus.flutter">Flutter Apps</span>
+                                <span class="text-terminal-muted hidden sm:inline">·</span>
+                                <span class="text-terminal-cyan" data-i18n="hero.focus.rest">REST Api</span>
+                            </div>
 
-                    <!-- Line 3: current -->
-                    <div class="type-line flex items-start gap-2">
-                        <span class="text-terminal-prompt flex-shrink-0">$</span>
-                        <span class="text-terminal-heading">current</span>
-                    </div>
-                    <div class="type-line pl-4 sm:pl-4 text-terminal-text">
-                        <div class="flex flex-col sm:flex-row sm:flex-wrap sm:items-center gap-y-1 sm:gap-x-2">
-                            <span>Full-Stack Developer</span>
-                            <a href="https://sharpness.de" target="_blank" rel="noopener noreferrer" class="text-terminal-accent hover:text-terminal-heading transition-colors">@Sharpness Solutions GmbH</a>
-                            <span class="text-terminal-muted hidden sm:inline">·</span>
-                            <span class="text-terminal-muted">Oldenburg</span>
+                            <!-- Line 3: current -->
+                            <div class="type-line flex items-start gap-2">
+                                <span class="text-terminal-prompt flex-shrink-0">$</span>
+                                <span class="text-terminal-heading">current</span>
+                            </div>
+                            <div class="type-line pl-4 sm:pl-4 text-terminal-text">
+                                <div class="flex flex-col sm:flex-row sm:flex-wrap sm:items-center gap-y-1 sm:gap-x-2">
+                                    <span>Full-Stack Developer</span>
+                                    <a href="https://sharpness.de" target="_blank" rel="noopener noreferrer" class="text-terminal-accent hover:text-terminal-heading transition-colors">@Sharpness Solutions GmbH</a>
+                                    <span class="text-terminal-muted hidden sm:inline">·</span>
+                                    <span class="text-terminal-muted">Oldenburg</span>
+                                </div>
+                            </div>
+
+                            <!-- Separator -->
+                            <div class="type-line border-t border-terminal-border my-4"></div>
+
+                            <!-- Line 4: status -->
+                            <div class="type-line flex items-start gap-2">
+                                <span class="text-terminal-prompt flex-shrink-0">$</span>
+                                <span class="text-terminal-heading">status</span>
+                            </div>
+                            <!-- Subheadline -->
+                            <div class="type-line text-terminal-text text-xs sm:text-sm leading-relaxed max-w-2xl" data-i18n-html="hero.status">
+                                Individuelle Softwareentwicklung mit Shopware 6 und Flutter.<br>
+                                Aktuell entwickle ich bei <a href="https://sharpness.de" target="_blank" rel="noopener noreferrer" class="text-terminal-accent hover:text-terminal-heading transition-colors">@Sharpness Solutions GmbH</a> anspruchsvolle E-Commerce- und App-Lösungen und veröffentliche zusammen mit <a href="https://github.com/bdgraue" target="_blank" rel="noopener noreferrer" class="text-terminal-accent hover:text-terminal-heading transition-colors">@bdgraue</a> und <a href="https://github.com/WariKoda" target="_blank" rel="noopener noreferrer" class="text-terminal-accent hover:text-terminal-heading transition-colors">@WariKoda</a> Open-Source-Software.
+                            </div>
+
+                            <!-- Command hints / CTAs -->
+                            <div class="type-line flex flex-wrap gap-3 pt-3">
+                                <button class="cmd-hint inline-flex items-center gap-1.5 px-4 py-2 bg-terminal-accent/10 border border-terminal-accent/30 rounded text-terminal-accent text-xs hover:bg-terminal-accent/20 hover:border-terminal-accent/50 transition-all focus:outline-none focus:ring-1 focus:ring-terminal-accent/50" data-cmd="about">
+                                    <span class="text-terminal-prompt">$</span> about
+                                </button>
+                                <button class="cmd-hint inline-flex items-center gap-1.5 px-4 py-2 border border-terminal-border rounded text-terminal-text text-xs hover:border-terminal-muted hover:text-terminal-heading transition-all focus:outline-none focus:ring-1 focus:ring-terminal-border" data-cmd="skills">
+                                    <span class="text-terminal-prompt">$</span> skills
+                                </button>
+                                <button class="cmd-hint inline-flex items-center gap-1.5 px-4 py-2 border border-terminal-border rounded text-terminal-text text-xs hover:border-terminal-muted hover:text-terminal-heading transition-all focus:outline-none focus:ring-1 focus:ring-terminal-border" data-cmd="experience">
+                                    <span class="text-terminal-prompt">$</span> experience
+                                </button>
+                                <button class="cmd-hint inline-flex items-center gap-1.5 px-4 py-2 border border-terminal-border rounded text-terminal-text text-xs hover:border-terminal-muted hover:text-terminal-heading transition-all focus:outline-none focus:ring-1 focus:ring-terminal-border" data-cmd="stack">
+                                    <span class="text-terminal-prompt">$</span> stack
+                                </button>
+                                <button class="cmd-hint inline-flex items-center gap-1.5 px-4 py-2 border border-terminal-border rounded text-terminal-text text-xs hover:border-terminal-muted hover:text-terminal-heading transition-all focus:outline-none focus:ring-1 focus:ring-terminal-border" data-cmd="warikoda">
+                                    <span class="text-terminal-prompt">$</span> warikoda
+                                </button>
+                                <button class="cmd-hint inline-flex items-center gap-1.5 px-4 py-2 border border-terminal-border rounded text-terminal-text text-xs hover:border-terminal-muted hover:text-terminal-heading transition-all focus:outline-none focus:ring-1 focus:ring-terminal-border" data-cmd="contact">
+                                    <span class="text-terminal-prompt">$</span> contact
+                                </button>
+                            </div>
+
+                            <!-- Typewriter cursor -->
+                            <div class="type-line flex items-center gap-0 pt-1">
+                                <span class="text-terminal-prompt">$&nbsp;</span>
+                                <span id="typewriter" class="text-terminal-muted"></span><span class="cursor-blink" aria-hidden="true"></span>
+                            </div>
                         </div>
-                    </div>
-
-                    <!-- Separator -->
-                    <div class="type-line border-t border-terminal-border my-4"></div>
-
-                    <!-- Line 4: status -->
-                    <div class="type-line flex items-start gap-2">
-                        <span class="text-terminal-prompt flex-shrink-0">$</span>
-                        <span class="text-terminal-heading">status</span>
-                    </div>
-                    <!-- Subheadline -->
-                    <div class="type-line text-terminal-text text-xs sm:text-sm leading-relaxed max-w-2xl">
-                        Individuelle Softwareentwicklung mit Shopware 6 und Flutter.<br>
-                        Aktuell entwickle ich bei <a href="https://sharpness.de" target="_blank" rel="noopener noreferrer" class="text-terminal-accent hover:text-terminal-heading transition-colors">@Sharpness Solutions GmbH</a> anspruchsvolle E-Commerce- und App-Lösungen und veröffentliche zusammen mit <a href="https://github.com/bdgraue" target="_blank" rel="noopener noreferrer" class="text-terminal-accent hover:text-terminal-heading transition-colors">@bdgraue</a> und <a href="https://github.com/WariKoda" target="_blank" rel="noopener noreferrer" class="text-terminal-accent hover:text-terminal-heading transition-colors">@WariKoda</a> Open-Source-Software.
-                    </div>
-
-                    <!-- Command hints / CTAs -->
-                    <div class="type-line flex flex-wrap gap-3 pt-3">
-                        <button class="cmd-hint inline-flex items-center gap-1.5 px-4 py-2 bg-terminal-accent/10 border border-terminal-accent/30 rounded text-terminal-accent text-xs hover:bg-terminal-accent/20 hover:border-terminal-accent/50 transition-all focus:outline-none focus:ring-1 focus:ring-terminal-accent/50" data-cmd="about">
-                            <span class="text-terminal-prompt">$</span> about
-                        </button>
-                        <button class="cmd-hint inline-flex items-center gap-1.5 px-4 py-2 border border-terminal-border rounded text-terminal-text text-xs hover:border-terminal-muted hover:text-terminal-heading transition-all focus:outline-none focus:ring-1 focus:ring-terminal-border" data-cmd="skills">
-                            <span class="text-terminal-prompt">$</span> skills
-                        </button>
-                        <button class="cmd-hint inline-flex items-center gap-1.5 px-4 py-2 border border-terminal-border rounded text-terminal-text text-xs hover:border-terminal-muted hover:text-terminal-heading transition-all focus:outline-none focus:ring-1 focus:ring-terminal-border" data-cmd="experience">
-                            <span class="text-terminal-prompt">$</span> experience
-                        </button>
-                        <button class="cmd-hint inline-flex items-center gap-1.5 px-4 py-2 border border-terminal-border rounded text-terminal-text text-xs hover:border-terminal-muted hover:text-terminal-heading transition-all focus:outline-none focus:ring-1 focus:ring-terminal-border" data-cmd="stack">
-                            <span class="text-terminal-prompt">$</span> stack
-                        </button>
-                        <button class="cmd-hint inline-flex items-center gap-1.5 px-4 py-2 border border-terminal-border rounded text-terminal-text text-xs hover:border-terminal-muted hover:text-terminal-heading transition-all focus:outline-none focus:ring-1 focus:ring-terminal-border" data-cmd="warikoda">
-                            <span class="text-terminal-prompt">$</span> warikoda
-                        </button>
-                        <button class="cmd-hint inline-flex items-center gap-1.5 px-4 py-2 border border-terminal-border rounded text-terminal-text text-xs hover:border-terminal-muted hover:text-terminal-heading transition-all focus:outline-none focus:ring-1 focus:ring-terminal-border" data-cmd="contact">
-                            <span class="text-terminal-prompt">$</span> contact
-                        </button>
-                    </div>
-
-                    <!-- Typewriter cursor -->
-                    <div class="type-line flex items-center gap-0 pt-1">
-                        <span class="text-terminal-prompt">$&nbsp;</span>
-                        <span id="typewriter" class="text-terminal-muted"></span><span class="cursor-blink" aria-hidden="true"></span>
                     </div>
                 </div>
             </div>
 
             <!-- Pinned Projects -->
             <div class="mt-6 reveal-section">
-                <div class="flex items-center gap-2 mb-3 text-xs text-terminal-muted">
-                    <svg class="w-3.5 h-3.5" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M4.456.734a1.75 1.75 0 0 1 2.826.504l.613 1.327a3.08 3.08 0 0 0 2.084 1.707l2.454.584c1.332.317 1.8 1.972.832 2.94L11.06 10l3.72 3.72a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L10 11.06l-2.204 2.205c-.968.968-2.623.5-2.94-.832l-.584-2.454a3.08 3.08 0 0 0-1.707-2.084l-1.327-.613a1.75 1.75 0 0 1-.504-2.826Z"/></svg>
-                    <span>pinned projects</span>
+                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-3 text-xs text-terminal-muted">
+                    <div class="flex items-center gap-2 min-w-0">
+                        <svg class="w-3.5 h-3.5 flex-shrink-0" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M4.456.734a1.75 1.75 0 0 1 2.826.504l.613 1.327a3.08 3.08 0 0 0 2.084 1.707l2.454.584c1.332.317 1.8 1.972.832 2.94L11.06 10l3.72 3.72a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L10 11.06l-2.204 2.205c-.968.968-2.623.5-2.94-.832l-.584-2.454a3.08 3.08 0 0 0-1.707-2.084l-1.327-.613a1.75 1.75 0 0 1-.504-2.826Z"/></svg>
+                        <span data-i18n="hero.pinnedProjects">pinned projects</span>
+                    </div>
+                    <div class="flex items-center gap-3 text-[10px] sm:text-[10px] pl-5 sm:pl-0">
+                        <a href="https://github.com/nibra180" target="_blank" rel="noopener noreferrer" class="nav-icon-link" data-i18n-aria-label="nav.github" aria-label="GitHub Profil von Niklas Braun">
+                            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.866-.013-1.7-2.782.605-3.369-1.344-3.369-1.344-.455-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.091-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.987 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.56 9.56 0 0 1 2.504.337c1.909-1.296 2.748-1.026 2.748-1.026.546 1.378.202 2.397.1 2.65.64.701 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.31.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.481A10.02 10.02 0 0 0 22 12.017C22 6.484 17.523 2 12 2Z"/></svg>
+                            <span>github</span>
+                        </a>
+                        <a href="https://github.com/WariKoda" target="_blank" rel="noopener noreferrer" class="nav-icon-link" data-i18n-aria-label="nav.warikoda" aria-label="WariKoda auf GitHub">
+                            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.866-.013-1.7-2.782.605-3.369-1.344-3.369-1.344-.455-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.091-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.987 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.56 9.56 0 0 1 2.504.337c1.909-1.296 2.748-1.026 2.748-1.026.546 1.378.202 2.397.1 2.65.64.701 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.31.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.481A10.02 10.02 0 0 0 22 12.017C22 6.484 17.523 2 12 2Z"/></svg>
+                            <span>warikoda</span>
+                        </a>
+                    </div>
                 </div>
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <a href="https://github.com/WariKoda/WakoPluginAdminToolbar" target="_blank" rel="noopener noreferrer" class="group border border-terminal-border rounded-lg p-4 bg-terminal-surface/20 hover:border-terminal-accent/50 hover:bg-terminal-surface/40 transition-all">
@@ -629,7 +826,7 @@
                             </div>
                             <span class="text-[10px] text-terminal-green border border-terminal-green/30 bg-terminal-green/10 rounded px-1.5 py-0.5">Shopware 6</span>
                         </div>
-                        <p class="text-terminal-muted text-xs leading-relaxed mb-2">Open-Source Plugin für eine Admin-Toolbar im Storefront.</p>
+                        <p class="text-terminal-muted text-xs leading-relaxed mb-2" data-i18n="hero.project1.description">Open-Source Plugin für eine Admin-Toolbar im Storefront.</p>
                         <div class="flex items-center gap-2 text-[10px] text-terminal-muted">
                             <span>WariKoda</span>
                             <span>·</span>
@@ -644,7 +841,7 @@
                             </div>
                             <span class="text-[10px] text-terminal-cyan border border-terminal-cyan/30 bg-terminal-cyan/10 rounded px-1.5 py-0.5">Flutter</span>
                         </div>
-                        <p class="text-terminal-muted text-xs leading-relaxed mb-2">Local-first Journaling-App für Fokus und Reflexion.</p>
+                        <p class="text-terminal-muted text-xs leading-relaxed mb-2" data-i18n="hero.project2.description">Local-first Journaling-App für Fokus und Reflexion.</p>
                         <div class="flex items-center gap-2 text-[10px] text-terminal-muted">
                             <span>WariKoda</span>
                             <span>·</span>
@@ -688,12 +885,12 @@
 
                     <div class="code-line px-2 py-1 rounded">
                         <span class="text-terminal-purple">experience</span><span class="text-terminal-muted">:</span>
-                        <span class="text-terminal-green">"7+ Jahre"</span>
+                        <span class="text-terminal-green" data-i18n="about.experience">"7+ Jahre"</span>
                     </div>
 
                     <div class="code-line px-2 py-1 rounded">
                         <span class="text-terminal-purple">location</span><span class="text-terminal-muted">:</span>
-                        <span class="text-terminal-green">"Löningen, Niedersachsen"</span>
+                        <span class="text-terminal-green" data-i18n="about.location">"Löningen, Niedersachsen"</span>
                     </div>
 
                     <div class="code-line px-2 py-1 rounded mt-2">
@@ -729,7 +926,7 @@
                     <div class="code-line px-2 py-1 rounded">
                         <span class="text-terminal-muted"># </span><span class="text-terminal-muted/60">description</span>
                     </div>
-                    <div class="code-line px-2 py-1 rounded text-terminal-text leading-relaxed text-xs sm:text-sm">
+                    <div class="code-line px-2 py-1 rounded text-terminal-text leading-relaxed text-xs sm:text-sm" data-i18n-html="about.description">
                         Ich bin Niklas Braun, Full-Stack Developer mit über 7 Jahren Erfahrung in E-Commerce, Mobile Development und modernen Webanwendungen. Besonders zu Hause bin ich in Shopware 6, individueller Plugin- und Theme-Entwicklung, ERP- und PIM-Anbindungen sowie Cross-Device Apps mit Flutter. Dazu kommen praktische Erfahrung mit Vue.js, TypeScript, Symfony/PHP und UI/UX-Design in Figma — geprägt durch zahlreiche Projekte mit Shopware 5 und 6. Gemeinsam mit <a href="https://github.com/bdgraue" target="_blank" rel="noopener noreferrer" class="text-terminal-accent hover:text-terminal-heading transition-colors">@bdgraue</a> veröffentliche ich über <span class="text-terminal-accent">WariKoda</span> außerdem Open-Source-Software.
                     </div>
                 </div>
@@ -753,23 +950,23 @@
                         <span class="text-terminal-muted text-xs">18 skills</span>
                     </summary>
                     <div class="p-4 sm:p-6 grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-1 text-sm">
-                        <div class="code-line flex items-start gap-2 px-2 py-1.5 rounded"><span class="text-terminal-green mt-0.5 flex-shrink-0">▸</span><span>Plugin-Entwicklung</span></div>
-                        <div class="code-line flex items-start gap-2 px-2 py-1.5 rounded"><span class="text-terminal-green mt-0.5 flex-shrink-0">▸</span><span>Theme-Entwicklung</span></div>
-                        <div class="code-line flex items-start gap-2 px-2 py-1.5 rounded"><span class="text-terminal-green mt-0.5 flex-shrink-0">▸</span><span>Administration-Erweiterungen</span></div>
-                        <div class="code-line flex items-start gap-2 px-2 py-1.5 rounded"><span class="text-terminal-green mt-0.5 flex-shrink-0">▸</span><span>Storefront-Anpassungen</span></div>
+                        <div class="code-line flex items-start gap-2 px-2 py-1.5 rounded"><span class="text-terminal-green mt-0.5 flex-shrink-0">▸</span><span data-i18n="skills.shopware.plugin">Plugin-Entwicklung</span></div>
+                        <div class="code-line flex items-start gap-2 px-2 py-1.5 rounded"><span class="text-terminal-green mt-0.5 flex-shrink-0">▸</span><span data-i18n="skills.shopware.theme">Theme-Entwicklung</span></div>
+                        <div class="code-line flex items-start gap-2 px-2 py-1.5 rounded"><span class="text-terminal-green mt-0.5 flex-shrink-0">▸</span><span data-i18n="skills.shopware.admin">Administration-Erweiterungen</span></div>
+                        <div class="code-line flex items-start gap-2 px-2 py-1.5 rounded"><span class="text-terminal-green mt-0.5 flex-shrink-0">▸</span><span data-i18n="skills.shopware.storefront">Storefront-Anpassungen</span></div>
                         <div class="code-line flex items-start gap-2 px-2 py-1.5 rounded"><span class="text-terminal-green mt-0.5 flex-shrink-0">▸</span><span>DAL / Entities / Repositories</span></div>
                         <div class="code-line flex items-start gap-2 px-2 py-1.5 rounded"><span class="text-terminal-green mt-0.5 flex-shrink-0">▸</span><span>Events, Subscribers, Services</span></div>
                         <div class="code-line flex items-start gap-2 px-2 py-1.5 rounded"><span class="text-terminal-green mt-0.5 flex-shrink-0">▸</span><span>Rule Builder / Flow Builder</span></div>
-                        <div class="code-line flex items-start gap-2 px-2 py-1.5 rounded"><span class="text-terminal-green mt-0.5 flex-shrink-0">▸</span><span>API-Integrationen</span></div>
-                        <div class="code-line flex items-start gap-2 px-2 py-1.5 rounded sm:col-span-2"><span class="text-terminal-green mt-0.5 flex-shrink-0">▸</span><span>Performance-Optimierung</span></div>
-                        <div class="code-line flex items-start gap-2 px-2 py-1.5 rounded"><span class="text-terminal-cyan mt-0.5 flex-shrink-0">▸</span><span>ERP-Anbindungen</span></div>
-                        <div class="code-line flex items-start gap-2 px-2 py-1.5 rounded"><span class="text-terminal-cyan mt-0.5 flex-shrink-0">▸</span><span>Schnittstellen zu Drittsystemen</span></div>
-                        <div class="code-line flex items-start gap-2 px-2 py-1.5 rounded"><span class="text-terminal-cyan mt-0.5 flex-shrink-0">▸</span><span>Produktdaten-Workflows</span></div>
-                        <div class="code-line flex items-start gap-2 px-2 py-1.5 rounded"><span class="text-terminal-cyan mt-0.5 flex-shrink-0">▸</span><span>Bestellprozesse</span></div>
-                        <div class="code-line flex items-start gap-2 px-2 py-1.5 rounded"><span class="text-terminal-cyan mt-0.5 flex-shrink-0">▸</span><span>Zahlungs- und Versandlogik</span></div>
-                        <div class="code-line flex items-start gap-2 px-2 py-1.5 rounded"><span class="text-terminal-cyan mt-0.5 flex-shrink-0">▸</span><span>individuelle Geschäftsprozesse</span></div>
+                        <div class="code-line flex items-start gap-2 px-2 py-1.5 rounded"><span class="text-terminal-green mt-0.5 flex-shrink-0">▸</span><span data-i18n="skills.shopware.api">API-Integrationen</span></div>
+                        <div class="code-line flex items-start gap-2 px-2 py-1.5 rounded sm:col-span-2"><span class="text-terminal-green mt-0.5 flex-shrink-0">▸</span><span data-i18n="skills.shopware.performance">Performance-Optimierung</span></div>
+                        <div class="code-line flex items-start gap-2 px-2 py-1.5 rounded"><span class="text-terminal-cyan mt-0.5 flex-shrink-0">▸</span><span data-i18n="skills.shopware.erp">ERP-Anbindungen</span></div>
+                        <div class="code-line flex items-start gap-2 px-2 py-1.5 rounded"><span class="text-terminal-cyan mt-0.5 flex-shrink-0">▸</span><span data-i18n="skills.shopware.interfaces">Schnittstellen zu Drittsystemen</span></div>
+                        <div class="code-line flex items-start gap-2 px-2 py-1.5 rounded"><span class="text-terminal-cyan mt-0.5 flex-shrink-0">▸</span><span data-i18n="skills.shopware.productData">Produktdaten-Workflows</span></div>
+                        <div class="code-line flex items-start gap-2 px-2 py-1.5 rounded"><span class="text-terminal-cyan mt-0.5 flex-shrink-0">▸</span><span data-i18n="skills.shopware.orders">Bestellprozesse</span></div>
+                        <div class="code-line flex items-start gap-2 px-2 py-1.5 rounded"><span class="text-terminal-cyan mt-0.5 flex-shrink-0">▸</span><span data-i18n="skills.shopware.payment">Zahlungs- und Versandlogik</span></div>
+                        <div class="code-line flex items-start gap-2 px-2 py-1.5 rounded"><span class="text-terminal-cyan mt-0.5 flex-shrink-0">▸</span><span data-i18n="skills.shopware.business">individuelle Geschäftsprozesse</span></div>
                         <div class="code-line flex items-start gap-2 px-2 py-1.5 rounded"><span class="text-terminal-cyan mt-0.5 flex-shrink-0">▸</span><span>B2B-Features</span></div>
-                        <div class="code-line flex items-start gap-2 px-2 py-1.5 rounded"><span class="text-terminal-cyan mt-0.5 flex-shrink-0">▸</span><span>Automatisierungen</span></div>
+                        <div class="code-line flex items-start gap-2 px-2 py-1.5 rounded"><span class="text-terminal-cyan mt-0.5 flex-shrink-0">▸</span><span data-i18n="skills.shopware.automation">Automatisierungen</span></div>
                     </div>
                 </details>
 
@@ -784,9 +981,9 @@
                         <div class="code-line flex items-start gap-2 px-2 py-1.5 rounded"><span class="text-terminal-amber mt-0.5 flex-shrink-0">▸</span><span>MySQL</span></div>
                         <div class="code-line flex items-start gap-2 px-2 py-1.5 rounded"><span class="text-terminal-amber mt-0.5 flex-shrink-0">▸</span><span>REST APIs</span></div>
                         <div class="code-line flex items-start gap-2 px-2 py-1.5 rounded"><span class="text-terminal-amber mt-0.5 flex-shrink-0">▸</span><span>Message Queues</span></div>
-                        <div class="code-line flex items-start gap-2 px-2 py-1.5 rounded"><span class="text-terminal-amber mt-0.5 flex-shrink-0">▸</span><span>saubere Service-Architektur</span></div>
+                        <div class="code-line flex items-start gap-2 px-2 py-1.5 rounded"><span class="text-terminal-amber mt-0.5 flex-shrink-0">▸</span><span data-i18n="skills.backend.architecture">saubere Service-Architektur</span></div>
                         <div class="code-line flex items-start gap-2 px-2 py-1.5 rounded"><span class="text-terminal-amber mt-0.5 flex-shrink-0">▸</span><span>Testing / Debugging</span></div>
-                        <div class="code-line flex items-start gap-2 px-2 py-1.5 rounded"><span class="text-terminal-amber mt-0.5 flex-shrink-0">▸</span><span>technische Dokumentation</span></div>
+                        <div class="code-line flex items-start gap-2 px-2 py-1.5 rounded"><span class="text-terminal-amber mt-0.5 flex-shrink-0">▸</span><span data-i18n="skills.backend.docs">technische Dokumentation</span></div>
                     </div>
                 </details>
 
@@ -803,9 +1000,9 @@
                         <div class="code-line flex items-start gap-2 px-2 py-1.5 rounded"><span class="text-terminal-purple mt-0.5 flex-shrink-0">▸</span><span>SCSS / Tailwind / Bootstrap</span></div>
                         <div class="code-line flex items-start gap-2 px-2 py-1.5 rounded"><span class="text-terminal-purple mt-0.5 flex-shrink-0">▸</span><span>Responsive Layouts</span></div>
                         <div class="code-line flex items-start gap-2 px-2 py-1.5 rounded"><span class="text-terminal-purple mt-0.5 flex-shrink-0">▸</span><span>Storefront UX</span></div>
-                        <div class="code-line flex items-start gap-2 px-2 py-1.5 rounded"><span class="text-terminal-purple mt-0.5 flex-shrink-0">▸</span><span>Theme-Strukturen</span></div>
-                        <div class="code-line flex items-start gap-2 px-2 py-1.5 rounded"><span class="text-terminal-purple mt-0.5 flex-shrink-0">▸</span><span>UI/UX Design mit Figma</span></div>
-                        <div class="code-line flex items-start gap-2 px-2 py-1.5 rounded"><span class="text-terminal-purple mt-0.5 flex-shrink-0">▸</span><span>moderne UI-Komponenten</span></div>
+                        <div class="code-line flex items-start gap-2 px-2 py-1.5 rounded"><span class="text-terminal-purple mt-0.5 flex-shrink-0">▸</span><span data-i18n="skills.frontend.themeStructures">Theme-Strukturen</span></div>
+                        <div class="code-line flex items-start gap-2 px-2 py-1.5 rounded"><span class="text-terminal-purple mt-0.5 flex-shrink-0">▸</span><span data-i18n="skills.frontend.figma">UI/UX Design mit Figma</span></div>
+                        <div class="code-line flex items-start gap-2 px-2 py-1.5 rounded"><span class="text-terminal-purple mt-0.5 flex-shrink-0">▸</span><span data-i18n="skills.frontend.components">moderne UI-Komponenten</span></div>
                     </div>
                 </details>
 
@@ -817,7 +1014,7 @@
                     <div class="p-4 sm:p-6 grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-1 text-sm">
                         <div class="code-line flex items-start gap-2 px-2 py-1.5 rounded"><span class="text-terminal-cyan mt-0.5 flex-shrink-0">▸</span><span>Flutter / Cross-Device Apps</span></div>
                         <div class="code-line flex items-start gap-2 px-2 py-1.5 rounded"><span class="text-terminal-cyan mt-0.5 flex-shrink-0">▸</span><span>Provider / State Management</span></div>
-                        <div class="code-line flex items-start gap-2 px-2 py-1.5 rounded"><span class="text-terminal-cyan mt-0.5 flex-shrink-0">▸</span><span>OCR / Texterkennung</span></div>
+                        <div class="code-line flex items-start gap-2 px-2 py-1.5 rounded"><span class="text-terminal-cyan mt-0.5 flex-shrink-0">▸</span><span data-i18n="skills.flutter.ocr">OCR / Texterkennung</span></div>
                         <div class="code-line flex items-start gap-2 px-2 py-1.5 rounded"><span class="text-terminal-cyan mt-0.5 flex-shrink-0">▸</span><span>OAuth</span></div>
                         <div class="code-line flex items-start gap-2 px-2 py-1.5 rounded"><span class="text-terminal-cyan mt-0.5 flex-shrink-0">▸</span><span>Supabase</span></div>
                         <div class="code-line flex items-start gap-2 px-2 py-1.5 rounded"><span class="text-terminal-cyan mt-0.5 flex-shrink-0">▸</span><span>PostgreSQL</span></div>
@@ -833,10 +1030,10 @@
                         <div class="code-line flex items-start gap-2 px-2 py-1.5 rounded"><span class="text-terminal-red mt-0.5 flex-shrink-0">▸</span><span>Git</span></div>
                         <div class="code-line flex items-start gap-2 px-2 py-1.5 rounded"><span class="text-terminal-red mt-0.5 flex-shrink-0">▸</span><span>Docker / DDEV</span></div>
                         <div class="code-line flex items-start gap-2 px-2 py-1.5 rounded"><span class="text-terminal-red mt-0.5 flex-shrink-0">▸</span><span>Composer</span></div>
-                        <div class="code-line flex items-start gap-2 px-2 py-1.5 rounded"><span class="text-terminal-red mt-0.5 flex-shrink-0">▸</span><span>CI/CD-Grundlagen</span></div>
+                        <div class="code-line flex items-start gap-2 px-2 py-1.5 rounded"><span class="text-terminal-red mt-0.5 flex-shrink-0">▸</span><span data-i18n="skills.workflow.cicd">CI/CD-Grundlagen</span></div>
                         <div class="code-line flex items-start gap-2 px-2 py-1.5 rounded"><span class="text-terminal-red mt-0.5 flex-shrink-0">▸</span><span>Code Reviews</span></div>
-                        <div class="code-line flex items-start gap-2 px-2 py-1.5 rounded"><span class="text-terminal-red mt-0.5 flex-shrink-0">▸</span><span>saubere Deployments</span></div>
-                        <div class="code-line flex items-start gap-2 px-2 py-1.5 rounded sm:col-span-2"><span class="text-terminal-red mt-0.5 flex-shrink-0">▸</span><span>technische Analyse und Debugging</span></div>
+                        <div class="code-line flex items-start gap-2 px-2 py-1.5 rounded"><span class="text-terminal-red mt-0.5 flex-shrink-0">▸</span><span data-i18n="skills.workflow.deployments">saubere Deployments</span></div>
+                        <div class="code-line flex items-start gap-2 px-2 py-1.5 rounded sm:col-span-2"><span class="text-terminal-red mt-0.5 flex-shrink-0">▸</span><span data-i18n="skills.workflow.analysis">technische Analyse und Debugging</span></div>
                     </div>
                 </details>
             </div>
@@ -850,7 +1047,7 @@
             <div class="flex items-center gap-3 mb-6">
                 <span class="text-terminal-prompt text-sm">$</span>
                 <h2 class="text-terminal-heading text-base sm:text-lg font-medium">history --timeline</h2>
-                <span class="text-terminal-muted text-xs ml-2"># Beruflicher Werdegang</span>
+                <span class="text-terminal-muted text-xs ml-2" data-i18n="experience.subtitle"># Beruflicher Werdegang</span>
             </div>
 
             <div class="grid grid-cols-1 gap-4">
@@ -863,10 +1060,10 @@
                             <div class="career-marker text-terminal-green">2025→</div>
                             <div class="career-card code-line">
                                 <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1.5">
-                                    <div class="text-terminal-heading flex items-center gap-2">Full-Stack-Entwickler <span class="career-active"><span class="career-active-dot"></span>active</span></div>
+                                    <div class="text-terminal-heading flex items-center gap-2"><span data-i18n="experience.role1">Full-Stack-Entwickler</span> <span class="career-active"><span class="career-active-dot"></span>active</span></div>
                                     <div class="text-terminal-muted text-xs">Sharpness Solutions GmbH · Oldenburg</div>
                                 </div>
-                                <div class="text-terminal-muted text-xs mt-2 leading-relaxed">Fokus auf Shopware, Flutter, API-Schnittstellen, ERP/PIM und technische Architektur.</div>
+                                <div class="text-terminal-muted text-xs mt-2 leading-relaxed" data-i18n="experience.desc1">Fokus auf Shopware, Flutter, API-Schnittstellen, ERP/PIM und technische Architektur.</div>
                             </div>
                         </div>
 
@@ -874,10 +1071,10 @@
                             <div class="career-marker text-terminal-cyan">2021→25</div>
                             <div class="career-card code-line">
                                 <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1.5">
-                                    <div class="text-terminal-heading">Frontend Entwickler &amp; Webdesigner</div>
+                                    <div class="text-terminal-heading" data-i18n="experience.role2">Frontend Entwickler &amp; Webdesigner</div>
                                     <div class="text-terminal-muted text-xs">WL Online GmbH · Garrel</div>
                                 </div>
-                                <div class="text-terminal-muted text-xs mt-2 leading-relaxed">Umsetzung von E-Commerce-Projekten mit Shopware 6, Twig, Vue.js, TypeScript und SCSS.</div>
+                                <div class="text-terminal-muted text-xs mt-2 leading-relaxed" data-i18n="experience.desc2">Umsetzung von E-Commerce-Projekten mit Shopware 6, Twig, Vue.js, TypeScript und SCSS.</div>
                             </div>
                         </div>
 
@@ -885,10 +1082,10 @@
                             <div class="career-marker text-terminal-purple">2018→21</div>
                             <div class="career-card code-line">
                                 <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1.5">
-                                    <div class="text-terminal-heading">Mediengestalter Digital/Print</div>
+                                    <div class="text-terminal-heading" data-i18n="experience.role3">Mediengestalter Digital/Print</div>
                                     <div class="text-terminal-muted text-xs">WL Online GmbH · Garrel</div>
                                 </div>
-                                <div class="text-terminal-muted text-xs mt-2 leading-relaxed">UX/UI-Design, Frontend-Applikationen sowie Theme- und Plugin-Entwicklung in Shopware 5.</div>
+                                <div class="text-terminal-muted text-xs mt-2 leading-relaxed" data-i18n="experience.desc3">UX/UI-Design, Frontend-Applikationen sowie Theme- und Plugin-Entwicklung in Shopware 5.</div>
                             </div>
                         </div>
 
@@ -896,10 +1093,10 @@
                             <div class="career-marker text-terminal-amber">2018→21</div>
                             <div class="career-card code-line">
                                 <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1.5">
-                                    <div class="text-terminal-heading">Ausbildung Mediengestalter Print &amp; Digital</div>
+                                    <div class="text-terminal-heading" data-i18n="experience.role4">Ausbildung Mediengestalter Print &amp; Digital</div>
                                     <div class="text-terminal-muted text-xs">BZT Oldenburg</div>
                                 </div>
-                                <div class="text-terminal-muted text-xs mt-2 leading-relaxed">Abschlussnote 1.4 · Jahrgangsbester (IHK) · Fokus auf digitale Konzeption und Content Creation.</div>
+                                <div class="text-terminal-muted text-xs mt-2 leading-relaxed" data-i18n="experience.desc4">Abschlussnote 1.4 · Jahrgangsbester (IHK) · Fokus auf digitale Konzeption und Content Creation.</div>
                             </div>
                         </div>
                     </div>
@@ -959,7 +1156,7 @@
             </div>
 
             <!-- Stack output -->
-            <div class="border border-terminal-border rounded-lg overflow-hidden">
+            <div class="border border-terminal-border rounded-lg overflow-hidden glow-border">
                 <div class="p-4 sm:p-5 bg-terminal-surface/20 space-y-0 text-sm">
 
                     <div class="code-line flex items-center gap-3 px-2 py-1.5 rounded">
@@ -1026,12 +1223,12 @@
             <div class="flex items-center gap-3 mb-6">
                 <span class="text-terminal-prompt text-sm">$</span>
                 <h2 class="text-terminal-heading text-base sm:text-lg font-medium">cat warikoda/open-source.log</h2>
-                <span class="text-terminal-muted text-xs ml-2"># Open Source mit @bdgraue</span>
+                <span class="text-terminal-muted text-xs ml-2" data-i18n="warikoda.subtitle"># Open Source mit @bdgraue</span>
             </div>
 
             <div class="flex flex-col sm:flex-row sm:items-center gap-4 mb-6">
                 <img src="img/warikoda-logo.png" alt="WariKoda Logo" class="w-16 h-16 sm:w-20 sm:h-20 rounded border border-terminal-border bg-terminal-surface/40 p-2 object-contain flex-shrink-0">
-                <p class="text-terminal-text text-sm leading-relaxed max-w-3xl">
+                <p class="text-terminal-text text-sm leading-relaxed max-w-3xl" data-i18n-html="warikoda.intro">
                     WariKoda steht für Open Source mit Sorgfalt, Klarheit und Anspruch an gute Software. Gemeinsam mit meinem Freund und Kollegen <a href="https://github.com/bdgraue" target="_blank" rel="noopener noreferrer" class="text-terminal-accent hover:text-terminal-heading transition-colors">@bdgraue</a> entstehen dort Tools und Anwendungen, die bewusst einfach, wartbar und langfristig nützlich gebaut werden.
                 </p>
             </div>
@@ -1045,11 +1242,11 @@
                         <div class="flex flex-col sm:flex-row sm:items-start gap-2 sm:gap-3">
                             <span class="text-terminal-purple flex-shrink-0 sm:w-20 sm:text-right">[team]</span>
                             <div>
-                                <div class="text-terminal-heading">WariKoda · mit <a href="https://github.com/bdgraue" target="_blank" rel="noopener noreferrer" class="text-terminal-accent hover:text-terminal-heading transition-colors">@bdgraue</a></div>
+                                <div class="text-terminal-heading" data-i18n-html="warikoda.teamHeading">WariKoda · mit <a href="https://github.com/bdgraue" target="_blank" rel="noopener noreferrer" class="text-terminal-accent hover:text-terminal-heading transition-colors">@bdgraue</a></div>
                                 <div class="text-terminal-text">
                                     <a href="https://github.com/WariKoda" target="_blank" rel="noopener noreferrer" class="text-terminal-accent hover:text-terminal-heading transition-colors">github.com/WariKoda</a>
                                 </div>
-                                <div class="text-terminal-muted text-xs mt-1">Gemeinsame Veröffentlichung von Open-Source-Software für Shopware und Flutter.</div>
+                                <div class="text-terminal-muted text-xs mt-1" data-i18n="warikoda.teamDescription">Gemeinsame Veröffentlichung von Open-Source-Software für Shopware und Flutter.</div>
                             </div>
                         </div>
                     </div>
@@ -1067,7 +1264,7 @@
                                         <a href="https://github.com/nibra180" target="_blank" rel="noopener noreferrer" class="text-terminal-accent hover:text-terminal-heading transition-colors">@nibra180</a>
                                     </span>
                                 </div>
-                                <div class="text-terminal-muted text-xs mt-1">Open-Source Plugin, das im Storefront eine Admin-Toolbar einblendet – ähnlich wie bei WordPress.</div>
+                                <div class="text-terminal-muted text-xs mt-1" data-i18n="warikoda.project1Description">Open-Source Plugin, das im Storefront eine Admin-Toolbar einblendet – ähnlich wie bei WordPress.</div>
                             </div>
                         </div>
                     </div>
@@ -1085,7 +1282,7 @@
                                         <a href="https://github.com/bdgraue" target="_blank" rel="noopener noreferrer" class="text-terminal-accent hover:text-terminal-heading transition-colors">@bdgraue</a>
                                     </span>
                                 </div>
-                                <div class="text-terminal-muted text-xs mt-1">Local-first Journaling-App mit Flutter für Fokus und Reflexion – ohne Account, ohne Cloud, ohne Tracking; Einträge bleiben verschlüsselt auf dem Gerät.</div>
+                                <div class="text-terminal-muted text-xs mt-1" data-i18n="warikoda.project2Description">Local-first Journaling-App mit Flutter für Fokus und Reflexion – ohne Account, ohne Cloud, ohne Tracking; Einträge bleiben verschlüsselt auf dem Gerät.</div>
                             </div>
                         </div>
                     </div>
@@ -1131,20 +1328,20 @@
                             </div>
                             <div class="code-line flex items-start gap-3 px-2 py-1.5 rounded">
                                 <span class="text-terminal-muted flex-shrink-0 w-16">location</span>
-                                <span class="text-terminal-text">Oldenburg / Löningen, Deutschland</span>
+                                <span class="text-terminal-text" data-i18n="contact.location">Oldenburg / Löningen, Deutschland</span>
                             </div>
                         </div>
                     </div>
 
                     <!-- Text -->
-                    <p class="text-terminal-text text-sm leading-relaxed">
+                    <p class="text-terminal-text text-sm leading-relaxed" data-i18n="contact.text">
                         Du hast eine geschäftliche Anfrage zu Shopware 6, Plugin-Entwicklung, ERP-/PIM-Anbindungen, Flutter oder individuellen Softwarelösungen? Dann kontaktiere mich gerne über Sharpness Solutions.
                     </p>
 
                     <!-- CTA -->
                     <a href="https://sharpness.de" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-5 py-2.5 bg-terminal-accent/10 border border-terminal-accent/30 rounded text-terminal-accent text-sm hover:bg-terminal-accent/20 hover:border-terminal-accent/50 transition-all focus:outline-none focus:ring-1 focus:ring-terminal-accent/50">
                         <span class="text-terminal-prompt">$</span>
-                        anfrage über sharpness
+                        <span data-i18n="contact.cta">anfrage über sharpness</span>
                         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
                     </a>
                 </div>
@@ -1156,7 +1353,7 @@
 </main>
 
 <!-- ==================== BACK TO TOP ==================== -->
-<button id="backToTop" class="back-to-top text-xs sm:text-sm" type="button" aria-label="Nach oben scrollen">
+<button id="backToTop" class="back-to-top text-xs sm:text-sm" type="button" data-i18n-aria-label="backToTop.label" aria-label="Nach oben scrollen">
     <span class="text-terminal-prompt">$</span>
     <span>top</span>
     <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/></svg>
@@ -1171,23 +1368,30 @@
         <div class="text-terminal-muted text-xs">
             Shopware 6 &amp; Flutter Developer
         </div>
-        <div class="text-terminal-muted/60 text-[10px] pt-2">
+        <div class="text-terminal-muted/60 text-[10px] pt-2" data-i18n="footer.tagline">
             Built with clean code, caffeine and curiosity.
         </div>
     </div>
 </footer>
 
 <!-- ==================== JAVASCRIPT ==================== -->
+<script src="translations.js"></script>
 <script>
     document.addEventListener('DOMContentLoaded', () => {
+
+        const root = document.documentElement;
+        const defaultLocale = 'de';
+        const supportedLocales = ['de', 'en'];
+        const translations = window.siteTranslations || {};
 
         // ---- Footer year ----
         document.getElementById('footerYear').textContent = new Date().getFullYear();
 
         // ---- Theme toggle ----
-        const root = document.documentElement;
         const themeToggleButtons = document.querySelectorAll('[data-theme-toggle]');
         const themeStateLabels = document.querySelectorAll('[data-theme-state]');
+        const themeDarkIcons = document.querySelectorAll('[data-theme-icon-dark]');
+        const themeLightIcons = document.querySelectorAll('[data-theme-icon-light]');
         const themeColorMeta = document.querySelector('meta[name="theme-color"]');
         const themeMetaColors = {
             dark: '#2d353b',
@@ -1223,6 +1427,12 @@
             themeToggleButtons.forEach(button => {
                 button.setAttribute('aria-pressed', String(theme === 'light'));
             });
+            themeDarkIcons.forEach(icon => {
+                icon.classList.toggle('hidden', theme !== 'dark');
+            });
+            themeLightIcons.forEach(icon => {
+                icon.classList.toggle('hidden', theme !== 'light');
+            });
             if (themeColorMeta) {
                 themeColorMeta.setAttribute('content', themeMetaColors[theme]);
             }
@@ -1245,6 +1455,156 @@
             if (!getStoredTheme()) {
                 applyTheme(getSystemTheme());
             }
+        });
+
+        // ---- i18n ----
+        const languageButtons = document.querySelectorAll('[data-lang-switch]');
+        const mobileToggle = document.getElementById('mobileToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const menuIconOpen = document.getElementById('menuIconOpen');
+        const menuIconClose = document.getElementById('menuIconClose');
+        let menuOpen = false;
+        let currentLocale = defaultLocale;
+
+        function getTranslation(key, locale = currentLocale) {
+            return translations[locale]?.[key] ?? translations[defaultLocale]?.[key] ?? '';
+        }
+
+        function setMeta(selector, value) {
+            const element = document.querySelector(selector);
+            if (element && value) {
+                element.setAttribute('content', value);
+            }
+        }
+
+        function applyTextTranslations() {
+            document.querySelectorAll('[data-i18n]').forEach(element => {
+                const value = getTranslation(element.dataset.i18n);
+                if (value) {
+                    element.textContent = value;
+                }
+            });
+
+            document.querySelectorAll('[data-i18n-html]').forEach(element => {
+                const value = getTranslation(element.dataset.i18nHtml);
+                if (value) {
+                    element.innerHTML = value;
+                }
+            });
+
+            document.querySelectorAll('[data-i18n-aria-label]').forEach(element => {
+                const value = getTranslation(element.dataset.i18nAriaLabel);
+                if (value) {
+                    element.setAttribute('aria-label', value);
+                }
+            });
+
+            document.querySelectorAll('[data-i18n-title]').forEach(element => {
+                const value = getTranslation(element.dataset.i18nTitle);
+                if (value) {
+                    element.setAttribute('title', value);
+                }
+            });
+        }
+
+        function updateLanguageButtons(locale) {
+            languageButtons.forEach(button => {
+                const isActive = button.dataset.langSwitch === locale;
+                button.setAttribute('aria-pressed', String(isActive));
+                button.classList.toggle('text-terminal-accent', isActive);
+                button.classList.toggle('border-terminal-accent', isActive);
+                button.classList.toggle('bg-terminal-accent/10', isActive);
+                button.classList.toggle('text-terminal-muted', !isActive);
+                button.classList.toggle('border-terminal-border', !isActive);
+            });
+        }
+
+        function updateMobileToggleLabel() {
+            if (!mobileToggle) {
+                return;
+            }
+            const key = menuOpen ? 'nav.mobileMenuClose' : 'nav.mobileMenuOpen';
+            mobileToggle.setAttribute('aria-label', getTranslation(key));
+        }
+
+        function getQueryLocale() {
+            try {
+                const url = new URL(window.location.href);
+                const locale = url.searchParams.get('lang');
+                return supportedLocales.includes(locale) ? locale : null;
+            } catch {
+                return null;
+            }
+        }
+
+        function getStoredLocale() {
+            try {
+                const locale = localStorage.getItem('locale');
+                return supportedLocales.includes(locale) ? locale : null;
+            } catch {
+                return null;
+            }
+        }
+
+        function getBrowserLocale() {
+            const locale = (navigator.language || '').slice(0, 2).toLowerCase();
+            return supportedLocales.includes(locale) ? locale : defaultLocale;
+        }
+
+        function getInitialLocale() {
+            return getQueryLocale() || getStoredLocale() || getBrowserLocale();
+        }
+
+        function updateLocaleInUrl(locale) {
+            try {
+                const url = new URL(window.location.href);
+                if (locale === defaultLocale) {
+                    url.searchParams.delete('lang');
+                } else {
+                    url.searchParams.set('lang', locale);
+                }
+                const nextUrl = `${url.pathname}${url.search}${url.hash}`;
+                window.history.replaceState({}, '', nextUrl || '/');
+            } catch {}
+        }
+
+        function applyLocale(locale, { persist = true, syncUrl = true } = {}) {
+            currentLocale = supportedLocales.includes(locale) ? locale : defaultLocale;
+            root.lang = currentLocale;
+
+            document.title = getTranslation('meta.title');
+            setMeta('meta[name="description"]', getTranslation('meta.description'));
+            setMeta('meta[name="keywords"]', getTranslation('meta.keywords'));
+            setMeta('meta[property="og:title"]', getTranslation('meta.ogTitle'));
+            setMeta('meta[property="og:description"]', getTranslation('meta.ogDescription'));
+            setMeta('meta[name="twitter:title"]', getTranslation('meta.twitterTitle'));
+            setMeta('meta[name="twitter:description"]', getTranslation('meta.twitterDescription'));
+
+            applyTextTranslations();
+            updateLanguageButtons(currentLocale);
+            updateMobileToggleLabel();
+
+            if (persist) {
+                try {
+                    localStorage.setItem('locale', currentLocale);
+                } catch {}
+            }
+
+            if (syncUrl) {
+                updateLocaleInUrl(currentLocale);
+            }
+        }
+
+        const initialLocale = getInitialLocale();
+        applyLocale(initialLocale, { syncUrl: Boolean(getQueryLocale()) || initialLocale !== defaultLocale });
+
+        languageButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const locale = button.dataset.langSwitch;
+                if (locale) {
+                    applyLocale(locale);
+                }
+            });
         });
 
         // ---- Scroll reveal (IntersectionObserver) ----
@@ -1298,18 +1658,13 @@
         updateBackToTop();
 
         // ---- Mobile menu toggle ----
-        const mobileToggle = document.getElementById('mobileToggle');
-        const mobileMenu = document.getElementById('mobileMenu');
-        const menuIconOpen = document.getElementById('menuIconOpen');
-        const menuIconClose = document.getElementById('menuIconClose');
-        let menuOpen = false;
-
         mobileToggle.addEventListener('click', () => {
             menuOpen = !menuOpen;
             mobileMenu.classList.toggle('open', menuOpen);
             menuIconOpen.classList.toggle('hidden', menuOpen);
             menuIconClose.classList.toggle('hidden', !menuOpen);
-            mobileToggle.setAttribute('aria-expanded', menuOpen);
+            mobileToggle.setAttribute('aria-expanded', String(menuOpen));
+            updateMobileToggleLabel();
         });
 
         // Close mobile menu on link click
@@ -1319,19 +1674,20 @@
                 mobileMenu.classList.remove('open');
                 menuIconOpen.classList.remove('hidden');
                 menuIconClose.classList.add('hidden');
-                mobileToggle.setAttribute('aria-expanded', false);
+                mobileToggle.setAttribute('aria-expanded', 'false');
+                updateMobileToggleLabel();
             });
         });
 
         // ---- Command hint buttons (hero) ----
         const cmdHints = document.querySelectorAll('[data-cmd]');
         const commandHintMapping = {
-            'about': '#about',
-            'skills': '#skills',
-            'experience': '#experience',
-            'stack': '#stack',
-            'warikoda': '#warikoda',
-            'contact': '#contact'
+            about: '#about',
+            skills: '#skills',
+            experience: '#experience',
+            stack: '#stack',
+            warikoda: '#warikoda',
+            contact: '#contact'
         };
 
         cmdHints.forEach(btn => {

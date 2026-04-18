@@ -3,15 +3,16 @@
 Persönliche Portfolio-Website im TUI/Terminal-Stil.
 
 ![Everforest Theme](https://img.shields.io/badge/theme-Everforest-83c092?style=flat-square)
-![Single File](https://img.shields.io/badge/deployment-single--file-blue?style=flat-square)
-![German](https://img.shields.io/badge/lang-DE-black?style=flat-square)
+![Static Site](https://img.shields.io/badge/deployment-static-blue?style=flat-square)
+![Languages](https://img.shields.io/badge/lang-DE%20%7C%20EN-black?style=flat-square)
 
 ## Features
 
 - **Terminal-Ästhetik** – Inspiriert von klassischen CLI-Interfaces
 - **Everforest Farbschema** – Dark & Light Mode mit System-Präferenz-Erkennung
-- **Single-File Deployment** – Keine Build-Tools, kein Server-Setup
+- **Statisches Deployment** – Keine Build-Tools, kein Server-Setup
 - **Responsive Design** – Mobile-first mit Tailwind CSS
+- **DE/EN i18n** – Sprachumschaltung mit Browser-/LocalStorage-Fallback
 - **Typewriter-Effekt** – Animierte Command-Eingabe im Hero
 - **Scroll Animations** – Sanfte Section-Reveals
 - **Accessibility** – Semantisches HTML, ARIA-Labels, Keyboard-Navigation
@@ -21,6 +22,7 @@ Persönliche Portfolio-Website im TUI/Terminal-Stil.
 - HTML5
 - Tailwind CSS (CDN)
 - Vanilla JavaScript
+- `translations.js` für i18n
 - Everforest Color Palette
 
 ## Farbschema
