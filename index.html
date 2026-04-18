@@ -22,12 +22,13 @@
 
     <script>
         (() => {
+            const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
             try {
                 const storedTheme = localStorage.getItem('theme');
-                const initialTheme = storedTheme === 'light' || storedTheme === 'dark' ? storedTheme : 'light';
+                const initialTheme = storedTheme === 'light' || storedTheme === 'dark' ? storedTheme : systemTheme;
                 document.documentElement.dataset.theme = initialTheme;
             } catch {
-                document.documentElement.dataset.theme = 'light';
+                document.documentElement.dataset.theme = systemTheme;
             }
         })();
     </script>
@@ -1134,6 +1135,20 @@
             dark: '#0a0e14',
             light: '#f8f4eb',
         };
+        const systemThemeMedia = window.matchMedia('(prefers-color-scheme: dark)');
+
+        function getSystemTheme() {
+            return systemThemeMedia.matches ? 'dark' : 'light';
+        }
+
+        function getStoredTheme() {
+            try {
+                const theme = localStorage.getItem('theme');
+                return theme === 'light' || theme === 'dark' ? theme : null;
+            } catch {
+                return null;
+            }
+        }
 
         function getCurrentTheme() {
             return root.dataset.theme === 'light' ? 'light' : 'dark';
@@ -1161,11 +1176,17 @@
             return nextTheme;
         }
 
-        applyTheme(getCurrentTheme());
+        applyTheme(getStoredTheme() || getSystemTheme());
         themeToggleButtons.forEach(button => {
             button.addEventListener('click', () => {
                 toggleTheme();
             });
+        });
+
+        systemThemeMedia.addEventListener('change', () => {
+            if (!getStoredTheme()) {
+                applyTheme(getSystemTheme());
+            }
         });
 
         // ---- Typewriter effect for hero ----
