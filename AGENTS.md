@@ -15,8 +15,8 @@ Persönliche Portfolio-Website für Niklas Braun im TUI/Terminal-Stil mit Everfo
 
 ### Sprache
 - Website-Inhalt: **Deutsch und Englisch**
-- Standard-Sprache: **Deutsch**
-- Englische Inhalte über die i18n-Struktur pflegen
+- Standard-Sprache: **Englisch**
+- Deutsche und englische Inhalte über die i18n-Struktur pflegen
 - Code-Kommentare: Englisch
 - Commit-Messages: Englisch
 
