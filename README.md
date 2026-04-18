@@ -6,7 +6,7 @@ Persönliche Portfolio-Website im TUI/Terminal-Stil.
 ![Single File](https://img.shields.io/badge/deployment-single--file-blue?style=flat-square)
 ![German](https://img.shields.io/badge/lang-DE-black?style=flat-square)
 
-## ✨ Features
+## Features
 
 - **Terminal-Ästhetik** – Inspiriert von klassischen CLI-Interfaces
 - **Everforest Farbschema** – Dark & Light Mode mit System-Präferenz-Erkennung
@@ -16,14 +16,14 @@ Persönliche Portfolio-Website im TUI/Terminal-Stil.
 - **Scroll Animations** – Sanfte Section-Reveals
 - **Accessibility** – Semantisches HTML, ARIA-Labels, Keyboard-Navigation
 
-## 🛠 Tech Stack
+## Tech Stack
 
 - HTML5
 - Tailwind CSS (CDN)
 - Vanilla JavaScript
 - Everforest Color Palette
 
-## 📁 Projektstruktur
+## Projektstruktur
 
 ```
 new-tui-idea/
@@ -34,7 +34,7 @@ new-tui-idea/
 └── README.md
 ```
 
-## 🚀 Lokale Entwicklung
+## Lokale Entwicklung
 
 ```bash
 # Mit Python
@@ -49,7 +49,7 @@ php -S localhost:8000
 
 Dann öffne [http://localhost:8000](http://localhost:8000)
 
-## 🎨 Farbschema
+## Farbschema
 
 Das Design nutzt die [Everforest](https://github.com/sainnhe/everforest) Farbpalette:
 
@@ -63,7 +63,7 @@ Das Design nutzt die [Everforest](https://github.com/sainnhe/everforest) Farbpal
 | `--terminal-amber` | `#dbbc7f` | `#dfa000` | Backend |
 | `--terminal-red` | `#e67e80` | `#f85552` | Dev Workflow |
 
-## 📄 Sections
+## Sections
 
 1. **Hero** – Terminal-Fenster mit Intro + Pinned Projects
 2. **About** – `cat profile.config`
@@ -73,14 +73,14 @@ Das Design nutzt die [Everforest](https://github.com/sainnhe/everforest) Farbpal
 6. **WariKoda** – Open Source Projekte
 7. **Contact** – Kontaktmöglichkeiten
 
-## 🔗 Links
+## Links
 
 - **Live**: [nibraun.de](https://nibraun.de)
 - **GitHub**: [github.com/nibra180](https://github.com/nibra180)
 - **WariKoda**: [github.com/WariKoda](https://github.com/WariKoda)
 - **Arbeitgeber**: [Sharpness Solutions GmbH](https://sharpness.de)
 
-## 📝 Lizenz
+## Lizenz
 
 Privates Projekt. Code dient als Referenz.
 
