@@ -1,0 +1,26 @@
+{
+  "name": "new-tui-idea",
+  "version": "1.0.0",
+  "description": "Persönliche Portfolio-Website im TUI/Terminal-Stil.",
+  "main": "translations.js",
+  "scripts": {
+    "build": "tailwindcss -c tailwind.config.js -i ./src/tailwind.css -o ./dist/tailwind.css --minify",
+    "build:css": "tailwindcss -c tailwind.config.js -i ./src/tailwind.css -o ./dist/tailwind.css --minify",
+    "dev:css": "tailwindcss -c tailwind.config.js -i ./src/tailwind.css -o ./dist/tailwind.css --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nibra180/nibraun-tui.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/nibra180/nibraun-tui/issues"
+  },
+  "homepage": "https://github.com/nibra180/nibraun-tui#readme",
+  "devDependencies": {
+    "tailwindcss": "^3.4.17"
+  }
+}
