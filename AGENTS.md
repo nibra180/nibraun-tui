@@ -6,7 +6,7 @@ Persönliche Portfolio-Website für Niklas Braun im TUI/Terminal-Stil mit Everfo
 
 ## Tech Stack
 
-- **Single-File Deployment**: Alles in `index.html`
+- **Static Deployment**: Primär `index.html` plus `translations.js` für i18n
 - **Styling**: Tailwind CSS (CDN), Custom CSS Variables
 - **Farbschema**: Everforest Dark/Light Medium
 - **JavaScript**: Vanilla JS, kein Build-Prozess
@@ -14,7 +14,9 @@ Persönliche Portfolio-Website für Niklas Braun im TUI/Terminal-Stil mit Everfo
 ## Konventionen
 
 ### Sprache
-- Website-Inhalt: **Deutsch**
+- Website-Inhalt: **Deutsch und Englisch**
+- Standard-Sprache: **Deutsch**
+- Englische Inhalte über die i18n-Struktur pflegen
 - Code-Kommentare: Englisch
 - Commit-Messages: Englisch
 
@@ -31,7 +33,8 @@ Persönliche Portfolio-Website für Niklas Braun im TUI/Terminal-Stil mit Everfo
 ### JavaScript
 - Alles im `DOMContentLoaded` Event
 - Keine externen Dependencies
-- Features: Theme Toggle, Typewriter, Scroll Reveal, Mobile Menu
+- Übersetzungen für i18n dürfen in `translations.js` ausgelagert werden
+- Features: Theme Toggle, Typewriter, Scroll Reveal, Mobile Menu, Language Toggle
 
 ## Wichtige Bereiche
 
@@ -61,14 +64,14 @@ Persönliche Portfolio-Website für Niklas Braun im TUI/Terminal-Stil mit Everfo
 
 ### Don't
 - Keine externen JS-Libraries hinzufügen
-- Keine separaten CSS/JS-Dateien erstellen
-- Keine englischen Inhalte (außer Tech-Begriffe)
+- Keine separaten CSS/JS-Dateien erstellen, außer `translations.js` für i18n
+- Keine ungepflegten Mischsprachen oder doppelt gepflegten Texte außerhalb der i18n-Struktur
 - Keine Breaking Changes am Theme-System
 - Keine Emojis in Dokumentationen (README, AGENTS, etc.)
 
 ## Deployment
 
-Single-file deployment – `index.html` kann direkt auf jeden Webserver kopiert werden.
+Statisches Deployment – `index.html`, `translations.js` und Assets können direkt auf jeden Webserver kopiert werden.
 
 ```bash
 # Lokal testen
