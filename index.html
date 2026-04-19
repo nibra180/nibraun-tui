@@ -760,56 +760,7 @@
                         </a>
                     </div>
                 </div>
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                    <a href="https://github.com/WariKoda/WakoPluginAdminToolbar" target="_blank" rel="noopener noreferrer" class="group border border-terminal-border rounded-lg p-4 bg-terminal-surface/20 hover:border-terminal-accent/50 hover:bg-terminal-surface/30 transition-all">
-                        <div class="flex items-start justify-between gap-2 mb-2">
-                            <div class="flex items-center gap-2">
-                                <img src="img/warikoda-logo.png" alt="WariKoda" class="w-8 h-8 rounded border border-terminal-border bg-terminal-surface/40 p-1">
-                                <span class="text-terminal-heading text-sm group-hover:text-terminal-accent transition-colors">Shopware Admin Toolbar</span>
-                            </div>
-                            <span class="text-[10px] text-terminal-green border border-terminal-green/30 bg-terminal-green/10 rounded px-1.5 py-0.5">Shopware 6</span>
-                        </div>
-                        <p class="text-terminal-muted text-xs leading-relaxed mb-2" data-i18n="hero.project1.description">Open-Source Plugin für eine Admin-Toolbar im Storefront.</p>
-                        <div class="flex items-center gap-2 text-[10px] text-terminal-muted">
-                            <span>WariKoda</span>
-                            <span>·</span>
-                            <span class="text-terminal-green">lead @nibra180</span>
-                        </div>
-                    </a>
-                    <a href="https://github.com/WariKoda/FocusJournal" target="_blank" rel="noopener noreferrer" class="group border border-terminal-border rounded-lg p-4 bg-terminal-surface/20 hover:border-terminal-accent/50 hover:bg-terminal-surface/30 transition-all">
-                        <div class="flex items-start justify-between gap-2 mb-2">
-                            <div class="flex items-center gap-2">
-                                <img src="img/warikoda-logo.png" alt="WariKoda" class="w-8 h-8 rounded border border-terminal-border bg-terminal-surface/40 p-1">
-                                <span class="text-terminal-heading text-sm group-hover:text-terminal-accent transition-colors">Focus Journal App</span>
-                            </div>
-                            <span class="text-[10px] text-terminal-cyan border border-terminal-cyan/30 bg-terminal-cyan/10 rounded px-1.5 py-0.5">Flutter</span>
-                        </div>
-                        <p class="text-terminal-muted text-xs leading-relaxed mb-2" data-i18n="hero.project2.description">Local-first Journaling-App für Fokus und Reflexion.</p>
-                        <div class="flex items-center gap-2 text-[10px] text-terminal-muted">
-                            <span>WariKoda</span>
-                            <span>·</span>
-                            <span class="text-terminal-cyan">lead @bdgraue</span>
-                        </div>
-                    </a>
-                    <a href="https://github.com/WariKoda/drift" target="_blank" rel="noopener noreferrer" class="group border border-terminal-border rounded-lg p-4 bg-terminal-surface/20 hover:border-terminal-accent/50 hover:bg-terminal-surface/30 transition-all sm:col-span-2">
-                        <div class="flex items-start justify-between gap-2 mb-2">
-                            <div class="flex items-center gap-2">
-                                <img src="img/warikoda-logo.png" alt="WariKoda" class="w-8 h-8 rounded border border-terminal-border bg-terminal-surface/40 p-1">
-                                <span class="text-terminal-heading text-sm group-hover:text-terminal-accent transition-colors">drift</span>
-                            </div>
-                            <div class="flex items-center gap-1.5 flex-shrink-0">
-                                <span class="text-[10px] text-terminal-purple border border-terminal-purple bg-terminal-surface/40 rounded px-1.5 py-0.5">TUI</span>
-                                <span class="text-[10px] text-terminal-green border border-terminal-green/30 bg-terminal-green/10 rounded px-1.5 py-0.5">Go</span>
-                            </div>
-                        </div>
-                        <p class="text-terminal-muted text-xs leading-relaxed mb-2" data-i18n="hero.project3.description">Terminal-TUI zum Browsen, Vergleichen und Synchronisieren von Dateien mit Remote-Hosts.</p>
-                        <div class="flex items-center gap-2 text-[10px] text-terminal-muted">
-                            <span>WariKoda</span>
-                            <span>·</span>
-                            <span class="text-terminal-purple">lead @nibra180</span>
-                        </div>
-                    </a>
-                </div>
+                <div id="pinnedProjectsGrid" class="grid grid-cols-1 sm:grid-cols-2 gap-3"></div>
             </div>
 
         </div>
@@ -1198,7 +1149,7 @@
                 <div class="flex items-center gap-0 border-b border-terminal-border text-xs">
                     <div class="px-4 py-2 border-b border-terminal-purple text-terminal-heading bg-terminal-surface/40">open-source.log</div>
                 </div>
-                <div class="p-4 sm:p-5 space-y-4 text-sm font-mono">
+                <div id="warikodaProjectsLog" class="p-4 sm:p-5 space-y-4 text-sm font-mono">
                     <div class="code-line px-2 py-2 rounded">
                         <div class="flex flex-col sm:flex-row sm:items-start gap-2 sm:gap-3">
                             <span class="text-terminal-purple flex-shrink-0 sm:w-20 sm:text-right">[team]</span>
@@ -1208,60 +1159,6 @@
                                     <a href="https://github.com/WariKoda" target="_blank" rel="noopener noreferrer" class="text-terminal-accent hover:text-terminal-heading transition-colors">github.com/WariKoda</a>
                                 </div>
                                 <div class="text-terminal-muted text-xs mt-1" data-i18n="warikoda.teamDescription">Gemeinsame Veröffentlichung von Open-Source-Software für Shopware und Flutter.</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="code-line px-2 py-2 rounded">
-                        <div class="flex flex-col sm:flex-row sm:items-start gap-2 sm:gap-3">
-                            <span class="text-terminal-green flex-shrink-0 sm:w-20 sm:text-right">[oss]</span>
-                            <div>
-                                <div class="text-terminal-heading">
-                                    <a href="https://github.com/WariKoda/WakoPluginAdminToolbar" target="_blank" rel="noopener noreferrer" class="hover:text-terminal-accent transition-colors">Shopware 6 Admin Toolbar Plugin</a>
-                                </div>
-                                <div class="mt-1">
-                                    <span class="inline-flex items-center gap-1 rounded border border-terminal-border bg-terminal-surface/40 px-2 py-0.5 text-[10px] text-terminal-muted">
-                                        <span class="text-terminal-green">lead dev</span>
-                                        <a href="https://github.com/nibra180" target="_blank" rel="noopener noreferrer" class="text-terminal-accent hover:text-terminal-heading transition-colors">@nibra180</a>
-                                    </span>
-                                </div>
-                                <div class="text-terminal-muted text-xs mt-1" data-i18n="warikoda.project1Description">Open-Source Plugin, das im Storefront eine Admin-Toolbar einblendet – ähnlich wie bei WordPress.</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="code-line px-2 py-2 rounded">
-                        <div class="flex flex-col sm:flex-row sm:items-start gap-2 sm:gap-3">
-                            <span class="text-terminal-cyan flex-shrink-0 sm:w-20 sm:text-right">[app]</span>
-                            <div>
-                                <div class="text-terminal-heading">
-                                    <a href="https://github.com/WariKoda/FocusJournal" target="_blank" rel="noopener noreferrer" class="hover:text-terminal-accent transition-colors">Focus Journal</a>
-                                </div>
-                                <div class="mt-1">
-                                    <span class="inline-flex items-center gap-1 rounded border border-terminal-border bg-terminal-surface/40 px-2 py-0.5 text-[10px] text-terminal-muted">
-                                        <span class="text-terminal-cyan">lead dev</span>
-                                        <a href="https://github.com/bdgraue" target="_blank" rel="noopener noreferrer" class="text-terminal-accent hover:text-terminal-heading transition-colors">@bdgraue</a>
-                                    </span>
-                                </div>
-                                <div class="text-terminal-muted text-xs mt-1" data-i18n="warikoda.project2Description">Local-first Journaling-App mit Flutter für Fokus und Reflexion – ohne Account, ohne Cloud, ohne Tracking; Einträge bleiben verschlüsselt auf dem Gerät.</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="code-line px-2 py-2 rounded">
-                        <div class="flex flex-col sm:flex-row sm:items-start gap-2 sm:gap-3">
-                            <span class="text-terminal-purple flex-shrink-0 sm:w-20 sm:text-right">[tui]</span>
-                            <div>
-                                <div class="text-terminal-heading">
-                                    <a href="https://github.com/WariKoda/drift" target="_blank" rel="noopener noreferrer" class="hover:text-terminal-accent transition-colors">drift</a>
-                                </div>
-                                <div class="mt-1">
-                                    <span class="inline-flex items-center gap-1 rounded border border-terminal-border bg-terminal-surface/40 px-2 py-0.5 text-[10px] text-terminal-muted">
-                                        <span class="text-terminal-purple">lead dev</span>
-                                        <a href="https://github.com/nibra180" target="_blank" rel="noopener noreferrer" class="text-terminal-accent hover:text-terminal-heading transition-colors">@nibra180</a>
-                                    </span>
-                                </div>
-                                <div class="text-terminal-muted text-xs mt-1" data-i18n="warikoda.project3Description">Terminal-TUI zum Browsen, Vergleichen und Synchronisieren von Dateien mit Remote-Hosts via SFTP/SSH und FTP – inklusive Diff-Ansicht und Sync-Richtungen pro Datei.</div>
                             </div>
                         </div>
                     </div>
@@ -1355,6 +1252,8 @@
 
 <!-- ==================== JAVASCRIPT ==================== -->
 <script src="translations.js"></script>
+<script src="projects.js"></script>
+<script src="github-project-meta.js"></script>
 <script>
     document.addEventListener('DOMContentLoaded', () => {
 
@@ -1362,6 +1261,10 @@
         const defaultLocale = 'en';
         const supportedLocales = ['de', 'en'];
         const translations = window.siteTranslations || {};
+        const siteProjects = Array.isArray(window.siteProjects) ? window.siteProjects : [];
+        const pinnedProjectsGrid = document.getElementById('pinnedProjectsGrid');
+        const warikodaProjectsLog = document.getElementById('warikodaProjectsLog');
+        let githubProjectMeta = null;
 
         // ---- Footer year ----
         document.getElementById('footerYear').textContent = new Date().getFullYear();
@@ -1471,6 +1374,84 @@
             });
         }
 
+        function escapeHtml(value) {
+            return String(value)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#39;');
+        }
+
+        function getSortedProjects(projects) {
+            return [...projects].sort((a, b) => (b.priority || 0) - (a.priority || 0));
+        }
+
+        function renderPinnedProjects() {
+            if (!pinnedProjectsGrid) {
+                return;
+            }
+
+            pinnedProjectsGrid.innerHTML = getSortedProjects(siteProjects.filter(project => project.showInPinned !== false)).map(project => {
+                const badges = (project.badges || []).map(badge => `
+                            <span class="${badge.className}">${escapeHtml(badge.label)}</span>
+                        `).join('');
+                const cardClass = project.cardClass ? ` ${project.cardClass}` : '';
+
+                return `
+                    <a href="${escapeHtml(project.href)}" target="_blank" rel="noopener noreferrer" data-github-repo="${escapeHtml(project.repo)}" class="group border border-terminal-border rounded-lg p-4 bg-terminal-surface/20 hover:border-terminal-accent/50 hover:bg-terminal-surface/30 transition-all${cardClass}">
+                        <div class="flex items-start justify-between gap-2 mb-2">
+                            <div class="flex items-center gap-2 min-w-0">
+                                <img src="img/warikoda-logo.png" alt="WariKoda" class="w-8 h-8 rounded border border-terminal-border bg-terminal-surface/40 p-1">
+                                <div class="flex flex-col min-w-0">
+                                    <span class="text-terminal-heading text-sm group-hover:text-terminal-accent transition-colors">${escapeHtml(project.name)}</span>
+                                    <span class="text-[10px] text-terminal-accent" data-repo-release data-repo-release-state="loading">release: loading...</span>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-1.5 flex-shrink-0">${badges}</div>
+                        </div>
+                        <p class="text-terminal-muted text-xs leading-relaxed mb-2" data-i18n="${escapeHtml(project.descriptionKey)}">${escapeHtml(getTranslation(project.descriptionKey))}</p>
+                        <div class="flex items-center gap-2 text-[10px] text-terminal-muted">
+                            <span>${escapeHtml(project.owner)}</span>
+                            <span>·</span>
+                            <span class="${escapeHtml(project.leadClass)}">lead ${escapeHtml(project.lead)}</span>
+                        </div>
+                        <div class="mt-2 text-[10px] text-terminal-muted" data-repo-update data-repo-update-state="loading">last update: loading...</div>
+                    </a>
+                `;
+            }).join('');
+        }
+
+        function renderWarikodaProjects() {
+            if (!warikodaProjectsLog) {
+                return;
+            }
+
+            const projectMarkup = getSortedProjects(siteProjects.filter(project => project.showInWarikoda !== false)).map(project => `
+                    <div class="code-line px-2 py-2 rounded" data-github-repo="${escapeHtml(project.repo)}">
+                        <div class="flex flex-col sm:flex-row sm:items-start gap-2 sm:gap-3">
+                            <span class="${escapeHtml(project.warikodaLabelClass)} flex-shrink-0 sm:w-20 sm:text-right">${escapeHtml(project.warikodaLabel)}</span>
+                            <div>
+                                <div class="text-terminal-heading">
+                                    <a href="${escapeHtml(project.href)}" target="_blank" rel="noopener noreferrer" class="hover:text-terminal-accent transition-colors">${escapeHtml(project.warikodaName || project.name)}</a>
+                                </div>
+                                <div class="text-[10px] text-terminal-accent mt-1" data-repo-release data-repo-release-state="loading">release: loading...</div>
+                                <div class="mt-1">
+                                    <span class="inline-flex items-center gap-1 rounded border border-terminal-border bg-terminal-surface/40 px-2 py-0.5 text-[10px] text-terminal-muted">
+                                        <span class="${escapeHtml(project.leadClass)}">lead dev</span>
+                                        <a href="${escapeHtml(project.leadHref)}" target="_blank" rel="noopener noreferrer" class="text-terminal-accent hover:text-terminal-heading transition-colors">${escapeHtml(project.lead)}</a>
+                                    </span>
+                                </div>
+                                <div class="text-terminal-muted text-xs mt-1" data-i18n="${escapeHtml(project.warikodaDescriptionKey || project.descriptionKey)}">${escapeHtml(getTranslation(project.warikodaDescriptionKey || project.descriptionKey))}</div>
+                                <div class="text-terminal-muted text-[10px] mt-1" data-repo-update data-repo-update-state="loading">last update: loading...</div>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+
+            warikodaProjectsLog.insertAdjacentHTML('beforeend', projectMarkup);
+        }
+
         function updateLanguageButtons(locale) {
             languageButtons.forEach(button => {
                 const isActive = button.dataset.langSwitch === locale;
@@ -1542,6 +1523,7 @@
             applyTextTranslations();
             updateLanguageButtons(currentLocale);
             updateMobileToggleLabel();
+            githubProjectMeta?.refreshLabels();
 
             if (persist) {
                 try {
@@ -1553,6 +1535,9 @@
                 updateLocaleInUrl(currentLocale);
             }
         }
+
+        renderPinnedProjects();
+        renderWarikodaProjects();
 
         const initialLocale = getInitialLocale();
         applyLocale(initialLocale, { syncUrl: Boolean(getQueryLocale()) || initialLocale !== defaultLocale });
@@ -1662,6 +1647,15 @@
                 el.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
         }
+
+        // ---- GitHub repo updates ----
+        githubProjectMeta = window.createGithubProjectMeta({
+            getLocale: () => currentLocale,
+            getTranslation,
+            cacheKey: 'github-repo-updates-v2',
+            cacheTtl: 1000 * 60 * 60 * 6,
+        });
+        githubProjectMeta.load();
 
         // ---- Typewriter effect ----
         const typewriterEl = document.getElementById('typewriter');
