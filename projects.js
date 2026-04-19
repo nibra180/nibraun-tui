@@ -20,7 +20,7 @@
             badges: [
                 {
                     label: 'Shopware 6',
-                    className: 'text-[10px] text-terminal-green border border-terminal-green/30 bg-terminal-green/10 rounded px-1.5 py-0.5',
+                    className: 'text-[10px] text-terminal-accent border border-terminal-accent/30 bg-terminal-accent/10 rounded px-1.5 py-0.5',
                 },
             ],
         },
@@ -92,7 +92,7 @@
             badges: [
                 {
                     label: 'Portfolio',
-                    className: 'text-[10px] text-terminal-accent border border-terminal-accent/30 bg-terminal-accent/10 rounded px-1.5 py-0.5',
+                    className: 'text-[10px] text-terminal-green border border-terminal-green/30 bg-terminal-green/10 rounded px-1.5 py-0.5',
                 }
             ],
         },
