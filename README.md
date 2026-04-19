@@ -1,67 +1,73 @@
 # nibraun.de – Personal Resume Website
 
-Persönliche Portfolio-Website im TUI/Terminal-Stil.
+Personal portfolio website in a TUI/terminal-inspired style.
 
 ![Everforest Theme](https://img.shields.io/badge/theme-Everforest-83c092?style=flat-square)
 ![Static Site](https://img.shields.io/badge/deployment-static-blue?style=flat-square)
 ![Languages](https://img.shields.io/badge/lang-DE%20%7C%20EN-black?style=flat-square)
 
+## Screenshot
+
+![nibraun.de screenshot](img/nibraun-tui-001.png)
+
 ## Features
 
-- **Terminal-Ästhetik** – Inspiriert von klassischen CLI-Interfaces
-- **Everforest Farbschema** – Dark & Light Mode mit System-Präferenz-Erkennung
-- **Statisches Deployment** – Fertige Dateien können ohne Server-Logik deployed werden
-- **Responsive Design** – Mobile-first mit Tailwind CSS
-- **DE/EN i18n** – Sprachumschaltung mit Browser-/LocalStorage-Fallback
-- **Typewriter-Effekt** – Animierte Command-Eingabe im Hero
-- **Scroll Animations** – Sanfte Section-Reveals
-- **Accessibility** – Semantisches HTML, ARIA-Labels, Keyboard-Navigation
-- **GitHub Project Meta** – Release-Versionen und letzte Updates für Projektkarten
-- **Local Cache** – GitHub-Metadaten werden clientseitig per `localStorage` zwischengespeichert
+- **Terminal aesthetics** – Inspired by classic CLI interfaces
+- **Everforest color palette** – Dark and light mode with system preference detection
+- **Static deployment** – Ready-to-serve files without server-side logic
+- **Responsive design** – Mobile-first layout built with Tailwind CSS
+- **DE/EN i18n** – Language toggle with browser and `localStorage` fallback
+- **Section intro typewriter** – Command-style intros before the main section content appears
+- **Scroll animations** – Subtle section reveal effects
+- **Accessibility** – Semantic HTML, ARIA labels, and keyboard-friendly interactions
+- **GitHub project meta** – Release versions and recent updates for project cards
+- **Local cache** – GitHub metadata is cached client-side via `localStorage`
 
 ## Tech Stack
 
 - HTML5
-- Tailwind CSS (CLI-build)
+- Tailwind CSS (CLI build)
 - Vanilla JavaScript
-- `translations.js` für i18n
-- `projects.js` für Projektdaten
-- `github-project-meta.js` für GitHub-Release-/Update-Metadaten
-- Everforest Color Palette
+- `translations.js` for i18n
+- `projects.js` for project data
+- `github-project-meta.js` for GitHub release/update metadata
+- `section-intro.js` for section intro typewriter behavior
+- Everforest color palette
 
-## Farbschema
+## Color Palette
 
-Das Design nutzt die [Everforest](https://github.com/sainnhe/everforest) Farbpalette:
+The design uses the [Everforest](https://github.com/sainnhe/everforest) palette:
 
-| Variable | Dark | Light | Verwendung |
-|----------|------|-------|------------|
-| `--terminal-bg` | `#2d353b` | `#fdf6e3` | Hintergrund |
-| `--terminal-accent` | `#a7c080` | `#8da101` | Akzentfarbe, Links |
-| `--terminal-green` | `#a7c080` | `#8da101` | Shopware, Success |
-| `--terminal-cyan` | `#83c092` | `#35a77c` | Flutter, Info |
+| Variable | Dark | Light | Usage |
+|----------|------|-------|-------|
+| `--terminal-bg` | `#2d353b` | `#fdf6e3` | Background |
+| `--terminal-accent` | `#a7c080` | `#8da101` | Accent color, links |
+| `--terminal-green` | `#a7c080` | `#8da101` | Shopware, success |
+| `--terminal-cyan` | `#83c092` | `#35a77c` | Flutter, info |
 | `--terminal-purple` | `#d699b6` | `#df69ba` | Frontend |
 | `--terminal-amber` | `#dbbc7f` | `#dfa000` | Backend |
-| `--terminal-red` | `#e67e80` | `#f85552` | Dev Workflow |
+| `--terminal-red` | `#e67e80` | `#f85552` | Dev workflow |
 
-## Entwicklung
+## Development
 
 ```bash
 npm install
 npm run build
 ```
 
-Für Tailwind während der Entwicklung:
+For Tailwind during development:
 
 ```bash
 npm run dev:css
 ```
 
-Für Deployment werden diese Dateien benötigt:
+The following files are required for deployment:
 
 - `index.html`
 - `translations.js`
 - `projects.js`
 - `github-project-meta.js`
+- `section-intro.js`
 - `dist/tailwind.css`
 - `img/`
 
@@ -70,10 +76,10 @@ Für Deployment werden diese Dateien benötigt:
 - **Live**: [nibraun.de](https://nibraun.de)
 - **GitHub**: [github.com/nibra180](https://github.com/nibra180)
 - **WariKoda**: [github.com/WariKoda](https://github.com/WariKoda)
-- **Arbeitgeber**: [Sharpness Solutions GmbH](https://sharpness.de)
+- **Employer**: [Sharpness Solutions GmbH](https://sharpness.de)
 
-## Lizenz
+## License
 
-Dieses Repository ist öffentlich einsehbar, aber nicht zur freien Nutzung, Vervielfältigung, Modifikation oder Weiterverbreitung lizenziert.
+This repository is publicly visible, but it is not licensed for free use, reproduction, modification, or redistribution.
 
-Alle Rechte vorbehalten.
+All rights reserved.

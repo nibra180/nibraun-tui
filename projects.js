@@ -76,5 +76,29 @@
                 },
             ],
         },
+        {
+            priority: 10,
+            name: 'nibraun-tui',
+            href: 'https://github.com/nibra180/nibraun-tui',
+            repo: 'nibra180/nibraun-tui',
+            descriptionKey: 'hero.project4.description',
+            owner: 'nibra180',
+            lead: '@nibra180',
+            leadHref: 'https://github.com/nibra180',
+            leadClass: 'text-terminal-accent',
+            cardClass: '',
+            showInPinned: true,
+            showInWarikoda: false,
+            badges: [
+                {
+                    label: 'Portfolio',
+                    className: 'text-[10px] text-terminal-accent border border-terminal-accent/30 bg-terminal-accent/10 rounded px-1.5 py-0.5',
+                },
+                {
+                    label: 'TUI',
+                    className: 'text-[10px] text-terminal-purple border border-terminal-purple bg-terminal-surface/40 rounded px-1.5 py-0.5',
+                },
+            ],
+        },
     ];
 })(typeof window !== 'undefined' ? window : globalThis);
