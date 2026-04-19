@@ -74,4 +74,6 @@ Für Deployment werden diese Dateien benötigt:
 
 ## Lizenz
 
-Privates Projekt. Code dient als Referenz.
+Dieses Repository ist öffentlich einsehbar, aber nicht zur freien Nutzung, Vervielfältigung, Modifikation oder Weiterverbreitung lizenziert.
+
+Alle Rechte vorbehalten.
