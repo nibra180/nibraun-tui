@@ -6,7 +6,7 @@ Persönliche Portfolio-Website für Niklas Braun im TUI/Terminal-Stil mit Everfo
 
 ## Tech Stack
 
-- **Static Deployment**: `index.html`, `translations.js`, `dist/tailwind.css` und Assets
+- **Static Deployment**: `index.html`, `translations.js`, `projects.js`, `github-project-meta.js`, `dist/tailwind.css` und Assets
 - **Styling**: Tailwind CSS (CLI-build), Custom CSS Variables
 - **Farbschema**: Everforest Dark/Light Medium
 - **JavaScript**: Vanilla JS, minimaler Tailwind-Build für Production
@@ -33,8 +33,10 @@ Persönliche Portfolio-Website für Niklas Braun im TUI/Terminal-Stil mit Everfo
 ### JavaScript
 - Alles im `DOMContentLoaded` Event
 - Keine externen Runtime-Dependencies im Browser
-- Übersetzungen für i18n dürfen in `translations.js` ausgelagert werden
-- Features: Theme Toggle, Typewriter, Scroll Reveal, Mobile Menu, Language Toggle
+- Übersetzungen für i18n werden in `translations.js` gepflegt
+- Projektdaten werden in `projects.js` gepflegt
+- GitHub-Metadaten für Projekte werden in `github-project-meta.js` geladen und gecacht
+- Features: Theme Toggle, Typewriter, Scroll Reveal, Mobile Menu, Language Toggle, GitHub Release/Last-Update für Projekte
 
 ## Wichtige Bereiche
 
@@ -71,11 +73,11 @@ Persönliche Portfolio-Website für Niklas Braun im TUI/Terminal-Stil mit Everfo
 
 ## Deployment
 
-Statisches Deployment – `index.html`, `translations.js`, `dist/tailwind.css` und Assets können direkt auf jeden Webserver kopiert werden.
+Statisches Deployment – `index.html`, `translations.js`, `projects.js`, `github-project-meta.js`, `dist/tailwind.css` und Assets können direkt auf jeden Webserver kopiert werden.
 
 ```bash
 # Lokal testen
-cd new-tui-idea
+cd nibraun-tui
 python -m http.server 8000
 # oder
 npx serve .

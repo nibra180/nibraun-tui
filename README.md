@@ -16,6 +16,8 @@ Persönliche Portfolio-Website im TUI/Terminal-Stil.
 - **Typewriter-Effekt** – Animierte Command-Eingabe im Hero
 - **Scroll Animations** – Sanfte Section-Reveals
 - **Accessibility** – Semantisches HTML, ARIA-Labels, Keyboard-Navigation
+- **GitHub Project Meta** – Release-Versionen und letzte Updates für Projektkarten
+- **Local Cache** – GitHub-Metadaten werden clientseitig per `localStorage` zwischengespeichert
 
 ## Tech Stack
 
@@ -23,6 +25,8 @@ Persönliche Portfolio-Website im TUI/Terminal-Stil.
 - Tailwind CSS (CLI-build)
 - Vanilla JavaScript
 - `translations.js` für i18n
+- `projects.js` für Projektdaten
+- `github-project-meta.js` für GitHub-Release-/Update-Metadaten
 - Everforest Color Palette
 
 ## Farbschema
@@ -56,6 +60,8 @@ Für Deployment werden diese Dateien benötigt:
 
 - `index.html`
 - `translations.js`
+- `projects.js`
+- `github-project-meta.js`
 - `dist/tailwind.css`
 - `img/`
 
