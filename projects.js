@@ -93,11 +93,7 @@
                 {
                     label: 'Portfolio',
                     className: 'text-[10px] text-terminal-accent border border-terminal-accent/30 bg-terminal-accent/10 rounded px-1.5 py-0.5',
-                },
-                {
-                    label: 'TUI',
-                    className: 'text-[10px] text-terminal-purple border border-terminal-purple bg-terminal-surface/40 rounded px-1.5 py-0.5',
-                },
+                }
             ],
         },
     ];
