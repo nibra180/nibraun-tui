@@ -10,6 +10,8 @@ Personal portfolio website in a TUI/terminal-inspired style.
 
 ![nibraun.de screenshot](img/nibraun-tui-001.png)
 
+Terminal-inspired portfolio website for nibraun.de with section intro commands, project metadata, bilingual content, and an Everforest-based theme.
+
 ## Features
 
 - **Terminal aesthetics** – Inspired by classic CLI interfaces
