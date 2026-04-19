@@ -534,6 +534,21 @@
             color: rgb(var(--terminal-heading));
         }
 
+        /* Section intro */
+        .section-shell:not(.is-ready) {
+            opacity: 0;
+            transform: translateY(14px);
+            pointer-events: none;
+        }
+        .section-shell {
+            transition: opacity 0.35s ease, transform 0.35s ease;
+        }
+        .section-shell.is-ready {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+
         /* Mobile menu */
         .mobile-menu {
             max-height: 0;
@@ -639,6 +654,15 @@
     <section id="hero" class="flex items-center justify-center px-4 py-12 sm:py-16 border-b border-terminal-border/50">
         <div class="w-full max-w-4xl">
 
+            <!-- Entry command -->
+            <div class="mb-6 sm:mb-7" data-section-intro data-command="load-profile --source ./profile.config" data-target="heroContent" data-pause-after-type="220" data-start-delay="100">
+                <div class="flex items-center gap-0 text-base sm:text-lg md:text-xl">
+                    <span class="text-terminal-prompt flex-shrink-0">$&nbsp;</span>
+                    <span data-section-typewriter class="text-terminal-heading"></span><span class="cursor-blink" aria-hidden="true"></span>
+                </div>
+            </div>
+
+            <div id="heroContent" class="section-shell">
             <!-- Terminal Window -->
             <div class="border border-terminal-border rounded-lg overflow-hidden scanlines relative reveal-section glow-border">
 
@@ -731,12 +755,6 @@
                                     <span class="text-terminal-prompt">$</span> contact
                                 </button>
                             </div>
-
-                            <!-- Typewriter cursor -->
-                            <div class="type-line flex items-center gap-0 pt-1">
-                                <span class="text-terminal-prompt">$&nbsp;</span>
-                                <span id="typewriter" class="text-terminal-muted"></span><span class="cursor-blink" aria-hidden="true"></span>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -762,19 +780,20 @@
                 </div>
                 <div id="pinnedProjectsGrid" class="grid grid-cols-1 sm:grid-cols-2 gap-3"></div>
             </div>
+            </div>
 
         </div>
     </section>
 
     <!-- ==================== ABOUT SECTION ==================== -->
     <section id="about" class="px-4 py-16 sm:py-24">
-        <div class="max-w-4xl mx-auto reveal-section">
-            <!-- Section header -->
-            <div class="flex items-center gap-3 mb-6">
-                <span class="text-terminal-prompt text-sm">$</span>
-                <h2 class="text-terminal-heading text-base sm:text-lg font-medium">cat profile.config</h2>
+        <div class="max-w-4xl mx-auto mb-6 sm:mb-7" data-section-intro data-command="cat profile.config" data-target="aboutContent">
+            <div class="flex items-center gap-0 text-sm sm:text-[15px]">
+                <span class="text-terminal-prompt flex-shrink-0">$&nbsp;</span>
+                <span data-section-typewriter class="text-terminal-heading"></span><span class="cursor-blink" aria-hidden="true"></span>
             </div>
-
+        </div>
+        <div id="aboutContent" class="max-w-4xl mx-auto reveal-section section-shell">
             <!-- Config file panel -->
             <div class="border border-terminal-border rounded-lg overflow-hidden glow-border">
                 <!-- File tab -->
@@ -848,13 +867,13 @@
 
     <!-- ==================== SKILLS SECTION ==================== -->
     <section id="skills" class="px-4 py-16 sm:py-24 border-t border-terminal-border/50">
-        <div class="max-w-4xl mx-auto reveal-section">
-            <!-- Section header -->
-            <div class="flex items-center gap-3 mb-6">
-                <span class="text-terminal-prompt text-sm">$</span>
-                <h2 class="text-terminal-heading text-base sm:text-lg font-medium">ls --skills</h2>
+        <div class="max-w-4xl mx-auto mb-6 sm:mb-7" data-section-intro data-command="ls --skills" data-target="skillsContent">
+            <div class="flex items-center gap-0 text-sm sm:text-[15px]">
+                <span class="text-terminal-prompt flex-shrink-0">$&nbsp;</span>
+                <span data-section-typewriter class="text-terminal-heading"></span><span class="cursor-blink" aria-hidden="true"></span>
             </div>
-
+        </div>
+        <div id="skillsContent" class="max-w-4xl mx-auto reveal-section section-shell">
             <div class="space-y-3">
                 <details class="skill-group border border-terminal-border rounded-lg overflow-hidden bg-terminal-surface/20">
                     <summary class="flex items-center justify-between gap-4 px-4 py-3 cursor-pointer text-sm text-terminal-heading bg-terminal-surface/30">
@@ -954,13 +973,14 @@
 
     <!-- ==================== EXPERIENCE SECTION ==================== -->
     <section id="experience" class="px-4 py-16 sm:py-24 border-t border-terminal-border/50">
-        <div class="max-w-4xl mx-auto reveal-section">
-            <!-- Section header -->
-            <div class="flex items-center gap-3 mb-6">
-                <span class="text-terminal-prompt text-sm">$</span>
-                <h2 class="text-terminal-heading text-base sm:text-lg font-medium">history --timeline</h2>
-                <span class="text-terminal-muted text-xs ml-2" data-i18n="experience.subtitle"># Beruflicher Werdegang</span>
+        <div class="max-w-4xl mx-auto mb-6 sm:mb-7" data-section-intro data-command="history --timeline" data-target="experienceContent">
+            <div class="flex items-center gap-0 text-sm sm:text-[15px]">
+                <span class="text-terminal-prompt flex-shrink-0">$&nbsp;</span>
+                <span data-section-typewriter class="text-terminal-heading"></span><span class="cursor-blink" aria-hidden="true"></span>
             </div>
+        </div>
+        <div id="experienceContent" class="max-w-4xl mx-auto reveal-section section-shell">
+            <div class="text-terminal-muted text-xs mb-6" data-i18n="experience.subtitle"># Beruflicher Werdegang</div>
 
             <div class="grid grid-cols-1 gap-4">
                 <div class="border border-terminal-border rounded-lg overflow-hidden glow-border bg-terminal-surface/20">
@@ -1060,13 +1080,13 @@
 
     <!-- ==================== TECH STACK SECTION ==================== -->
     <section id="stack" class="px-4 py-16 sm:py-24 border-t border-terminal-border/50">
-        <div class="max-w-4xl mx-auto reveal-section">
-            <!-- Section header -->
-            <div class="flex items-center gap-3 mb-6">
-                <span class="text-terminal-prompt text-sm">$</span>
-                <h2 class="text-terminal-heading text-base sm:text-lg font-medium">ls --stack</h2>
+        <div class="max-w-4xl mx-auto mb-6 sm:mb-7" data-section-intro data-command="ls --stack" data-target="stackContent">
+            <div class="flex items-center gap-0 text-sm sm:text-[15px]">
+                <span class="text-terminal-prompt flex-shrink-0">$&nbsp;</span>
+                <span data-section-typewriter class="text-terminal-heading"></span><span class="cursor-blink" aria-hidden="true"></span>
             </div>
-
+        </div>
+        <div id="stackContent" class="max-w-4xl mx-auto reveal-section section-shell">
             <!-- Stack output -->
             <div class="border border-terminal-border rounded-lg overflow-hidden glow-border">
                 <div class="p-4 sm:p-5 bg-terminal-surface/20 space-y-0 text-sm">
@@ -1131,12 +1151,14 @@
 
     <!-- ==================== WARIKODA SECTION ==================== -->
     <section id="warikoda" class="px-4 py-16 sm:py-24 border-t border-terminal-border/50">
-        <div class="max-w-4xl mx-auto reveal-section">
-            <div class="flex items-center gap-3 mb-6">
-                <span class="text-terminal-prompt text-sm">$</span>
-                <h2 class="text-terminal-heading text-base sm:text-lg font-medium">cat warikoda/open-source.log</h2>
-                <span class="text-terminal-muted text-xs ml-2" data-i18n="warikoda.subtitle"># Open Source mit @bdgraue</span>
+        <div class="max-w-4xl mx-auto mb-6 sm:mb-7" data-section-intro data-command="cat warikoda/open-source.log" data-target="warikodaContent">
+            <div class="flex items-center gap-0 text-sm sm:text-[15px]">
+                <span class="text-terminal-prompt flex-shrink-0">$&nbsp;</span>
+                <span data-section-typewriter class="text-terminal-heading"></span><span class="cursor-blink" aria-hidden="true"></span>
             </div>
+        </div>
+        <div id="warikodaContent" class="max-w-4xl mx-auto reveal-section section-shell">
+            <div class="text-terminal-muted text-xs mb-6" data-i18n="warikoda.subtitle"># Open Source mit @bdgraue</div>
 
             <div class="flex flex-col sm:flex-row sm:items-center gap-4 mb-6">
                 <img src="img/warikoda-logo.png" alt="WariKoda Logo" class="w-16 h-16 sm:w-20 sm:h-20 rounded border border-terminal-border bg-terminal-surface/40 p-2 object-contain flex-shrink-0">
@@ -1169,13 +1191,13 @@
 
     <!-- ==================== CONTACT SECTION ==================== -->
     <section id="contact" class="px-4 py-16 sm:py-24 border-t border-terminal-border/50">
-        <div class="max-w-4xl mx-auto reveal-section">
-            <!-- Section header -->
-            <div class="flex items-center gap-3 mb-6">
-                <span class="text-terminal-prompt text-sm">$</span>
-                <h2 class="text-terminal-heading text-base sm:text-lg font-medium">contact --niklas</h2>
+        <div class="max-w-4xl mx-auto mb-6 sm:mb-7" data-section-intro data-command="contact --niklas" data-target="contactContent">
+            <div class="flex items-center gap-0 text-sm sm:text-[15px]">
+                <span class="text-terminal-prompt flex-shrink-0">$&nbsp;</span>
+                <span data-section-typewriter class="text-terminal-heading"></span><span class="cursor-blink" aria-hidden="true"></span>
             </div>
-
+        </div>
+        <div id="contactContent" class="max-w-4xl mx-auto reveal-section section-shell">
             <div class="space-y-6">
 
                 <!-- Contact info -->
@@ -1254,6 +1276,7 @@
 <script src="translations.js"></script>
 <script src="projects.js"></script>
 <script src="github-project-meta.js"></script>
+<script src="section-intro.js"></script>
 <script>
     document.addEventListener('DOMContentLoaded', () => {
 
@@ -1657,52 +1680,12 @@
         });
         githubProjectMeta.load();
 
-        // ---- Typewriter effect ----
-        const typewriterEl = document.getElementById('typewriter');
-        const typewriterCommands = [
-            'composer require shopware/core',
-            'flutter build apk --release',
-            'shopware-cli project admin-build',
-            'bin/console cache:clear',
-            'git commit -m "feature complete"',
-            'npm run build',
-        ];
-        let cmdIndex = 0;
-        let charIndex = 0;
-        let isDeleting = false;
-        const typeSpeed = 80;
-        const deleteSpeed = 40;
-        const pauseAfterType = 2000;
-        const pauseAfterDelete = 500;
-
-        function typewriter() {
-            const currentCmd = typewriterCommands[cmdIndex];
-
-            if (!isDeleting) {
-                typewriterEl.textContent = currentCmd.substring(0, charIndex + 1);
-                charIndex++;
-
-                if (charIndex === currentCmd.length) {
-                    isDeleting = true;
-                    setTimeout(typewriter, pauseAfterType);
-                } else {
-                    setTimeout(typewriter, typeSpeed);
-                }
-            } else {
-                typewriterEl.textContent = currentCmd.substring(0, charIndex - 1);
-                charIndex--;
-
-                if (charIndex === 0) {
-                    isDeleting = false;
-                    cmdIndex = (cmdIndex + 1) % typewriterCommands.length;
-                    setTimeout(typewriter, pauseAfterDelete);
-                } else {
-                    setTimeout(typewriter, deleteSpeed);
-                }
-            }
-        }
-
-        setTimeout(typewriter, 500);
+        // ---- Section intro commands ----
+        window.initSectionIntros({
+            selector: '[data-section-intro]',
+            threshold: 0.3,
+            rootMargin: '0px 0px -10% 0px',
+        });
 
     });
 </script>
