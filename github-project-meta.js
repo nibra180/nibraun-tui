@@ -11,42 +11,46 @@
             return document.querySelectorAll('[data-github-repo]');
         }
 
-        function getRepoUpdateLabel(state, pushedAt = '') {
-            const prefix = getTranslation('hero.projectLastUpdate');
+        /**
+         * Targets marked with `data-repo-bare` sit in a column that already
+         * carries a header, so they print the value without a prefix.
+         */
+        function withPrefix(target, prefixKey, value) {
+            return target.hasAttribute('data-repo-bare') ? value : `${getTranslation(prefixKey)}: ${value}`;
+        }
 
+        function getRepoUpdateLabel(target, state, pushedAt = '') {
             if (state === 'ready' && pushedAt) {
-                return `${prefix}: ${formatRelativeDate(pushedAt)}`;
+                return withPrefix(target, 'repo.update', formatRelativeDate(pushedAt));
             }
 
             if (state === 'unavailable') {
-                return `${prefix}: ${getTranslation('hero.projectLastUpdateUnavailable')}`;
+                return withPrefix(target, 'repo.update', getTranslation('repo.updateUnavailable'));
             }
 
-            return `${prefix}: ${getTranslation('hero.projectLastUpdateLoading')}`;
+            return withPrefix(target, 'repo.update', getTranslation('repo.updateLoading'));
         }
 
-        function getRepoReleaseLabel(state, release = '') {
-            const prefix = getTranslation('hero.projectRelease');
-
+        function getRepoReleaseLabel(target, state, release = '') {
             if (state === 'ready' && release) {
-                return `${prefix}: ${release}`;
+                return withPrefix(target, 'repo.release', release);
             }
 
             if (state === 'missing') {
-                return `${prefix}: ${getTranslation('hero.projectReleaseMissing')}`;
+                return withPrefix(target, 'repo.release', getTranslation('repo.releaseMissing'));
             }
 
             if (state === 'unavailable') {
-                return `${prefix}: ${getTranslation('hero.projectReleaseUnavailable')}`;
+                return withPrefix(target, 'repo.release', getTranslation('repo.releaseUnavailable'));
             }
 
-            return `${prefix}: ${getTranslation('hero.projectReleaseLoading')}`;
+            return withPrefix(target, 'repo.release', getTranslation('repo.releaseLoading'));
         }
 
         function formatRelativeDate(value) {
             const date = new Date(value);
             if (Number.isNaN(date.getTime())) {
-                return getTranslation('hero.projectLastUpdateUnavailable');
+                return getTranslation('repo.updateUnavailable');
             }
 
             const diffMs = date.getTime() - Date.now();
@@ -83,7 +87,7 @@
             } else {
                 delete target.dataset.repoUpdatedAt;
             }
-            target.textContent = getRepoUpdateLabel(state, pushedAt);
+            target.textContent = getRepoUpdateLabel(target, state, pushedAt);
         }
 
         function renderRepoRelease(target, state, release = '') {
@@ -97,7 +101,7 @@
             } else {
                 delete target.dataset.repoReleaseValue;
             }
-            target.textContent = getRepoReleaseLabel(state, release);
+            target.textContent = getRepoReleaseLabel(target, state, release);
         }
 
         function refreshLabels() {

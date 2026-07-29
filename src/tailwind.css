@@ -1,3 +1,1069 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+/* ==========================================================================
+   Tokens
+   One theme: cool newsprint paper, near-black ink, one signal (ultramarine).
+   Raw values live on --c-*; Tailwind reads them through `@theme inline`.
+
+   Three token pairs look redundant but are not. --c-signal / --c-invert-bg
+   are *fill* colours and are never rewritten; --c-signal-text / --c-fg are
+   *foreground* colours that .on-fill rewrites to currentColor. Collapsing a
+   pair would make a filled block resolve its background from its own text
+   colour and disappear.
+   ========================================================================== */
+
+:root {
+    color-scheme: light;
+
+    /* Surfaces. Cards sit a step *above* the page, like clean stock laid on
+       newsprint; the page itself is never the brightest thing on screen. */
+    --c-ink: #e9e9e4;        /* page */
+    --c-card: #f4f4f0;       /* raised card surface */
+
+    /* Ink */
+    --c-fg: #14151a;
+    --c-fg-dim: #4b4d54;
+    --c-rule: #c0c0b7;
+    --c-rule-hard: #14151a;
+
+    /* Signal. Fill and text roles share one colour; separate tokens are kept
+       because .on-fill rewrites only the foreground role. */
+    --c-signal: #48b4ff;
+    --c-signal-text: #48b4ff;
+    --c-on-signal: #14151a;
+
+    /* Inverted block */
+    --c-invert-bg: #14151a;
+    --c-on-invert: #e9e9e4;
+}
+
+@theme inline {
+    --color-ink: var(--c-ink);
+    --color-card: var(--c-card);
+    --color-rule: var(--c-rule);
+    --color-rule-hard: var(--c-rule-hard);
+    --color-fg: var(--c-fg);
+    --color-dim: var(--c-fg-dim);
+    --color-signal: var(--c-signal);
+    --color-signal-text: var(--c-signal-text);
+    --color-on-signal: var(--c-on-signal);
+
+    --font-sans: "Archivo", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+
+/* ==========================================================================
+   Base
+   ========================================================================== */
+
+/* Preflight already zeroes margin/padding and sets border-box. Repeating it
+   here would land outside Tailwind's cascade layers and beat every spacing
+   utility in the markup. */
+
+html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+}
+
+body {
+    background: var(--c-ink);
+    color: var(--c-fg);
+    font-family: var(--font-sans);
+    font-size: 1.0625rem;
+    line-height: 1.6;
+    font-variation-settings: "wdth" 100;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+}
+
+::selection {
+    background: var(--c-signal);
+    color: var(--c-on-signal);
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--c-ink);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--c-rule);
+    border: 3px solid var(--c-ink);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--c-signal);
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+:focus-visible {
+    outline: 3px solid var(--c-signal);
+    outline-offset: 2px;
+}
+
+.skip-link {
+    position: absolute;
+    left: -9999px;
+    top: 0;
+    z-index: 100;
+    background: var(--c-signal);
+    color: var(--c-on-signal);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.75rem 1rem;
+}
+
+.skip-link:focus {
+    left: 0;
+}
+
+/* ==========================================================================
+   Layout: the measure
+   ========================================================================== */
+
+.shell {
+    width: 100%;
+    max-width: 96rem;
+    margin-inline: auto;
+    padding-inline: var(--gutter, 1.25rem);
+}
+
+@media (min-width: 48rem) {
+    .shell {
+        --gutter: 2.5rem;
+    }
+}
+
+@media (min-width: 80rem) {
+    .shell {
+        --gutter: 3.5rem;
+    }
+}
+
+/* ==========================================================================
+   Type
+   ========================================================================== */
+
+/* Sized so the longest line ("Open Source.") still sets on one line at the
+   narrowest supported viewport; the lines must never wrap. */
+.display {
+    font-weight: 800;
+    font-variation-settings: "wdth" 125;
+    font-size: clamp(1.5rem, 7.6vw, 7rem);
+    line-height: 0.88;
+    letter-spacing: -0.04em;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+/* A phone's measure is too narrow to hold a line at poster scale, so below
+   sm the lines wrap and the type stays big instead of shrinking to nothing. */
+@media (max-width: 40rem) {
+    .display {
+        white-space: normal;
+        font-size: clamp(2.5rem, 11.5vw, 4.5rem);
+        line-height: 0.92;
+    }
+}
+
+.title {
+    font-weight: 700;
+    font-variation-settings: "wdth" 118;
+    font-size: clamp(2.1rem, 6vw, 4.75rem);
+    line-height: 0.9;
+    letter-spacing: -0.035em;
+    text-transform: uppercase;
+}
+
+.subtitle {
+    font-weight: 600;
+    font-variation-settings: "wdth" 110;
+    font-size: clamp(1.25rem, 2.4vw, 1.85rem);
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+}
+
+.lede {
+    font-size: clamp(1.05rem, 1.5vw, 1.25rem);
+    line-height: 1.55;
+    max-width: 48ch;
+    color: var(--c-fg-dim);
+}
+
+.prose {
+    max-width: 62ch;
+    line-height: 1.65;
+    color: var(--c-fg-dim);
+}
+
+.lede strong,
+.prose strong {
+    font-weight: 600;
+    color: var(--c-fg);
+}
+
+.mono {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+}
+
+.mono-sm {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+}
+
+.link {
+    color: var(--c-signal-text);
+    box-shadow: inset 0 -1px 0 0 currentColor;
+    transition: color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.link:hover {
+    color: var(--c-fg);
+    box-shadow: inset 0 -2px 0 0 currentColor;
+}
+
+/* Inside a filled band everything borrows the band's foreground. */
+.on-fill {
+    --c-rule: color-mix(in srgb, currentColor 32%, transparent);
+    --c-rule-hard: currentColor;
+    --c-fg: currentColor;
+    --c-fg-dim: color-mix(in srgb, currentColor 75%, transparent);
+    --c-signal-text: currentColor;
+}
+
+.on-fill .link:hover {
+    box-shadow: inset 0 -2px 0 0 currentColor;
+    opacity: 0.75;
+}
+
+/* ==========================================================================
+   Section band + specimen bar
+   ========================================================================== */
+
+.band {
+    border-top: 2px solid var(--c-rule-hard);
+    padding-block: clamp(3rem, 7vw, 6rem);
+}
+
+.band-signal {
+    background: var(--c-signal);
+    color: var(--c-on-signal);
+    border-top-color: var(--c-signal);
+}
+
+/* --c-invert-bg is deliberately separate from --c-fg: .on-fill rewrites
+   --c-fg to currentColor, which would otherwise collapse the fill into its
+   own text colour. */
+.band-invert {
+    background: var(--c-invert-bg);
+    color: var(--c-on-invert);
+    border-top-color: var(--c-invert-bg);
+}
+
+.specimen {
+    margin-bottom: clamp(2rem, 4vw, 3.5rem);
+}
+
+.specimen-meta {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding-bottom: 0.8rem;
+    margin-bottom: clamp(1rem, 2vw, 1.75rem);
+    border-bottom: 1px solid var(--c-rule);
+    color: var(--c-fg-dim);
+}
+
+.specimen-slug {
+    text-align: right;
+}
+
+/* Two mono labels side by side get too tight to read on a phone. */
+@media (max-width: 40rem) {
+    .specimen-meta {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.4rem;
+    }
+
+    .specimen-slug {
+        text-align: left;
+    }
+}
+
+/* ==========================================================================
+   Work index — the signature element
+   ========================================================================== */
+
+.index {
+    border-top: 2px solid var(--c-rule-hard);
+    border-bottom: 2px solid var(--c-rule-hard);
+}
+
+.index-head {
+    display: none;
+    color: var(--c-fg-dim);
+    border-bottom: 1px solid var(--c-rule);
+    padding-block: 0.65rem;
+}
+
+.index-row {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    gap: 0.5rem 1.25rem;
+    padding-block: 1.15rem;
+    border-bottom: 1px solid var(--c-rule);
+    transition: background-color 0.18s ease, color 0.18s ease, padding-inline 0.18s ease;
+}
+
+.index-row:last-child {
+    border-bottom: 0;
+}
+
+.index-num {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    color: var(--c-fg-dim);
+    align-self: center;
+}
+
+.index-name {
+    display: block;
+    font-weight: 700;
+    font-variation-settings: "wdth" 112;
+    font-size: clamp(1.3rem, 2.5vw, 1.95rem);
+    line-height: 1;
+    letter-spacing: -0.025em;
+}
+
+.index-desc {
+    display: block;
+    margin-top: 0.45rem;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: var(--c-fg-dim);
+    max-width: 52ch;
+}
+
+.index-kind,
+.index-release,
+.index-updated {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.02em;
+    color: var(--c-fg-dim);
+}
+
+.index-release[data-repo-release-state="ready"] {
+    color: var(--c-signal-text);
+    font-weight: 500;
+}
+
+/* Stacked below lg the arrow shares the top line with the number. */
+.index-arrow {
+    grid-row: 1;
+    grid-column: 3;
+    justify-self: end;
+    align-self: center;
+    flex-shrink: 0;
+    transition: transform 0.18s ease;
+}
+
+.index-meta {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem 1.1rem;
+    margin-top: 0.65rem;
+}
+
+.index-body {
+    grid-column: 1 / -1;
+}
+
+@media (min-width: 64rem) {
+    .index-head,
+    .index-row {
+        grid-template-columns: 2.5rem minmax(0, 2.5fr) minmax(0, 0.8fr) 6.5rem minmax(0, 0.85fr) 1.5rem;
+        gap: 1.5rem;
+        align-items: start;
+    }
+
+    .index-row {
+        padding-block: 1.4rem;
+    }
+
+    /* Meta columns optically align with the cap height of the project name. */
+    .index-num,
+    .index-kind,
+    .index-release,
+    .index-updated,
+    .index-arrow {
+        align-self: start;
+        padding-top: 0.3rem;
+    }
+
+    .index-head {
+        display: grid;
+        align-items: center;
+    }
+
+    .index-body {
+        grid-column: auto;
+    }
+
+    .index-meta {
+        display: contents;
+    }
+
+    .index-arrow {
+        grid-row: auto;
+        grid-column: auto;
+    }
+
+    .index-row:hover,
+    .index-row:focus-visible {
+        background: var(--c-signal);
+        color: var(--c-on-signal);
+        padding-inline: 1.25rem;
+        outline-offset: -3px;
+    }
+
+    .index-row:hover .index-num,
+    .index-row:hover .index-desc,
+    .index-row:hover .index-kind,
+    .index-row:hover .index-release,
+    .index-row:hover .index-updated {
+        color: inherit;
+        opacity: 0.8;
+    }
+
+    .index-row:hover .index-arrow {
+        transform: translate(0.25rem, -0.25rem);
+    }
+}
+
+/* ==========================================================================
+   Bento — skills
+   ========================================================================== */
+
+.bento {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2px;
+    background: var(--c-rule-hard);
+    border: 2px solid var(--c-rule-hard);
+}
+
+@media (min-width: 40rem) {
+    .bento {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (min-width: 64rem) {
+    .bento {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+.bento-card {
+    background: var(--c-card);
+    padding: clamp(1.4rem, 2.4vw, 2.1rem);
+    display: flex;
+    flex-direction: column;
+}
+
+.bento-card.is-wide {
+    grid-column: 1 / -1;
+}
+
+@media (min-width: 64rem) {
+    .bento-card.is-wide {
+        grid-column: span 2;
+    }
+}
+
+.bento-card.is-invert {
+    background: var(--c-invert-bg);
+    color: var(--c-on-invert);
+}
+
+.bento-card.is-signal {
+    background: var(--c-signal);
+    color: var(--c-on-signal);
+}
+
+.bento-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-bottom: 0.7rem;
+    margin-bottom: 1.1rem;
+    border-bottom: 1px solid var(--c-rule);
+    color: var(--c-fg-dim);
+}
+
+.bento-card h3 {
+    font-weight: 700;
+    font-variation-settings: "wdth" 115;
+    font-size: clamp(1.3rem, 2.1vw, 1.8rem);
+    line-height: 0.95;
+    letter-spacing: -0.025em;
+    text-transform: uppercase;
+    margin-bottom: 1.4rem;
+}
+
+.bento-card ul {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+}
+
+.bento-card li {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    line-height: 1.2;
+    padding: 0.3rem 0.5rem;
+    border: 1px solid var(--c-rule);
+}
+
+/* ==========================================================================
+   Stack colophon
+   ========================================================================== */
+
+.colophon {
+    margin-top: clamp(2rem, 4vw, 3rem);
+    padding-top: 1.4rem;
+    border-top: 1px solid var(--c-rule);
+    font-family: var(--font-mono);
+    font-size: clamp(0.875rem, 1.5vw, 1.15rem);
+    line-height: 1.75;
+    color: var(--c-fg-dim);
+}
+
+.colophon b {
+    font-weight: 600;
+    color: var(--c-fg);
+}
+
+/* ==========================================================================
+   Path — career
+   ========================================================================== */
+
+.path-row {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.5rem 2rem;
+    padding-block: clamp(1.25rem, 2.5vw, 1.85rem);
+    border-bottom: 1px solid var(--c-rule);
+}
+
+.path-row:first-child {
+    border-top: 2px solid var(--c-rule-hard);
+}
+
+@media (min-width: 48rem) {
+    .path-row {
+        grid-template-columns: 8.5rem minmax(0, 1fr) minmax(0, 0.95fr);
+        align-items: baseline;
+    }
+}
+
+.path-year {
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: var(--c-fg-dim);
+    white-space: nowrap;
+}
+
+.path-row.is-current .path-year {
+    color: var(--c-signal-text);
+}
+
+.path-role {
+    font-weight: 600;
+    font-variation-settings: "wdth" 108;
+    font-size: clamp(1.05rem, 1.8vw, 1.3rem);
+    line-height: 1.2;
+    letter-spacing: -0.015em;
+}
+
+.path-org {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--c-fg-dim);
+    margin-top: 0.35rem;
+}
+
+.path-desc {
+    font-size: 0.9rem;
+    line-height: 1.55;
+    color: var(--c-fg-dim);
+}
+
+.now-tag {
+    display: inline-block;
+    margin-left: 0.5rem;
+    padding: 0.1rem 0.35rem;
+    background: var(--c-signal);
+    color: var(--c-on-signal);
+    font-family: var(--font-mono);
+    font-size: 0.625rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    vertical-align: 0.15em;
+}
+
+/* ==========================================================================
+   Spec list + tags
+   ========================================================================== */
+
+.spec-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding-block: 0.7rem;
+    border-bottom: 1px solid var(--c-rule);
+}
+
+.spec-row:first-child {
+    border-top: 1px solid var(--c-rule);
+}
+
+.spec-key {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--c-fg-dim);
+    white-space: nowrap;
+}
+
+.spec-val {
+    text-align: right;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+}
+
+.tag {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    padding: 0.35rem 0.55rem;
+    border: 1px solid var(--c-rule);
+    color: var(--c-fg-dim);
+}
+
+/* ==========================================================================
+   Controls
+   ========================================================================== */
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.8rem 1.35rem;
+    border: 2px solid currentColor;
+    background: transparent;
+    color: inherit;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+.btn:hover {
+    background: var(--c-fg);
+    border-color: var(--c-fg);
+    color: var(--c-on-invert);
+}
+
+.btn-solid {
+    background: var(--c-signal);
+    border-color: var(--c-signal);
+    color: var(--c-on-signal);
+}
+
+.on-fill .btn-solid {
+    background: currentColor;
+    border-color: currentColor;
+}
+
+.on-fill .btn-solid > * {
+    color: var(--c-signal);
+}
+
+.on-fill .btn-solid:hover {
+    background: transparent;
+}
+
+.on-fill .btn-solid:hover > * {
+    color: currentColor;
+}
+
+.seg {
+    display: inline-flex;
+    border: 1px solid var(--c-rule);
+}
+
+.seg button {
+    font-family: var(--font-mono);
+    font-size: 0.625rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.4rem 0.55rem;
+    background: transparent;
+    color: var(--c-fg-dim);
+    border: 0;
+    cursor: pointer;
+    transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.seg button + button {
+    border-left: 1px solid var(--c-rule);
+}
+
+.seg button:hover {
+    color: var(--c-fg);
+}
+
+.seg button[aria-pressed="true"] {
+    background: var(--c-fg);
+    color: var(--c-on-invert);
+}
+
+/* ==========================================================================
+   Nav
+   ========================================================================== */
+
+.nav {
+    position: fixed;
+    inset: 0 0 auto;
+    z-index: 50;
+    background: var(--c-ink);
+    border-bottom: 2px solid var(--c-rule-hard);
+}
+
+.nav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    height: 3.5rem;
+}
+
+.wordmark {
+    font-weight: 800;
+    font-variation-settings: "wdth" 118;
+    font-size: 1.05rem;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.nav-links {
+    display: none;
+    align-items: center;
+    gap: 1.6rem;
+}
+
+@media (min-width: 64rem) {
+    .nav-links {
+        display: flex;
+    }
+}
+
+.nav-link {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--c-fg-dim);
+    padding-block: 0.3rem;
+    border-bottom: 2px solid transparent;
+    transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.nav-link:hover {
+    color: var(--c-fg);
+}
+
+.nav-link.is-active {
+    color: var(--c-fg);
+    border-bottom-color: var(--c-signal);
+}
+
+.nav-utils {
+    display: none;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+@media (min-width: 48rem) {
+    .nav-utils {
+        display: flex;
+    }
+}
+
+.nav-burger {
+    display: inline-flex;
+    padding: 0.5rem;
+    margin-right: -0.5rem;
+    background: transparent;
+    border: 0;
+    color: var(--c-fg);
+    cursor: pointer;
+}
+
+@media (min-width: 64rem) {
+    .nav-burger {
+        display: none;
+    }
+}
+
+/* max-height rather than the 0fr/1fr grid trick: grid-template-rows is not
+   interpolatable in every browser, and where it isn't the menu never opens.
+   The cap only needs to clear the tallest the drawer gets (~22rem). */
+.drawer {
+    display: block;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    border-top: 1px solid transparent;
+    transition: max-height 0.3s ease, opacity 0.25s ease, border-color 0.3s ease;
+}
+
+.drawer.is-open {
+    max-height: 32rem;
+    opacity: 1;
+    border-top-color: var(--c-rule);
+}
+
+@media (min-width: 64rem) {
+    .drawer {
+        display: none;
+    }
+}
+
+.drawer-link {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding-block: 0.8rem;
+    border-bottom: 1px solid var(--c-rule);
+    color: var(--c-fg-dim);
+}
+
+.drawer-link:hover {
+    color: var(--c-fg);
+}
+
+.drawer-utils {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding-block: 1rem;
+}
+
+@media (min-width: 48rem) {
+    .drawer-utils {
+        display: none;
+    }
+}
+
+/* ==========================================================================
+   Hero
+   ========================================================================== */
+
+.hero {
+    padding-block: clamp(3.5rem, 9vw, 7.5rem) clamp(2.5rem, 5vw, 4.5rem);
+}
+
+.hero-line {
+    display: block;
+    overflow: hidden;
+}
+
+.hero-line > span {
+    display: block;
+    will-change: transform;
+}
+
+.hero-line.is-signal {
+    color: var(--c-signal-text);
+}
+
+.avatar {
+    width: clamp(4.5rem, 11vw, 8rem);
+    height: clamp(4.5rem, 11vw, 8rem);
+    object-fit: cover;
+    display: block;
+    border: 2px solid var(--c-rule-hard);
+    filter: grayscale(1) contrast(1.05);
+    transition: filter 0.25s ease;
+}
+
+a:hover > .avatar {
+    filter: none;
+}
+
+.status {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--c-fg-dim);
+}
+
+.status::before {
+    content: "";
+    width: 7px;
+    height: 7px;
+    flex-shrink: 0;
+    background: var(--c-signal);
+}
+
+/* ==========================================================================
+   Footer + back to top
+   ========================================================================== */
+
+.footer {
+    border-top: 2px solid var(--c-rule-hard);
+    padding-block: 2rem;
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--c-fg-dim);
+}
+
+.to-top {
+    position: fixed;
+    right: 1rem;
+    bottom: 1rem;
+    z-index: 40;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.6rem 0.8rem;
+    background: var(--c-fg);
+    color: var(--c-on-invert);
+    border: 0;
+    font-family: var(--font-mono);
+    font-size: 0.625rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    cursor: pointer;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(0.5rem);
+    transition: opacity 0.2s ease, transform 0.2s ease, background-color 0.15s ease, color 0.15s ease;
+}
+
+.to-top.is-visible {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+}
+
+.to-top:hover {
+    background: var(--c-signal);
+    color: var(--c-on-signal);
+}
+
+/* ==========================================================================
+   Motion
+   ========================================================================== */
+
+@keyframes rise {
+    from {
+        transform: translateY(105%);
+    }
+    to {
+        transform: translateY(0);
+    }
+}
+
+.hero-line > span {
+    animation: rise 0.85s cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation-delay: calc(var(--i, 0) * 90ms);
+}
+
+.reveal {
+    opacity: 0;
+    transform: translateY(1.25rem);
+    transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal.is-revealed {
+    opacity: 1;
+    transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    .hero-line > span {
+        animation: none;
+    }
+
+    .reveal {
+        opacity: 1;
+        transform: none;
+        transition: none;
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+    }
+}
