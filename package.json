@@ -1,12 +1,12 @@
 {
-  "name": "new-tui-idea",
+  "name": "nibraun-de",
   "version": "1.0.0",
-  "description": "Persönliche Portfolio-Website im TUI/Terminal-Stil.",
-  "main": "translations.js",
+  "description": "Personal portfolio website for Niklas Braun.",
+  "main": "index.html",
   "scripts": {
-    "build": "tailwindcss -c tailwind.config.js -i ./src/tailwind.css -o ./dist/tailwind.css --minify",
-    "build:css": "tailwindcss -c tailwind.config.js -i ./src/tailwind.css -o ./dist/tailwind.css --minify",
-    "dev:css": "tailwindcss -c tailwind.config.js -i ./src/tailwind.css -o ./dist/tailwind.css --watch"
+    "build": "tailwindcss -i ./src/tailwind.css -o ./dist/tailwind.css --minify",
+    "dev": "tailwindcss -i ./src/tailwind.css -o ./dist/tailwind.css --watch",
+    "serve": "python3 -m http.server 8000"
   },
   "repository": {
     "type": "git",
@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/nibra180/nibraun-tui#readme",
   "devDependencies": {
-    "tailwindcss": "^3.4.17"
+    "@tailwindcss/cli": "^4.3.3",
+    "tailwindcss": "^4.3.3"
   }
 }

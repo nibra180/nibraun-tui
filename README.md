@@ -1,75 +1,77 @@
-# nibraun.de – Personal Resume Website
+# nibraun.de – Personal Portfolio
 
-Personal portfolio website in a TUI/terminal-inspired style.
+Personal portfolio website for Niklas Braun, built as a showcase for published software.
 
-![Everforest Theme](https://img.shields.io/badge/theme-Everforest-83c092?style=flat-square)
-![Static Site](https://img.shields.io/badge/deployment-static-blue?style=flat-square)
-![Languages](https://img.shields.io/badge/lang-DE%20%7C%20EN-black?style=flat-square)
+![Static Site](https://img.shields.io/badge/deployment-static-111214?style=flat-square)
+![Tailwind](https://img.shields.io/badge/tailwind-v4-5b57ff?style=flat-square)
+![Languages](https://img.shields.io/badge/lang-DE%20%7C%20EN-111214?style=flat-square)
 
 ## Screenshot
 
 ![nibraun.de screenshot](img/nibraun-tui-001.png)
 
-Terminal-inspired portfolio website for nibraun.de with section intro commands, project metadata, bilingual content, and an Everforest-based theme.
+## Design
+
+Swiss-brutalist: heavy horizontal rules, oversized Archivo Expanded headlines, and
+a single light palette — newsprint paper, near-black ink, and one ultramarine
+signal colour. The work index sits directly below the hero and pulls release tags
+and last-push dates live from the GitHub API.
 
 ## Features
 
-- **Terminal aesthetics** – Inspired by classic CLI interfaces
-- **Everforest color palette** – Dark and light mode with system preference detection
-- **Static deployment** – Ready-to-serve files without server-side logic
-- **Responsive design** – Mobile-first layout built with Tailwind CSS
-- **DE/EN i18n** – Language toggle with browser and `localStorage` fallback
-- **Section intro typewriter** – Command-style intros before the main section content appears
-- **Scroll animations** – Subtle section reveal effects
-- **Accessibility** – Semantic HTML, ARIA labels, and keyboard-friendly interactions
-- **GitHub project meta** – Release versions and recent updates for project cards
-- **Local cache** – GitHub metadata is cached client-side via `localStorage`
+- **Work index** – Published repositories with live release and last-push data
+- **One considered theme** – Light only, tuned for paper rather than split across two modes
+- **DE/EN i18n** – Language toggle backed by `?lang=` and `localStorage`
+- **Static deployment** – Ready-to-serve files, no server-side logic
+- **No runtime dependencies** – Vanilla JavaScript only
+- **Responsive** – Mobile-first, headlines reflow rather than shrink on small screens
+- **Accessible** – Semantic HTML, ARIA labels, visible focus, `prefers-reduced-motion` respected
+- **Local cache** – GitHub metadata cached client-side for six hours
 
 ## Tech Stack
 
 - HTML5
-- Tailwind CSS (CLI build)
+- Tailwind CSS v4 (CSS-first configuration in `src/tailwind.css`)
 - Vanilla JavaScript
+- Archivo and IBM Plex Mono
 - `translations.js` for i18n
-- `projects.js` for project data
-- `github-project-meta.js` for GitHub release/update metadata
-- `section-intro.js` for section intro typewriter behavior
-- Everforest color palette
+- `projects.js` for the work index entries
+- `github-project-meta.js` for GitHub release and update metadata
 
-## Color Palette
+## Palette
 
-The design uses the [Everforest](https://github.com/sainnhe/everforest) palette:
+Raw values live on `--c-*` and are exposed to Tailwind through `@theme inline`.
 
-| Variable | Dark | Light | Usage |
-|----------|------|-------|-------|
-| `--terminal-bg` | `#2d353b` | `#fdf6e3` | Background |
-| `--terminal-accent` | `#a7c080` | `#8da101` | Accent color, links |
-| `--terminal-green` | `#a7c080` | `#8da101` | Shopware, success |
-| `--terminal-cyan` | `#83c092` | `#35a77c` | Flutter, info |
-| `--terminal-purple` | `#d699b6` | `#df69ba` | Frontend |
-| `--terminal-amber` | `#dbbc7f` | `#dfa000` | Backend |
-| `--terminal-red` | `#e67e80` | `#f85552` | Dev workflow |
+| Token | Value | Usage |
+|---|---|---|
+| `--c-ink` | `#e9e9e4` | Page background |
+| `--c-card` | `#f4f4f0` | Raised card surface, a step above the page |
+| `--c-fg` | `#14151a` | Text and heavy rules |
+| `--c-fg-dim` | `#4b4d54` | Secondary text |
+| `--c-rule` | `#c0c0b7` | Hairlines between rows |
+| `--c-signal` | `#211ad4` | Filled blocks and active states |
+| `--c-signal-text` | `#211ad4` | Signal-coloured text |
+| `--c-invert-bg` | `#14151a` | Inverted block background |
+
+`--c-signal` / `--c-invert-bg` are fill colours and are never rewritten.
+`--c-signal-text` / `--c-fg` are foreground colours that `.on-fill` rewrites to
+`currentColor`, so a filled block's contents inherit the right contrast.
 
 ## Development
 
 ```bash
 npm install
-npm run build
+npm run build     # one-off minified build
+npm run dev       # watch mode
+npm run serve     # static server on :8000
 ```
 
-For Tailwind during development:
-
-```bash
-npm run dev:css
-```
-
-The following files are required for deployment:
+Files required for deployment:
 
 - `index.html`
 - `translations.js`
 - `projects.js`
 - `github-project-meta.js`
-- `section-intro.js`
 - `dist/tailwind.css`
 - `img/`
 

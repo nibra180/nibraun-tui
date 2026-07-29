@@ -1,100 +1,53 @@
 (function (global) {
+    /**
+     * Entries of the work index. `priority` sets the order (high first); the
+     * printed number is derived from that position, not stored here.
+     * `kind` is the short mono label in the platform column.
+     */
     global.siteProjects = [
         {
             priority: 100,
             name: 'Admin Toolbar',
+            kind: 'Shopware 6',
             href: 'https://github.com/WariKoda/WakoPluginAdminToolbar',
             repo: 'WariKoda/WakoPluginAdminToolbar',
-            descriptionKey: 'hero.project1.description',
+            descriptionKey: 'work.adminToolbar.description',
             owner: 'WariKoda',
             lead: '@nibra180',
             leadHref: 'https://github.com/nibra180',
-            leadClass: 'text-terminal-green',
-            cardClass: '',
-            showInPinned: true,
-            showInWarikoda: true,
-            warikodaName: 'Shopware 6 Admin Toolbar Plugin',
-            warikodaDescriptionKey: 'warikoda.project1Description',
-            warikodaLabel: '[oss]',
-            warikodaLabelClass: 'text-terminal-green',
-            badges: [
-                {
-                    label: 'Shopware 6',
-                    className: 'text-[10px] text-terminal-accent border border-terminal-accent/30 bg-terminal-accent/10 rounded px-1.5 py-0.5',
-                },
-            ],
-        },
-        {
-            priority: 80,
-            name: 'Focus Journal App',
-            href: 'https://github.com/WariKoda/FocusJournal',
-            repo: 'WariKoda/FocusJournal',
-            descriptionKey: 'hero.project2.description',
-            owner: 'WariKoda',
-            lead: '@bdgraue',
-            leadHref: 'https://github.com/bdgraue',
-            leadClass: 'text-terminal-cyan',
-            cardClass: '',
-            showInPinned: true,
-            showInWarikoda: true,
-            warikodaName: 'Focus Journal',
-            warikodaDescriptionKey: 'warikoda.project2Description',
-            warikodaLabel: '[app]',
-            warikodaLabelClass: 'text-terminal-cyan',
-            badges: [
-                {
-                    label: 'Flutter',
-                    className: 'text-[10px] text-terminal-cyan border border-terminal-cyan/30 bg-terminal-cyan/10 rounded px-1.5 py-0.5',
-                },
-            ],
         },
         {
             priority: 90,
             name: 'drift',
+            kind: 'Go · TUI',
             href: 'https://github.com/WariKoda/drift',
             repo: 'WariKoda/drift',
-            descriptionKey: 'hero.project3.description',
+            descriptionKey: 'work.drift.description',
             owner: 'WariKoda',
             lead: '@nibra180',
             leadHref: 'https://github.com/nibra180',
-            leadClass: 'text-terminal-purple',
-            cardClass: '',
-            showInPinned: true,
-            showInWarikoda: true,
-            warikodaName: 'drift',
-            warikodaDescriptionKey: 'warikoda.project3Description',
-            warikodaLabel: '[tui]',
-            warikodaLabelClass: 'text-terminal-purple',
-            badges: [
-                {
-                    label: 'TUI',
-                    className: 'text-[10px] text-terminal-purple border border-terminal-purple bg-terminal-surface/40 rounded px-1.5 py-0.5',
-                },
-                {
-                    label: 'Go',
-                    className: 'text-[10px] text-terminal-green border border-terminal-green/30 bg-terminal-green/10 rounded px-1.5 py-0.5',
-                },
-            ],
+        },
+        {
+            priority: 80,
+            name: 'Focus Journal',
+            kind: 'Flutter',
+            href: 'https://github.com/WariKoda/FocusJournal',
+            repo: 'WariKoda/FocusJournal',
+            descriptionKey: 'work.focusJournal.description',
+            owner: 'WariKoda',
+            lead: '@bdgraue',
+            leadHref: 'https://github.com/bdgraue',
         },
         {
             priority: 10,
             name: 'nibraun-tui',
+            kind: 'Web',
             href: 'https://github.com/nibra180/nibraun-tui',
             repo: 'nibra180/nibraun-tui',
-            descriptionKey: 'hero.project4.description',
+            descriptionKey: 'work.nibraunTui.description',
             owner: 'nibra180',
             lead: '@nibra180',
             leadHref: 'https://github.com/nibra180',
-            leadClass: 'text-terminal-accent',
-            cardClass: '',
-            showInPinned: true,
-            showInWarikoda: false,
-            badges: [
-                {
-                    label: 'Portfolio',
-                    className: 'text-[10px] text-terminal-green border border-terminal-green/30 bg-terminal-green/10 rounded px-1.5 py-0.5',
-                }
-            ],
         },
     ];
 })(typeof window !== 'undefined' ? window : globalThis);
