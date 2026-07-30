@@ -129,7 +129,6 @@
 
             'toTop.label': 'Nach oben scrollen',
             'footer.role': 'Shopware 6 & Flutter Developer',
-            'footer.colophon': 'Archivo · IBM Plex Mono · statisch ausgeliefert',
         },
 
         en: {
@@ -261,7 +260,6 @@
 
             'toTop.label': 'Scroll to top',
             'footer.role': 'Shopware 6 & Flutter developer',
-            'footer.colophon': 'Archivo · IBM Plex Mono · served statically',
         },
     };
 })(typeof window !== 'undefined' ? window : globalThis);
