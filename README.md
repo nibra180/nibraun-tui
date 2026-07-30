@@ -19,7 +19,7 @@ and last-push dates live from the GitHub API.
 
 ## Features
 
-- **Work index** – Published repositories with live release and last-push data
+- **Work index** – Published raepositories with live release and last-push data
 - **One considered theme** – Light only, tuned for paper rather than split across two modes
 - **DE/EN i18n** – Language toggle backed by `?lang=` and `localStorage`
 - **Static deployment** – Ready-to-serve files, no server-side logic
