@@ -20,6 +20,7 @@
             'nav.language': 'Sprache wählen',
 
             'hero.eyebrow': 'Full-Stack Developer · Oldenburg',
+            'hero.lede': 'Meine Erfahrung verbindet E-Commerce, mobile Anwendungen und technische Schnittstellen – von individuellen Shopware-Lösungen bis zu ERP/PIM-Anbindungen und Cross-Device-Apps mit Flutter.',
             'hero.specType': 'Typ',
             'hero.specTypeValue': 'Shopware 6 · Flutter · Vue · Symfony',
             'hero.specSince': 'Seit',
@@ -103,7 +104,7 @@
 
             'profile.title': 'Profil',
             'profile.label': 'Wer das baut',
-            'profile.description': `Ich bin Niklas, Full-Stack Developer mit über 7 Jahren Erfahrung in E-Commerce, Mobile Development und modernen Webanwendungen. Besonders zu Hause bin ich in Shopware 6, individueller Plugin- und Theme-Entwicklung, ERP- und PIM-Anbindungen sowie Cross-Device Apps mit Flutter. Dazu kommen praktische Erfahrung mit Vue.js, TypeScript, Symfony/PHP und UI/UX-Design in Figma — geprägt durch zahlreiche E-Commerce-Projekte. Gemeinsam mit <a href="https://github.com/bdgraue" target="_blank" rel="noopener noreferrer" class="link">@bdgraue</a> veröffentliche ich über WariKoda außerdem Open-Source-Software.`,
+            'profile.description': `Ich entwickle Software mit einem klaren Anspruch: verständliche Strukturen, wartbare Lösungen und Oberflächen, die ihren Zweck ohne Umwege erfüllen. Dabei verbinde ich technische Präzision mit meinem Hintergrund in UI/UX-Design. Gemeinsam mit <a href="https://github.com/bdgraue" target="_blank" rel="noopener noreferrer" class="link">@bdgraue</a> veröffentliche ich über WariKoda Open-Source-Tools und Anwendungen, die bewusst einfach, langfristig nützlich und gut weiterzuentwickeln sind.`,
             'profile.keyRole': 'Rolle',
             'profile.valRole': 'Full-Stack Developer',
             'profile.keyExperience': 'Erfahrung',
@@ -156,6 +157,7 @@
             'nav.language': 'Choose language',
 
             'hero.eyebrow': 'Full-stack developer · Oldenburg',
+            'hero.lede': 'My experience spans e-commerce, mobile applications, and technical integrations — from custom Shopware solutions and ERP/PIM systems to cross-device apps built with Flutter.',
             'hero.specType': 'Type',
             'hero.specTypeValue': 'Shopware 6 · Flutter · Vue · Symfony',
             'hero.specSince': 'Since',
@@ -239,7 +241,7 @@
 
             'profile.title': 'Profile',
             'profile.label': 'Who builds this',
-            'profile.description': `I am Niklas, a full-stack developer with more than 7 years of experience in e-commerce, mobile development, and modern web applications. My home turf is Shopware 6, custom plugin and theme development, ERP and PIM integrations, as well as cross-device apps built with Flutter. On top of that, I bring hands-on experience with Vue.js, TypeScript, Symfony/PHP, and UI/UX design in Figma — shaped by many e-commerce projects. Together with <a href="https://github.com/bdgraue" target="_blank" rel="noopener noreferrer" class="link">@bdgraue</a>, I also publish open-source software via WariKoda.`,
+            'profile.description': `I build software with a clear standard: understandable structures, maintainable solutions, and interfaces that fulfil their purpose without unnecessary friction. I combine technical precision with my background in UI/UX design. Together with <a href="https://github.com/bdgraue" target="_blank" rel="noopener noreferrer" class="link">@bdgraue</a>, I publish open-source tools and applications through WariKoda that are intentionally simple, useful in the long term, and easy to evolve.`,
             'profile.keyRole': 'Role',
             'profile.valRole': 'Full-stack developer',
             'profile.keyExperience': 'Experience',

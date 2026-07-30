@@ -16,7 +16,9 @@ Personal portfolio website for Niklas Braun, built as a showcase for published s
 shell, light component panels, recessed bezels, calibrated scales, technical
 labelling, and one functional orange signal. The work index is the signature
 instrument, turning live GitHub releases into indicator lights and `pushed_at`
-values into comparable gauge positions.
+values into comparable gauge positions. A deliberately data-free CSS measurement
+field gives the hero an atmospheric technical counterweight without pretending
+to show live telemetry.
 
 ## Features
 

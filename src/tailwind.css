@@ -1130,7 +1130,21 @@ a {
    ========================================================================== */
 
 .hero {
-    padding-block: clamp(3.5rem, 9vw, 7.5rem) clamp(2.5rem, 5vw, 4.5rem);
+    padding-block: clamp(3.5rem, 9vw, 7.5rem) clamp(3rem, 6vw, 5.5rem);
+}
+
+.hero-grid {
+    display: grid;
+    grid-template-areas:
+        "heading"
+        "lede"
+        "instrument"
+        "spec"
+        "actions";
+}
+
+.hero-heading {
+    grid-area: heading;
 }
 
 .hero-subtitle {
@@ -1138,27 +1152,177 @@ a {
     color: var(--c-fg-dim);
 }
 
+.hero-lede {
+    grid-area: lede;
+    margin-top: 1.75rem;
+}
+
 .hero-spec {
+    grid-area: spec;
+    width: 100%;
     max-width: 48rem;
-    margin-top: clamp(2rem, 5vw, 4rem);
+    margin-top: 2rem;
 }
 
 .hero-spec .status {
     flex-direction: row-reverse;
 }
 
-.avatar {
-    width: clamp(4.5rem, 11vw, 8rem);
-    height: clamp(4.5rem, 11vw, 8rem);
-    object-fit: cover;
-    display: block;
-    border: 2px solid var(--c-bezel);
-    filter: grayscale(1) contrast(1.05);
-    transition: filter 0.25s ease;
+.hero-actions {
+    grid-area: actions;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 2rem;
 }
 
-a:hover > .avatar {
-    filter: none;
+.hero-instrument {
+    grid-area: instrument;
+    aspect-ratio: 4 / 3;
+    margin-top: 2rem;
+    padding: clamp(0.65rem, 2vw, 1rem);
+    background: var(--c-bezel);
+    box-shadow: inset 0 0 0 1px var(--c-rule);
+}
+
+.instrument-face {
+    height: 100%;
+    display: grid;
+    grid-template-rows: minmax(0, 1.45fr) minmax(4.5rem, 0.7fr) auto;
+    gap: 2px;
+    background: var(--c-shell);
+    border: 1px solid var(--c-rule);
+    overflow: hidden;
+}
+
+.instrument-field {
+    position: relative;
+    min-height: 0;
+    overflow: hidden;
+    color: var(--c-fg-dim);
+    background-color: var(--c-panel);
+    background-image:
+        repeating-linear-gradient(90deg, transparent 0 1.45rem, color-mix(in srgb, currentColor 22%, transparent) 1.45rem calc(1.45rem + 1px)),
+        repeating-linear-gradient(0deg, transparent 0 1.45rem, color-mix(in srgb, currentColor 22%, transparent) 1.45rem calc(1.45rem + 1px));
+}
+
+.instrument-field::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto;
+    height: 1rem;
+    background-color: var(--c-bezel);
+    background-image: repeating-linear-gradient(90deg, currentColor 0 1px, transparent 1px 0.55rem);
+    opacity: 0.75;
+}
+
+.instrument-field::after {
+    content: "";
+    position: absolute;
+    inset: auto 0 0;
+    height: 0.45rem;
+    background-image: repeating-linear-gradient(90deg, currentColor 0 1px, transparent 1px 1.1rem);
+    opacity: 0.6;
+}
+
+.instrument-block {
+    position: absolute;
+    display: block;
+    background: color-mix(in srgb, var(--c-fg-dim) 64%, transparent);
+}
+
+.instrument-block.is-a {
+    left: 9%;
+    top: 30%;
+    width: 46%;
+    height: 12%;
+}
+
+.instrument-block.is-b {
+    right: 10%;
+    top: 48%;
+    width: 22%;
+    height: 32%;
+    background: color-mix(in srgb, var(--c-fg) 82%, transparent);
+}
+
+.instrument-block.is-c {
+    left: 24%;
+    bottom: 17%;
+    width: 34%;
+    height: 7%;
+    background: var(--c-rule);
+}
+
+.instrument-bank {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-rows: repeat(2, minmax(0, 1fr));
+    gap: 2px;
+    background: var(--c-shell);
+}
+
+.instrument-module {
+    display: block;
+    background: var(--c-panel);
+    box-shadow: inset 0 0 0 1px var(--c-rule);
+}
+
+.instrument-module.is-wide {
+    grid-column: span 2;
+}
+
+.instrument-module.is-dark {
+    background: color-mix(in srgb, var(--c-fg-dim) 72%, var(--c-bezel));
+}
+
+.instrument-slots {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: clamp(0.35rem, 1.4vw, 0.75rem);
+    padding: clamp(0.6rem, 2vw, 0.9rem);
+    background: var(--c-panel);
+}
+
+.instrument-slots span {
+    height: 0.35rem;
+    background: var(--c-rule);
+}
+
+.instrument-slots span:nth-child(2),
+.instrument-slots span:nth-child(5) {
+    background: var(--c-fg-dim);
+}
+
+@media (min-width: 64rem) {
+    .hero-grid {
+        grid-template-columns: minmax(0, 1.12fr) minmax(20rem, 0.88fr);
+        grid-template-rows: auto auto minmax(0, 1fr) auto;
+        grid-template-areas:
+            "heading instrument"
+            "lede instrument"
+            "spec instrument"
+            "actions instrument";
+        gap: 1.5rem clamp(3rem, 6vw, 6rem);
+        align-items: start;
+    }
+
+    .hero-lede,
+    .hero-spec,
+    .hero-actions,
+    .hero-instrument {
+        margin-top: 0;
+    }
+
+    .hero-spec {
+        align-self: end;
+    }
+
+    .hero-instrument {
+        aspect-ratio: auto;
+        min-height: 32rem;
+        align-self: stretch;
+    }
 }
 
 .status {
