@@ -11,23 +11,28 @@ unter dem Hero, alles andere stützt ihn.
 - **Static Deployment**: `index.html`, `translations.js`, `projects.js`, `github-project-meta.js`, `dist/tailwind.css`, `img/`
 - **Styling**: Tailwind CSS v4 (CSS-first, keine `tailwind.config.js`)
 - **Quelle des Designsystems**: `src/tailwind.css`
-- **Typografie**: Archivo (variable, `wdth` 62–125) für Display und Body, IBM Plex Mono für Labels und Daten
+- **Typografie**: Instrument Sans (variable, `wdth` 75–100) für Display und Body, Martian Mono für Typenschilder, Skalen und Daten
 - **JavaScript**: Vanilla JS, keine Runtime-Dependencies im Browser
 
 ## Designrichtung
 
-Swiss-Brutalist. **Ein einziges, helles Theme** – Zeitungspapier, fast schwarze
-Tinte, genau eine Signalfarbe (Ultramarin). Kein Dark Mode, keine
-`prefers-color-scheme`-Behandlung, kein Theme-Toggle.
+**BRAUN: Datenblatt.** Ein einziges, helles Theme nach der Formensprache
+klassischer Braun-Geräte: Gehäuse statt Papier, Fugen statt schwerer Linien,
+Skalen statt Ornament und genau eine orange Signalfarbe für aktive Zustände und
+Messwerte. Kein Dark Mode, keine `prefers-color-scheme`-Farbbehandlung, kein
+Theme-Toggle.
 
-- Harte Kanten, kein `border-radius`
-- Struktur läuft **horizontal**: schwere Trennlinien (2px `--c-rule-hard`) zwischen den Bändern, Haarlinien (1px `--c-rule`) zwischen den Zeilen
-- **Keine sichtbaren Spaltenlinien.** Ein durchgehendes vertikales Raster wurde
-  getestet und wieder entfernt: es hat den Fließtext zerschnitten und war beim
-  Lesen störend. Das Layout folgt weiter einem Spaltenraster, zeichnet es aber nicht
-- Flächen statt Akzente: Signal- und Invert-Flächen tragen ganze Blöcke
-- Karten liegen eine Stufe **heller** als die Seite (`--c-card`), nie dunkler
-- Terminal-Bezug nur noch als Detailebene (Mono-Labels, Datenspalten), nicht als Farbschema
+- Drei Flächenebenen: Gehäuse (`--c-shell`), Baugruppe (`--c-panel`) und
+  vertiefte Blende (`--c-bezel`)
+- Harte Kanten; der runde Sprachregler ist als einziges Bedienelement die einzige
+  Ausnahme
+- Baugruppen werden durch 2px breite Gehäusefugen getrennt, Inhalte durch
+  zurückhaltende Teilstriche und Haarlinien
+- **Keine sichtbaren Spaltenlinien.** Das Layout folgt einem Spaltenraster,
+  zeichnet es aber nicht durch den Fließtext
+- Der Work-Index ist das Messinstrument: Release-Kontrollleuchten und eine aus
+  Live-GitHub-Daten gespeiste Aktivitätsskala
+- Martian Mono dient als Gerätebeschriftung, nicht als Terminal-Farbschema
 
 ## Farbtokens
 
@@ -35,18 +40,20 @@ Rohwerte liegen auf `--c-*` in `:root`. Tailwind liest sie über `@theme inline`
 
 | Token | Wert | Bedeutung |
 |---|---|---|
-| `--c-ink` | `#e9e9e4` | Seitenhintergrund |
-| `--c-card` | `#f4f4f0` | erhöhte Kartenfläche |
-| `--c-fg` / `--c-fg-dim` | `#14151a` / `#4b4d54` | Text / abgesetzter Text |
-| `--c-rule` / `--c-rule-hard` | `#c0c0b7` / `#14151a` | Haarlinie / schwere Linie |
-| `--c-signal` / `--c-signal-text` | `#211ad4` | Signalfläche / Signaltext |
-| `--c-invert-bg` / `--c-on-invert` | `#14151a` / `#e9e9e4` | invertierte Fläche und ihr Vordergrund |
+| `--c-shell` | `#d6d3cb` | Gehäuse und Seitenhintergrund |
+| `--c-panel` | `#eeece7` | helle Baugruppe und Sektionsfläche |
+| `--c-bezel` | `#c4c0b6` | vertiefte Blende, Tags und Skalengrund |
+| `--c-fg` / `--c-fg-dim` | `#1a1917` / `#6c675e` | Beschriftung / Sekundärtext |
+| `--c-rule` | `#bdb9ae` | Teilstrich und Fuge innerhalb eines Panels |
+| `--c-signal` | `#e8590c` | Kontrollleuchte, Zeiger und aktive Grafik |
+| `--c-signal-text` | `#9a3412` | kontraststarker Signaltext |
+| `--c-on-signal` | `#1a1917` | Vordergrund auf Signalflächen |
+| `--c-invert-bg` / `--c-on-invert` | `#1a1917` / `#e6e3dc` | invertierte Baugruppe und ihr Vordergrund |
 
-Drei Tokenpaare sehen redundant aus, sind es aber nicht. `--c-signal` und
-`--c-invert-bg` sind **Füllfarben** und werden nie umgeschrieben;
-`--c-signal-text` und `--c-fg` sind **Vordergrundfarben**, die `.on-fill` auf
-`currentColor` umschreibt. Wird ein Paar zusammengelegt, zieht eine gefüllte
-Fläche ihren Hintergrund aus der eigenen Textfarbe und verschwindet.
+**`--c-signal` ist niemals Textfarbe.** Orange erreicht auf `--c-panel` nicht
+den erforderlichen Kontrast für kleine Schrift. Links und Signalbeschriftungen
+verwenden immer `--c-signal-text`. Füll- und Vordergrundrollen bleiben getrennt,
+weil `.on-fill` nur Vordergrundrollen auf `currentColor` umschreibt.
 
 ## Konventionen
 
@@ -57,6 +64,8 @@ Fläche ihren Hintergrund aus der eigenen Textfarbe und verschwindet.
   Wiederholung schlägt sämtliche Tailwind-Abstandsklassen
 - Flächen (`.band-signal`, `.band-invert`, gefüllte Bento-Karten) tragen
   zusätzlich `.on-fill`, damit Linien und Sekundärtext aus `currentColor` ableiten
+- `--c-signal` nie über `color` einsetzen; Text nimmt `--c-signal-text`
+- Keine weiteren runden Elemente neben dem Sprachregler hinzufügen
 
 ### HTML
 - Sections mit `<!-- ==================== NAME ==================== -->` markiert
@@ -77,19 +86,19 @@ Fläche ihren Hintergrund aus der eigenen Textfarbe und verschwindet.
 
 | Section | Inhalt |
 |---|---|
-| Hero | Displayzeilen, Lede, Status |
-| Work | Index veröffentlichter Software mit Live-Release und Last-Push aus der GitHub-API |
-| WariKoda | Open Source mit @bdgraue, invertierte Fläche |
-| Skills | Bento-Grid, 5 Felder, eine invertierte und eine Signal-Karte, darunter Stack-Kolophon |
-| Path | Beruflicher Werdegang |
-| Profile | Kurzprofil und Schwerpunkte |
-| Contact | Signalfläche mit Kontaktdaten |
+| Hero | Wortmarke, Unterzeile und Typenschild |
+| Work | Messinstrument mit Live-Release-Leuchten und Last-Push-Skalen aus der GitHub-API |
+| WariKoda | invertierte Open-Source-Baugruppe mit @bdgraue |
+| Skills | Bedienfeld mit 5 Feldern, vertieften Tags und Stack-Kolophon |
+| Path | berufliche Zeitskala und Werdegang |
+| Profile | Kurzprofil, Typenschild und Schwerpunkte |
+| Contact | Signalfläche mit Typenschild und Kontaktdaten |
 
 ## Dos & Don'ts
 
 ### Do
 - Boldness an einer Stelle bündeln: der Work-Index ist das Signature-Element
-- Mobile-first denken; Displayzeilen dürfen unter 40rem umbrechen
+- Mobile-first denken; die Wortmarke darf auf schmalen Viewports umbrechen, nicht auf unlesbare Größe schrumpfen
 - `prefers-reduced-motion` respektieren
 - Änderungen klein und gezielt halten
 

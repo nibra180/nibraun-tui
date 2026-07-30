@@ -2,54 +2,50 @@
 
 /* ==========================================================================
    Tokens
-   One theme: cool newsprint paper, near-black ink, one signal (ultramarine).
-   Raw values live on --c-*; Tailwind reads them through `@theme inline`.
+   One theme: a mid-grey shell, light component panels, recessed bezels, and
+   one functional signal. Raw values live on --c-*; Tailwind reads them
+   through `@theme inline`.
 
-   Three token pairs look redundant but are not. --c-signal / --c-invert-bg
-   are *fill* colours and are never rewritten; --c-signal-text / --c-fg are
-   *foreground* colours that .on-fill rewrites to currentColor. Collapsing a
-   pair would make a filled block resolve its background from its own text
-   colour and disappear.
+   --c-signal is a fill/graphic colour, never a text colour. Signal-coloured
+   text uses --c-signal-text, whose contrast is suitable on the light surfaces.
    ========================================================================== */
 
 :root {
     color-scheme: light;
 
-    /* Surfaces. Cards sit a step *above* the page, like clean stock laid on
-       newsprint; the page itself is never the brightest thing on screen. */
-    --c-ink: #e9e9e4;        /* page */
-    --c-card: #f4f4f0;       /* raised card surface */
+    /* Surfaces */
+    --c-shell: #d6d3cb;
+    --c-panel: #eeece7;
+    --c-bezel: #c4c0b6;
 
-    /* Ink */
-    --c-fg: #14151a;
-    --c-fg-dim: #4b4d54;
-    --c-rule: #c0c0b7;
-    --c-rule-hard: #14151a;
+    /* Labelling and joints */
+    --c-fg: #1a1917;
+    --c-fg-dim: #6c675e;
+    --c-rule: #bdb9ae;
 
-    /* Signal. Fill and text roles share one colour; separate tokens are kept
-       because .on-fill rewrites only the foreground role. */
-    --c-signal: #48b4ff;
-    --c-signal-text: #48b4ff;
-    --c-on-signal: #14151a;
+    /* Signal */
+    --c-signal: #e8590c;
+    --c-signal-text: #9a3412;
+    --c-on-signal: #1a1917;
 
-    /* Inverted block */
-    --c-invert-bg: #14151a;
-    --c-on-invert: #e9e9e4;
+    /* Inverted component */
+    --c-invert-bg: #1a1917;
+    --c-on-invert: #e6e3dc;
 }
 
 @theme inline {
-    --color-ink: var(--c-ink);
-    --color-card: var(--c-card);
+    --color-shell: var(--c-shell);
+    --color-panel: var(--c-panel);
+    --color-bezel: var(--c-bezel);
     --color-rule: var(--c-rule);
-    --color-rule-hard: var(--c-rule-hard);
     --color-fg: var(--c-fg);
     --color-dim: var(--c-fg-dim);
     --color-signal: var(--c-signal);
     --color-signal-text: var(--c-signal-text);
     --color-on-signal: var(--c-on-signal);
 
-    --font-sans: "Archivo", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-    --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    --font-sans: "Instrument Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    --font-mono: "Martian Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 }
 
 /* ==========================================================================
@@ -66,7 +62,7 @@ html {
 }
 
 body {
-    background: var(--c-ink);
+    background: var(--c-shell);
     color: var(--c-fg);
     font-family: var(--font-sans);
     font-size: 1.0625rem;
@@ -88,12 +84,12 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-    background: var(--c-ink);
+    background: var(--c-shell);
 }
 
 ::-webkit-scrollbar-thumb {
     background: var(--c-rule);
-    border: 3px solid var(--c-ink);
+    border: 3px solid var(--c-shell);
 }
 
 ::-webkit-scrollbar-thumb:hover {
@@ -155,43 +151,30 @@ a {
    Type
    ========================================================================== */
 
-/* Sized so the longest line ("Open Source.") still sets on one line at the
-   narrowest supported viewport; the lines must never wrap. */
 .display {
-    font-weight: 800;
-    font-variation-settings: "wdth" 125;
-    font-size: clamp(1.5rem, 7.6vw, 7rem);
-    line-height: 0.88;
-    letter-spacing: -0.04em;
+    font-weight: 600;
+    font-variation-settings: "wdth" 100;
+    font-size: clamp(2rem, 5vw, 4rem);
+    line-height: 0.95;
+    letter-spacing: -0.02em;
     text-transform: uppercase;
-    white-space: nowrap;
-}
-
-/* A phone's measure is too narrow to hold a line at poster scale, so below
-   sm the lines wrap and the type stays big instead of shrinking to nothing. */
-@media (max-width: 40rem) {
-    .display {
-        white-space: normal;
-        font-size: clamp(2.5rem, 11.5vw, 4.5rem);
-        line-height: 0.92;
-    }
 }
 
 .title {
-    font-weight: 700;
-    font-variation-settings: "wdth" 118;
-    font-size: clamp(2.1rem, 6vw, 4.75rem);
-    line-height: 0.9;
-    letter-spacing: -0.035em;
+    font-weight: 650;
+    font-variation-settings: "wdth" 95;
+    font-size: clamp(1.9rem, 4.5vw, 3.75rem);
+    line-height: 0.95;
+    letter-spacing: -0.025em;
     text-transform: uppercase;
 }
 
 .subtitle {
-    font-weight: 600;
-    font-variation-settings: "wdth" 110;
-    font-size: clamp(1.25rem, 2.4vw, 1.85rem);
-    line-height: 1.15;
-    letter-spacing: -0.02em;
+    font-weight: 550;
+    font-variation-settings: "wdth" 95;
+    font-size: clamp(1.15rem, 2vw, 1.65rem);
+    line-height: 1.2;
+    letter-spacing: -0.015em;
 }
 
 .lede {
@@ -216,8 +199,8 @@ a {
 .mono {
     font-family: var(--font-mono);
     font-size: 0.6875rem;
-    font-weight: 500;
-    letter-spacing: 0.14em;
+    font-weight: 450;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
 }
 
@@ -242,7 +225,6 @@ a {
 /* Inside a filled band everything borrows the band's foreground. */
 .on-fill {
     --c-rule: color-mix(in srgb, currentColor 32%, transparent);
-    --c-rule-hard: currentColor;
     --c-fg: currentColor;
     --c-fg-dim: color-mix(in srgb, currentColor 75%, transparent);
     --c-signal-text: currentColor;
@@ -258,14 +240,15 @@ a {
    ========================================================================== */
 
 .band {
-    border-top: 2px solid var(--c-rule-hard);
+    background: var(--c-panel);
+    border-top: 2px solid var(--c-shell);
     padding-block: clamp(3rem, 7vw, 6rem);
 }
 
 .band-signal {
     background: var(--c-signal);
     color: var(--c-on-signal);
-    border-top-color: var(--c-signal);
+    border-top-color: var(--c-shell);
 }
 
 /* --c-invert-bg is deliberately separate from --c-fg: .on-fill rewrites
@@ -274,7 +257,7 @@ a {
 .band-invert {
     background: var(--c-invert-bg);
     color: var(--c-on-invert);
-    border-top-color: var(--c-invert-bg);
+    border-top-color: var(--c-shell);
 }
 
 .specimen {
@@ -314,8 +297,7 @@ a {
    ========================================================================== */
 
 .index {
-    border-top: 2px solid var(--c-rule-hard);
-    border-bottom: 2px solid var(--c-rule-hard);
+    border-block: 1px solid var(--c-bezel);
 }
 
 .index-head {
@@ -326,12 +308,35 @@ a {
 }
 
 .index-row {
+    position: relative;
     display: grid;
     grid-template-columns: auto minmax(0, 1fr) auto;
     gap: 0.5rem 1.25rem;
-    padding-block: 1.15rem;
+    padding: 1.15rem 0.75rem 1.15rem 1.25rem;
     border-bottom: 1px solid var(--c-rule);
-    transition: background-color 0.18s ease, color 0.18s ease, padding-inline 0.18s ease;
+    overflow: hidden;
+    transition: background-color 0.18s ease;
+}
+
+.index-row::before {
+    content: "";
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 6px;
+    background: var(--c-bezel);
+}
+
+.index-row:has([data-repo-release-state="ready"])::before {
+    background: var(--c-signal);
+}
+
+.index-row:has([data-repo-release-state="unavailable"])::before {
+    background-color: var(--c-bezel);
+    background-image: repeating-linear-gradient(
+        -45deg,
+        transparent 0 3px,
+        var(--c-fg-dim) 3px 4px
+    );
 }
 
 .index-row:last-child {
@@ -350,7 +355,7 @@ a {
 .index-name {
     display: block;
     font-weight: 700;
-    font-variation-settings: "wdth" 112;
+    font-variation-settings: "wdth" 100;
     font-size: clamp(1.3rem, 2.5vw, 1.95rem);
     line-height: 1;
     letter-spacing: -0.025em;
@@ -401,6 +406,50 @@ a {
     grid-column: 1 / -1;
 }
 
+.index-gauge {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: auto minmax(5rem, 1fr) auto;
+    align-items: end;
+    gap: 0.5rem 0.75rem;
+    margin-top: 0.85rem;
+}
+
+.gauge {
+    --gauge-pos: 0%;
+    --tick: 8px;
+    position: relative;
+    height: 0.75rem;
+    color: var(--c-fg-dim);
+    background-repeat: repeat-x;
+    background-position: bottom left;
+    background-image:
+        repeating-linear-gradient(90deg, currentColor 0 1px, transparent 1px calc(var(--tick) * 5)),
+        repeating-linear-gradient(90deg, currentColor 0 1px, transparent 1px var(--tick));
+    background-size: 100% 10px, 100% 5px;
+    opacity: 0.65;
+}
+
+.gauge-needle {
+    position: absolute;
+    bottom: -0.2rem;
+    left: var(--gauge-pos);
+    width: 2px;
+    height: 1rem;
+    background: var(--c-signal);
+    opacity: 0;
+    transform: translateX(-1px);
+}
+
+.gauge[data-repo-gauge-state="ready"] .gauge-needle {
+    opacity: 1;
+    animation: gauge-enter 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.gauge-label {
+    color: var(--c-fg-dim);
+}
+
 @media (min-width: 64rem) {
     .index-head,
     .index-row {
@@ -410,7 +459,7 @@ a {
     }
 
     .index-row {
-        padding-block: 1.4rem;
+        padding: 1.4rem 0.75rem 1.4rem 1.25rem;
     }
 
     /* Meta columns optically align with the cap height of the project name. */
@@ -437,30 +486,39 @@ a {
     }
 
     .index-arrow {
-        grid-row: auto;
-        grid-column: auto;
+        grid-row: 1;
+        grid-column: 6;
+    }
+
+    .index-gauge {
+        grid-column: 2 / 6;
+        grid-row: 2;
+        margin-top: 0.35rem;
     }
 
     .index-row:hover,
     .index-row:focus-visible {
-        background: var(--c-signal);
-        color: var(--c-on-signal);
-        padding-inline: 1.25rem;
+        background: color-mix(in srgb, var(--c-bezel) 55%, transparent);
         outline-offset: -3px;
-    }
-
-    .index-row:hover .index-num,
-    .index-row:hover .index-desc,
-    .index-row:hover .index-kind,
-    .index-row:hover .index-release,
-    .index-row:hover .index-updated {
-        color: inherit;
-        opacity: 0.8;
     }
 
     .index-row:hover .index-arrow {
         transform: translate(0.25rem, -0.25rem);
     }
+}
+
+/* ==========================================================================
+   Inverted component — WariKoda
+   ========================================================================== */
+
+.warikoda-mark {
+    width: 5rem;
+    height: 5rem;
+    object-fit: contain;
+    padding: 0.35rem;
+    border: 1px solid var(--c-rule);
+    background: color-mix(in srgb, currentColor 8%, transparent);
+    filter: grayscale(1) contrast(1.12);
 }
 
 /* ==========================================================================
@@ -471,8 +529,8 @@ a {
     display: grid;
     grid-template-columns: 1fr;
     gap: 2px;
-    background: var(--c-rule-hard);
-    border: 2px solid var(--c-rule-hard);
+    background: var(--c-shell);
+    border: 2px solid var(--c-shell);
 }
 
 @media (min-width: 40rem) {
@@ -488,7 +546,7 @@ a {
 }
 
 .bento-card {
-    background: var(--c-card);
+    background: var(--c-panel);
     padding: clamp(1.4rem, 2.4vw, 2.1rem);
     display: flex;
     flex-direction: column;
@@ -527,7 +585,7 @@ a {
 
 .bento-card h3 {
     font-weight: 700;
-    font-variation-settings: "wdth" 115;
+    font-variation-settings: "wdth" 95;
     font-size: clamp(1.3rem, 2.1vw, 1.8rem);
     line-height: 0.95;
     letter-spacing: -0.025em;
@@ -546,8 +604,14 @@ a {
     font-family: var(--font-mono);
     font-size: 0.6875rem;
     line-height: 1.2;
-    padding: 0.3rem 0.5rem;
-    border: 1px solid var(--c-rule);
+    padding: 0.35rem 0.55rem;
+    background: var(--c-bezel);
+    color: var(--c-fg);
+}
+
+.bento-card.on-fill li {
+    background: color-mix(in srgb, currentColor 14%, transparent);
+    color: currentColor;
 }
 
 /* ==========================================================================
@@ -573,6 +637,79 @@ a {
    Path — career
    ========================================================================== */
 
+.path-scale {
+    margin-bottom: clamp(1.5rem, 3vw, 2.5rem);
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--c-fg-dim);
+}
+
+.path-scale-track {
+    --tick: 10px;
+    position: relative;
+    height: 1.25rem;
+    background-color: var(--c-bezel);
+    background-repeat: repeat-x;
+    background-position: bottom left;
+    background-image:
+        repeating-linear-gradient(90deg, currentColor 0 1px, transparent 1px calc(var(--tick) * 5)),
+        repeating-linear-gradient(90deg, currentColor 0 1px, transparent 1px var(--tick));
+    background-size: 100% 14px, 100% 7px;
+}
+
+.path-scale-needle {
+    position: absolute;
+    right: 0;
+    bottom: -0.25rem;
+    width: 2px;
+    height: 1.75rem;
+    background: var(--c-signal);
+}
+
+.path-scale-needle::before {
+    content: "";
+    position: absolute;
+    top: -0.35rem;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-inline: 0.3rem solid transparent;
+    border-top: 0.4rem solid var(--c-signal);
+    transform: translateX(-50%);
+}
+
+.path-scale-labels {
+    position: relative;
+    height: 1rem;
+    margin-top: 0.65rem;
+}
+
+.path-scale-labels span {
+    position: absolute;
+    top: 0;
+}
+
+.path-scale-labels span:first-child {
+    left: 0;
+}
+
+.path-scale-labels span:nth-child(2) {
+    left: 37.5%;
+    transform: translateX(-50%);
+}
+
+.path-scale-labels span:nth-child(3) {
+    left: 87.5%;
+    transform: translateX(-50%);
+}
+
+.path-scale-labels span:last-child {
+    right: 0;
+    color: var(--c-signal-text);
+}
+
 .path-row {
     display: grid;
     grid-template-columns: 1fr;
@@ -582,7 +719,7 @@ a {
 }
 
 .path-row:first-child {
-    border-top: 2px solid var(--c-rule-hard);
+    border-top: 1px solid var(--c-bezel);
 }
 
 @media (min-width: 48rem) {
@@ -607,7 +744,7 @@ a {
 
 .path-role {
     font-weight: 600;
-    font-variation-settings: "wdth" 108;
+    font-variation-settings: "wdth" 98;
     font-size: clamp(1.05rem, 1.8vw, 1.3rem);
     line-height: 1.2;
     letter-spacing: -0.015em;
@@ -627,17 +764,25 @@ a {
 }
 
 .now-tag {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
     margin-left: 0.5rem;
-    padding: 0.1rem 0.35rem;
-    background: var(--c-signal);
-    color: var(--c-on-signal);
+    color: var(--c-fg-dim);
     font-family: var(--font-mono);
     font-size: 0.625rem;
     font-weight: 500;
     letter-spacing: 0.12em;
     text-transform: uppercase;
     vertical-align: 0.15em;
+}
+
+.now-tag::before {
+    content: "";
+    width: 7px;
+    height: 7px;
+    flex-shrink: 0;
+    background: var(--c-signal);
 }
 
 /* ==========================================================================
@@ -655,6 +800,27 @@ a {
 
 .spec-row:first-child {
     border-top: 1px solid var(--c-rule);
+}
+
+.spec-list {
+    background: color-mix(in srgb, var(--c-bezel) 45%, transparent);
+    box-shadow: inset 0 0 0 1px var(--c-rule);
+}
+
+.spec-list .spec-row {
+    padding-inline: 0.75rem;
+}
+
+.spec-list .spec-row:first-child {
+    border-top: 0;
+}
+
+.spec-list .spec-row:last-child {
+    border-bottom: 0;
+}
+
+.on-fill .spec-list {
+    background: color-mix(in srgb, currentColor 10%, transparent);
 }
 
 .spec-key {
@@ -682,9 +848,9 @@ a {
 .tag {
     font-family: var(--font-mono);
     font-size: 0.6875rem;
-    padding: 0.35rem 0.55rem;
-    border: 1px solid var(--c-rule);
-    color: var(--c-fg-dim);
+    padding: 0.4rem 0.6rem;
+    background: var(--c-bezel);
+    color: var(--c-fg);
 }
 
 /* ==========================================================================
@@ -726,7 +892,7 @@ a {
 }
 
 .on-fill .btn-solid > * {
-    color: var(--c-signal);
+    color: var(--c-on-invert);
 }
 
 .on-fill .btn-solid:hover {
@@ -738,35 +904,83 @@ a {
 }
 
 .seg {
-    display: inline-flex;
+    --dial-angle: 45deg;
+    position: relative;
+    display: inline-grid;
+    grid-template-columns: auto 2.25rem auto;
+    align-items: center;
+    min-height: 2rem;
+    padding: 0.2rem;
+    background: var(--c-bezel);
+    box-shadow: inset 0 0 0 1px var(--c-rule);
+}
+
+.seg:has(button[lang="de"][aria-pressed="true"]) {
+    --dial-angle: -45deg;
+}
+
+.seg::before {
+    content: "";
+    position: absolute;
+    z-index: 1;
+    left: 50%;
+    top: 50%;
+    width: 1.7rem;
+    aspect-ratio: 1;
     border: 1px solid var(--c-rule);
+    border-radius: 50%;
+    background: var(--c-panel);
+    box-shadow: 0 1px 0 color-mix(in srgb, var(--c-fg) 25%, transparent);
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+}
+
+.seg::after {
+    content: "";
+    position: absolute;
+    z-index: 2;
+    left: 50%;
+    top: 50%;
+    width: 2px;
+    height: 0.65rem;
+    background: var(--c-signal);
+    transform: translate(-50%, -50%) rotate(var(--dial-angle)) translateY(-0.3rem);
+    transform-origin: center;
+    transition: transform 0.2s ease;
+    pointer-events: none;
 }
 
 .seg button {
+    position: relative;
+    z-index: 3;
     font-family: var(--font-mono);
     font-size: 0.625rem;
     font-weight: 500;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    padding: 0.4rem 0.55rem;
+    padding: 0.35rem 0.45rem;
     background: transparent;
     color: var(--c-fg-dim);
     border: 0;
     cursor: pointer;
-    transition: background-color 0.15s ease, color 0.15s ease;
+    transition: color 0.15s ease;
 }
 
-.seg button + button {
-    border-left: 1px solid var(--c-rule);
+.seg button:first-child {
+    grid-column: 1;
 }
 
-.seg button:hover {
+.seg button:last-child {
+    grid-column: 3;
+}
+
+.seg button:hover,
+.seg button[aria-pressed="true"] {
     color: var(--c-fg);
 }
 
 .seg button[aria-pressed="true"] {
-    background: var(--c-fg);
-    color: var(--c-on-invert);
+    font-weight: 700;
 }
 
 /* ==========================================================================
@@ -777,8 +991,8 @@ a {
     position: fixed;
     inset: 0 0 auto;
     z-index: 50;
-    background: var(--c-ink);
-    border-bottom: 2px solid var(--c-rule-hard);
+    background: var(--c-panel);
+    border-bottom: 2px solid var(--c-shell);
 }
 
 .nav-inner {
@@ -791,7 +1005,7 @@ a {
 
 .wordmark {
     font-weight: 800;
-    font-variation-settings: "wdth" 118;
+    font-variation-settings: "wdth" 100;
     font-size: 1.05rem;
     letter-spacing: -0.02em;
     text-transform: uppercase;
@@ -919,18 +1133,18 @@ a {
     padding-block: clamp(3.5rem, 9vw, 7.5rem) clamp(2.5rem, 5vw, 4.5rem);
 }
 
-.hero-line {
-    display: block;
-    overflow: hidden;
+.hero-subtitle {
+    margin-top: 0.75rem;
+    color: var(--c-fg-dim);
 }
 
-.hero-line > span {
-    display: block;
-    will-change: transform;
+.hero-spec {
+    max-width: 48rem;
+    margin-top: clamp(2rem, 5vw, 4rem);
 }
 
-.hero-line.is-signal {
-    color: var(--c-signal-text);
+.hero-spec .status {
+    flex-direction: row-reverse;
 }
 
 .avatar {
@@ -938,7 +1152,7 @@ a {
     height: clamp(4.5rem, 11vw, 8rem);
     object-fit: cover;
     display: block;
-    border: 2px solid var(--c-rule-hard);
+    border: 2px solid var(--c-bezel);
     filter: grayscale(1) contrast(1.05);
     transition: filter 0.25s ease;
 }
@@ -972,7 +1186,7 @@ a:hover > .avatar {
    ========================================================================== */
 
 .footer {
-    border-top: 2px solid var(--c-rule-hard);
+    border-top: 2px solid var(--c-shell);
     padding-block: 2rem;
     font-family: var(--font-mono);
     font-size: 0.6875rem;
@@ -1020,18 +1234,13 @@ a:hover > .avatar {
    Motion
    ========================================================================== */
 
-@keyframes rise {
+@keyframes gauge-enter {
     from {
-        transform: translateY(105%);
+        left: 0;
     }
     to {
-        transform: translateY(0);
+        left: var(--gauge-pos);
     }
-}
-
-.hero-line > span {
-    animation: rise 0.85s cubic-bezier(0.16, 1, 0.3, 1) both;
-    animation-delay: calc(var(--i, 0) * 90ms);
 }
 
 .reveal {
@@ -1050,8 +1259,9 @@ a:hover > .avatar {
         scroll-behavior: auto;
     }
 
-    .hero-line > span {
-        animation: none;
+    .gauge-needle {
+        animation: none !important;
+        left: var(--gauge-pos);
     }
 
     .reveal {

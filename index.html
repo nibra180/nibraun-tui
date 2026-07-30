@@ -23,12 +23,12 @@
     <meta name="twitter:description" content="Full-stack development with 7+ years of experience in Shopware 6, Flutter, Vue.js, and custom software solutions.">
     <meta name="twitter:image" content="img/warikoda-logo.png">
 
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%235b57ff'/><text x='50' y='74' font-family='Helvetica,Arial,sans-serif' font-size='72' font-weight='bold' fill='%23fff' text-anchor='middle'>N</text></svg>">
-    <meta name="theme-color" content="#e9e9e4">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23e8590c'/><text x='50' y='74' font-family='Helvetica,Arial,sans-serif' font-size='72' font-weight='bold' fill='%231a1917' text-anchor='middle'>N</text></svg>">
+    <meta name="theme-color" content="#d6d3cb">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wdth,wght@75..100,400..700&family=Martian+Mono:wdth,wght@75..112.5,100..800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="dist/tailwind.css">
 </head>
 
@@ -90,36 +90,34 @@
     <!-- ==================== HERO ==================== -->
     <section class="hero">
         <div class="shell">
-            <div class="flex flex-wrap items-baseline justify-between gap-4 pb-6 mb-8 border-b border-rule">
-                <span class="mono text-dim" data-i18n="hero.eyebrow">Full-stack developer · Oldenburg, DE</span>
-                <span class="status" data-i18n="hero.status">Building at Sharpness Solutions</span>
+            <h1 class="display">Niklas Braun</h1>
+            <p class="hero-subtitle subtitle" data-i18n="hero.eyebrow">Full-stack developer · Oldenburg</p>
+
+            <div class="hero-spec spec-list">
+                <div class="spec-row">
+                    <span class="spec-key" data-i18n="hero.specType">Type</span>
+                    <span class="spec-val" data-i18n="hero.specTypeValue">Shopware 6 · Flutter · Vue · Symfony</span>
+                </div>
+                <div class="spec-row">
+                    <span class="spec-key" data-i18n="hero.specSince">Since</span>
+                    <span class="spec-val" data-i18n="hero.specSinceValue">2018</span>
+                </div>
+                <div class="spec-row">
+                    <span class="spec-key" data-i18n="hero.specLocation">Location</span>
+                    <span class="spec-val" data-i18n="hero.specLocationValue">Oldenburg, DE</span>
+                </div>
+                <div class="spec-row">
+                    <span class="spec-key" data-i18n="hero.specStatus">Status</span>
+                    <span class="spec-val status" data-i18n="hero.specStatusValue">Sharpness Solutions</span>
+                </div>
             </div>
 
-            <h1 class="display">
-                <span class="hero-line"><span style="--i: 0">Commerce.</span></span>
-                <span class="hero-line"><span style="--i: 1">Apps.</span></span>
-                <span class="hero-line is-signal"><span style="--i: 2">Open Source.</span></span>
-            </h1>
-
-            <div class="grid gap-8 mt-10 md:mt-14 md:grid-cols-[minmax(0,1fr)_auto] md:items-end">
-                <div>
-                    <p class="lede" data-i18n="hero.lede">
-                        Custom software development with Shopware 6 and Flutter. For more than 7 years I have built
-                        e-commerce systems, ERP integrations, and cross-device apps — and released what is generally
-                        useful as open source.
-                    </p>
-                    <div class="flex flex-wrap gap-3 mt-8">
-                        <a href="#work" class="btn btn-solid">
-                            <span data-i18n="work.title">Work</span>
-                            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
-                        </a>
-                        <a href="#contact" class="btn"><span data-i18n="contact.title">Contact</span></a>
-                    </div>
-                </div>
-
-                <a href="https://github.com/nibra180" target="_blank" rel="noopener noreferrer" class="hidden md:block justify-self-end" data-i18n-aria-label="nav.github" aria-label="Niklas Braun GitHub profile">
-                    <img src="img/avatar.png" class="avatar" alt="Comic avatar of Niklas Braun" data-i18n-alt="hero.avatarAlt">
+            <div class="flex flex-wrap gap-3 mt-8">
+                <a href="#work" class="btn btn-solid">
+                    <span data-i18n="work.title">Work</span>
+                    <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
                 </a>
+                <a href="#contact" class="btn"><span data-i18n="contact.title">Contact</span></a>
             </div>
         </div>
     </section>
@@ -161,7 +159,7 @@
             </header>
 
             <div class="reveal grid gap-8 md:grid-cols-[auto_minmax(0,1fr)] md:items-start">
-                <img src="img/warikoda-logo.png" alt="WariKoda logo" data-i18n-alt="warikoda.logoAlt" class="w-20 h-20 object-contain">
+                <img src="img/warikoda-logo.png" alt="WariKoda logo" data-i18n-alt="warikoda.logoAlt" class="warikoda-mark">
                 <div>
                     <p class="prose" data-i18n-html="warikoda.intro">
                         WariKoda stands for open source built with care, clarity, and a strong standard for good
@@ -290,7 +288,7 @@
 
                 <p class="colophon">
                     <b data-i18n="skills.stackLabel">In daily use</b> —
-                    Shopware&nbsp;5, Shopware&nbsp;6, PHP, Symfony, Twig, JavaScript, TypeScript, Vue.js, SCSS,
+                    Shopware&nbsp;6, PHP, Symfony, Twig, JavaScript, TypeScript, Vue.js, SCSS,
                     Tailwind, Flutter, Dart, Supabase, PostgreSQL, MySQL, REST, Docker, DDEV, Git, Composer, Figma.
                 </p>
             </div>
@@ -309,6 +307,18 @@
             </header>
 
             <div class="reveal">
+                <div class="path-scale" role="img" data-i18n-aria-label="path.scaleLabel" aria-label="Career scale from 2018 to now">
+                    <div class="path-scale-track" aria-hidden="true">
+                        <span class="path-scale-needle"></span>
+                    </div>
+                    <div class="path-scale-labels" aria-hidden="true">
+                        <span>2018</span>
+                        <span>2021</span>
+                        <span>2025</span>
+                        <span data-i18n="path.now">now</span>
+                    </div>
+                </div>
+
                 <div class="path-row is-current">
                     <div class="path-year">2025 &rarr;<span class="now-tag" data-i18n="path.now">now</span></div>
                     <div>
@@ -333,7 +343,7 @@
                         <div class="path-role" data-i18n="path.role3">Media designer digital/print</div>
                         <div class="path-org">WL Online GmbH · Garrel</div>
                     </div>
-                    <p class="path-desc" data-i18n="path.desc3">UX/UI design, frontend applications, and theme and plugin development in Shopware 5.</p>
+                    <p class="path-desc" data-i18n="path.desc3">UX/UI design, frontend applications, and theme and plugin development for e-commerce projects.</p>
                 </div>
 
                 <div class="path-row">
@@ -366,21 +376,23 @@
                 </p>
 
                 <div>
-                    <div class="spec-row">
-                        <span class="spec-key" data-i18n="profile.keyRole">Role</span>
-                        <span class="spec-val" data-i18n="profile.valRole">Full-stack developer</span>
-                    </div>
-                    <div class="spec-row">
-                        <span class="spec-key" data-i18n="profile.keyExperience">Experience</span>
-                        <span class="spec-val" data-i18n="profile.valExperience">7+ years</span>
-                    </div>
-                    <div class="spec-row">
-                        <span class="spec-key" data-i18n="profile.keyLocation">Location</span>
-                        <span class="spec-val" data-i18n="profile.valLocation">Essen (Oldenburg), Lower Saxony</span>
-                    </div>
-                    <div class="spec-row">
-                        <span class="spec-key" data-i18n="profile.keyEmployer">Employer</span>
-                        <span class="spec-val"><a href="https://sharpness.de" target="_blank" rel="noopener noreferrer" class="link">Sharpness Solutions</a></span>
+                    <div class="spec-list">
+                        <div class="spec-row">
+                            <span class="spec-key" data-i18n="profile.keyRole">Role</span>
+                            <span class="spec-val" data-i18n="profile.valRole">Full-stack developer</span>
+                        </div>
+                        <div class="spec-row">
+                            <span class="spec-key" data-i18n="profile.keyExperience">Experience</span>
+                            <span class="spec-val" data-i18n="profile.valExperience">7+ years</span>
+                        </div>
+                        <div class="spec-row">
+                            <span class="spec-key" data-i18n="profile.keyLocation">Location</span>
+                            <span class="spec-val" data-i18n="profile.valLocation">Essen (Oldenburg), Lower Saxony</span>
+                        </div>
+                        <div class="spec-row">
+                            <span class="spec-key" data-i18n="profile.keyEmployer">Employer</span>
+                            <span class="spec-val"><a href="https://sharpness.de" target="_blank" rel="noopener noreferrer" class="link">Sharpness Solutions</a></span>
+                        </div>
                     </div>
 
                     <div class="mono text-dim mt-10 mb-4" data-i18n="profile.focusLabel">Focus areas</div>
@@ -422,7 +434,7 @@
                     </a>
                 </div>
 
-                <div>
+                <div class="spec-list">
                     <div class="spec-row">
                         <span class="spec-key" data-i18n="contact.keyEmail">Email</span>
                         <span class="spec-val"><a href="mailto:hello@nibraun.de" class="link">hello@nibraun.de</a></span>
@@ -555,6 +567,12 @@
                     <span class="index-meta">
                         <span class="index-kind">${escapeHtml(project.kind)}</span>
                         <span class="index-release" data-repo-release data-repo-bare data-repo-release-state="loading"></span>
+                    </span>
+                    <span class="index-gauge">
+                        <span class="gauge-label mono" data-i18n="work.gaugeLabel">Last push</span>
+                        <span class="gauge" data-repo-gauge role="img" data-i18n-aria-label="work.gaugeLabel" aria-label="Last push">
+                            <span class="gauge-needle"></span>
+                        </span>
                         <span class="index-updated" data-repo-update data-repo-bare data-repo-update-state="loading"></span>
                     </span>
                     <svg class="index-arrow w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg>
