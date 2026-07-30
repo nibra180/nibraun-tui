@@ -18,7 +18,7 @@
         },
         {
             priority: 90,
-            name: 'drift',
+            name: 'Drift File Sync',
             kind: 'Go · TUI',
             href: 'https://github.com/WariKoda/drift',
             repo: 'WariKoda/drift',
@@ -29,7 +29,7 @@
         },
         {
             priority: 80,
-            name: 'Focus Journal',
+            name: 'Encrypted Focus Journal',
             kind: 'Flutter',
             href: 'https://github.com/WariKoda/FocusJournal',
             repo: 'WariKoda/FocusJournal',
@@ -37,17 +37,6 @@
             owner: 'WariKoda',
             lead: '@bdgraue',
             leadHref: 'https://github.com/bdgraue',
-        },
-        {
-            priority: 10,
-            name: 'nibraun-tui',
-            kind: 'Web',
-            href: 'https://github.com/nibra180/nibraun-tui',
-            repo: 'nibra180/nibraun-tui',
-            descriptionKey: 'work.nibraunTui.description',
-            owner: 'nibra180',
-            lead: '@nibra180',
-            leadHref: 'https://github.com/nibra180',
         },
     ];
 })(typeof window !== 'undefined' ? window : globalThis);
