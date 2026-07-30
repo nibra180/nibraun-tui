@@ -103,7 +103,7 @@
 
             'profile.title': 'Profil',
             'profile.label': 'Wer das baut',
-            'profile.description': `Ich bin Niklas, Full-Stack Developer mit über 7 Jahren Erfahrung in E-Commerce, Mobile Development und modernen Webanwendungen. Besonders zu Hause bin ich in Shopware 6, individueller Plugin- und Theme-Entwicklung, ERP- und PIM-Anbindungen sowie Cross-Device Apps mit Flutter. Dazu kommen praktische Erfahrung mit Vue.js, TypeScript, Symfony/PHP und UI/UX-Design in Figma — geprägt durch zahlreiche E-Commerce-Projekte. Gemeinsam mit <a href="https://github.com/bdgraue" target="_blank" rel="noopener noreferrer" class="link">@bdgraue</a> veröffentliche ich über WariKoda außerdem Open-Source-Software.`,},{
+            'profile.description': `Ich bin Niklas, Full-Stack Developer mit über 7 Jahren Erfahrung in E-Commerce, Mobile Development und modernen Webanwendungen. Besonders zu Hause bin ich in Shopware 6, individueller Plugin- und Theme-Entwicklung, ERP- und PIM-Anbindungen sowie Cross-Device Apps mit Flutter. Dazu kommen praktische Erfahrung mit Vue.js, TypeScript, Symfony/PHP und UI/UX-Design in Figma — geprägt durch zahlreiche E-Commerce-Projekte. Gemeinsam mit <a href="https://github.com/bdgraue" target="_blank" rel="noopener noreferrer" class="link">@bdgraue</a> veröffentliche ich über WariKoda außerdem Open-Source-Software.`,
             'profile.keyRole': 'Rolle',
             'profile.valRole': 'Full-Stack Developer',
             'profile.keyExperience': 'Erfahrung',
@@ -239,7 +239,7 @@
 
             'profile.title': 'Profile',
             'profile.label': 'Who builds this',
-            'profile.description': `I am Niklas, a full-stack developer with more than 7 years of experience in e-commerce, mobile development, and modern web applications. My home turf is Shopware 6, custom plugin and theme development, ERP and PIM integrations, as well as cross-device apps built with Flutter. On top of that, I bring hands-on experience with Vue.js, TypeScript, Symfony/PHP, and UI/UX design in Figma — shaped by many e-commerce projects. Together with <a href="https://github.com/bdgraue" target="_blank" rel="noopener noreferrer" class="link">@bdgraue</a>, I also publish open-source software via WariKoda.`, 
+            'profile.description': `I am Niklas, a full-stack developer with more than 7 years of experience in e-commerce, mobile development, and modern web applications. My home turf is Shopware 6, custom plugin and theme development, ERP and PIM integrations, as well as cross-device apps built with Flutter. On top of that, I bring hands-on experience with Vue.js, TypeScript, Symfony/PHP, and UI/UX design in Figma — shaped by many e-commerce projects. Together with <a href="https://github.com/bdgraue" target="_blank" rel="noopener noreferrer" class="link">@bdgraue</a>, I also publish open-source software via WariKoda.`,
             'profile.keyRole': 'Role',
             'profile.valRole': 'Full-stack developer',
             'profile.keyExperience': 'Experience',
