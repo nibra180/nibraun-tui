@@ -7,7 +7,7 @@
     global.siteProjects = [
         {
             priority: 100,
-            name: 'Admin Toolbar',
+            name: 'Shopware Admin Toolbar',
             kind: 'Shopware 6',
             href: 'https://github.com/WariKoda/WakoPluginAdminToolbar',
             repo: 'WariKoda/WakoPluginAdminToolbar',
