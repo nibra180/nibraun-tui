@@ -32,6 +32,8 @@ Theme-Toggle.
   zeichnet es aber nicht durch den Fließtext
 - Der Work-Index ist das Messinstrument: Release-Kontrollleuchten und eine aus
   Live-GitHub-Daten gespeiste Aktivitätsskala
+- Das abstrakte Messfeld im Hero ist bewusst dekorativ, bleibt ohne Scheindaten
+  und konkurriert nicht mit den echten Messwerten im Work-Index
 - Martian Mono dient als Gerätebeschriftung, nicht als Terminal-Farbschema
 
 ## Farbtokens
@@ -86,7 +88,7 @@ weil `.on-fill` nur Vordergrundrollen auf `currentColor` umschreibt.
 
 | Section | Inhalt |
 |---|---|
-| Hero | Wortmarke, Unterzeile und Typenschild |
+| Hero | Wortmarke, Erfahrungsanreißer, dekoratives Messfeld und Typenschild |
 | Work | Messinstrument mit Live-Release-Leuchten und Last-Push-Skalen aus der GitHub-API |
 | WariKoda | invertierte Open-Source-Baugruppe mit @bdgraue |
 | Skills | Bedienfeld mit 5 Feldern, vertieften Tags und Stack-Kolophon |
