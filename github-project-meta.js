@@ -76,9 +76,31 @@
             return date.toLocaleDateString(getLocale());
         }
 
+        function getGaugePosition(pushedAt) {
+            const pushedDate = new Date(pushedAt);
+            if (Number.isNaN(pushedDate.getTime())) {
+                return null;
+            }
+
+            const ageDays = Math.max(0, (Date.now() - pushedDate.getTime()) / (1000 * 60 * 60 * 24));
+            return Math.min(100, Math.max(0, Math.log10(ageDays + 1) / Math.log10(366) * 100));
+        }
+
         function renderRepoUpdate(target, state, pushedAt = '') {
             if (!target) {
                 return;
+            }
+
+            const gauge = target.closest('[data-github-repo]')?.querySelector('[data-repo-gauge]');
+            const gaugePosition = state === 'ready' && pushedAt ? getGaugePosition(pushedAt) : null;
+
+            if (gauge) {
+                gauge.dataset.repoGaugeState = gaugePosition === null ? state : 'ready';
+                if (gaugePosition === null) {
+                    gauge.style.removeProperty('--gauge-pos');
+                } else {
+                    gauge.style.setProperty('--gauge-pos', `${gaugePosition.toFixed(2)}%`);
+                }
             }
 
             target.dataset.repoUpdateState = state;
