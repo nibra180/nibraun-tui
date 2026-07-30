@@ -34,7 +34,6 @@
             'work.openOn': 'Auf GitHub öffnen',
             'work.adminToolbar.description': 'Shopware 6 Plugin, das im Storefront eine Admin-Toolbar einblendet — ähnlich wie bei WordPress.',
             'work.drift.description': 'Terminal-TUI zum Browsen, Vergleichen und Synchronisieren von Dateien mit Remote-Hosts via SFTP/SSH und FTP, inklusive Diff-Ansicht und Sync-Richtung pro Datei.',
-            'work.focusJournal.description': 'Local-first Journaling-App für Fokus und Reflexion — ohne Account, ohne Cloud, ohne Tracking; Einträge bleiben verschlüsselt auf dem Gerät.',
 
             'repo.release': 'Release',
             'repo.releaseLoading': '…',
@@ -164,7 +163,6 @@
             'work.openOn': 'Open on GitHub',
             'work.adminToolbar.description': 'Shopware 6 plugin that shows an admin toolbar in the storefront — similar to WordPress.',
             'work.drift.description': 'Terminal TUI for browsing, diffing, and syncing files with remote hosts over SFTP/SSH and FTP, including side-by-side diffs and per-file sync directions.',
-            'work.focusJournal.description': 'Local-first journaling app for focus and reflection — no account, no cloud, no tracking; entries stay encrypted on the device.',
 
             'repo.release': 'Release',
             'repo.releaseLoading': '…',

@@ -27,16 +27,5 @@
             lead: '@nibra180',
             leadHref: 'https://github.com/nibra180',
         },
-        {
-            priority: 80,
-            name: 'Encrypted Focus Journal',
-            kind: 'Flutter',
-            href: 'https://github.com/WariKoda/FocusJournal',
-            repo: 'WariKoda/FocusJournal',
-            descriptionKey: 'work.focusJournal.description',
-            owner: 'WariKoda',
-            lead: '@bdgraue',
-            leadHref: 'https://github.com/bdgraue',
-        },
     ];
 })(typeof window !== 'undefined' ? window : globalThis);
