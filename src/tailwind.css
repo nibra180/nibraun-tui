@@ -646,6 +646,19 @@ a {
     color: var(--c-fg-dim);
 }
 
+.path-scale-current {
+    display: flex;
+    justify-content: flex-end;
+    min-height: 1rem;
+    margin-bottom: 0.55rem;
+}
+
+.path-scale-current .now-tag {
+    flex-direction: row-reverse;
+    margin-left: 0;
+    color: var(--c-signal-text);
+}
+
 .path-scale-track {
     --tick: 10px;
     position: relative;
@@ -703,11 +716,6 @@ a {
 .path-scale-labels span:nth-child(3) {
     left: 87.5%;
     transform: translateX(-50%);
-}
-
-.path-scale-labels span:last-child {
-    right: 0;
-    color: var(--c-signal-text);
 }
 
 .path-row {
