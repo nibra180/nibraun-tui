@@ -27,5 +27,16 @@
             lead: '@nibra180',
             leadHref: 'https://github.com/nibra180',
         },
+        {
+            priority: 80,
+            name: 'Stargate - TUI SSH Launcher',
+            kind: 'Go · TUI',
+            href: 'https://github.com/WariKoda/stargate',
+            repo: 'WariKoda/stargate',
+            descriptionKey: 'work.stargate.description',
+            owner: 'WariKoda',
+            lead: '@nibra180',
+            leadHref: 'https://github.com/nibra180',
+        },
     ];
 })(typeof window !== 'undefined' ? window : globalThis);
