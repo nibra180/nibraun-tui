@@ -46,6 +46,7 @@
             'work.openOn': 'Auf GitHub öffnen',
             'work.adminToolbar.description': 'Shopware 6 Plugin, das im Storefront eine Admin-Toolbar einblendet — ähnlich wie bei WordPress.',
             'work.drift.description': 'TUI zum Browsen, Vergleichen und Synchronisieren von Dateien mit Remote-Hosts via SFTP/SSH und FTP, inklusive Diff-Ansicht und Sync-Richtung pro Datei.',
+            'work.stargate.description': 'TUI zum Durchsuchen, Filtern und Öffnen von SSH-Verbindungen aus der ~/.ssh/config über den nativen OpenSSH-Client.',
 
             'repo.release': 'Release',
             'repo.releaseLoading': '…',
@@ -186,6 +187,7 @@
             'work.openOn': 'Open on GitHub',
             'work.adminToolbar.description': 'Shopware 6 plugin that shows an admin toolbar in the storefront — similar to WordPress.',
             'work.drift.description': 'TUI for browsing, diffing, and syncing files with remote hosts over SFTP/SSH and FTP, including side-by-side diffs and per-file sync directions.',
+            'work.stargate.description': 'TUI for browsing, filtering, and opening SSH connections from ~/.ssh/config through the native OpenSSH client.',
 
             'repo.release': 'Release',
             'repo.releaseLoading': '…',

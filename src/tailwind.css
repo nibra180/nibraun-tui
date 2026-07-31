@@ -1410,6 +1410,8 @@ a {
     top: 30%;
     width: 46%;
     height: 12%;
+    translate: 0 var(--instrument-shift-a, 0);
+    will-change: translate;
 }
 
 .instrument-block.is-b {
@@ -1419,7 +1421,8 @@ a {
     height: auto;
     aspect-ratio: 1;
     object-fit: cover;
-    filter: grayscale(1) contrast(0.9);
+    translate: 0 var(--instrument-shift-b, 0);
+    will-change: translate;
 }
 
 .instrument-block.is-c {
@@ -1428,6 +1431,8 @@ a {
     width: 34%;
     height: 7%;
     background: var(--c-signal);
+    translate: 0 var(--instrument-shift-c, 0);
+    will-change: translate;
 }
 
 .instrument-bank {
@@ -1770,6 +1775,10 @@ a {
     .index-row::before,
     .index-release {
         animation: none !important;
+    }
+
+    .instrument-block {
+        translate: none !important;
     }
 
     .path-scale-track::after {

@@ -733,10 +733,11 @@
         githubProjectMeta.load();
 
         // ---- Scroll reveal ----
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
         const pathNeedle = document.querySelector('.path-scale-needle');
         const settlePathNeedle = () => pathNeedle?.classList.add('is-settled');
 
-        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        if (prefersReducedMotion) {
             settlePathNeedle();
         } else {
             pathNeedle?.addEventListener('animationend', event => {
@@ -761,8 +762,21 @@
         const sections = [...document.querySelectorAll('main section[id]')];
         const navLinks = [...document.querySelectorAll('[data-nav]')];
         const toTop = document.getElementById('toTop');
+        const heroInstrument = document.querySelector('.hero-instrument');
+
+        function updateInstrumentMotion() {
+            if (!heroInstrument || prefersReducedMotion) {
+                return;
+            }
+
+            const progress = Math.min(window.scrollY / Math.max(heroInstrument.offsetHeight, 1), 1);
+            heroInstrument.style.setProperty('--instrument-shift-a', `${(progress * 18).toFixed(2)}px`);
+            heroInstrument.style.setProperty('--instrument-shift-b', `${(-progress * 32).toFixed(2)}px`);
+            heroInstrument.style.setProperty('--instrument-shift-c', `${(-progress * 16).toFixed(2)}px`);
+        }
 
         function onScroll() {
+            updateInstrumentMotion();
             let active = '';
             sections.forEach(section => {
                 if (window.scrollY >= section.offsetTop - 96) {
