@@ -102,6 +102,7 @@ weil `.on-fill` nur Vordergrundrollen auf `currentColor` umschreibt.
 - Boldness an einer Stelle bündeln: der Work-Index ist das Signature-Element
 - Mobile-first denken; die Wortmarke darf auf schmalen Viewports umbrechen, nicht auf unlesbare Größe schrumpfen
 - `prefers-reduced-motion` respektieren
+- Animationen nur einmalig und funktional einsetzen: Aufbau, Zeitverlauf oder echte Datenzustände; keine Endlosschleifen
 - Änderungen klein und gezielt halten
 
 ### Don't

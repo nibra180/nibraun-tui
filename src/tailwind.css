@@ -323,11 +323,19 @@ a {
     position: absolute;
     inset: 0 auto 0 0;
     width: 6px;
-    background: var(--c-bezel);
+    background-color: var(--c-bezel);
+    opacity: 0.5;
 }
 
 .index-row:has([data-repo-release-state="ready"])::before {
-    background: var(--c-signal);
+    background-color: var(--c-signal);
+    opacity: 1;
+    animation: indicator-ready 0.28s ease-out both;
+}
+
+.index-row:has([data-repo-release-state="missing"])::before,
+.index-row:has([data-repo-release-state="unavailable"])::before {
+    opacity: 1;
 }
 
 .index-row:has([data-repo-release-state="unavailable"])::before {
@@ -382,6 +390,10 @@ a {
 .index-release[data-repo-release-state="ready"] {
     color: var(--c-signal-text);
     font-weight: 500;
+}
+
+.index-release:not([data-repo-release-state="loading"]) {
+    animation: repo-meta-enter 0.24s ease-out both;
 }
 
 /* Stacked below lg the arrow shares the top line with the number. */
@@ -651,6 +663,14 @@ a {
     justify-content: flex-end;
     min-height: 1rem;
     margin-bottom: 0.55rem;
+    opacity: 0;
+    transform: translateY(0.3rem);
+    transition: opacity 0.2s ease-out 1.55s, transform 0.2s ease-out 1.55s;
+}
+
+.reveal.is-revealed .path-scale-current {
+    opacity: 1;
+    transform: none;
 }
 
 .path-scale-current .now-tag {
@@ -664,21 +684,43 @@ a {
     position: relative;
     height: 1.25rem;
     background-color: var(--c-bezel);
+}
+
+.path-scale-track::after {
+    content: "";
+    position: absolute;
+    inset: 0;
     background-repeat: repeat-x;
     background-position: bottom left;
     background-image:
         repeating-linear-gradient(90deg, currentColor 0 1px, transparent 1px calc(var(--tick) * 5)),
         repeating-linear-gradient(90deg, currentColor 0 1px, transparent 1px var(--tick));
     background-size: 100% 14px, 100% 7px;
+    clip-path: inset(0 100% 0 0);
+}
+
+.reveal.is-revealed .path-scale-track::after {
+    animation: path-scale-draw 1.35s ease-in-out 0.2s both;
 }
 
 .path-scale-needle {
     position: absolute;
-    right: 0;
+    z-index: 1;
+    left: 0;
     bottom: -0.25rem;
     width: 2px;
     height: 1.75rem;
     background: var(--c-signal);
+    transition: left 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal.is-revealed .path-scale-needle {
+    animation: path-needle-travel 1.35s ease-in-out 0.2s both;
+}
+
+.reveal .path-scale-needle.is-settled {
+    left: calc(100% - 2px);
+    animation: none;
 }
 
 .path-scale-needle::before {
@@ -702,6 +744,23 @@ a {
 .path-scale-labels span {
     position: absolute;
     top: 0;
+    opacity: 0;
+    transition: opacity 0.16s ease-out;
+}
+
+.reveal.is-revealed .path-scale-labels span:first-child {
+    opacity: 1;
+    transition-delay: 0.2s;
+}
+
+.reveal.is-revealed .path-scale-labels span:nth-child(2) {
+    opacity: 1;
+    transition-delay: 0.63s;
+}
+
+.reveal.is-revealed .path-scale-labels span:nth-child(3) {
+    opacity: 1;
+    transition-delay: 1.21s;
 }
 
 .path-scale-labels span:first-child {
@@ -716,6 +775,24 @@ a {
 .path-scale-labels span:nth-child(3) {
     left: 87.5%;
     transform: translateX(-50%);
+}
+
+@media (hover: hover) {
+    #path .reveal:has(.path-row[data-path-point="2018"]:hover) {
+        --path-hover-position: 0;
+    }
+
+    #path .reveal:has(.path-row[data-path-point="2021"]:hover) {
+        --path-hover-position: calc(37.5% - 1px);
+    }
+
+    #path .reveal:has(.path-row[data-path-point="2025"]:hover) {
+        --path-hover-position: calc(87.5% - 1px);
+    }
+
+    #path .reveal:has(.path-row:hover) .path-scale-needle.is-settled {
+        left: var(--path-hover-position);
+    }
 }
 
 .path-row {
@@ -1133,6 +1210,84 @@ a {
     }
 }
 
+.quick-nav {
+    display: none;
+}
+
+@media (min-width: 48rem) {
+    .quick-nav {
+        position: fixed;
+        z-index: 40;
+        top: 50%;
+        right: 0.5rem;
+        display: grid;
+        width: 6.5rem;
+        overflow: hidden;
+        color: var(--c-fg);
+        background: var(--c-panel);
+        border: 2px solid var(--c-fg);
+        transform: translateY(-50%);
+    }
+}
+
+.quick-nav-heading {
+    padding: 0.45rem 0.6rem;
+    color: var(--c-fg-dim);
+    border-bottom: 1px solid var(--c-rule);
+    font-family: var(--font-mono);
+    font-size: 0.5625rem;
+    font-weight: 550;
+    letter-spacing: 0.12em;
+    line-height: 1.2;
+    text-transform: uppercase;
+}
+
+.quick-nav-link {
+    position: relative;
+    display: flex;
+    align-items: center;
+    min-height: 2rem;
+    padding: 0.35rem 0.5rem 0.35rem 1.35rem;
+    color: var(--c-fg-dim);
+    border-bottom: 1px solid var(--c-rule);
+    font-family: var(--font-mono);
+    font-size: 0.625rem;
+    font-weight: 550;
+    letter-spacing: 0.07em;
+    line-height: 1.2;
+    text-transform: uppercase;
+    transition: color 0.15s ease, background-color 0.15s ease;
+}
+
+.quick-nav-link:last-child {
+    border-bottom: 0;
+}
+
+.quick-nav-link::before {
+    content: "";
+    position: absolute;
+    left: 0.55rem;
+    width: 0.4rem;
+    height: 1px;
+    background: currentColor;
+    transition: width 0.15s ease, height 0.15s ease;
+}
+
+.quick-nav-link:hover {
+    color: var(--c-fg);
+    background: var(--c-bezel);
+}
+
+.quick-nav-link.is-active {
+    color: var(--c-on-signal);
+    background: var(--c-signal);
+}
+
+.quick-nav-link.is-active::before {
+    width: 0.5rem;
+    height: 0.5rem;
+}
+
 /* ==========================================================================
    Hero
    ========================================================================== */
@@ -1248,10 +1403,12 @@ a {
 
 .instrument-block.is-b {
     right: 10%;
-    top: 48%;
+    top: 38%;
     width: 22%;
-    height: 32%;
-    background: color-mix(in srgb, var(--c-fg) 82%, transparent);
+    height: auto;
+    aspect-ratio: 1;
+    object-fit: cover;
+    filter: grayscale(1) contrast(0.9);
 }
 
 .instrument-block.is-c {
@@ -1402,6 +1559,12 @@ a {
     color: var(--c-on-signal);
 }
 
+@media (min-width: 48rem) {
+    .to-top {
+        right: 7.5rem;
+    }
+}
+
 /* ==========================================================================
    Motion
    ========================================================================== */
@@ -1413,6 +1576,151 @@ a {
     to {
         left: var(--gauge-pos);
     }
+}
+
+@keyframes path-scale-draw {
+    0% {
+        clip-path: inset(0 100% 0 0);
+    }
+    32%,
+    38% {
+        clip-path: inset(0 62.5% 0 0);
+    }
+    75%,
+    81% {
+        clip-path: inset(0 12.5% 0 0);
+    }
+    100% {
+        clip-path: inset(0);
+    }
+}
+
+@keyframes path-needle-travel {
+    0% {
+        left: 0;
+    }
+    32%,
+    38% {
+        left: 37.5%;
+    }
+    75%,
+    81% {
+        left: 87.5%;
+    }
+    100% {
+        left: calc(100% - 2px);
+    }
+}
+
+@keyframes indicator-ready {
+    from {
+        background-color: var(--c-bezel);
+        opacity: 0.5;
+    }
+    to {
+        background-color: var(--c-signal);
+        opacity: 1;
+    }
+}
+
+@keyframes repo-meta-enter {
+    from {
+        opacity: 0;
+        transform: translateY(0.2rem);
+    }
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+@keyframes instrument-field-enter {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes instrument-part-enter {
+    from {
+        opacity: 0;
+        transform: translateY(0.4rem);
+    }
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+.instrument-field {
+    animation: instrument-field-enter 0.42s ease-out 0.12s both;
+}
+
+.instrument-block,
+.instrument-module {
+    animation: instrument-part-enter 0.38s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.instrument-block.is-a {
+    animation-delay: 0.28s;
+}
+
+.instrument-block.is-b {
+    animation-delay: 0.38s;
+}
+
+.instrument-block.is-c {
+    animation-delay: 0.48s;
+}
+
+.instrument-module:nth-child(1) {
+    animation-delay: 0.38s;
+}
+
+.instrument-module:nth-child(2) {
+    animation-delay: 0.44s;
+}
+
+.instrument-module:nth-child(3) {
+    animation-delay: 0.5s;
+}
+
+.instrument-module:nth-child(4) {
+    animation-delay: 0.56s;
+}
+
+.instrument-module:nth-child(5) {
+    animation-delay: 0.62s;
+}
+
+.instrument-slots span {
+    animation: instrument-field-enter 0.24s ease-out both;
+}
+
+.instrument-slots span:nth-child(1) {
+    animation-delay: 0.56s;
+}
+
+.instrument-slots span:nth-child(2) {
+    animation-delay: 0.6s;
+}
+
+.instrument-slots span:nth-child(3) {
+    animation-delay: 0.64s;
+}
+
+.instrument-slots span:nth-child(4) {
+    animation-delay: 0.68s;
+}
+
+.instrument-slots span:nth-child(5) {
+    animation-delay: 0.72s;
+}
+
+.instrument-slots span:nth-child(6) {
+    animation-delay: 0.76s;
 }
 
 .reveal {
@@ -1436,6 +1744,31 @@ a {
         left: var(--gauge-pos);
     }
 
+    .instrument-field,
+    .instrument-block,
+    .instrument-module,
+    .instrument-slots span,
+    .index-row::before,
+    .index-release {
+        animation: none !important;
+    }
+
+    .path-scale-track::after {
+        clip-path: inset(0);
+        animation: none !important;
+    }
+
+    .path-scale-needle {
+        left: calc(100% - 2px);
+        animation: none !important;
+    }
+
+    .path-scale-current,
+    .path-scale-labels span {
+        opacity: 1;
+        transform: none;
+    }
+
     .reveal {
         opacity: 1;
         transform: none;
@@ -1446,6 +1779,8 @@ a {
     *::before,
     *::after {
         animation-duration: 0.01ms !important;
+        animation-delay: 0s !important;
         transition-duration: 0.01ms !important;
+        transition-delay: 0s !important;
     }
 }

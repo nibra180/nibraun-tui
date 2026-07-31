@@ -18,7 +18,7 @@
         },
         {
             priority: 90,
-            name: 'Drift File Sync',
+            name: 'Drift - TUI File Syncing',
             kind: 'Go · TUI',
             href: 'https://github.com/WariKoda/drift',
             repo: 'WariKoda/drift',
