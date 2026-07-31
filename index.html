@@ -85,6 +85,16 @@
     </div>
 </nav>
 
+<nav class="quick-nav" data-i18n-aria-label="nav.quick" aria-label="Quick navigation">
+    <span class="quick-nav-heading" data-i18n="nav.sections">Sections</span>
+    <a href="#work" class="quick-nav-link" data-nav data-i18n="nav.work">Work</a>
+    <a href="#warikoda" class="quick-nav-link" data-nav>WariKoda</a>
+    <a href="#skills" class="quick-nav-link" data-nav data-i18n="nav.skills">Skills</a>
+    <a href="#path" class="quick-nav-link" data-nav data-i18n="nav.path">Path</a>
+    <a href="#profile" class="quick-nav-link" data-nav data-i18n="nav.profile">Profile</a>
+    <a href="#contact" class="quick-nav-link" data-nav data-i18n="nav.contact">Contact</a>
+</nav>
+
 <main id="top" style="padding-top: 3.5rem;">
 
     <!-- ==================== HERO ==================== -->
@@ -96,13 +106,13 @@
                     <p class="hero-subtitle subtitle" data-i18n="hero.eyebrow">Full-stack developer · Oldenburg</p>
                 </div>
 
-                <p class="hero-lede lede" data-i18n="hero.lede">My experience spans e-commerce, mobile applications, and technical integrations — from custom Shopware solutions and ERP/PIM systems to cross-device apps built with Flutter.</p>
+                <p class="hero-lede lede" data-i18n="hero.lede">My experience spans e-commerce, mobile applications, technical integrations, and open source — from custom Shopware solutions and ERP/PIM systems to cross-device apps built with Flutter.</p>
 
                 <div class="hero-instrument" aria-hidden="true">
                     <div class="instrument-face">
                         <div class="instrument-field">
                             <span class="instrument-block is-a"></span>
-                            <span class="instrument-block is-b"></span>
+                            <img class="instrument-block is-b" src="img/avatar.png" alt="">
                             <span class="instrument-block is-c"></span>
                         </div>
                         <div class="instrument-bank">
@@ -121,11 +131,11 @@
                 <div class="hero-spec spec-list">
                     <div class="spec-row">
                         <span class="spec-key" data-i18n="hero.specType">Type</span>
-                        <span class="spec-val" data-i18n="hero.specTypeValue">Shopware 6 · Flutter · Vue · Symfony</span>
+                        <span class="spec-val" data-i18n="hero.specTypeValue">Shopware 6 · Flutter · Symfony · Open Source</span>
                     </div>
                     <div class="spec-row">
-                        <span class="spec-key" data-i18n="hero.specSince">Since</span>
-                        <span class="spec-val" data-i18n="hero.specSinceValue">2018</span>
+                        <span class="spec-key" data-i18n="hero.specExperience">Experience</span>
+                        <span class="spec-val" data-i18n="hero.specExperienceValue">7+ years</span>
                     </div>
                     <div class="spec-row">
                         <span class="spec-key" data-i18n="hero.specLocation">Location</span>
@@ -347,7 +357,7 @@
                     </div>
                 </div>
 
-                <div class="path-row is-current">
+                <div class="path-row is-current" data-path-point="2025">
                     <div class="path-year">2025 &rarr;</div>
                     <div>
                         <div class="path-role" data-i18n="path.role1">Full-stack developer</div>
@@ -356,7 +366,7 @@
                     <p class="path-desc" data-i18n="path.desc1">Focus on Shopware, Flutter, API integrations, ERP/PIM, and technical architecture.</p>
                 </div>
 
-                <div class="path-row">
+                <div class="path-row" data-path-point="2021">
                     <div class="path-year">2021 &rarr; 2025</div>
                     <div>
                         <div class="path-role" data-i18n="path.role2">Frontend developer &amp; web designer</div>
@@ -365,22 +375,13 @@
                     <p class="path-desc" data-i18n="path.desc2">Built e-commerce projects with Shopware 6, Twig, Vue.js, TypeScript, and SCSS.</p>
                 </div>
 
-                <div class="path-row">
+                <div class="path-row" data-path-point="2018">
                     <div class="path-year">2018 &rarr; 2021</div>
                     <div>
-                        <div class="path-role" data-i18n="path.role3">Media designer digital/print</div>
-                        <div class="path-org">WL Online GmbH · Garrel</div>
+                        <div class="path-role" data-i18n="path.role3">Apprenticeship in digital/print media design</div>
+                        <div class="path-org">WL Online GmbH · BZT Oldenburg</div>
                     </div>
-                    <p class="path-desc" data-i18n="path.desc3">UX/UI design, frontend applications, and theme and plugin development for e-commerce projects.</p>
-                </div>
-
-                <div class="path-row">
-                    <div class="path-year">2018 &rarr; 2021</div>
-                    <div>
-                        <div class="path-role" data-i18n="path.role4">Apprenticeship in media design print &amp; digital</div>
-                        <div class="path-org">BZT Oldenburg</div>
-                    </div>
-                    <p class="path-desc" data-i18n="path.desc4">Final grade 1.4 · best of class (IHK) · focus on digital concept work and content creation.</p>
+                    <p class="path-desc" data-i18n="path.desc3">Practical work in UX/UI design, frontend, and theme and plugin development for e-commerce projects. Final grade 1.4 · best of class (IHK).</p>
                 </div>
             </div>
         </div>
@@ -714,6 +715,19 @@
         githubProjectMeta.load();
 
         // ---- Scroll reveal ----
+        const pathNeedle = document.querySelector('.path-scale-needle');
+        const settlePathNeedle = () => pathNeedle?.classList.add('is-settled');
+
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            settlePathNeedle();
+        } else {
+            pathNeedle?.addEventListener('animationend', event => {
+                if (event.animationName === 'path-needle-travel') {
+                    settlePathNeedle();
+                }
+            }, { once: true });
+        }
+
         const revealObserver = new IntersectionObserver(entries => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -738,7 +752,13 @@
                 }
             });
             navLinks.forEach(link => {
-                link.classList.toggle('is-active', link.getAttribute('href') === `#${active}`);
+                const isActive = link.getAttribute('href') === `#${active}`;
+                link.classList.toggle('is-active', isActive);
+                if (isActive) {
+                    link.setAttribute('aria-current', 'location');
+                } else {
+                    link.removeAttribute('aria-current');
+                }
             });
             toTop.classList.toggle('is-visible', window.scrollY > 600);
         }
