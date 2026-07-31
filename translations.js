@@ -9,7 +9,10 @@
 
             'nav.main': 'Hauptnavigation',
             'nav.quick': 'Schnellnavigation',
-            'nav.sections': 'Sektionen',
+            'nav.workShort': 'AR',
+            'nav.skillsShort': 'KO',
+            'nav.pathShort': 'WE',
+            'nav.contactShort': 'KT',
             'nav.home': 'Zur Startseite',
             'nav.github': 'GitHub Profil von Niklas Braun',
             'nav.menuOpen': 'Menü öffnen',
@@ -146,7 +149,10 @@
 
             'nav.main': 'Main navigation',
             'nav.quick': 'Quick navigation',
-            'nav.sections': 'Sections',
+            'nav.workShort': 'WO',
+            'nav.skillsShort': 'SK',
+            'nav.pathShort': 'PA',
+            'nav.contactShort': 'CO',
             'nav.home': 'Back to homepage',
             'nav.github': 'Niklas Braun GitHub profile',
             'nav.menuOpen': 'Open menu',
