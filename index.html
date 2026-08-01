@@ -138,7 +138,6 @@
                     <div class="instrument-face">
                         <div class="instrument-field">
                             <span class="instrument-block is-a"></span>
-                            <img class="instrument-block is-b" src="img/avatar.png" alt="">
                             <span class="instrument-block is-c"></span>
                         </div>
                         <div class="instrument-bank">
@@ -220,8 +219,7 @@
                 <h2 class="title">WariKoda</h2>
             </header>
 
-            <div class="reveal grid gap-8 md:grid-cols-[auto_minmax(0,1fr)] md:items-start">
-                <img src="img/warikoda-logo.png" alt="WariKoda logo" data-i18n-alt="warikoda.logoAlt" class="warikoda-mark">
+            <div class="reveal grid gap-8 md:grid-cols-[minmax(0,1fr)_auto] md:items-center md:gap-14">
                 <div>
                     <p class="prose" data-i18n-html="warikoda.intro">
                         WariKoda stands for open source built with care, clarity, and a strong standard for good
@@ -232,6 +230,7 @@
                         <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg>
                     </a>
                 </div>
+                <img src="img/warikoda-logo.png" alt="WariKoda logo" data-i18n-alt="warikoda.logoAlt" class="warikoda-mark">
             </div>
         </div>
     </section>
@@ -608,13 +607,21 @@
             const sorted = [...projects].sort((a, b) => (b.priority || 0) - (a.priority || 0));
             workCount.textContent = String(sorted.length).padStart(2, '0');
 
-            workIndex.innerHTML = sorted.map((project, position) => `
+            workIndex.innerHTML = sorted.map((project, position) => {
+                const hasRepo = Boolean(project.repo);
+                const repoAttribute = hasRepo ? `data-github-repo="${escapeHtml(project.repo)}"` : '';
+                const repoState = hasRepo ? 'loading' : 'unavailable';
+                const unavailableBinding = hasRepo ? '' : 'data-i18n="repo.releaseUnavailable"';
+                const unavailableText = hasRepo ? '' : escapeHtml(getTranslation('repo.releaseUnavailable'));
+                const openLabel = getTranslation(hasRepo ? 'work.openOn' : 'work.openWebsite');
+
+                return `
                 <a class="index-row"
                    href="${escapeHtml(project.href)}"
                    target="_blank"
                    rel="noopener noreferrer"
-                   data-github-repo="${escapeHtml(project.repo)}"
-                   aria-label="${escapeHtml(project.name)} — ${escapeHtml(getTranslation('work.openOn'))}">
+                   ${repoAttribute}
+                   aria-label="${escapeHtml(project.name)} — ${escapeHtml(openLabel)}">
                     <span class="index-num">${String(position + 1).padStart(2, '0')}</span>
                     <span class="index-body">
                         <span class="index-name">${escapeHtml(project.name)}</span>
@@ -622,18 +629,18 @@
                     </span>
                     <span class="index-meta">
                         <span class="index-kind">${escapeHtml(project.kind)}</span>
-                        <span class="index-release" data-repo-release data-repo-bare data-repo-release-state="loading"></span>
+                        <span class="index-release" data-repo-release data-repo-bare data-repo-release-state="${repoState}" ${unavailableBinding}>${unavailableText}</span>
                     </span>
                     <span class="index-gauge">
                         <span class="gauge-label mono" data-i18n="work.gaugeLabel">Last push</span>
-                        <span class="gauge" data-repo-gauge role="img" data-i18n-aria-label="work.gaugeLabel" aria-label="Last push">
+                        <span class="gauge" data-repo-gauge data-repo-gauge-state="${repoState}" role="img" data-i18n-aria-label="work.gaugeLabel" aria-label="Last push">
                             <span class="gauge-needle"></span>
                         </span>
-                        <span class="index-updated" data-repo-update data-repo-bare data-repo-update-state="loading"></span>
+                        <span class="index-updated" data-repo-update data-repo-bare data-repo-update-state="${repoState}" ${unavailableBinding}>${unavailableText}</span>
                     </span>
                     <svg class="index-arrow w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg>
-                </a>
-            `).join('');
+                </a>`;
+            }).join('');
         }
 
         // ---- Locale ----
@@ -841,7 +848,6 @@
 
             const progress = Math.min(window.scrollY / Math.max(heroInstrument.offsetHeight, 1), 1);
             heroInstrument.style.setProperty('--instrument-shift-a', `${(progress * 18).toFixed(2)}px`);
-            heroInstrument.style.setProperty('--instrument-shift-b', `${(-progress * 32).toFixed(2)}px`);
             heroInstrument.style.setProperty('--instrument-shift-c', `${(-progress * 16).toFixed(2)}px`);
         }
 
