@@ -53,6 +53,10 @@
 
             <div class="flex items-center gap-2">
                 <div class="nav-utils">
+                    <button class="theme-toggle" type="button" data-theme-toggle aria-pressed="false" data-i18n-aria-label="nav.themeDark" aria-label="Switch to dark mode">
+                        <svg data-theme-icon="light" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="3.5"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M19.1 4.9l-1.8 1.8M6.7 17.3l-1.8 1.8"/></svg>
+                        <svg class="hidden" data-theme-icon="dark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M20.5 15.2A8.5 8.5 0 0 1 8.8 3.5 8.5 8.5 0 1 0 20.5 15.2Z"/></svg>
+                    </button>
                     <div class="seg" role="group" data-i18n-aria-label="nav.language" aria-label="Choose language">
                         <button type="button" data-lang-switch="de" aria-pressed="false" lang="de">DE</button>
                         <button type="button" data-lang-switch="en" aria-pressed="true" lang="en">EN</button>
@@ -75,6 +79,10 @@
                 <a href="#profile" class="drawer-link" data-nav data-drawer-close data-i18n="nav.profile">Profile</a>
                 <a href="#contact" class="drawer-link" data-nav data-drawer-close data-i18n="nav.contact">Contact</a>
                 <div class="drawer-utils">
+                    <button class="theme-toggle" type="button" data-theme-toggle aria-pressed="false" data-i18n-aria-label="nav.themeDark" aria-label="Switch to dark mode">
+                        <svg data-theme-icon="light" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="3.5"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M19.1 4.9l-1.8 1.8M6.7 17.3l-1.8 1.8"/></svg>
+                        <svg class="hidden" data-theme-icon="dark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M20.5 15.2A8.5 8.5 0 0 1 8.8 3.5 8.5 8.5 0 1 0 20.5 15.2Z"/></svg>
+                    </button>
                     <div class="seg" role="group" data-i18n-aria-label="nav.language" aria-label="Choose language">
                         <button type="button" data-lang-switch="de" aria-pressed="false" lang="de">DE</button>
                         <button type="button" data-lang-switch="en" aria-pressed="true" lang="en">EN</button>
@@ -531,6 +539,7 @@
         const translations = window.siteTranslations || {};
         const projects = Array.isArray(window.siteProjects) ? window.siteProjects : [];
         let currentLocale = defaultLocale;
+        let currentTheme = 'light';
         let githubProjectMeta = null;
 
         document.getElementById('footerYear').textContent = new Date().getFullYear();
@@ -677,6 +686,7 @@
                 button.setAttribute('aria-pressed', String(button.dataset.langSwitch === currentLocale));
             });
             updateMenuLabel();
+            updateThemeControls();
             githubProjectMeta?.refreshLabels();
 
             if (persist) {
@@ -692,6 +702,64 @@
 
         languageButtons.forEach(button => {
             button.addEventListener('click', () => applyLocale(button.dataset.langSwitch));
+        });
+
+        // ---- Theme ----
+        const themeButtons = document.querySelectorAll('[data-theme-toggle]');
+        const themeColor = document.querySelector('meta[name="theme-color"]');
+        const systemTheme = window.matchMedia('(prefers-color-scheme: dark)');
+
+        function getStoredTheme() {
+            try {
+                const theme = localStorage.getItem('theme');
+                return ['light', 'dark'].includes(theme) ? theme : null;
+            } catch {
+                return null;
+            }
+        }
+
+        function updateThemeControls() {
+            const label = getTranslation(currentTheme === 'dark' ? 'nav.themeLight' : 'nav.themeDark');
+
+            themeButtons.forEach(button => {
+                button.setAttribute('aria-pressed', String(currentTheme === 'dark'));
+                button.setAttribute('aria-label', label);
+                button.setAttribute('title', label);
+                button.querySelector('[data-theme-icon="light"]')?.classList.toggle('hidden', currentTheme === 'dark');
+                button.querySelector('[data-theme-icon="dark"]')?.classList.toggle('hidden', currentTheme !== 'dark');
+            });
+
+            themeColor?.setAttribute('content', getComputedStyle(root).getPropertyValue('--c-shell').trim());
+        }
+
+        function applyTheme(theme, { persist = false, followSystem = false } = {}) {
+            currentTheme = theme === 'dark' ? 'dark' : 'light';
+
+            if (followSystem) {
+                root.removeAttribute('data-theme');
+            } else {
+                root.dataset.theme = currentTheme;
+            }
+
+            if (persist) {
+                try {
+                    localStorage.setItem('theme', currentTheme);
+                } catch {}
+            }
+
+            updateThemeControls();
+        }
+
+        themeButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                applyTheme(currentTheme === 'dark' ? 'light' : 'dark', { persist: true });
+            });
+        });
+
+        systemTheme.addEventListener('change', event => {
+            if (!getStoredTheme()) {
+                applyTheme(event.matches ? 'dark' : 'light', { followSystem: true });
+            }
         });
 
         // ---- Mobile drawer ----
@@ -721,6 +789,8 @@
 
         // ---- Boot ----
         renderWorkIndex();
+        const storedTheme = getStoredTheme();
+        applyTheme(storedTheme || (systemTheme.matches ? 'dark' : 'light'), { followSystem: !storedTheme });
         const initialLocale = getQueryLocale() || getStoredLocale() || defaultLocale;
         applyLocale(initialLocale, { syncUrl: Boolean(getQueryLocale()) || initialLocale !== defaultLocale });
 

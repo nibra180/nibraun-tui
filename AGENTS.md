@@ -16,11 +16,10 @@ unter dem Hero, alles andere stützt ihn.
 
 ## Designrichtung
 
-**BRAUN: Datenblatt.** Ein einziges, helles Theme nach der Formensprache
+**BRAUN: Datenblatt.** Ein Theme nach der Formensprache
 klassischer Braun-Geräte: Gehäuse statt Papier, Fugen statt schwerer Linien,
 Skalen statt Ornament und genau eine orange Signalfarbe für aktive Zustände und
-Messwerte. Kein Dark Mode, keine `prefers-color-scheme`-Farbbehandlung, kein
-Theme-Toggle.
+Messwerte.
 
 - Drei Flächenebenen: Gehäuse (`--c-shell`), Baugruppe (`--c-panel`) und
   vertiefte Blende (`--c-bezel`)
@@ -107,7 +106,6 @@ weil `.on-fill` nur Vordergrundrollen auf `currentColor` umschreibt.
 
 ### Don't
 - Keine externen JS-Libraries oder Runtime-Dependencies
-- Keinen Dark Mode wieder einführen
 - Keine zweite Akzentfarbe einführen
 - Keine Texte außerhalb der i18n-Struktur pflegen
 - Keine Emojis in Dokumentationen
