@@ -46,7 +46,9 @@
             'work.colUpdated': 'Letzter Push',
             'work.gaugeLabel': 'Letzter Push',
             'work.openOn': 'Auf GitHub öffnen',
+            'work.openWebsite': 'Website öffnen',
             'work.adminToolbar.description': 'Shopware 6 Plugin, das im Storefront eine Admin-Toolbar einblendet — ähnlich wie bei WordPress.',
+            'work.campAlong.description': 'Local-first Flutter-App zur Planung reisefertiger Mehrtagestouren aus GPX-Routen — mit Etappen, Übernachtungen, Wasser und Versorgung entlang der Route.',
             'work.drift.description': 'TUI zum Browsen, Vergleichen und Synchronisieren von Dateien mit Remote-Hosts via SFTP/SSH und FTP, inklusive Diff-Ansicht und Sync-Richtung pro Datei.',
             'work.stargate.description': 'TUI zum Durchsuchen, Filtern und Öffnen von SSH-Verbindungen aus der ~/.ssh/config über den nativen OpenSSH-Client.',
 
@@ -189,7 +191,9 @@
             'work.colUpdated': 'Last push',
             'work.gaugeLabel': 'Last push',
             'work.openOn': 'Open on GitHub',
+            'work.openWebsite': 'Open website',
             'work.adminToolbar.description': 'Shopware 6 plugin that shows an admin toolbar in the storefront — similar to WordPress.',
+            'work.campAlong.description': 'Local-first Flutter app for turning GPX routes into trip-ready multi-day journeys — with stages, overnight stops, water, and supplies along the route.',
             'work.drift.description': 'TUI for browsing, diffing, and syncing files with remote hosts over SFTP/SSH and FTP, including side-by-side diffs and per-file sync directions.',
             'work.stargate.description': 'TUI for browsing, filtering, and opening SSH connections from ~/.ssh/config through the native OpenSSH client.',
 

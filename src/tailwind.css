@@ -549,13 +549,13 @@ a {
    ========================================================================== */
 
 .warikoda-mark {
-    width: 5rem;
-    height: 5rem;
+    width: clamp(7rem, 16vw, 12.5rem);
+    aspect-ratio: 1;
     object-fit: contain;
-    padding: 0.35rem;
+    justify-self: end;
+    padding: 0.6rem;
     border: 1px solid var(--c-rule);
     background: color-mix(in srgb, currentColor 8%, transparent);
-    filter: grayscale(1) contrast(1.12);
 }
 
 /* ==========================================================================
@@ -1286,7 +1286,7 @@ a {
         position: fixed;
         z-index: 40;
         top: 50%;
-        right: 1rem;
+        right: 0.75rem;
         display: grid;
         width: 2.5rem;
         overflow: visible;
@@ -1294,12 +1294,6 @@ a {
         background: var(--c-panel);
         border: 2px solid var(--c-rule);
         transform: translateY(-50%);
-    }
-}
-
-@media (min-width: 80rem) {
-    .quick-nav {
-        right: max(1rem, calc((100vw - 96rem) / 2 + 1rem));
     }
 }
 
@@ -1478,17 +1472,6 @@ a {
     width: 46%;
     height: 12%;
     translate: 0 var(--instrument-shift-a, 0);
-    will-change: translate;
-}
-
-.instrument-block.is-b {
-    right: 10%;
-    top: 38%;
-    width: 22%;
-    height: auto;
-    aspect-ratio: 1;
-    object-fit: cover;
-    translate: 0 var(--instrument-shift-b, 0);
     will-change: translate;
 }
 
@@ -1756,10 +1739,6 @@ a {
 
 .instrument-block.is-a {
     animation-delay: 0.28s;
-}
-
-.instrument-block.is-b {
-    animation-delay: 0.38s;
 }
 
 .instrument-block.is-c {

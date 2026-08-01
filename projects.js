@@ -17,6 +17,13 @@
             leadHref: 'https://github.com/nibra180',
         },
         {
+            priority: 110,
+            name: 'CampAlong',
+            kind: 'Flutter · App',
+            href: 'https://campalong.de',
+            descriptionKey: 'work.campAlong.description',
+        },
+        {
             priority: 90,
             name: 'Drift - TUI File Syncing',
             kind: 'Go · TUI',
