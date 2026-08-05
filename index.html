@@ -120,9 +120,9 @@
     </a>
 </nav>
 
-<main id="top" style="padding-top: 3.5rem;">
+<main id="top" class="section-stack" style="padding-top: 3.5rem;">
 
-    <section class="hero">
+    <section class="hero scroll-panel">
         <div class="shell">
             <div class="hero-grid">
                 <div class="hero-heading">
@@ -132,21 +132,20 @@
 
                 <p class="hero-lede lede" data-i18n="hero.lede">My experience spans e-commerce, mobile applications, technical integrations, and open source — from custom Shopware solutions and ERP/PIM systems to cross-device apps built with Flutter.</p>
 
-                <div class="hero-instrument" aria-hidden="true">
-                    <div class="instrument-face">
-                        <div class="instrument-field">
-                            <span class="instrument-block is-a"></span>
-                            <span class="instrument-block is-c"></span>
-                        </div>
-                        <div class="instrument-bank">
-                            <span class="instrument-module is-wide"></span>
-                            <span class="instrument-module"></span>
-                            <span class="instrument-module"></span>
-                            <span class="instrument-module is-dark"></span>
-                            <span class="instrument-module"></span>
-                        </div>
-                        <div class="instrument-slots">
-                            <span></span><span></span><span></span><span></span><span></span><span></span>
+                <div class="hero-art" aria-hidden="true">
+                    <div class="relief-stage">
+                        <span class="relief-plane relief-plane-a"></span>
+                        <span class="relief-plane relief-plane-b"></span>
+                        <span class="relief-plane relief-plane-c"></span>
+                        <span class="relief-plane relief-plane-d"></span>
+                        <span class="relief-plane relief-plane-e"></span>
+                        <span class="relief-signal"></span>
+                        <span class="relief-rule relief-rule-top"></span>
+                        <span class="relief-rule relief-rule-side"></span>
+                        <span class="relief-rule relief-rule-bottom"></span>
+                        <div class="relief-lamellae">
+                            <span></span><span></span><span></span><span></span>
+                            <span></span><span></span><span></span>
                         </div>
                     </div>
                 </div>
@@ -181,7 +180,7 @@
         </div>
     </section>
 
-    <section id="work" class="band">
+    <section id="work" class="band scroll-panel">
         <div class="shell">
             <header class="specimen reveal">
                 <div class="specimen-meta">
@@ -205,7 +204,7 @@
         </div>
     </section>
 
-    <section id="warikoda" class="band band-invert on-fill">
+    <section id="warikoda" class="band band-invert on-fill scroll-panel">
         <div class="shell">
             <header class="specimen reveal">
                 <div class="specimen-meta">
@@ -231,7 +230,7 @@
         </div>
     </section>
 
-    <section id="skills" class="band">
+    <section id="skills" class="band scroll-panel">
         <div class="shell">
             <header class="specimen reveal">
                 <div class="specimen-meta">
@@ -351,7 +350,7 @@
         </div>
     </section>
 
-    <section id="path" class="band">
+    <section id="path" class="band scroll-panel">
         <div class="shell">
             <header class="specimen reveal">
                 <div class="specimen-meta">
@@ -406,7 +405,7 @@
         </div>
     </section>
 
-    <section id="profile" class="band">
+    <section id="profile" class="band scroll-panel">
         <div class="shell">
             <header class="specimen reveal">
                 <div class="specimen-meta">
@@ -458,7 +457,7 @@
         </div>
     </section>
 
-    <section id="contact" class="band band-signal on-fill">
+    <section id="contact" class="band band-signal on-fill scroll-panel">
         <div class="shell">
             <header class="specimen reveal">
                 <div class="specimen-meta">
@@ -827,24 +826,106 @@
 
         document.querySelectorAll('.reveal').forEach(element => revealObserver.observe(element));
 
+        // ---- Full-height section stack ----
+        const stackPanels = [...document.querySelectorAll('.scroll-panel')];
+        const stackMedia = window.matchMedia('(prefers-reduced-motion: no-preference)');
+
+        function updateStackPanels() {
+            const availableHeight = window.innerHeight - 56;
+
+            stackPanels.forEach(panel => {
+                panel.classList.remove('is-stackable');
+
+                if (!stackMedia.matches) {
+                    return;
+                }
+
+                const content = panel.querySelector(':scope > .shell');
+                if (!content) {
+                    return;
+                }
+
+                const styles = window.getComputedStyle(panel);
+                const verticalFrame = parseFloat(styles.paddingTop)
+                    + parseFloat(styles.paddingBottom)
+                    + parseFloat(styles.borderTopWidth)
+                    + parseFloat(styles.borderBottomWidth);
+                const requiredHeight = content.getBoundingClientRect().height + verticalFrame;
+                panel.classList.toggle('is-stackable', requiredHeight <= availableHeight);
+            });
+        }
+
+        const stackResizeObserver = new ResizeObserver(updateStackPanels);
+        stackPanels.forEach(panel => {
+            const content = panel.querySelector(':scope > .shell');
+            if (content) {
+                stackResizeObserver.observe(content);
+            }
+        });
+        stackMedia.addEventListener('change', updateStackPanels);
+        window.addEventListener('resize', updateStackPanels, { passive: true });
+        updateStackPanels();
+
         // ---- Active nav + back to top ----
         const sections = [...document.querySelectorAll('main section[id]')];
         const navLinks = [...document.querySelectorAll('[data-nav]')];
         const toTop = document.getElementById('toTop');
-        const heroInstrument = document.querySelector('.hero-instrument');
+        const heroArt = document.querySelector('.hero-art');
 
-        function updateInstrumentMotion() {
-            if (!heroInstrument || prefersReducedMotion) {
+        function updateHeroArtMotion() {
+            if (!heroArt || prefersReducedMotion) {
                 return;
             }
 
-            const progress = Math.min(window.scrollY / Math.max(heroInstrument.offsetHeight, 1), 1);
-            heroInstrument.style.setProperty('--instrument-shift-a', `${(progress * 18).toFixed(2)}px`);
-            heroInstrument.style.setProperty('--instrument-shift-c', `${(-progress * 16).toFixed(2)}px`);
+            const progress = Math.min(window.scrollY / Math.max(heroArt.offsetHeight, 1), 1);
+            heroArt.style.setProperty('--relief-shift-a', `${(progress * 14).toFixed(2)}px`);
+            heroArt.style.setProperty('--relief-shift-b', `${(-progress * 11).toFixed(2)}px`);
+        }
+
+        let heroArtPointerFrame = null;
+        let heroArtPointerPosition = { x: 0, y: 0 };
+
+        function queueHeroArtPointerMotion(x, y) {
+            if (!heroArt || prefersReducedMotion) {
+                return;
+            }
+
+            heroArtPointerPosition = { x, y };
+            if (heroArtPointerFrame !== null) {
+                return;
+            }
+
+            heroArtPointerFrame = window.requestAnimationFrame(() => {
+                const { x: pointerX, y: pointerY } = heroArtPointerPosition;
+                heroArt.style.setProperty('--relief-pointer-a-x', `${(pointerX * 12).toFixed(2)}px`);
+                heroArt.style.setProperty('--relief-pointer-a-y', `${(pointerY * 9).toFixed(2)}px`);
+                heroArt.style.setProperty('--relief-pointer-b-x', `${(pointerX * -9).toFixed(2)}px`);
+                heroArt.style.setProperty('--relief-pointer-b-y', `${(pointerY * -7).toFixed(2)}px`);
+                heroArt.style.setProperty('--relief-pointer-c-x', `${(pointerX * 6).toFixed(2)}px`);
+                heroArt.style.setProperty('--relief-pointer-c-y', `${(pointerY * -8).toFixed(2)}px`);
+                heroArt.style.setProperty('--relief-pointer-signal-x', `${(pointerX * 3).toFixed(2)}px`);
+                heroArt.style.setProperty('--relief-pointer-signal-y', `${(pointerY * 4).toFixed(2)}px`);
+                heroArtPointerFrame = null;
+            });
+        }
+
+        if (heroArt && !prefersReducedMotion) {
+            heroArt.addEventListener('pointermove', event => {
+                if (event.pointerType === 'touch') {
+                    return;
+                }
+
+                const bounds = heroArt.getBoundingClientRect();
+                const pointerX = Math.max(-1, Math.min(1, ((event.clientX - bounds.left) / bounds.width) * 2 - 1));
+                const pointerY = Math.max(-1, Math.min(1, ((event.clientY - bounds.top) / bounds.height) * 2 - 1));
+                queueHeroArtPointerMotion(pointerX, pointerY);
+            }, { passive: true });
+            heroArt.addEventListener('pointerleave', () => queueHeroArtPointerMotion(0, 0));
+            heroArt.addEventListener('pointercancel', () => queueHeroArtPointerMotion(0, 0));
         }
 
         function onScroll() {
-            updateInstrumentMotion();
+            updateHeroArtMotion();
             let active = '';
             sections.forEach(section => {
                 if (window.scrollY >= section.offsetTop - 96) {
