@@ -264,6 +264,64 @@ a {
    Section band + specimen bar
    ========================================================================== */
 
+.section-stack {
+    position: relative;
+}
+
+.scroll-panel {
+    position: relative;
+    z-index: var(--stack-order);
+    min-height: calc(100svh - 3.5rem);
+    scroll-margin-top: 3.5rem;
+}
+
+.section-stack > .scroll-panel:nth-of-type(1) {
+    --stack-order: 1;
+}
+
+.section-stack > .scroll-panel:nth-of-type(2) {
+    --stack-order: 2;
+}
+
+.section-stack > .scroll-panel:nth-of-type(3) {
+    --stack-order: 3;
+}
+
+.section-stack > .scroll-panel:nth-of-type(4) {
+    --stack-order: 4;
+}
+
+.section-stack > .scroll-panel:nth-of-type(5) {
+    --stack-order: 5;
+}
+
+.section-stack > .scroll-panel:nth-of-type(6) {
+    --stack-order: 6;
+}
+
+.section-stack > .scroll-panel:nth-of-type(7) {
+    --stack-order: 7;
+}
+
+.hero.scroll-panel {
+    background: var(--c-shell);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .scroll-panel.is-stackable {
+        position: sticky;
+        top: 3.5rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        box-shadow: 0 -2px 0 var(--c-shell);
+    }
+
+    .scroll-panel.is-stackable > .shell {
+        width: 100%;
+    }
+}
+
 .band {
     background: var(--c-panel);
     border-top: 2px solid var(--c-shell);
@@ -1373,7 +1431,7 @@ a {
     grid-template-areas:
         "heading"
         "lede"
-        "instrument"
+        "art"
         "spec"
         "actions";
 }
@@ -1411,126 +1469,256 @@ a {
     margin-top: 2rem;
 }
 
-.hero-instrument {
-    grid-area: instrument;
+.hero-art {
+    grid-area: art;
     aspect-ratio: 4 / 3;
     margin-top: 2rem;
-    padding: clamp(0.65rem, 2vw, 1rem);
+    overflow: hidden;
+    background: var(--c-panel);
+    box-shadow: inset 0 0 0 1px var(--c-rule);
+    isolation: isolate;
+}
+
+.relief-stage {
+    position: relative;
+    height: 100%;
+    overflow: hidden;
+    background: var(--c-panel);
+}
+
+.relief-stage::before {
+    content: "";
+    position: absolute;
+    z-index: 0;
+    left: 8%;
+    top: 10%;
+    width: 64%;
+    height: 72%;
     background: var(--c-bezel);
     box-shadow: inset 0 0 0 1px var(--c-rule);
+    animation: relief-field-enter 0.7s ease-out 0.08s both;
 }
 
-.instrument-face {
-    height: 100%;
-    display: grid;
-    grid-template-rows: minmax(0, 1.45fr) minmax(4.5rem, 0.7fr) auto;
-    gap: 2px;
-    background: var(--c-shell);
-    border: 1px solid var(--c-rule);
-    overflow: hidden;
-}
-
-.instrument-field {
-    position: relative;
-    min-height: 0;
-    overflow: hidden;
-    color: var(--c-fg-dim);
-    background-color: var(--c-panel);
-    background-image:
-        repeating-linear-gradient(90deg, transparent 0 1.45rem, color-mix(in srgb, currentColor 22%, transparent) 1.45rem calc(1.45rem + 1px)),
-        repeating-linear-gradient(0deg, transparent 0 1.45rem, color-mix(in srgb, currentColor 22%, transparent) 1.45rem calc(1.45rem + 1px));
-}
-
-.instrument-field::before {
+.relief-stage::after {
     content: "";
     position: absolute;
-    inset: 0 0 auto;
-    height: 1rem;
-    background-color: var(--c-bezel);
-    background-image: repeating-linear-gradient(90deg, currentColor 0 1px, transparent 1px 0.55rem);
-    opacity: 0.75;
+    z-index: 7;
+    right: 7%;
+    bottom: 7%;
+    width: 28%;
+    height: 2px;
+    background: var(--c-fg-dim);
+    transform-origin: right;
+    animation: relief-rule-x-enter 0.55s cubic-bezier(0.16, 1, 0.3, 1) 1.18s both;
 }
 
-.instrument-field::after {
-    content: "";
-    position: absolute;
-    inset: auto 0 0;
-    height: 0.45rem;
-    background-image: repeating-linear-gradient(90deg, currentColor 0 1px, transparent 1px 1.1rem);
-    opacity: 0.6;
-}
-
-.instrument-block {
+.relief-plane,
+.relief-signal,
+.relief-rule,
+.relief-lamellae span {
     position: absolute;
     display: block;
-    background: color-mix(in srgb, var(--c-fg-dim) 64%, transparent);
 }
 
-.instrument-block.is-a {
-    left: 9%;
-    top: 30%;
-    width: 46%;
-    height: 12%;
-    translate: 0 var(--instrument-shift-a, 0);
+.relief-plane-a {
+    z-index: 1;
+    left: 8%;
+    top: 18%;
+    width: 31%;
+    height: 47%;
+    background: color-mix(in srgb, var(--c-fg) 84%, var(--c-bezel));
+    translate: var(--relief-pointer-a-x, 0) calc(var(--relief-shift-a, 0px) + var(--relief-pointer-a-y, 0px));
+    animation:
+        relief-from-left 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.14s both,
+        relief-drift-a 7.4s ease-in-out infinite;
+    animation-composition: replace, add;
+    transition: translate 0.14s ease-out;
     will-change: translate;
 }
 
-.instrument-block.is-c {
-    left: 24%;
-    bottom: 17%;
-    width: 34%;
-    height: 7%;
-    background: var(--c-signal);
-    translate: 0 var(--instrument-shift-c, 0);
+.relief-plane-b {
+    z-index: 3;
+    left: 23%;
+    top: 10%;
+    width: 49%;
+    height: 17%;
+    background: var(--c-shell);
+    box-shadow: inset 0 0 0 1px var(--c-rule);
+    animation:
+        relief-from-top 0.75s cubic-bezier(0.16, 1, 0.3, 1) 0.28s both,
+        relief-drift-b 8.6s ease-in-out infinite;
+    animation-composition: replace, add;
+}
+
+.relief-plane-c {
+    z-index: 2;
+    right: 8%;
+    top: 24%;
+    width: 28%;
+    height: 60%;
+    background: color-mix(in srgb, var(--c-fg-dim) 68%, var(--c-bezel));
+    translate: var(--relief-pointer-b-x, 0) calc(var(--relief-shift-b, 0px) + var(--relief-pointer-b-y, 0px));
+    animation:
+        relief-from-right 0.95s cubic-bezier(0.16, 1, 0.3, 1) 0.32s both,
+        relief-drift-a 9.2s ease-in-out infinite reverse;
+    animation-composition: replace, add;
+    transition: translate 0.14s ease-out;
     will-change: translate;
 }
 
-.instrument-bank {
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    grid-template-rows: repeat(2, minmax(0, 1fr));
-    gap: 2px;
-    background: var(--c-shell);
-}
-
-.instrument-module {
-    display: block;
+.relief-plane-d {
+    z-index: 4;
+    left: 14%;
+    bottom: 12%;
+    width: 51%;
+    height: 18%;
     background: var(--c-panel);
     box-shadow: inset 0 0 0 1px var(--c-rule);
+    animation:
+        relief-from-bottom 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.5s both,
+        relief-drift-b 10.4s ease-in-out infinite reverse;
+    animation-composition: replace, add;
 }
 
-.instrument-module.is-wide {
-    grid-column: span 2;
+.relief-plane-e {
+    z-index: 3;
+    left: 34%;
+    top: 33%;
+    width: 42%;
+    height: 31%;
+    background: var(--c-shell);
+    box-shadow: inset 0 0 0 1px var(--c-rule);
+    translate: var(--relief-pointer-c-x, 0) var(--relief-pointer-c-y, 0);
+    animation:
+        relief-plane-enter 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.68s both,
+        relief-drift-a 8.1s ease-in-out infinite;
+    animation-composition: replace, add;
+    transition: translate 0.14s ease-out;
+    will-change: translate;
 }
 
-.instrument-module.is-dark {
-    background: color-mix(in srgb, var(--c-fg-dim) 72%, var(--c-bezel));
-}
-
-.instrument-module:last-child {
+.relief-signal {
+    z-index: 8;
+    left: 52%;
+    top: 27%;
+    width: 7%;
+    height: 55%;
     background: var(--c-signal);
-    box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--c-fg) 28%, transparent);
+    translate: var(--relief-pointer-signal-x, 0) var(--relief-pointer-signal-y, 0);
+    animation:
+        relief-signal-enter 1.25s cubic-bezier(0.16, 1, 0.3, 1) 0.48s both,
+        relief-drift-signal 6.8s ease-in-out infinite;
+    animation-composition: replace, add;
+    transition: translate 0.14s ease-out;
+    will-change: translate;
 }
 
-.instrument-slots {
-    display: grid;
-    grid-template-columns: repeat(6, minmax(0, 1fr));
-    gap: clamp(0.35rem, 1.4vw, 0.75rem);
-    padding: clamp(0.6rem, 2vw, 0.9rem);
-    background: var(--c-panel);
-}
-
-.instrument-slots span {
-    height: 0.35rem;
-    background: var(--c-rule);
-}
-
-.instrument-slots span:nth-child(2) {
-    background: var(--c-signal);
-}
-
-.instrument-slots span:nth-child(5) {
+.relief-rule {
+    z-index: 9;
     background: var(--c-fg-dim);
+}
+
+.relief-rule-top {
+    left: 8%;
+    top: 7%;
+    width: 31%;
+    height: 1px;
+    transform-origin: left;
+    animation: relief-rule-x-enter 0.5s ease-out 0.95s both;
+}
+
+.relief-rule-side {
+    left: 4%;
+    top: 34%;
+    width: 1px;
+    height: 30%;
+    transform-origin: top;
+    animation: relief-rule-y-enter 0.5s ease-out 1.03s both;
+}
+
+.relief-rule-bottom {
+    right: 7%;
+    bottom: 11%;
+    width: 18%;
+    height: 1px;
+    transform-origin: right;
+    animation: relief-rule-x-enter 0.5s ease-out 1.1s both;
+}
+
+.relief-lamellae {
+    position: absolute;
+    z-index: 6;
+    inset: 0;
+    animation: relief-drift-b 9.7s ease-in-out infinite;
+}
+
+.relief-lamellae span {
+    transform-origin: bottom;
+    animation: relief-lamella-enter 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.relief-lamellae span:nth-child(1) {
+    left: 5%;
+    top: 6%;
+    width: 3%;
+    height: 19%;
+    background: var(--c-fg-dim);
+    animation-delay: 0.62s;
+}
+
+.relief-lamellae span:nth-child(2) {
+    left: 43%;
+    top: 8%;
+    width: 2%;
+    height: 58%;
+    background: var(--c-rule);
+    animation-delay: 0.69s;
+}
+
+.relief-lamellae span:nth-child(3) {
+    left: 64%;
+    top: 17%;
+    width: 4%;
+    height: 19%;
+    background: var(--c-panel);
+    animation-delay: 0.76s;
+}
+
+.relief-lamellae span:nth-child(4) {
+    left: 70%;
+    top: 36%;
+    width: 2%;
+    height: 45%;
+    background: var(--c-shell);
+    animation-delay: 0.83s;
+}
+
+.relief-lamellae span:nth-child(5) {
+    left: 78%;
+    top: 9%;
+    width: 4%;
+    height: 66%;
+    background: var(--c-fg);
+    animation-delay: 0.9s;
+}
+
+.relief-lamellae span:nth-child(6) {
+    left: 88%;
+    top: 31%;
+    width: 2%;
+    height: 35%;
+    background: var(--c-bezel);
+    box-shadow: inset 0 0 0 1px var(--c-rule);
+    animation-delay: 0.97s;
+}
+
+.relief-lamellae span:nth-child(7) {
+    left: 94%;
+    top: 14%;
+    width: 1px;
+    height: 55%;
+    background: var(--c-rule);
+    animation-delay: 1.04s;
 }
 
 @media (min-width: 64rem) {
@@ -1538,10 +1726,10 @@ a {
         grid-template-columns: minmax(0, 1.12fr) minmax(20rem, 0.88fr);
         grid-template-rows: auto auto minmax(0, 1fr) auto;
         grid-template-areas:
-            "heading instrument"
-            "lede instrument"
-            "spec instrument"
-            "actions instrument";
+            "heading art"
+            "lede art"
+            "spec art"
+            "actions art";
         gap: 1.5rem clamp(3rem, 6vw, 6rem);
         align-items: start;
     }
@@ -1549,7 +1737,7 @@ a {
     .hero-lede,
     .hero-spec,
     .hero-actions,
-    .hero-instrument {
+    .hero-art {
         margin-top: 0;
     }
 
@@ -1557,7 +1745,7 @@ a {
         align-self: end;
     }
 
-    .hero-instrument {
+    .hero-art {
         aspect-ratio: auto;
         min-height: 32rem;
         align-self: stretch;
@@ -1589,6 +1777,9 @@ a {
    ========================================================================== */
 
 .footer {
+    position: relative;
+    z-index: 8;
+    background: var(--c-shell);
     border-top: 2px solid var(--c-shell);
     padding-block: 2rem;
     font-family: var(--font-mono);
@@ -1708,19 +1899,10 @@ a {
     }
 }
 
-@keyframes instrument-field-enter {
+@keyframes relief-field-enter {
     from {
         opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
-}
-
-@keyframes instrument-part-enter {
-    from {
-        opacity: 0;
-        transform: translateY(0.4rem);
+        transform: scale(0.96);
     }
     to {
         opacity: 1;
@@ -1728,69 +1910,137 @@ a {
     }
 }
 
-.instrument-field {
-    animation: instrument-field-enter 0.42s ease-out 0.12s both;
+@keyframes relief-from-left {
+    from {
+        opacity: 0;
+        transform: translateX(-115%);
+    }
+    to {
+        opacity: 1;
+        transform: none;
+    }
 }
 
-.instrument-block,
-.instrument-module {
-    animation: instrument-part-enter 0.38s cubic-bezier(0.16, 1, 0.3, 1) both;
+@keyframes relief-from-right {
+    from {
+        opacity: 0;
+        transform: translateX(125%);
+    }
+    to {
+        opacity: 1;
+        transform: none;
+    }
 }
 
-.instrument-block.is-a {
-    animation-delay: 0.28s;
+@keyframes relief-from-top {
+    from {
+        opacity: 0;
+        transform: translateY(-130%);
+    }
+    to {
+        opacity: 1;
+        transform: none;
+    }
 }
 
-.instrument-block.is-c {
-    animation-delay: 0.48s;
+@keyframes relief-from-bottom {
+    from {
+        opacity: 0;
+        transform: translateY(130%);
+    }
+    to {
+        opacity: 1;
+        transform: none;
+    }
 }
 
-.instrument-module:nth-child(1) {
-    animation-delay: 0.38s;
+@keyframes relief-plane-enter {
+    from {
+        opacity: 0;
+        transform: scaleX(0.35);
+        transform-origin: left;
+    }
+    to {
+        opacity: 1;
+        transform: none;
+        transform-origin: left;
+    }
 }
 
-.instrument-module:nth-child(2) {
-    animation-delay: 0.44s;
+@keyframes relief-signal-enter {
+    from {
+        opacity: 0;
+        transform: translateX(-850%);
+    }
+    to {
+        opacity: 1;
+        transform: none;
+    }
 }
 
-.instrument-module:nth-child(3) {
-    animation-delay: 0.5s;
+@keyframes relief-lamella-enter {
+    from {
+        opacity: 0;
+        transform: scaleY(0);
+    }
+    to {
+        opacity: 1;
+        transform: none;
+    }
 }
 
-.instrument-module:nth-child(4) {
-    animation-delay: 0.56s;
+@keyframes relief-drift-a {
+    0%,
+    100% {
+        transform: none;
+    }
+    32% {
+        transform: translate3d(5px, -7px, 0);
+    }
+    68% {
+        transform: translate3d(-6px, 4px, 0);
+    }
 }
 
-.instrument-module:nth-child(5) {
-    animation-delay: 0.62s;
+@keyframes relief-drift-b {
+    0%,
+    100% {
+        transform: none;
+    }
+    38% {
+        transform: translate3d(-5px, 6px, 0);
+    }
+    72% {
+        transform: translate3d(6px, -4px, 0);
+    }
 }
 
-.instrument-slots span {
-    animation: instrument-field-enter 0.24s ease-out both;
+@keyframes relief-drift-signal {
+    0%,
+    100% {
+        transform: none;
+    }
+    50% {
+        transform: translate3d(0, 6px, 0);
+    }
 }
 
-.instrument-slots span:nth-child(1) {
-    animation-delay: 0.56s;
+@keyframes relief-rule-x-enter {
+    from {
+        transform: scaleX(0);
+    }
+    to {
+        transform: none;
+    }
 }
 
-.instrument-slots span:nth-child(2) {
-    animation-delay: 0.6s;
-}
-
-.instrument-slots span:nth-child(3) {
-    animation-delay: 0.64s;
-}
-
-.instrument-slots span:nth-child(4) {
-    animation-delay: 0.68s;
-}
-
-.instrument-slots span:nth-child(5) {
-    animation-delay: 0.72s;
-}
-
-.instrument-slots span:nth-child(6) {
-    animation-delay: 0.76s;
+@keyframes relief-rule-y-enter {
+    from {
+        transform: scaleY(0);
+    }
+    to {
+        transform: none;
+    }
 }
 
 .reveal {
@@ -1814,16 +2064,20 @@ a {
         left: var(--gauge-pos);
     }
 
-    .instrument-field,
-    .instrument-block,
-    .instrument-module,
-    .instrument-slots span,
+    .relief-stage::before,
+    .relief-stage::after,
+    .relief-plane,
+    .relief-signal,
+    .relief-rule,
+    .relief-lamellae,
+    .relief-lamellae span,
     .index-row::before,
     .index-release {
         animation: none !important;
     }
 
-    .instrument-block {
+    .relief-plane,
+    .relief-signal {
         translate: none !important;
     }
 
