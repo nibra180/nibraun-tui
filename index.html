@@ -462,13 +462,12 @@
             <header class="specimen reveal">
                 <div class="specimen-meta">
                     <span class="mono" data-i18n="contact.label">Enquiries</span>
-                    <span class="mono specimen-slug">hello@nibraun.de</span>
                 </div>
                 <h2 class="title" data-i18n="contact.title">Contact</h2>
             </header>
 
-            <div class="reveal grid gap-10 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] lg:gap-16">
-                <div>
+            <div class="contact-layout reveal">
+                <div class="contact-copy">
                     <p class="prose" data-i18n="contact.text">
                         Do you have a business inquiry about Shopware 6, plugin development, ERP/PIM integrations,
                         Flutter, or custom software solutions? Get in touch via Sharpness Solutions.
@@ -479,11 +478,19 @@
                     </a>
                 </div>
 
-                <div class="spec-list">
-                    <div class="spec-row">
-                        <span class="spec-key" data-i18n="contact.keyEmail">Email</span>
-                        <span class="spec-val"><a href="mailto:hello@nibraun.de" class="link">hello@nibraun.de</a></span>
-                    </div>
+                <figure class="contact-portrait">
+                    <img
+                        src="img/niklas-braun.webp"
+                        alt="Portrait of Niklas Braun"
+                        data-i18n-alt="contact.portraitAlt"
+                        width="720"
+                        height="900"
+                        loading="lazy"
+                        decoding="async"
+                    >
+                </figure>
+
+                <div class="spec-list contact-specs">
                     <div class="spec-row">
                         <span class="spec-key" data-i18n="contact.keyCompany">Company</span>
                         <span class="spec-val"><a href="https://sharpness.de" target="_blank" rel="noopener noreferrer" class="link">sharpness.de</a></span>
