@@ -1,0 +1,42 @@
+[
+  {
+    "priority": 100,
+    "name": "Shopware Admin Toolbar",
+    "kind": "Shopware 6",
+    "href": "https://github.com/WariKoda/WakoPluginAdminToolbar",
+    "repo": "WariKoda/WakoPluginAdminToolbar",
+    "descriptionKey": "work.adminToolbar.description",
+    "owner": "WariKoda",
+    "lead": "@nibra180",
+    "leadHref": "https://github.com/nibra180"
+  },
+  {
+    "priority": 110,
+    "name": "CampAlong",
+    "kind": "Flutter · App",
+    "href": "https://campalong.de",
+    "descriptionKey": "work.campAlong.description"
+  },
+  {
+    "priority": 90,
+    "name": "Drift - TUI File Syncing",
+    "kind": "Go · TUI",
+    "href": "https://github.com/WariKoda/drift",
+    "repo": "WariKoda/drift",
+    "descriptionKey": "work.drift.description",
+    "owner": "WariKoda",
+    "lead": "@nibra180",
+    "leadHref": "https://github.com/nibra180"
+  },
+  {
+    "priority": 80,
+    "name": "Stargate - TUI SSH Launcher",
+    "kind": "Go · TUI",
+    "href": "https://github.com/WariKoda/stargate",
+    "repo": "WariKoda/stargate",
+    "descriptionKey": "work.stargate.description",
+    "owner": "WariKoda",
+    "lead": "@nibra180",
+    "leadHref": "https://github.com/nibra180"
+  }
+]

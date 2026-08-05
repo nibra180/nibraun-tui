@@ -518,16 +518,33 @@
     <span>top</span>
 </button>
 
-<script src="translations.js"></script>
-<script src="projects.js"></script>
 <script src="github-project-meta.js"></script>
 <script>
-    document.addEventListener('DOMContentLoaded', () => {
+    async function loadJson(path, fallback) {
+        try {
+            const response = await fetch(path);
+            if (!response.ok) {
+                throw new Error(`HTTP ${response.status}`);
+            }
+
+            return await response.json();
+        } catch (error) {
+            console.error(`Failed to load ${path}:`, error);
+            return fallback;
+        }
+    }
+
+    const siteDataPromise = Promise.all([
+        loadJson('translations.json', {}),
+        loadJson('projects.json', []),
+    ]);
+
+    document.addEventListener('DOMContentLoaded', async () => {
         const root = document.documentElement;
         const defaultLocale = 'en';
         const supportedLocales = ['de', 'en'];
-        const translations = window.siteTranslations || {};
-        const projects = Array.isArray(window.siteProjects) ? window.siteProjects : [];
+        const [translations, loadedProjects] = await siteDataPromise;
+        const projects = Array.isArray(loadedProjects) ? loadedProjects : [];
         let currentLocale = defaultLocale;
         let currentTheme = 'light';
         let githubProjectMeta = null;

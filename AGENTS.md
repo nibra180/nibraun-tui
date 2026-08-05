@@ -8,7 +8,7 @@ unter dem Hero, alles andere stützt ihn.
 
 ## Tech Stack
 
-- **Static Deployment**: `index.html`, `translations.js`, `projects.js`, `github-project-meta.js`, `dist/tailwind.css`, `img/`
+- **Static Deployment**: `index.html`, `translations.json`, `projects.json`, `github-project-meta.js`, `dist/tailwind.css`, `img/`
 - **Styling**: Tailwind CSS v4 (CSS-first, keine `tailwind.config.js`)
 - **Quelle des Designsystems**: `src/tailwind.css`
 - **Typografie**: Instrument Sans (variable, `wdth` 75–100) für Display und Body, Martian Mono für Typenschilder, Skalen und Daten
@@ -75,12 +75,12 @@ weil `.on-fill` nur Vordergrundrollen auf `currentColor` umschreibt.
 
 ### Sprache
 - Website-Inhalt: Deutsch und Englisch, Standard Englisch
-- Beide Sprachen ausschließlich über `translations.js` pflegen
+- Beide Sprachen ausschließlich über `translations.json` pflegen
 - Code-Kommentare und Commit-Messages: Englisch
 
 ### JavaScript
 - Alles im `DOMContentLoaded`-Handler in `index.html`
-- Projektdaten in `projects.js`, GitHub-Metadaten in `github-project-meta.js`
+- Projektdaten in `projects.json`, GitHub-Metadaten in `github-project-meta.js`
 - Ziele mit `data-repo-bare` drucken Werte ohne Präfix (für Tabellenspalten)
 
 ## Sections

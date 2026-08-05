@@ -38,8 +38,8 @@ to show live telemetry.
 - Tailwind CSS v4 (CSS-first configuration in `src/tailwind.css`)
 - Vanilla JavaScript
 - Instrument Sans and Martian Mono
-- `translations.js` for i18n
-- `projects.js` for the work index entries
+- `translations.json` for i18n
+- `projects.json` for the work index entries
 - `github-project-meta.js` for GitHub release and update metadata
 
 ## Palette
@@ -76,8 +76,8 @@ npm run serve     # static server on :8000
 Files required for deployment:
 
 - `index.html`
-- `translations.js`
-- `projects.js`
+- `translations.json`
+- `projects.json`
 - `github-project-meta.js`
 - `dist/tailwind.css`
 - `img/`
