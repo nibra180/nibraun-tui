@@ -11,6 +11,17 @@
     "leadHref": "https://github.com/nibra180"
   },
   {
+    "priority": 98,
+    "name": "Shopware Product Hover Image",
+    "kind": "Shopware 6",
+    "href": "https://github.com/WariKoda/WakoProductHoverImage",
+    "repo": "WariKoda/WakoProductHoverImage",
+    "descriptionKey": "work.productHoverImage.description",
+    "owner": "WariKoda",
+    "lead": "@nibra180",
+    "leadHref": "https://github.com/nibra180"
+  },
+  {
     "priority": 110,
     "name": "CampAlong",
     "kind": "Flutter · App",
