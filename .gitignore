@@ -17,3 +17,6 @@ Thumbs.db
 .env
 .env.*
 !.env.example
+
+# Local deployment credentials (never commit real secrets)
+.drift/config.toml
