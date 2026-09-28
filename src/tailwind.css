@@ -715,9 +715,12 @@ a {
     justify-content: flex-end;
     min-height: 1rem;
     margin-bottom: 0.55rem;
+    transition: opacity 0.2s ease-out 1.55s, transform 0.2s ease-out 1.55s;
+}
+
+.js .path-scale-current {
     opacity: 0;
     transform: translateY(0.3rem);
-    transition: opacity 0.2s ease-out 1.55s, transform 0.2s ease-out 1.55s;
 }
 
 .reveal.is-revealed .path-scale-current {
@@ -748,6 +751,9 @@ a {
         repeating-linear-gradient(90deg, currentColor 0 1px, transparent 1px calc(var(--tick) * 5)),
         repeating-linear-gradient(90deg, currentColor 0 1px, transparent 1px var(--tick));
     background-size: 100% 14px, 100% 7px;
+}
+
+.js .path-scale-track::after {
     clip-path: inset(0 100% 0 0);
 }
 
@@ -758,12 +764,16 @@ a {
 .path-scale-needle {
     position: absolute;
     z-index: 1;
-    left: 0;
+    left: calc(100% - 2px);
     bottom: -0.25rem;
     width: 2px;
     height: 1.75rem;
     background: var(--c-signal);
     transition: left 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.js .path-scale-needle {
+    left: 0;
 }
 
 .reveal.is-revealed .path-scale-needle {
@@ -796,8 +806,11 @@ a {
 .path-scale-labels span {
     position: absolute;
     top: 0;
-    opacity: 0;
     transition: opacity 0.16s ease-out;
+}
+
+.js .path-scale-labels span {
+    opacity: 0;
 }
 
 .reveal.is-revealed .path-scale-labels span:first-child {
@@ -1481,10 +1494,7 @@ a {
     height: 47%;
     background: color-mix(in srgb, var(--c-fg) 84%, var(--c-bezel));
     translate: var(--relief-pointer-a-x, 0) calc(var(--relief-shift-a, 0px) + var(--relief-pointer-a-y, 0px));
-    animation:
-        relief-from-left 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.14s both,
-        relief-drift-a 7.4s ease-in-out infinite;
-    animation-composition: replace, add;
+    animation: relief-from-left 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.14s both;
     transition: translate 0.14s ease-out;
     will-change: translate;
 }
@@ -1497,10 +1507,7 @@ a {
     height: 17%;
     background: var(--c-shell);
     box-shadow: inset 0 0 0 1px var(--c-rule);
-    animation:
-        relief-from-top 0.75s cubic-bezier(0.16, 1, 0.3, 1) 0.28s both,
-        relief-drift-b 8.6s ease-in-out infinite;
-    animation-composition: replace, add;
+    animation: relief-from-top 0.75s cubic-bezier(0.16, 1, 0.3, 1) 0.28s both;
 }
 
 .relief-plane-c {
@@ -1511,10 +1518,7 @@ a {
     height: 60%;
     background: color-mix(in srgb, var(--c-fg-dim) 68%, var(--c-bezel));
     translate: var(--relief-pointer-b-x, 0) calc(var(--relief-shift-b, 0px) + var(--relief-pointer-b-y, 0px));
-    animation:
-        relief-from-right 0.95s cubic-bezier(0.16, 1, 0.3, 1) 0.32s both,
-        relief-drift-a 9.2s ease-in-out infinite reverse;
-    animation-composition: replace, add;
+    animation: relief-from-right 0.95s cubic-bezier(0.16, 1, 0.3, 1) 0.32s both;
     transition: translate 0.14s ease-out;
     will-change: translate;
 }
@@ -1527,10 +1531,7 @@ a {
     height: 18%;
     background: var(--c-panel);
     box-shadow: inset 0 0 0 1px var(--c-rule);
-    animation:
-        relief-from-bottom 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.5s both,
-        relief-drift-b 10.4s ease-in-out infinite reverse;
-    animation-composition: replace, add;
+    animation: relief-from-bottom 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.5s both;
 }
 
 .relief-plane-e {
@@ -1542,10 +1543,7 @@ a {
     background: var(--c-shell);
     box-shadow: inset 0 0 0 1px var(--c-rule);
     translate: var(--relief-pointer-c-x, 0) var(--relief-pointer-c-y, 0);
-    animation:
-        relief-plane-enter 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.68s both,
-        relief-drift-a 8.1s ease-in-out infinite;
-    animation-composition: replace, add;
+    animation: relief-plane-enter 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.68s both;
     transition: translate 0.14s ease-out;
     will-change: translate;
 }
@@ -1558,10 +1556,7 @@ a {
     height: 55%;
     background: var(--c-signal);
     translate: var(--relief-pointer-signal-x, 0) var(--relief-pointer-signal-y, 0);
-    animation:
-        relief-signal-enter 1.25s cubic-bezier(0.16, 1, 0.3, 1) 0.48s both,
-        relief-drift-signal 6.8s ease-in-out infinite;
-    animation-composition: replace, add;
+    animation: relief-signal-enter 1.25s cubic-bezier(0.16, 1, 0.3, 1) 0.48s both;
     transition: translate 0.14s ease-out;
     will-change: translate;
 }
@@ -1602,7 +1597,6 @@ a {
     position: absolute;
     z-index: 6;
     inset: 0;
-    animation: relief-drift-b 9.7s ease-in-out infinite;
 }
 
 .relief-lamellae span {
@@ -1942,42 +1936,6 @@ a {
     }
 }
 
-@keyframes relief-drift-a {
-    0%,
-    100% {
-        transform: none;
-    }
-    32% {
-        transform: translate3d(5px, -7px, 0);
-    }
-    68% {
-        transform: translate3d(-6px, 4px, 0);
-    }
-}
-
-@keyframes relief-drift-b {
-    0%,
-    100% {
-        transform: none;
-    }
-    38% {
-        transform: translate3d(-5px, 6px, 0);
-    }
-    72% {
-        transform: translate3d(6px, -4px, 0);
-    }
-}
-
-@keyframes relief-drift-signal {
-    0%,
-    100% {
-        transform: none;
-    }
-    50% {
-        transform: translate3d(0, 6px, 0);
-    }
-}
-
 @keyframes relief-rule-x-enter {
     from {
         transform: scaleX(0);
@@ -1996,15 +1954,14 @@ a {
     }
 }
 
+/* Content stays visible when the script never runs; <html class="js"> opts into the reveal. */
 .reveal {
-    opacity: 0;
-    transform: translateY(1.25rem);
     transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.reveal.is-revealed {
-    opacity: 1;
-    transform: none;
+.js .reveal:not(.is-revealed) {
+    opacity: 0;
+    transform: translateY(1.25rem);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -2034,23 +1991,24 @@ a {
         translate: none !important;
     }
 
-    .path-scale-track::after {
+    .js .path-scale-track::after {
         clip-path: inset(0);
         animation: none !important;
     }
 
-    .path-scale-needle {
+    .js .path-scale-needle {
         left: calc(100% - 2px);
         animation: none !important;
     }
 
-    .path-scale-current,
-    .path-scale-labels span {
+    .js .path-scale-current,
+    .js .path-scale-labels span {
         opacity: 1;
         transform: none;
     }
 
-    .reveal {
+    .js .reveal,
+    .js .reveal:not(.is-revealed) {
         opacity: 1;
         transform: none;
         transition: none;

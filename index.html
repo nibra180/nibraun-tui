@@ -3,14 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Runs before first paint so the scroll reveal only hides content when JS is available -->
+    <script>
+      document.documentElement.classList.add("js");
+    </script>
     <title>Niklas Braun — Shopware 6 &amp; Flutter Developer</title>
     <meta
       name="description"
       content="Niklas Braun is a full-stack developer with 7+ years of experience in Shopware 6, Flutter, Vue.js, TypeScript, PHP/Symfony, and custom e-commerce solutions."
-    />
-    <meta
-      name="keywords"
-      content="Niklas Braun, full-stack developer, Shopware 6 developer, Flutter developer, cross-device app development, Vue.js, TypeScript, PHP, Symfony, Shopware plugin development, Shopware theme development, ERP integration, PIM, Supabase, OCR, OAuth, e-commerce development"
     />
     <meta name="author" content="Niklas Braun" />
     <meta name="robots" content="index, follow" />
@@ -25,11 +25,23 @@
       property="og:description"
       content="Full-stack development with 7+ years of experience in Shopware 6, Flutter, Vue.js, and custom software solutions."
     />
-    <meta property="og:url" content="https://nibraun.de" />
-    <meta property="og:image" content="img/warikoda-logo.png" />
+    <meta property="og:url" content="https://nibraun.de/" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:locale:alternate" content="de_DE" />
+    <meta property="og:image" content="https://nibraun.de/img/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="Niklas Braun, full-stack developer in Oldenburg"
+    />
 
-    <!-- Canonical / Twitter -->
-    <link rel="canonical" href="https://nibraun.de" />
+    <!-- Language alternates; the canonical link is set per locale by the script -->
+    <link rel="alternate" hreflang="en" href="https://nibraun.de/" />
+    <link rel="alternate" hreflang="de" href="https://nibraun.de/?lang=de" />
+    <link rel="alternate" hreflang="x-default" href="https://nibraun.de/" />
+
+    <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta
       name="twitter:title"
@@ -39,7 +51,10 @@
       name="twitter:description"
       content="Full-stack development with 7+ years of experience in Shopware 6, Flutter, Vue.js, and custom software solutions."
     />
-    <meta name="twitter:image" content="img/warikoda-logo.png" />
+    <meta
+      name="twitter:image"
+      content="https://nibraun.de/img/og-image.png"
+    />
 
     <link
       rel="icon"
@@ -324,7 +339,7 @@
                   >Location</span
                 >
                 <span class="spec-val" data-i18n="hero.specLocationValue"
-                  >Oldenburg, DE</span
+                  >Oldenburg, Lower Saxony</span
                 >
               </div>
               <div class="spec-row">
@@ -444,9 +459,7 @@
               <span class="mono" data-i18n="skills.label"
                 >Fields of competence</span
               >
-              <span class="mono specimen-slug" data-i18n="skills.slug"
-                >48 entries across 5 fields</span
-              >
+              <span class="mono specimen-slug" id="skillsSlug"></span>
             </div>
             <h2 class="title" data-i18n="skills.title">Skills</h2>
           </header>
@@ -457,7 +470,8 @@
                 <div class="bento-head mono">
                   <span>Shopware</span>
                   <span
-                    >17 <span data-i18n="skills.entries">entries</span></span
+                    ><span data-skill-count></span>
+                    <span data-i18n="skills.entries">entries</span></span
                   >
                 </div>
                 <h3 data-i18n="skills.shopware.heading">
@@ -501,7 +515,10 @@
               <article class="bento-card is-signal on-fill">
                 <div class="bento-head mono">
                   <span>Flutter</span>
-                  <span>6 <span data-i18n="skills.entries">entries</span></span>
+                  <span
+                    ><span data-skill-count></span>
+                    <span data-i18n="skills.entries">entries</span></span
+                  >
                 </div>
                 <h3 data-i18n="skills.flutter.heading">Flutter &amp; Mobile</h3>
                 <ul>
@@ -518,7 +535,8 @@
                 <div class="bento-head mono">
                   <span>Frontend</span>
                   <span
-                    >10 <span data-i18n="skills.entries">entries</span></span
+                    ><span data-skill-count></span>
+                    <span data-i18n="skills.entries">entries</span></span
                   >
                 </div>
                 <h3 data-i18n="skills.frontend.heading">Frontend</h3>
@@ -538,16 +556,16 @@
                   <li data-i18n="skills.frontend.figma">
                     UI/UX design in Figma
                   </li>
-                  <li data-i18n="skills.frontend.components">
-                    Modern UI components
-                  </li>
                 </ul>
               </article>
 
               <article class="bento-card">
                 <div class="bento-head mono">
                   <span>Backend</span>
-                  <span>8 <span data-i18n="skills.entries">entries</span></span>
+                  <span
+                    ><span data-skill-count></span>
+                    <span data-i18n="skills.entries">entries</span></span
+                  >
                 </div>
                 <h3 data-i18n="skills.backend.heading">Backend</h3>
                 <ul>
@@ -556,9 +574,6 @@
                   <li>MySQL</li>
                   <li>REST APIs</li>
                   <li>Message Queues</li>
-                  <li data-i18n="skills.backend.architecture">
-                    Clean service architecture
-                  </li>
                   <li>Testing / Debugging</li>
                   <li data-i18n="skills.backend.docs">
                     Technical documentation
@@ -569,21 +584,18 @@
               <article class="bento-card">
                 <div class="bento-head mono">
                   <span>Workflow</span>
-                  <span>7 <span data-i18n="skills.entries">entries</span></span>
+                  <span
+                    ><span data-skill-count></span>
+                    <span data-i18n="skills.entries">entries</span></span
+                  >
                 </div>
                 <h3 data-i18n="skills.workflow.heading">Workflow</h3>
                 <ul>
                   <li>Git</li>
                   <li>Docker</li>
                   <li>Composer</li>
+                  <li>DDEV</li>
                   <li data-i18n="skills.workflow.cicd">CI/CD fundamentals</li>
-                  <li data-i18n="skills.workflow.reviews">Code reviews</li>
-                  <li data-i18n="skills.workflow.deployments">
-                    Clean deployments
-                  </li>
-                  <li data-i18n="skills.workflow.analysis">
-                    Technical analysis and debugging
-                  </li>
                 </ul>
               </article>
             </div>
@@ -684,7 +696,7 @@
                 >Who builds this</span
               >
               <span class="mono specimen-slug" data-i18n="profile.valLocation"
-                >Essen (Oldenburg), Lower Saxony</span
+                >Oldenburg, Lower Saxony</span
               >
             </div>
             <h2 class="title" data-i18n="profile.title">Profile</h2>
@@ -720,7 +732,7 @@
                     >Location</span
                   >
                   <span class="spec-val" data-i18n="profile.valLocation"
-                    >Essen (Oldenburg), Lower Saxony</span
+                    >Oldenburg, Lower Saxony</span
                   >
                 </div>
                 <div class="spec-row">
@@ -793,7 +805,7 @@
                 solutions? Get in touch via Sharpness Solutions.
               </p>
               <a
-                href="https://sharpness.de"
+                href="https://www.sharpness.de/kontakt"
                 target="_blank"
                 rel="noopener noreferrer"
                 class="btn btn-solid mt-8"
@@ -872,7 +884,7 @@
                   >Location</span
                 >
                 <span class="spec-val" data-i18n="contact.valLocation"
-                  >Oldenburg / Essen (Oldenburg), Germany</span
+                  >Oldenburg, Lower Saxony</span
                 >
               </div>
             </div>
@@ -953,6 +965,32 @@
             translations[locale]?.[key] ??
             translations[defaultLocale]?.[key] ??
             ""
+          );
+        }
+
+        const siteUrl = "https://nibraun.de/";
+        const ogLocales = { de: "de_DE", en: "en_US" };
+
+        function getLocaleUrl(locale) {
+          return locale === defaultLocale
+            ? siteUrl
+            : `${siteUrl}?lang=${locale}`;
+        }
+
+        function updateLocaleLinks(locale) {
+          let canonical = document.querySelector('link[rel="canonical"]');
+          if (!canonical) {
+            canonical = document.createElement("link");
+            canonical.rel = "canonical";
+            document.head.append(canonical);
+          }
+          canonical.href = getLocaleUrl(locale);
+
+          setMeta('meta[property="og:url"]', getLocaleUrl(locale));
+          setMeta('meta[property="og:locale"]', ogLocales[locale]);
+          setMeta(
+            'meta[property="og:locale:alternate"]',
+            ogLocales[locale === "de" ? "en" : "de"],
           );
         }
 
@@ -1063,6 +1101,21 @@
             .join("");
         }
 
+        // ---- Skill counts ----
+        const skillCards = [...document.querySelectorAll("#skills .bento-card")];
+        const skillsSlug = document.getElementById("skillsSlug");
+        const skillEntryTotal = skillCards.reduce((total, card) => {
+          const entries = card.querySelectorAll("li").length;
+          card.querySelector("[data-skill-count]").textContent = entries;
+          return total + entries;
+        }, 0);
+
+        function renderSkillsSlug() {
+          skillsSlug.textContent = getTranslation("skills.slug")
+            .replace("{entries}", skillEntryTotal)
+            .replace("{fields}", skillCards.length);
+        }
+
         // ---- Locale ----
         const languageButtons = document.querySelectorAll("[data-lang-switch]");
 
@@ -1113,7 +1166,11 @@
             'meta[name="description"]',
             getTranslation("meta.description"),
           );
-          setMeta('meta[name="keywords"]', getTranslation("meta.keywords"));
+          setMeta(
+            'meta[property="og:image:alt"]',
+            getTranslation("meta.ogImageAlt"),
+          );
+          updateLocaleLinks(currentLocale);
           setMeta('meta[property="og:title"]', getTranslation("meta.ogTitle"));
           setMeta(
             'meta[property="og:description"]',
@@ -1126,6 +1183,7 @@
           );
 
           applyTextTranslations();
+          renderSkillsSlug();
           languageButtons.forEach((button) => {
             button.setAttribute(
               "aria-pressed",
