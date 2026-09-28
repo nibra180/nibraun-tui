@@ -22,13 +22,6 @@
     "leadHref": "https://github.com/nibra180"
   },
   {
-    "priority": 110,
-    "name": "CampAlong",
-    "kind": "Flutter · App",
-    "href": "https://campalong.de",
-    "descriptionKey": "work.campAlong.description"
-  },
-  {
     "priority": 90,
     "name": "Drift - TUI File Syncing",
     "kind": "Go · TUI",
@@ -40,14 +33,21 @@
     "leadHref": "https://github.com/nibra180"
   },
   {
-    "priority": 80,
-    "name": "Stargate - TUI SSH Launcher",
-    "kind": "Go · TUI",
-    "href": "https://github.com/WariKoda/stargate",
-    "repo": "WariKoda/stargate",
-    "descriptionKey": "work.stargate.description",
-    "owner": "WariKoda",
+    "priority": 85,
+    "name": "GoSipTea client",
+    "kind": "Rust · GPUI",
+    "href": "https://github.com/nibra180/gosiptea-client",
+    "repo": "nibra180/gosiptea-client",
+    "descriptionKey": "work.goSipTea.description",
+    "owner": "nibra180",
     "lead": "@nibra180",
     "leadHref": "https://github.com/nibra180"
+  },
+  {
+    "priority": 80,
+    "name": "CampAlong",
+    "kind": "Flutter · App",
+    "href": "https://campalong.de",
+    "descriptionKey": "work.campAlong.description"
   }
 ]
