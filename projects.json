@@ -34,10 +34,10 @@
   },
   {
     "priority": 85,
-    "name": "GoSipTea client",
+    "name": "Sippy",
     "kind": "Rust · GPUI",
-    "href": "https://github.com/nibra180/gosiptea-client",
-    "repo": "nibra180/gosiptea-client",
+    "href": "https://github.com/nibra180/sippy",
+    "repo": "nibra180/sippy",
     "descriptionKey": "work.goSipTea.description",
     "owner": "nibra180",
     "lead": "@nibra180",
