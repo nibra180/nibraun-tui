@@ -20,21 +20,27 @@ next color in that order, and the active project shows it in three places only:
 the row arrow, the cover word, and the link underline. Green also marks live
 GitHub data. Some accents only reach about 3:1, so they never color small text. Geist sets the text, Geist Mono the labels and dates.
 
-The project covers are typographic placeholders, not screenshots.
+Each project cover is a full-bleed color composition from `img/covers.svg`, a
+sprite of one `<symbol>` per project. The compositions do not depict the
+projects. Each is led by its project's tone, the other accents only set
+counterweights. The page embeds them through `<use>`, so the theme tokens
+reach the drawing and it switches with the theme. The desktop preview crops
+the 400x300 canvas to 16:9, so the strip outside y 37.5 to 262.5 may be cut.
 
 ## Features
 
 - Project index with hover and focus preview on desktop, featured card on mobile
 - Live GitHub release and last push in the preview, cached for six hours
-- DE/EN translations with `?lang=` and `localStorage`
+- Static English and German pages at `/` and `/de/`; old `?lang=de` links redirect
+- All content, JSON-LD (`ProfilePage`, `Person`, project list), `sitemap.xml`, `robots.txt` and `llms.txt` ship as static files, so crawlers without JavaScript see the full page
 - Monokai Pro and Monokai Pro Light Sun themes, switchable and stored in `localStorage`
 - Text selection with a tinted ground and a wavy underline; each new selection takes the next top-bar color, project rows keep their own
 - Visible keyboard focus, 44 px touch targets on mobile, reduced-motion support
-- Static deployment and vanilla JavaScript, no browser runtime dependencies
+- Static deployment and vanilla JavaScript, no browser runtime dependencies; the browser script only swaps previews, sets the theme and loads GitHub data
 
 ## Tech Stack
 
-- HTML5 and vanilla JavaScript in `index.html`
+- `src/index.html` as the page template, rendered by `scripts/build-html.mjs` (Node, no dependencies)
 - Tailwind CSS v4, with tokens and custom styles in `src/tailwind.css`
 - Geist and Geist Mono, self-hosted in `fonts/` (SIL OFL 1.1)
 - `translations.json` for German and English content
@@ -45,12 +51,16 @@ The project covers are typographic placeholders, not screenshots.
 
 ```bash
 npm install
-npm run build     # one-off minified CSS build
+npm run build     # CSS, both HTML pages, sitemap.xml and llms.txt
 npm run dev       # CSS watch mode (first terminal)
 npm run serve     # static server on http://localhost:8000 (second terminal)
 ```
 
-Reload the browser after edits. The static server does not inject live reload.
+`index.html`, `de/index.html`, `sitemap.xml` and `llms.txt` are generated.
+Edit `src/index.html`, `translations.json` or `projects.json` and run
+`npm run build:html` (or `npm run build`). The build stops with an error when a
+translation key is missing in either language. Reload the browser after edits;
+the static server does not inject live reload.
 For a background CSS watcher without an interactive terminal, use
 `npm run dev -- --watch=always`.
 
@@ -58,17 +68,22 @@ For a background CSS watcher without an interactive terminal, use
 
 `projects.json` lists projects in display order. `year` and `repo` are
 optional. Without `repo` the preview links to `href` as a website and skips the
-GitHub data. `kind` fills the type column, `stack` the preview, and `cover` is
-the word on the placeholder cover. `descriptionKey` points into
-`translations.json`.
+GitHub data. `kind` fills the type column and `stack` the preview. `art` names
+the cover composition in `img/covers.svg`; without it the page shows the `cover`
+word instead. `language` sets `programmingLanguage` in the JSON-LD.
+`descriptionKey` points into `translations.json`. Both files are build inputs
+only; the browser no longer loads them.
 
 ## Deployment
 
-Build the CSS, then copy these files to the web server:
+Run `npm run build`, then copy these files to the web server root. The pages
+use root-relative paths, so the site must live at the domain root.
 
 - `index.html`
-- `translations.json`
-- `projects.json`
+- `de/`
+- `robots.txt`
+- `sitemap.xml`
+- `llms.txt`
 - `github-project-meta.js`
 - `dist/tailwind.css`
 - `fonts/`

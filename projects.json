@@ -4,9 +4,11 @@
     "year": "2026",
     "kind": "Rust · GPUI",
     "cover": "sippy",
+    "art": "sippy",
     "stack": "Rust · GPUI · baresip · D-Bus",
     "href": "https://github.com/nibra180/sippy",
     "repo": "nibra180/sippy",
+    "language": "Rust",
     "descriptionKey": "work.goSipTea.description"
   },
   {
@@ -14,15 +16,18 @@
     "year": "2026",
     "kind": "Go · TUI",
     "cover": "drift_",
+    "art": "drift",
     "stack": "Go · TUI · SFTP / SSH · FTP",
     "href": "https://github.com/WariKoda/drift",
     "repo": "WariKoda/drift",
+    "language": "Go",
     "descriptionKey": "work.drift.description"
   },
   {
     "name": "CampAlong",
     "kind": "Flutter · App",
     "cover": "Camp Along.",
+    "art": "campalong",
     "stack": "Flutter · GPX · Local-first",
     "href": "https://campalong.de",
     "descriptionKey": "work.campAlong.description"
@@ -32,9 +37,11 @@
     "year": "2026",
     "kind": "Shopware 6",
     "cover": "Tool bar",
+    "art": "toolbar",
     "stack": "Shopware 6 · PHP · Twig · JavaScript",
     "href": "https://github.com/WariKoda/WakoPluginAdminToolbar",
     "repo": "WariKoda/WakoPluginAdminToolbar",
+    "language": "PHP",
     "descriptionKey": "work.adminToolbar.description"
   },
   {
@@ -42,9 +49,11 @@
     "year": "2026",
     "kind": "Shopware 6",
     "cover": "Hover.",
+    "art": "hover",
     "stack": "Shopware 6 · PHP · Twig · JavaScript",
     "href": "https://github.com/WariKoda/WakoProductHoverImage",
     "repo": "WariKoda/WakoProductHoverImage",
+    "language": "PHP",
     "descriptionKey": "work.productHoverImage.description"
   }
 ]

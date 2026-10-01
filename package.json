@@ -4,7 +4,9 @@
   "description": "Personal portfolio website for Niklas Braun.",
   "main": "index.html",
   "scripts": {
-    "build": "tailwindcss -i ./src/tailwind.css -o ./dist/tailwind.css --minify",
+    "build": "npm run build:css && npm run build:html",
+    "build:css": "tailwindcss -i ./src/tailwind.css -o ./dist/tailwind.css --minify",
+    "build:html": "node scripts/build-html.mjs",
     "dev": "tailwindcss -i ./src/tailwind.css -o ./dist/tailwind.css --watch",
     "serve": "python3 -m http.server 8000"
   },

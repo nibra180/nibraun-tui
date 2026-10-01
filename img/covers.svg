@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg">
+  <!--
+    Full-bleed color compositions, one symbol per project, on a 400x300 canvas.
+    They do not depict the project. Each is led by its project's tone; the other
+    accents only set counterweights. Colors are the art tokens from
+    src/tailwind.css (no double hyphen allowed in XML comments), set via style,
+    so they resolve on the use host.
+  -->
+
+  <!-- Red: nested circles pushed into the lower right -->
+  <symbol id="sippy" viewBox="0 0 400 300">
+    <rect width="400" height="300" style="fill: var(--art-red)"/>
+    <circle cx="290" cy="200" r="170" style="fill: var(--art-orange)"/>
+    <circle cx="290" cy="200" r="95" style="fill: var(--art-yellow)"/>
+    <circle cx="290" cy="200" r="35" style="fill: var(--art-red)"/>
+    <circle cx="80" cy="80" r="34" style="fill: var(--art-purple)"/>
+  </symbol>
+
+  <!-- Orange: stacked waves like the top bar's edge -->
+  <symbol id="drift" viewBox="0 0 400 300">
+    <rect width="400" height="300" style="fill: var(--art-orange)"/>
+    <circle cx="315" cy="72" r="30" style="fill: var(--art-yellow)"/>
+    <path style="fill: var(--art-yellow)" d="M0 140Q50 110 100 140T200 140T300 140T400 140V300H0Z"/>
+    <path style="fill: var(--art-red)" d="M0 190Q50 160 100 190T200 190T300 190T400 190V300H0Z"/>
+    <path style="fill: var(--art-purple)" d="M0 240Q50 210 100 240T200 240T300 240T400 240V300H0Z"/>
+  </symbol>
+
+  <!-- Yellow: a low circle cut by two diagonal planes -->
+  <symbol id="campalong" viewBox="0 0 400 300">
+    <rect width="400" height="300" style="fill: var(--art-yellow)"/>
+    <circle cx="130" cy="175" r="95" style="fill: var(--art-orange)"/>
+    <path style="fill: var(--art-green)" d="M0 300V210L400 110V300Z"/>
+    <path style="fill: var(--art-blue)" d="M0 300V265L400 215V300Z"/>
+  </symbol>
+
+  <!-- Green: a grid of quarter circles -->
+  <symbol id="toolbar" viewBox="0 0 400 300">
+    <rect width="400" height="300" style="fill: var(--art-green)"/>
+      <path style="fill: var(--art-blue)" d="M0 0H100A100 100 0 0 1 0 100Z"/>
+      <path style="fill: var(--art-yellow)" d="M300 100H200A100 100 0 0 1 300 0Z"/>
+      <path style="fill: var(--art-purple)" d="M300 0H400A100 100 0 0 1 300 100Z"/>
+      <path style="fill: var(--art-yellow)" d="M100 200H0A100 100 0 0 1 100 100Z"/>
+      <path style="fill: var(--art-blue)" d="M100 200V100A100 100 0 0 1 200 200Z"/>
+      <path style="fill: var(--art-purple)" d="M300 100V200A100 100 0 0 1 200 100Z"/>
+      <path style="fill: var(--art-yellow)" d="M200 200V300A100 100 0 0 1 100 200Z"/>
+      <path style="fill: var(--art-blue)" d="M200 200H300A100 100 0 0 1 200 300Z"/>
+      <path style="fill: var(--art-yellow)" d="M300 300V200A100 100 0 0 1 400 300Z"/>
+  </symbol>
+
+  <!-- Blue: concentric arcs rising from the lower left -->
+  <symbol id="hover" viewBox="0 0 400 300">
+    <rect width="400" height="300" style="fill: var(--art-blue)"/>
+    <circle cx="60" cy="320" r="220" style="fill: var(--art-purple)"/>
+    <circle cx="60" cy="320" r="160" style="fill: var(--art-red)"/>
+    <circle cx="60" cy="320" r="100" style="fill: var(--art-orange)"/>
+    <circle cx="60" cy="320" r="45" style="fill: var(--art-yellow)"/>
+  </symbol>
+</svg>
