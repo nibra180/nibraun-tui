@@ -76,7 +76,7 @@ function projectPreviews(t) {
             <div class="repo-meta mono" data-github-repo="${escape(project.repo)}"><span data-repo-release data-repo-release-state="loading">${escape(t("repo.release"))}: ${escape(t("repo.releaseLoading"))}</span><span data-repo-update data-repo-update-state="loading">${escape(t("repo.update"))}: ${escape(t("repo.updateLoading"))}</span></div>`
       : "";
     return `
-          <div class="preview-panel ${tone(index)}"${index === 0 ? "" : " hidden"}>
+          <div class="preview-panel ${tone(index)}${index === 0 ? "" : " is-inactive"}">
             ${cover(project)}
             <h3 class="preview-title"><span>${escape(project.name)}</span><span class="mono">${escape(project.year)}</span></h3>
             <p class="preview-desc">${escape(t(project.descriptionKey))}</p>

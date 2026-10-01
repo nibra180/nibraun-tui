@@ -143,7 +143,7 @@
             <div class="repo-meta mono" data-github-repo="nibra180/sippy"><span data-repo-release data-repo-release-state="loading">Release: …</span><span data-repo-update data-repo-update-state="loading">Last push: …</span></div>
             <a class="preview-link" href="https://github.com/nibra180/sippy" target="_blank" rel="noopener noreferrer">View on GitHub <span aria-hidden="true">↗</span></a>
           </div>
-          <div class="preview-panel tone-orange" hidden>
+          <div class="preview-panel tone-orange is-inactive">
             <span class="cover" aria-hidden="true"><svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice"><use href="/img/covers.svg#drift" width="400" height="300"/></svg></span>
             <h3 class="preview-title"><span>Drift</span><span class="mono">2026</span></h3>
             <p class="preview-desc">TUI for browsing, diffing, and syncing files with remote hosts over SFTP/SSH and FTP, including side-by-side diffs and per-file sync directions.</p>
@@ -151,14 +151,14 @@
             <div class="repo-meta mono" data-github-repo="WariKoda/drift"><span data-repo-release data-repo-release-state="loading">Release: …</span><span data-repo-update data-repo-update-state="loading">Last push: …</span></div>
             <a class="preview-link" href="https://github.com/WariKoda/drift" target="_blank" rel="noopener noreferrer">View on GitHub <span aria-hidden="true">↗</span></a>
           </div>
-          <div class="preview-panel tone-yellow" hidden>
+          <div class="preview-panel tone-yellow is-inactive">
             <span class="cover" aria-hidden="true"><svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice"><use href="/img/covers.svg#campalong" width="400" height="300"/></svg></span>
             <h3 class="preview-title"><span>CampAlong</span><span class="mono"></span></h3>
             <p class="preview-desc">Local-first Flutter app for turning GPX routes into trip-ready multi-day journeys — with stages, overnight stops, water, and supplies along the route.</p>
             <span class="mono">Flutter · GPX · Local-first</span>
             <a class="preview-link" href="https://campalong.de" target="_blank" rel="noopener noreferrer">View website <span aria-hidden="true">↗</span></a>
           </div>
-          <div class="preview-panel tone-green" hidden>
+          <div class="preview-panel tone-green is-inactive">
             <span class="cover" aria-hidden="true"><svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice"><use href="/img/covers.svg#toolbar" width="400" height="300"/></svg></span>
             <h3 class="preview-title"><span>Admin Toolbar</span><span class="mono">2026</span></h3>
             <p class="preview-desc">Shopware 6 plugin that shows an admin toolbar in the storefront — similar to WordPress.</p>
@@ -166,7 +166,7 @@
             <div class="repo-meta mono" data-github-repo="WariKoda/WakoPluginAdminToolbar"><span data-repo-release data-repo-release-state="loading">Release: …</span><span data-repo-update data-repo-update-state="loading">Last push: …</span></div>
             <a class="preview-link" href="https://github.com/WariKoda/WakoPluginAdminToolbar" target="_blank" rel="noopener noreferrer">View on GitHub <span aria-hidden="true">↗</span></a>
           </div>
-          <div class="preview-panel tone-blue" hidden>
+          <div class="preview-panel tone-blue is-inactive">
             <span class="cover" aria-hidden="true"><svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice"><use href="/img/covers.svg#hover" width="400" height="300"/></svg></span>
             <h3 class="preview-title"><span>Product Hover Image</span><span class="mono">2026</span></h3>
             <p class="preview-desc">Shopware 6 plugin that shows an alternative product image when hovering over product cards.</p>
@@ -227,7 +227,7 @@
           if (index === activeIndex || !panels[index]) return;
           activeIndex = index;
           rows.forEach((row, i) => row.classList.toggle("is-active", i === index));
-          panels.forEach((panel, i) => { panel.hidden = i !== index; });
+          panels.forEach((panel, i) => panel.classList.toggle("is-inactive", i !== index));
         }
         for (const type of ["mouseover", "focusin"]) {
           list.addEventListener(type, (event) => {

@@ -140,7 +140,7 @@
           if (index === activeIndex || !panels[index]) return;
           activeIndex = index;
           rows.forEach((row, i) => row.classList.toggle("is-active", i === index));
-          panels.forEach((panel, i) => { panel.hidden = i !== index; });
+          panels.forEach((panel, i) => panel.classList.toggle("is-inactive", i !== index));
         }
         for (const type of ["mouseover", "focusin"]) {
           list.addEventListener(type, (event) => {
