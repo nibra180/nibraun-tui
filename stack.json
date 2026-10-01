@@ -2,6 +2,6 @@
   { "labelKey": "stack.commerce", "items": ["Shopware 6", "PHP", "Symfony", "Twig", "Vue.js", "TypeScript", "TYPO3"] },
   { "labelKey": "stack.mobile", "items": ["Flutter", "Dart", "Riverpod", "Drift (SQLite)", "Supabase", "Kotlin"] },
   { "labelKey": "stack.tools", "items": ["Go", "Rust", "Node.js"] },
-  { "labelKey": "stack.agents", "items": [{"name": "Pi", "noteKey": "stack.piNote"}, "Claude Code", "Codex"] },
+  { "labelKey": "stack.agents", "items": ["Pi", "Claude Code", "Codex", "Herdr"] },
   { "labelKey": "stack.workflow", "items": ["Docker Compose", "DDEV", "Neovim", "Zed", "PhpStorm", "Git"] }
 ]

@@ -17,7 +17,7 @@ German version: https://nibraun.de/de/
 - E-commerce: Shopware 6, PHP, Symfony, Twig, Vue.js, TypeScript, TYPO3
 - Mobile: Flutter, Dart, Riverpod, Drift (SQLite), Supabase, Kotlin
 - Tools: Go, Rust, Node.js
-- Agents: Pi (custom extensions), Claude Code, Codex
+- Agents: Pi, Claude Code, Codex, Herdr
 - Workflow: Docker Compose, DDEV, Neovim, Zed, PhpStorm, Git
 
 ## Experience

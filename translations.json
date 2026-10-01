@@ -44,7 +44,6 @@
     "stack.mobile": "Mobile",
     "stack.tools": "Tools",
     "stack.workflow": "Workflow",
-    "stack.piNote": "eigene Extensions",
     "stack.agents": "Agents"
   },
   "en": {
@@ -92,7 +91,6 @@
     "stack.mobile": "Mobile",
     "stack.tools": "Tools",
     "stack.workflow": "Workflow",
-    "stack.piNote": "custom extensions",
     "stack.agents": "Agents"
   }
 }
