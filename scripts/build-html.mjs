@@ -54,17 +54,17 @@ function cover(project) {
 
 const tone = (index) => `tone-${TONES[index % TONES.length]}`;
 
-// The first row doubles as the featured card on narrow screens.
+// On narrow screens the active row opens into a card; every row carries its cover and description for that.
 function projectRows(t) {
   return projects.map((project, index) => `
             <li>
               <a class="project-row ${tone(index)}${index === 0 ? " is-active" : ""}" href="${escape(project.href)}" target="_blank" rel="noopener noreferrer">
-                ${index === 0 ? cover(project) : ""}
+                ${cover(project)}
                 <span class="row-year">${escape(project.year)}</span>
                 <span class="row-name">${escape(project.name)}</span>
                 <span class="row-kind">${escape(project.kind)}</span>
                 <svg class="row-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
-                ${index === 0 ? `<span class="row-desc">${escape(t(project.descriptionKey))}</span>` : ""}
+                <span class="row-desc">${escape(t(project.descriptionKey))}</span>
               </a>
             </li>`).join("");
 }

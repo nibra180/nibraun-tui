@@ -136,19 +136,40 @@
         const tones = ["red", "orange", "yellow", "green", "blue", "purple"];
         let activeIndex = 0;
 
-        // Rows and preview panels come prerendered; hover and focus only swap the visible panel.
+        // Rows and preview panels come prerendered; selecting only swaps the active row and panel.
         function select(index) {
           if (index === activeIndex || !panels[index]) return;
           activeIndex = index;
           rows.forEach((row, i) => row.classList.toggle("is-active", i === index));
           panels.forEach((panel, i) => panel.classList.toggle("is-inactive", i !== index));
         }
-        for (const type of ["mouseover", "focusin"]) {
-          list.addEventListener(type, (event) => {
-            const row = event.target.closest(".project-row");
-            if (row) select(rows.indexOf(row));
-          });
-        }
+        // Mouse and hovering pens preview on hover. Touch has no hover, so its emulated events are ignored.
+        list.addEventListener("pointerover", (event) => {
+          const row = event.target.closest(".project-row");
+          if (row && event.pointerType !== "touch") select(rows.indexOf(row));
+        });
+        list.addEventListener("focusin", (event) => {
+          const row = event.target.closest(".project-row");
+          if (row) select(rows.indexOf(row));
+        });
+        // On touch, the first tap opens a project's card and the second tap follows its link.
+        // wasActive is read at pointerdown, before focus can already select the row.
+        let touch = null;
+        list.addEventListener("pointerdown", (event) => {
+          const row = event.target.closest(".project-row");
+          touch = row && event.pointerType !== "mouse" ? { row, wasActive: row.classList.contains("is-active") } : null;
+        });
+        // A tap that turns into a scroll or a long press ends in pointercancel, not click; forget it.
+        list.addEventListener("pointercancel", () => { touch = null; });
+        list.addEventListener("click", (event) => {
+          const row = event.target.closest(".project-row");
+          const firstTap = touch && touch.row === row && !touch.wasActive;
+          touch = null;
+          if (!firstTap) return;
+          event.preventDefault();
+          select(rows.indexOf(row));
+          row.scrollIntoView({ block: "nearest", behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
+        });
 
         // Every new selection advances one color along the top bar.
         let selectionTone = 0;

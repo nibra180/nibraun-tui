@@ -229,7 +229,9 @@ a:focus-visible, button:focus-visible {
 .row-year:not(:empty)::before { content: "\00a0·\00a0"; }
 .row-arrow { display: none; }
 .row-desc { order: 4; grid-column: 1 / -1; color: var(--c-fg-soft); }
-.project-row:has(.cover) { row-gap: 12px; padding: 14px 0 18px; }
+/* Narrow screens: only the active row shows its cover and description, as a card. */
+.project-row:not(.is-active) .cover, .project-row:not(.is-active) .row-desc { display: none; }
+.project-row.is-active { row-gap: 12px; padding: 14px 0 18px; }
 .preview { display: none; }
 .load-message { margin: 16px 0 0; color: var(--c-fg-dim); }
 
@@ -276,10 +278,9 @@ a:focus-visible, button:focus-visible {
     .project-head, .project-row { grid-template-columns: 72px minmax(0, 1fr) 160px 20px; column-gap: 16px; padding-inline: 12px; }
     .project-head { display: grid; padding-bottom: 10px; }
     .project-row { min-height: 52px; color: var(--c-fg-dim); }
-    .project-row:has(.cover) { row-gap: 0; padding: 0 12px; }
     /* The active row is tinted in its tone. */
     .project-row { transition: color .15s, background-color .15s; }
-    .project-row.is-active { color: var(--c-fg); background-color: color-mix(in srgb, var(--tone) 16%, transparent); }
+    .project-row.is-active { row-gap: 0; padding: 0 12px; color: var(--c-fg); background-color: color-mix(in srgb, var(--tone) 16%, transparent); }
     .project-row .cover, .row-desc { display: none; }
     .row-year, .row-name, .row-kind { order: 0; color: inherit; }
     .row-year::before { display: none; }
