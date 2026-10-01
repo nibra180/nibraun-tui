@@ -36,7 +36,7 @@ The project covers are typographic placeholders, not screenshots.
 
 - HTML5 and vanilla JavaScript in `index.html`
 - Tailwind CSS v4, with tokens and custom styles in `src/tailwind.css`
-- Geist and Geist Mono
+- Geist and Geist Mono, self-hosted in `fonts/` (SIL OFL 1.1)
 - `translations.json` for German and English content
 - `projects.json` for project links, order, and labels
 - `github-project-meta.js` for GitHub release and update metadata
@@ -71,6 +71,7 @@ Build the CSS, then copy these files to the web server:
 - `projects.json`
 - `github-project-meta.js`
 - `dist/tailwind.css`
+- `fonts/`
 - `img/`
 
 ## Links

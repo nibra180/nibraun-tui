@@ -1,5 +1,19 @@
 @import "tailwindcss";
 
+/* Self-hosted, so no visitor request goes to a font CDN. Geist 1.7.2, SIL OFL 1.1 (fonts/OFL.txt). */
+@font-face {
+    font-family: "Geist";
+    src: url("../fonts/Geist-Variable.woff2") format("woff2");
+    font-weight: 100 900;
+    font-display: swap;
+}
+@font-face {
+    font-family: "Geist Mono";
+    src: url("../fonts/GeistMono-Variable.woff2") format("woff2");
+    font-weight: 100 900;
+    font-display: swap;
+}
+
 /*
  * Radically reduced index in two Monokai Pro filters: Light Sun and the dark
  * default. The six accents paint the top bar, and each project borrows one of
