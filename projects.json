@@ -1,53 +1,50 @@
 [
   {
-    "priority": 100,
-    "name": "Shopware Admin Toolbar",
-    "kind": "Shopware 6",
-    "href": "https://github.com/WariKoda/WakoPluginAdminToolbar",
-    "repo": "WariKoda/WakoPluginAdminToolbar",
-    "descriptionKey": "work.adminToolbar.description",
-    "owner": "WariKoda",
-    "lead": "@nibra180",
-    "leadHref": "https://github.com/nibra180"
-  },
-  {
-    "priority": 98,
-    "name": "Shopware Product Hover Image",
-    "kind": "Shopware 6",
-    "href": "https://github.com/WariKoda/WakoProductHoverImage",
-    "repo": "WariKoda/WakoProductHoverImage",
-    "descriptionKey": "work.productHoverImage.description",
-    "owner": "WariKoda",
-    "lead": "@nibra180",
-    "leadHref": "https://github.com/nibra180"
-  },
-  {
-    "priority": 90,
-    "name": "Drift - TUI File Syncing",
-    "kind": "Go · TUI",
-    "href": "https://github.com/WariKoda/drift",
-    "repo": "WariKoda/drift",
-    "descriptionKey": "work.drift.description",
-    "owner": "WariKoda",
-    "lead": "@nibra180",
-    "leadHref": "https://github.com/nibra180"
-  },
-  {
-    "priority": 85,
     "name": "Sippy",
+    "year": "2026",
     "kind": "Rust · GPUI",
+    "cover": "sippy",
+    "stack": "Rust · GPUI · baresip · D-Bus",
     "href": "https://github.com/nibra180/sippy",
     "repo": "nibra180/sippy",
-    "descriptionKey": "work.goSipTea.description",
-    "owner": "nibra180",
-    "lead": "@nibra180",
-    "leadHref": "https://github.com/nibra180"
+    "descriptionKey": "work.goSipTea.description"
   },
   {
-    "priority": 80,
+    "name": "Drift",
+    "year": "2026",
+    "kind": "Go · TUI",
+    "cover": "drift_",
+    "stack": "Go · TUI · SFTP / SSH · FTP",
+    "href": "https://github.com/WariKoda/drift",
+    "repo": "WariKoda/drift",
+    "descriptionKey": "work.drift.description"
+  },
+  {
     "name": "CampAlong",
     "kind": "Flutter · App",
+    "cover": "Camp Along.",
+    "stack": "Flutter · GPX · Local-first",
     "href": "https://campalong.de",
     "descriptionKey": "work.campAlong.description"
+  },
+  {
+    "name": "Admin Toolbar",
+    "year": "2026",
+    "kind": "Shopware 6",
+    "cover": "Tool bar",
+    "stack": "Shopware 6 · PHP · Twig · JavaScript",
+    "href": "https://github.com/WariKoda/WakoPluginAdminToolbar",
+    "repo": "WariKoda/WakoPluginAdminToolbar",
+    "descriptionKey": "work.adminToolbar.description"
+  },
+  {
+    "name": "Product Hover Image",
+    "year": "2026",
+    "kind": "Shopware 6",
+    "cover": "Hover.",
+    "stack": "Shopware 6 · PHP · Twig · JavaScript",
+    "href": "https://github.com/WariKoda/WakoProductHoverImage",
+    "repo": "WariKoda/WakoProductHoverImage",
+    "descriptionKey": "work.productHoverImage.description"
   }
 ]

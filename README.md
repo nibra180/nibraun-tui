@@ -2,78 +2,69 @@
 
 Personal portfolio website for Niklas Braun, built as a showcase for published software.
 
-![Static Site](https://img.shields.io/badge/deployment-static-1a1917?style=flat-square)
-![Tailwind](https://img.shields.io/badge/tailwind-v4-e8590c?style=flat-square)
-![Languages](https://img.shields.io/badge/lang-DE%20%7C%20EN-1a1917?style=flat-square)
-
-## Screenshot
-
-![nibraun.de screenshot](img/nibraun-tui-001.png)
-
 ## Design
 
-“BRAUN: datasheet” takes its cues from classic Braun product design: a mid-grey
-shell, light component panels, recessed bezels, calibrated scales, technical
-labelling, and one functional orange signal. The work index is the signature
-instrument, turning live GitHub releases into indicator lights and `pushed_at`
-values into comparable gauge positions. A deliberately data-free CSS measurement
-field gives the hero an atmospheric technical counterweight without pretending
-to show live telemetry.
+"Radically reduced": one page, no dialogs, no carousel. On desktop the page
+reads top-down in three tiers on a 12-column grid. The intro comes first,
+large and on its own. Below it sit the project index with year, name, and type,
+and a preview of whichever project the pointer or keyboard focus is on. The
+bottom tier puts experience, stack, and contact side by side. On narrow screens
+the first project becomes a card, the rest stay as list rows, and the preview
+column goes away.
+
+Two themes follow Monokai Pro: Light Sun and the dark default filter. The
+first visit picks one from `prefers-color-scheme`, a switch in the header
+overrides it, and `localStorage` keeps the choice. The six Monokai accents paint
+the top bar, alternating stripes with a wavy lower edge. Each project takes the
+next color in that order, and the active project shows it in three places only:
+the row arrow, the cover word, and the link underline. Green also marks live
+GitHub data. Some accents only reach about 3:1, so they never color small text. Geist sets the text, Geist Mono the labels and dates.
+
+The project covers are typographic placeholders, not screenshots.
 
 ## Features
 
-- **Work instrument** – Published repositories with live release lights and logarithmic last-push gauges
-- **Career scale** – The path section presents the timeline as a calibrated device scale
-- **One considered theme** – Light only, built from shell, panel, and recessed bezel surfaces
-- **DE/EN i18n** – Language toggle backed by `?lang=` and `localStorage`
-- **Static deployment** – Ready-to-serve files, no server-side logic
-- **No runtime dependencies** – Vanilla JavaScript only
-- **Responsive** – Mobile-first, headlines reflow rather than shrink on small screens
-- **Accessible** – Semantic HTML, ARIA labels, visible focus, `prefers-reduced-motion` respected
-- **Local cache** – GitHub metadata cached client-side for six hours
+- Project index with hover and focus preview on desktop, featured card on mobile
+- Live GitHub release and last push in the preview, cached for six hours
+- DE/EN translations with `?lang=` and `localStorage`
+- Monokai Pro and Monokai Pro Light Sun themes, switchable and stored in `localStorage`
+- Text selection with a tinted ground and a wavy underline; each new selection takes the next top-bar color, project rows keep their own
+- Visible keyboard focus, 44 px touch targets on mobile, reduced-motion support
+- Static deployment and vanilla JavaScript, no browser runtime dependencies
 
 ## Tech Stack
 
-- HTML5
-- Tailwind CSS v4 (CSS-first configuration in `src/tailwind.css`)
-- Vanilla JavaScript
-- Instrument Sans and Martian Mono
-- `translations.json` for i18n
-- `projects.json` for the work index entries
+- HTML5 and vanilla JavaScript in `index.html`
+- Tailwind CSS v4, with tokens and custom styles in `src/tailwind.css`
+- Geist and Geist Mono
+- `translations.json` for German and English content
+- `projects.json` for project links, order, and labels
 - `github-project-meta.js` for GitHub release and update metadata
-
-## Palette
-
-Raw values live on `--c-*` and are exposed to Tailwind through `@theme inline`.
-
-| Token | Value | Usage |
-|---|---|---|
-| `--c-shell` | `#d6d3cb` | Device shell and page background |
-| `--c-panel` | `#eeece7` | Light component and section surface |
-| `--c-bezel` | `#c4c0b6` | Recessed controls, tags, and gauge beds |
-| `--c-fg` | `#1a1917` | Primary labelling |
-| `--c-fg-dim` | `#6c675e` | Secondary labelling |
-| `--c-rule` | `#bdb9ae` | Internal joints and gauge ticks |
-| `--c-signal` | `#e8590c` | Indicator lights, needles, and active graphics |
-| `--c-signal-text` | `#9a3412` | Accessible signal-coloured text |
-| `--c-on-signal` | `#1a1917` | Foreground on signal fills |
-| `--c-invert-bg` | `#1a1917` | Inverted component background |
-| `--c-on-invert` | `#e6e3dc` | Foreground on inverted components |
-
-**`--c-signal` is never a text colour.** It is reserved for fills and graphics;
-links and signal labels use `--c-signal-text`. `.on-fill` only rewrites
-foreground roles to `currentColor`, keeping fills independent from their content.
 
 ## Development
 
 ```bash
 npm install
-npm run build     # one-off minified build
-npm run dev       # watch mode
-npm run serve     # static server on :8000
+npm run build     # one-off minified CSS build
+npm run dev       # CSS watch mode (first terminal)
+npm run serve     # static server on http://localhost:8000 (second terminal)
 ```
 
-Files required for deployment:
+Reload the browser after edits. The static server does not inject live reload.
+For a background CSS watcher without an interactive terminal, use
+`npm run dev -- --watch=always`.
+
+## Project Data
+
+`projects.json` lists projects in display order. `year` and `repo` are
+optional. Without `repo` the preview links to `href` as a website and skips the
+GitHub data. `kind` fills the type column, `stack` the preview, and `cover` is
+the word on the placeholder cover. `descriptionKey` points into
+`translations.json`.
+
+## Deployment
+
+Build the CSS, then copy these files to the web server:
 
 - `index.html`
 - `translations.json`
@@ -87,6 +78,7 @@ Files required for deployment:
 - **Live**: [nibraun.de](https://nibraun.de)
 - **GitHub**: [github.com/nibra180](https://github.com/nibra180)
 - **WariKoda**: [github.com/WariKoda](https://github.com/WariKoda)
+- **Instagram**: [instagram.com/nibraun_](https://www.instagram.com/nibraun_/)
 - **Employer**: [Sharpness Solutions GmbH](https://sharpness.de)
 
 ## License

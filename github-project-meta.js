@@ -188,6 +188,35 @@
             };
         }
 
+        const pending = new Map();
+
+        /**
+         * Overlapping `load()` calls share one request per repository and merge
+         * into the stored cache, so a slower response cannot drop other entries.
+         */
+        function fetchAndStore(repo) {
+            if (!pending.has(repo)) {
+                const request = fetchRepoMeta(repo).then(meta => {
+                    if (!meta.pushedAt) {
+                        throw new Error(`Missing pushed_at for ${repo}`);
+                    }
+
+                    const latest = getCache();
+                    latest[repo] = {
+                        pushedAt: meta.pushedAt,
+                        release: meta.release,
+                        releaseState: meta.releaseState,
+                        fetchedAt: Date.now(),
+                    };
+                    setCache(latest);
+                    return meta;
+                }).finally(() => pending.delete(repo));
+                pending.set(repo, request);
+            }
+
+            return pending.get(repo);
+        }
+
         async function load() {
             const repoCards = getRepoCards();
             if (!repoCards.length) {
@@ -217,18 +246,7 @@
                 renderRepoRelease(releaseTarget, 'loading');
 
                 try {
-                    const meta = await fetchRepoMeta(repo);
-                    if (!meta.pushedAt) {
-                        throw new Error(`Missing pushed_at for ${repo}`);
-                    }
-
-                    cache[repo] = {
-                        pushedAt: meta.pushedAt,
-                        release: meta.release,
-                        releaseState: meta.releaseState,
-                        fetchedAt: Date.now(),
-                    };
-                    setCache(cache);
+                    const meta = await fetchAndStore(repo);
                     renderRepoUpdate(updateTarget, 'ready', meta.pushedAt);
                     renderRepoRelease(releaseTarget, meta.releaseState, meta.release);
                 } catch {

@@ -3,1477 +3,280 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- Runs before first paint so the scroll reveal only hides content when JS is available -->
-    <script>
-      document.documentElement.classList.add("js");
-    </script>
-    <title>Niklas Braun — Shopware 6 &amp; Flutter Developer</title>
-    <meta
-      name="description"
-      content="Niklas Braun is a full-stack developer with 7+ years of experience in Shopware 6, Flutter, Vue.js, TypeScript, PHP/Symfony, and custom e-commerce solutions."
-    />
+    <title>Niklas Braun — Full-Stack Developer</title>
+    <meta name="description" content="Niklas Braun is a full-stack developer with 7+ years of experience in Shopware 6, Flutter, Vue.js, TypeScript, PHP/Symfony, and custom e-commerce solutions." />
     <meta name="author" content="Niklas Braun" />
     <meta name="robots" content="index, follow" />
-
-    <!-- Open Graph -->
+    <meta name="theme-color" content="#f8efe7" />
     <meta property="og:type" content="website" />
-    <meta
-      property="og:title"
-      content="Niklas Braun — Shopware 6 &amp; Flutter Developer"
-    />
-    <meta
-      property="og:description"
-      content="Full-stack development with 7+ years of experience in Shopware 6, Flutter, Vue.js, and custom software solutions."
-    />
+    <meta property="og:title" content="Niklas Braun — Full-Stack Developer" />
+    <meta property="og:description" content="Full-stack development with 7+ years of experience in Shopware 6, Flutter, Vue.js, and custom software solutions." />
     <meta property="og:url" content="https://nibraun.de/" />
     <meta property="og:locale" content="en_US" />
     <meta property="og:locale:alternate" content="de_DE" />
     <meta property="og:image" content="https://nibraun.de/img/og-image.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta
-      property="og:image:alt"
-      content="Niklas Braun, full-stack developer in Oldenburg"
-    />
-
-    <!-- Language alternates; the canonical link is set per locale by the script -->
+    <meta property="og:image:alt" content="Niklas Braun, full-stack developer in Oldenburg" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Niklas Braun — Full-Stack Developer" />
+    <meta name="twitter:description" content="Full-stack development with 7+ years of experience in Shopware 6, Flutter, Vue.js, and custom software solutions." />
+    <meta name="twitter:image" content="https://nibraun.de/img/og-image.png" />
+    <link rel="canonical" href="https://nibraun.de/" />
     <link rel="alternate" hreflang="en" href="https://nibraun.de/" />
     <link rel="alternate" hreflang="de" href="https://nibraun.de/?lang=de" />
     <link rel="alternate" hreflang="x-default" href="https://nibraun.de/" />
-
-    <!-- Twitter -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta
-      name="twitter:title"
-      content="Niklas Braun — Shopware 6 &amp; Flutter Developer"
-    />
-    <meta
-      name="twitter:description"
-      content="Full-stack development with 7+ years of experience in Shopware 6, Flutter, Vue.js, and custom software solutions."
-    />
-    <meta
-      name="twitter:image"
-      content="https://nibraun.de/img/og-image.png"
-    />
-
-    <link
-      rel="icon"
-      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23e8590c'/><text x='50' y='74' font-family='Helvetica,Arial,sans-serif' font-size='72' font-weight='bold' fill='%231a1917' text-anchor='middle'>N</text></svg>"
-    />
-    <meta name="theme-color" content="#d6d3cb" />
-
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23171717'/%3E%3Ctext x='50' y='72' font-family='Arial' font-size='64' fill='%23f7f7f4' text-anchor='middle'%3EN%3C/text%3E%3C/svg%3E" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wdth,wght@75..100,400..700&family=Martian+Mono:wdth,wght@75..112.5,100..800&display=swap"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500&family=Geist+Mono:wght@400&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="dist/tailwind.css" />
+    <script>
+      // Set the theme before first paint, so a stored dark choice does not flash light.
+      (() => {
+        let stored;
+        try { stored = localStorage.getItem("theme"); } catch {}
+        document.documentElement.dataset.theme = ["dark", "light"].includes(stored)
+          ? stored
+          : matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+      })();
+    </script>
   </head>
-
   <body>
-    <a class="skip-link" href="#work" data-i18n="work.title">Work</a>
-
-    <nav
-      class="nav"
-      role="navigation"
-      data-i18n-aria-label="nav.main"
-      aria-label="Main navigation"
-    >
-      <div class="shell">
-        <div class="nav-inner">
-          <a
-            href="#top"
-            class="wordmark"
-            data-i18n-aria-label="nav.home"
-            aria-label="Back to homepage"
-            >Niklas&nbsp;Braun</a
-          >
-
-          <div class="nav-links">
-            <a href="#work" class="nav-link" data-nav data-i18n="nav.work"
-              >Work</a
-            >
-            <a href="#warikoda" class="nav-link" data-nav>WariKoda</a>
-            <a href="#skills" class="nav-link" data-nav data-i18n="nav.skills"
-              >Skills</a
-            >
-            <a href="#path" class="nav-link" data-nav data-i18n="nav.path"
-              >Path</a
-            >
-            <a href="#profile" class="nav-link" data-nav data-i18n="nav.profile"
-              >Profile</a
-            >
-            <a href="#contact" class="nav-link" data-nav data-i18n="nav.contact"
-              >Contact</a
-            >
+    <a class="skip-link" href="#work" data-i18n="nav.skip">Skip to projects</a>
+    <div class="top-bar" aria-hidden="true"></div>
+    <div class="page">
+      <!-- ==================== HEADER ==================== -->
+      <header class="site-header">
+        <a class="site-name" href="./" data-i18n-aria-label="nav.home" aria-label="Back to homepage">Niklas Braun</a>
+        <span class="site-role" data-i18n="intro.role">Full-stack developer · Oldenburg</span>
+        <div class="header-controls">
+          <div class="switch language-switch" role="group" data-i18n-aria-label="nav.language" aria-label="Choose language">
+            <button type="button" data-lang="en" aria-pressed="true" lang="en">EN</button>
+            <button type="button" data-lang="de" aria-pressed="false" lang="de">DE</button>
           </div>
-
-          <div class="flex items-center gap-2">
-            <div class="nav-utils">
-              <div
-                class="seg"
-                role="group"
-                data-i18n-aria-label="nav.language"
-                aria-label="Choose language"
-              >
-                <button
-                  type="button"
-                  data-lang-switch="de"
-                  aria-pressed="false"
-                  lang="de"
-                >
-                  DE
-                </button>
-                <button
-                  type="button"
-                  data-lang-switch="en"
-                  aria-pressed="true"
-                  lang="en"
-                >
-                  EN
-                </button>
-              </div>
-            </div>
-
-            <button
-              id="menuToggle"
-              class="nav-burger"
-              type="button"
-              aria-expanded="false"
-              aria-controls="drawer"
-              data-i18n-aria-label="nav.menuOpen"
-              aria-label="Open menu"
-            >
-              <svg
-                id="menuOpenIcon"
-                class="w-5 h-5"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                aria-hidden="true"
-              >
-                <path d="M3 6h18M3 12h18M3 18h18" />
-              </svg>
-              <svg
-                id="menuCloseIcon"
-                class="w-5 h-5 hidden"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                aria-hidden="true"
-              >
-                <path d="M5 5l14 14M19 5L5 19" />
-              </svg>
+          <div class="switch theme-switch" role="group" data-i18n-aria-label="nav.theme" aria-label="Choose theme">
+            <button type="button" data-theme-choice="light" aria-pressed="false" data-i18n-aria-label="theme.light" aria-label="Monokai Pro Light Sun">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+            </button>
+            <button type="button" data-theme-choice="dark" aria-pressed="false" data-i18n-aria-label="theme.dark" aria-label="Monokai Pro (dark)">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5Z"/></svg>
             </button>
           </div>
         </div>
+      </header>
 
-        <div id="drawer" class="drawer">
-          <div>
-            <a
-              href="#work"
-              class="drawer-link"
-              data-nav
-              data-drawer-close
-              data-i18n="nav.work"
-              >Work</a
-            >
-            <a href="#warikoda" class="drawer-link" data-nav data-drawer-close
-              >WariKoda</a
-            >
-            <a
-              href="#skills"
-              class="drawer-link"
-              data-nav
-              data-drawer-close
-              data-i18n="nav.skills"
-              >Skills</a
-            >
-            <a
-              href="#path"
-              class="drawer-link"
-              data-nav
-              data-drawer-close
-              data-i18n="nav.path"
-              >Path</a
-            >
-            <a
-              href="#profile"
-              class="drawer-link"
-              data-nav
-              data-drawer-close
-              data-i18n="nav.profile"
-              >Profile</a
-            >
-            <a
-              href="#contact"
-              class="drawer-link"
-              data-nav
-              data-drawer-close
-              data-i18n="nav.contact"
-              >Contact</a
-            >
-            <div class="drawer-utils">
-              <div
-                class="seg"
-                role="group"
-                data-i18n-aria-label="nav.language"
-                aria-label="Choose language"
-              >
-                <button
-                  type="button"
-                  data-lang-switch="de"
-                  aria-pressed="false"
-                  lang="de"
-                >
-                  DE
-                </button>
-                <button
-                  type="button"
-                  data-lang-switch="en"
-                  aria-pressed="true"
-                  lang="en"
-                >
-                  EN
-                </button>
-              </div>
-            </div>
+      <main class="index">
+        <!-- ==================== INTRO ==================== -->
+        <h1 class="lead"><span class="sr-only">Niklas Braun. </span><span data-i18n="intro.lead">Full-stack developer focused on Shopware 6 and Flutter. I build plugins, integrations, and apps, currently at Sharpness Solutions.</span></h1>
+
+        <!-- ==================== PROJECTS ==================== -->
+        <section class="projects" id="work" aria-labelledby="workTitle">
+          <h2 class="label projects-title" id="workTitle" data-i18n="work.title">Projects</h2>
+          <div class="label project-head" aria-hidden="true">
+            <span data-i18n="work.colYear">Year</span><span data-i18n="work.colProject">Project</span><span data-i18n="work.colKind">Type</span><span></span>
           </div>
-        </div>
-      </div>
-    </nav>
+          <ol class="project-list" id="projectList"></ol>
+          <p class="load-message" id="loadMessage" hidden data-i18n="work.empty">Projects could not be loaded. Please try again.</p>
+          <noscript><p class="load-message"><a href="https://github.com/nibra180">github.com/nibra180</a></p></noscript>
+        </section>
 
-    <nav
-      class="quick-nav"
-      data-i18n-aria-label="nav.quick"
-      aria-label="Quick navigation"
-    >
-      <span class="quick-nav-heading" aria-hidden="true">NAV</span>
-      <a href="#work" class="quick-nav-link" data-nav>
-        <span
-          class="quick-nav-short"
-          data-i18n="nav.workShort"
-          aria-hidden="true"
-          >WO</span
-        >
-        <span class="quick-nav-text" data-i18n="nav.work">Work</span>
-      </a>
-      <a href="#warikoda" class="quick-nav-link" data-nav>
-        <span class="quick-nav-short" aria-hidden="true">WK</span>
-        <span class="quick-nav-text">WariKoda</span>
-      </a>
-      <a href="#skills" class="quick-nav-link" data-nav>
-        <span
-          class="quick-nav-short"
-          data-i18n="nav.skillsShort"
-          aria-hidden="true"
-          >SK</span
-        >
-        <span class="quick-nav-text" data-i18n="nav.skills">Skills</span>
-      </a>
-      <a href="#path" class="quick-nav-link" data-nav>
-        <span
-          class="quick-nav-short"
-          data-i18n="nav.pathShort"
-          aria-hidden="true"
-          >PA</span
-        >
-        <span class="quick-nav-text" data-i18n="nav.path">Path</span>
-      </a>
-      <a href="#profile" class="quick-nav-link" data-nav>
-        <span class="quick-nav-short" aria-hidden="true">PR</span>
-        <span class="quick-nav-text" data-i18n="nav.profile">Profile</span>
-      </a>
-      <a href="#contact" class="quick-nav-link" data-nav>
-        <span
-          class="quick-nav-short"
-          data-i18n="nav.contactShort"
-          aria-hidden="true"
-          >CO</span
-        >
-        <span class="quick-nav-text" data-i18n="nav.contact">Contact</span>
-      </a>
-    </nav>
+        <aside class="preview" id="preview"></aside>
 
-    <main id="top" class="section-stack" style="padding-top: 3.5rem">
-      <section class="hero scroll-panel">
-        <div class="shell">
-          <div class="hero-grid">
-            <div class="hero-heading">
-              <h1 class="display">Niklas Braun</h1>
-              <p class="hero-subtitle subtitle" data-i18n="hero.eyebrow">
-                Full-stack developer · Oldenburg
-              </p>
-            </div>
+        <!-- ==================== EXPERIENCE ==================== -->
+        <section class="block experience" aria-labelledby="pathTitle">
+          <h2 class="label" id="pathTitle" data-i18n="path.title">Experience</h2>
+          <dl class="timeline">
+            <dt>2025–<span data-i18n="path.now">now</span></dt><dd><span data-i18n="path.role1">Full-stack developer</span><span class="org">Sharpness Solutions</span></dd>
+            <dt>2021–2025</dt><dd><span data-i18n="path.role2">Frontend developer &amp; web designer</span><span class="org">WL Online</span></dd>
+            <dt>2018–2021</dt><dd><span data-i18n="path.role3">Apprenticeship in digital/print media design</span><span class="org">WL Online</span></dd>
+          </dl>
+        </section>
 
-            <p class="hero-lede lede" data-i18n="hero.lede">
-              My experience spans e-commerce, mobile applications, technical
-              integrations, and open source — from custom Shopware solutions and
-              ERP/PIM systems to cross-device apps built with Flutter.
-            </p>
+        <!-- ==================== STACK ==================== -->
+        <section class="block stack" aria-labelledby="stackTitle">
+          <h2 class="label" id="stackTitle" data-i18n="stack.title">Stack</h2>
+          <p>Shopware 6, PHP / Symfony, Flutter, Vue.js, TypeScript</p>
+        </section>
 
-            <div class="hero-art" aria-hidden="true">
-              <div class="relief-stage">
-                <span class="relief-plane relief-plane-a"></span>
-                <span class="relief-plane relief-plane-b"></span>
-                <span class="relief-plane relief-plane-c"></span>
-                <span class="relief-plane relief-plane-d"></span>
-                <span class="relief-plane relief-plane-e"></span>
-                <span class="relief-signal"></span>
-                <span class="relief-rule relief-rule-top"></span>
-                <span class="relief-rule relief-rule-side"></span>
-                <span class="relief-rule relief-rule-bottom"></span>
-                <div class="relief-lamellae">
-                  <span></span><span></span><span></span><span></span>
-                  <span></span><span></span><span></span>
-                </div>
-              </div>
-            </div>
+        <!-- ==================== CONTACT ==================== -->
+        <section class="block contact" aria-labelledby="contactTitle">
+          <h2 class="label" id="contactTitle" data-i18n="contact.title">Contact</h2>
+          <ul class="contact-links">
+            <li><a href="https://www.sharpness.de/kontakt" target="_blank" rel="noopener noreferrer"><span data-i18n="contact.cta">Enquire via Sharpness</span><span class="link-arrow" aria-hidden="true">↗</span></a></li>
+            <li><a href="https://github.com/nibra180" target="_blank" rel="noopener noreferrer">GitHub<span class="link-arrow" aria-hidden="true">↗</span></a></li>
+            <li><a href="https://github.com/WariKoda" target="_blank" rel="noopener noreferrer">WariKoda<span class="link-arrow" aria-hidden="true">↗</span></a></li>
+            <li><a href="https://www.instagram.com/nibraun_/" target="_blank" rel="noopener noreferrer">Instagram<span class="link-arrow" aria-hidden="true">↗</span></a></li>
+          </ul>
+        </section>
+      </main>
 
-            <div class="hero-spec spec-list">
-              <div class="spec-row">
-                <span class="spec-key" data-i18n="hero.specLocation"
-                  >Location</span
-                >
-                <span class="spec-val" data-i18n="hero.specLocationValue"
-                  >Oldenburg, Lower Saxony</span
-                >
-              </div>
-              <div class="spec-row">
-                <span class="spec-key" data-i18n="hero.specEmployer"
-                  >Employer</span
-                >
-                <span class="spec-val" data-i18n="hero.specEmployerValue"
-                  >Sharpness Solutions</span
-                >
-              </div>
-            </div>
-
-            <div class="hero-actions">
-              <a href="#work" class="btn btn-solid">
-                <span data-i18n="work.title">Work</span>
-                <svg
-                  class="w-3.5 h-3.5"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2.5"
-                  aria-hidden="true"
-                >
-                  <path d="M12 5v14M5 12l7 7 7-7" />
-                </svg>
-              </a>
-              <a href="#contact" class="btn"
-                ><span data-i18n="contact.title">Contact</span></a
-              >
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="work" class="band scroll-panel">
-        <div class="shell">
-          <header class="specimen reveal">
-            <div class="specimen-meta">
-              <span class="mono" data-i18n="work.label"
-                >Index of published software</span
-              >
-              <span class="mono specimen-slug"
-                ><span id="workCount">0</span> ·
-                <span data-i18n="work.slug">live from github</span></span
-              >
-            </div>
-            <h2 class="title" data-i18n="work.title">Work</h2>
-          </header>
-
-          <div class="reveal">
-            <div class="index-head mono">
-              <span></span>
-              <span data-i18n="work.colProject">Project</span>
-              <span data-i18n="work.colKind">Platform</span>
-              <span data-i18n="work.colRelease">Release</span>
-              <span data-i18n="work.colUpdated">Last push</span>
-              <span></span>
-            </div>
-            <div class="index" id="workIndex"></div>
-          </div>
-        </div>
-      </section>
-
-      <section id="warikoda" class="band band-invert on-fill scroll-panel">
-        <div class="shell">
-          <header class="specimen reveal">
-            <div class="specimen-meta">
-              <span class="mono" data-i18n="warikoda.label"
-                >Open source with @bdgraue</span
-              >
-              <span class="mono specimen-slug">github.com/WariKoda</span>
-            </div>
-            <h2 class="title">WariKoda</h2>
-          </header>
-
-          <div
-            class="reveal grid gap-8 md:grid-cols-[minmax(0,1fr)_auto] md:items-center md:gap-14"
-          >
-            <div>
-              <p class="prose" data-i18n-html="warikoda.intro">
-                WariKoda stands for open source built with care, clarity, and a
-                strong standard for good software.
-              </p>
-              <a
-                href="https://github.com/WariKoda"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="btn mt-7"
-              >
-                <span data-i18n="warikoda.cta">View the organisation</span>
-                <svg
-                  class="w-3.5 h-3.5"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2.5"
-                  aria-hidden="true"
-                >
-                  <path d="M7 17L17 7M9 7h8v8" />
-                </svg>
-              </a>
-            </div>
-            <img
-              src="img/warikoda-logo.png"
-              alt="WariKoda logo"
-              data-i18n-alt="warikoda.logoAlt"
-              class="warikoda-mark"
-            />
-          </div>
-        </div>
-      </section>
-
-      <section id="skills" class="band scroll-panel">
-        <div class="shell">
-          <header class="specimen reveal">
-            <div class="specimen-meta">
-              <span class="mono" data-i18n="skills.label"
-                >Fields of competence</span
-              >
-              <span class="mono specimen-slug" id="skillsSlug"></span>
-            </div>
-            <h2 class="title" data-i18n="skills.title">Skills</h2>
-          </header>
-
-          <div class="reveal">
-            <div class="bento">
-              <article class="bento-card is-wide is-invert on-fill">
-                <div class="bento-head mono">
-                  <span>Shopware</span>
-                  <span
-                    ><span data-skill-count></span>
-                    <span data-i18n="skills.entries">entries</span></span
-                  >
-                </div>
-                <h3 data-i18n="skills.shopware.heading">
-                  Shopware &amp; E-Commerce
-                </h3>
-                <ul>
-                  <li data-i18n="skills.shopware.plugin">Plugin development</li>
-                  <li data-i18n="skills.shopware.theme">Theme development</li>
-                  <li data-i18n="skills.shopware.admin">
-                    Administration extensions
-                  </li>
-                  <li data-i18n="skills.shopware.storefront">
-                    Storefront customizations
-                  </li>
-                  <li>DAL / Entities / Repositories</li>
-                  <li>Events, Subscribers, Services</li>
-                  <li>Rule Builder / Flow Builder</li>
-                  <li data-i18n="skills.shopware.api">API integrations</li>
-                  <li data-i18n="skills.shopware.performance">
-                    Performance optimization
-                  </li>
-                  <li data-i18n="skills.shopware.erp">ERP integrations</li>
-                  <li data-i18n="skills.shopware.interfaces">
-                    Third-party integrations
-                  </li>
-                  <li data-i18n="skills.shopware.productData">
-                    Product data workflows
-                  </li>
-                  <li data-i18n="skills.shopware.orders">Order processes</li>
-                  <li data-i18n="skills.shopware.payment">
-                    Payment and shipping logic
-                  </li>
-                  <li data-i18n="skills.shopware.business">
-                    Custom business processes
-                  </li>
-                  <li>B2B features</li>
-                  <li data-i18n="skills.shopware.automation">Automations</li>
-                </ul>
-              </article>
-
-              <article class="bento-card is-signal on-fill">
-                <div class="bento-head mono">
-                  <span>Flutter</span>
-                  <span
-                    ><span data-skill-count></span>
-                    <span data-i18n="skills.entries">entries</span></span
-                  >
-                </div>
-                <h3 data-i18n="skills.flutter.heading">Flutter &amp; Mobile</h3>
-                <ul>
-                  <li>Flutter / Cross-device apps</li>
-                  <li>Provider / State management</li>
-                  <li data-i18n="skills.flutter.ocr">OCR / text recognition</li>
-                  <li>OAuth</li>
-                  <li>Supabase</li>
-                  <li>PostgreSQL</li>
-                </ul>
-              </article>
-
-              <article class="bento-card">
-                <div class="bento-head mono">
-                  <span>Frontend</span>
-                  <span
-                    ><span data-skill-count></span>
-                    <span data-i18n="skills.entries">entries</span></span
-                  >
-                </div>
-                <h3 data-i18n="skills.frontend.heading">Frontend</h3>
-                <ul>
-                  <li>Twig</li>
-                  <li>Vue.js</li>
-                  <li>JavaScript</li>
-                  <li>TypeScript</li>
-                  <li>SCSS / Tailwind / Bootstrap</li>
-                  <li data-i18n="skills.frontend.responsive">
-                    Responsive layouts
-                  </li>
-                  <li>Storefront UX</li>
-                  <li data-i18n="skills.frontend.themeStructures">
-                    Theme structures
-                  </li>
-                  <li data-i18n="skills.frontend.figma">
-                    UI/UX design in Figma
-                  </li>
-                </ul>
-              </article>
-
-              <article class="bento-card">
-                <div class="bento-head mono">
-                  <span>Backend</span>
-                  <span
-                    ><span data-skill-count></span>
-                    <span data-i18n="skills.entries">entries</span></span
-                  >
-                </div>
-                <h3 data-i18n="skills.backend.heading">Backend</h3>
-                <ul>
-                  <li>PHP</li>
-                  <li>Symfony</li>
-                  <li>MySQL</li>
-                  <li>REST APIs</li>
-                  <li>Message Queues</li>
-                  <li>Testing / Debugging</li>
-                  <li data-i18n="skills.backend.docs">
-                    Technical documentation
-                  </li>
-                </ul>
-              </article>
-
-              <article class="bento-card">
-                <div class="bento-head mono">
-                  <span>Workflow</span>
-                  <span
-                    ><span data-skill-count></span>
-                    <span data-i18n="skills.entries">entries</span></span
-                  >
-                </div>
-                <h3 data-i18n="skills.workflow.heading">Workflow</h3>
-                <ul>
-                  <li>Git</li>
-                  <li>Docker</li>
-                  <li>Composer</li>
-                  <li>DDEV</li>
-                  <li data-i18n="skills.workflow.cicd">CI/CD fundamentals</li>
-                </ul>
-              </article>
-            </div>
-
-            <p class="colophon">
-              <b data-i18n="skills.stackLabel">In daily use</b> —
-              Shopware&nbsp;6, PHP, Symfony, Twig, JavaScript, TypeScript,
-              Vue.js, SCSS, Tailwind, Flutter, Dart, Supabase, PostgreSQL,
-              MySQL, REST, Docker, DDEV, Git, Composer, Figma.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <section id="path" class="band scroll-panel">
-        <div class="shell">
-          <header class="specimen reveal">
-            <div class="specimen-meta">
-              <span class="mono" data-i18n="path.label">Career path</span>
-              <span class="mono specimen-slug"
-                >2018 &rarr; <span data-i18n="path.now">now</span></span
-              >
-            </div>
-            <h2 class="title" data-i18n="path.title">Path</h2>
-          </header>
-
-          <div class="reveal">
-            <div
-              class="path-scale"
-              role="img"
-              data-i18n-aria-label="path.scaleLabel"
-              aria-label="Career scale from 2018 to now"
-            >
-              <div class="path-scale-current" aria-hidden="true">
-                <span class="now-tag" data-i18n="path.now">now</span>
-              </div>
-              <div class="path-scale-track" aria-hidden="true">
-                <span class="path-scale-needle"></span>
-              </div>
-              <div class="path-scale-labels" aria-hidden="true">
-                <span>2018</span>
-                <span>2021</span>
-                <span>2025</span>
-              </div>
-            </div>
-
-            <div class="path-row is-current" data-path-point="2025">
-              <div class="path-year">2025 &rarr;</div>
-              <div>
-                <div class="path-role" data-i18n="path.role1">
-                  Full-stack developer
-                </div>
-                <div class="path-org">Sharpness Solutions GmbH · Oldenburg</div>
-              </div>
-              <p class="path-desc" data-i18n="path.desc1">
-                Focus on Shopware, Flutter, API integrations, ERP/PIM, and
-                technical architecture.
-              </p>
-            </div>
-
-            <div class="path-row" data-path-point="2021">
-              <div class="path-year">2021 &rarr; 2025</div>
-              <div>
-                <div class="path-role" data-i18n="path.role2">
-                  Frontend developer &amp; web designer
-                </div>
-                <div class="path-org">WL Online GmbH · Garrel</div>
-              </div>
-              <p class="path-desc" data-i18n="path.desc2">
-                Built e-commerce projects with Shopware 6, Twig, Vue.js,
-                TypeScript, and SCSS.
-              </p>
-            </div>
-
-            <div class="path-row" data-path-point="2018">
-              <div class="path-year">2018 &rarr; 2021</div>
-              <div>
-                <div class="path-role" data-i18n="path.role3">
-                  Apprenticeship in digital/print media design
-                </div>
-                <div class="path-org">WL Online GmbH · BZT Oldenburg</div>
-              </div>
-              <p class="path-desc" data-i18n="path.desc3">
-                Practical work in UX/UI design, frontend, and theme and plugin
-                development for e-commerce projects. Final grade 1.4 · best of
-                class (IHK).
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="profile" class="band scroll-panel">
-        <div class="shell">
-          <header class="specimen reveal">
-            <div class="specimen-meta">
-              <span class="mono" data-i18n="profile.label"
-                >Who builds this</span
-              >
-              <span class="mono specimen-slug" data-i18n="profile.valLocation"
-                >Oldenburg, Lower Saxony</span
-              >
-            </div>
-            <h2 class="title" data-i18n="profile.title">Profile</h2>
-          </header>
-
-          <div
-            class="reveal grid gap-10 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] lg:gap-16"
-          >
-            <p class="prose" data-i18n-html="profile.description">
-              I build software with understandable structures, maintainable
-              solutions, and interfaces that fulfil their purpose without
-              unnecessary friction.
-            </p>
-
-            <div>
-              <div class="spec-list">
-                <div class="spec-row">
-                  <span class="spec-key" data-i18n="profile.keyRole">Role</span>
-                  <span class="spec-val" data-i18n="profile.valRole"
-                    >Full-stack developer</span
-                  >
-                </div>
-                <div class="spec-row">
-                  <span class="spec-key" data-i18n="profile.keyExperience"
-                    >Experience</span
-                  >
-                  <span class="spec-val" data-i18n="profile.valExperience"
-                    >7+ years</span
-                  >
-                </div>
-                <div class="spec-row">
-                  <span class="spec-key" data-i18n="profile.keyLocation"
-                    >Location</span
-                  >
-                  <span class="spec-val" data-i18n="profile.valLocation"
-                    >Oldenburg, Lower Saxony</span
-                  >
-                </div>
-                <div class="spec-row">
-                  <span class="spec-key" data-i18n="profile.keyEmployer"
-                    >Employer</span
-                  >
-                  <span class="spec-val"
-                    ><a
-                      href="https://sharpness.de"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      class="link"
-                      >Sharpness Solutions</a
-                    ></span
-                  >
-                </div>
-              </div>
-
-              <div
-                class="mono text-dim mt-10 mb-4"
-                data-i18n="profile.focusLabel"
-              >
-                Focus areas
-              </div>
-              <div class="tags">
-                <span class="tag" data-i18n="profile.focus1"
-                  >Custom plugin development</span
-                >
-                <span class="tag" data-i18n="profile.focus2"
-                  >Theme development</span
-                >
-                <span class="tag" data-i18n="profile.focus3"
-                  >ERP integrations</span
-                >
-                <span class="tag" data-i18n="profile.focus4"
-                  >E-commerce architecture</span
-                >
-                <span class="tag" data-i18n="profile.focus5"
-                  >Flutter &amp; cross-device apps</span
-                >
-                <span class="tag" data-i18n="profile.focus6"
-                  >Vue.js / TypeScript frontends</span
-                >
-                <span class="tag" data-i18n="profile.focus7"
-                  >Open-source collaboration</span
-                >
-                <span class="tag" data-i18n="profile.focus8"
-                  >Individual software solutions</span
-                >
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="contact" class="band band-signal on-fill scroll-panel">
-        <div class="shell">
-          <header class="specimen reveal">
-            <div class="specimen-meta">
-              <span class="mono" data-i18n="contact.label">Enquiries</span>
-            </div>
-            <h2 class="title" data-i18n="contact.title">Contact</h2>
-          </header>
-
-          <div class="contact-layout reveal">
-            <div class="contact-copy">
-              <p class="prose" data-i18n="contact.text">
-                Do you have a business inquiry about Shopware 6, plugin
-                development, ERP/PIM integrations, Flutter, or custom software
-                solutions? Get in touch via Sharpness Solutions.
-              </p>
-              <a
-                href="https://www.sharpness.de/kontakt"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="btn btn-solid mt-8"
-              >
-                <span data-i18n="contact.cta">Enquire via Sharpness</span>
-                <svg
-                  class="w-3.5 h-3.5"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2.5"
-                  aria-hidden="true"
-                >
-                  <path d="M7 17L17 7M9 7h8v8" />
-                </svg>
-              </a>
-            </div>
-
-            <figure class="contact-portrait">
-              <img
-                src="img/niklas-braun.webp"
-                alt="Portrait of Niklas Braun"
-                data-i18n-alt="contact.portraitAlt"
-                width="720"
-                height="900"
-                loading="lazy"
-                decoding="async"
-              />
-            </figure>
-
-            <div class="spec-list contact-specs">
-              <div class="spec-row">
-                <span class="spec-key" data-i18n="contact.keyCompany"
-                  >Company</span
-                >
-                <span class="spec-val"
-                  ><a
-                    href="https://sharpness.de"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="link"
-                    >sharpness.de</a
-                  ></span
-                >
-              </div>
-              <div class="spec-row">
-                <span class="spec-key" data-i18n="contact.keyGithub"
-                  >GitHub</span
-                >
-                <span class="spec-val"
-                  ><a
-                    href="https://github.com/nibra180"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="link"
-                    >nibra180</a
-                  ></span
-                >
-              </div>
-              <div class="spec-row">
-                <span class="spec-key" data-i18n="contact.keyOss"
-                  >Open source</span
-                >
-                <span class="spec-val"
-                  ><a
-                    href="https://github.com/WariKoda"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="link"
-                    >WariKoda</a
-                  ></span
-                >
-              </div>
-              <div class="spec-row">
-                <span class="spec-key" data-i18n="contact.keyLocation"
-                  >Location</span
-                >
-                <span class="spec-val" data-i18n="contact.valLocation"
-                  >Oldenburg, Lower Saxony</span
-                >
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-    </main>
-
-    <footer class="footer">
-      <div
-        class="shell flex flex-wrap items-center justify-between gap-x-6 gap-y-2"
-      >
-        <span
-          >© <span id="footerYear"></span> Niklas Braun ·
-          <span data-i18n="footer.role"
-            >Shopware 6 &amp; Flutter developer</span
-          ></span
-        >
-      </div>
-    </footer>
-
-    <button
-      id="toTop"
-      class="to-top"
-      type="button"
-      data-i18n-aria-label="toTop.label"
-      aria-label="Scroll to top"
-    >
-      <svg
-        class="w-3 h-3"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="3"
-        aria-hidden="true"
-      >
-        <path d="M12 19V5M5 12l7-7 7 7" />
-      </svg>
-      <span>top</span>
-    </button>
+      <!-- ==================== FOOTER ==================== -->
+      <footer class="site-footer">
+        <span>© <span id="year">2026</span> Niklas Braun</span>
+        <span data-i18n-html="footer.warikoda"></span>
+      </footer>
+    </div>
 
     <script src="github-project-meta.js"></script>
     <script>
-      async function loadJson(path, fallback) {
-        try {
-          const response = await fetch(path);
-          if (!response.ok) {
-            throw new Error(`HTTP ${response.status}`);
-          }
-
-          return await response.json();
-        } catch (error) {
-          console.error(`Failed to load ${path}:`, error);
-          return fallback;
-        }
-      }
-
-      const siteDataPromise = Promise.all([
-        loadJson("translations.json", {}),
-        loadJson("projects.json", []),
-      ]);
-
       document.addEventListener("DOMContentLoaded", async () => {
         const root = document.documentElement;
-        const defaultLocale = "en";
-        const supportedLocales = ["de", "en"];
-        const [translations, loadedProjects] = await siteDataPromise;
-        const projects = Array.isArray(loadedProjects) ? loadedProjects : [];
-        let currentLocale = defaultLocale;
-        let githubProjectMeta = null;
+        const list = document.getElementById("projectList");
+        const preview = document.getElementById("preview");
+        let locale = "en";
+        let activeIndex = 0;
+        let githubMeta = null;
 
-        document.getElementById("footerYear").textContent =
-          new Date().getFullYear();
-
-        // ---- i18n ----
-        function getTranslation(key, locale = currentLocale) {
-          return (
-            translations[locale]?.[key] ??
-            translations[defaultLocale]?.[key] ??
-            ""
-          );
-        }
-
-        const siteUrl = "https://nibraun.de/";
-        const ogLocales = { de: "de_DE", en: "en_US" };
-
-        function getLocaleUrl(locale) {
-          return locale === defaultLocale
-            ? siteUrl
-            : `${siteUrl}?lang=${locale}`;
-        }
-
-        function updateLocaleLinks(locale) {
-          let canonical = document.querySelector('link[rel="canonical"]');
-          if (!canonical) {
-            canonical = document.createElement("link");
-            canonical.rel = "canonical";
-            document.head.append(canonical);
-          }
-          canonical.href = getLocaleUrl(locale);
-
-          setMeta('meta[property="og:url"]', getLocaleUrl(locale));
-          setMeta('meta[property="og:locale"]', ogLocales[locale]);
-          setMeta(
-            'meta[property="og:locale:alternate"]',
-            ogLocales[locale === "de" ? "en" : "de"],
-          );
-        }
-
-        function setMeta(selector, value) {
-          const element = document.querySelector(selector);
-          if (element && value) {
-            element.setAttribute("content", value);
-          }
-        }
-
-        const attributeBindings = [
-          ["data-i18n-aria-label", "i18nAriaLabel", "aria-label"],
-          ["data-i18n-alt", "i18nAlt", "alt"],
-          ["data-i18n-title", "i18nTitle", "title"],
-        ];
-
-        function applyTextTranslations() {
-          document.querySelectorAll("[data-i18n]").forEach((element) => {
-            const value = getTranslation(element.dataset.i18n);
-            if (value) {
-              element.textContent = value;
-            }
-          });
-
-          document.querySelectorAll("[data-i18n-html]").forEach((element) => {
-            const value = getTranslation(element.dataset.i18nHtml);
-            if (value) {
-              element.innerHTML = value;
-            }
-          });
-
-          attributeBindings.forEach(([selector, dataKey, attribute]) => {
-            document.querySelectorAll(`[${selector}]`).forEach((element) => {
-              const value = getTranslation(element.dataset[dataKey]);
-              if (value) {
-                element.setAttribute(attribute, value);
-              }
-            });
-          });
-        }
-
-        // ---- Work index ----
-        const workIndex = document.getElementById("workIndex");
-        const workCount = document.getElementById("workCount");
-
-        function escapeHtml(value) {
-          return String(value)
-            .replace(/&/g, "&amp;")
-            .replace(/</g, "&lt;")
-            .replace(/>/g, "&gt;")
-            .replace(/"/g, "&quot;")
-            .replace(/'/g, "&#39;");
-        }
-
-        function renderWorkIndex() {
-          if (!workIndex) {
-            return;
-          }
-
-          const sorted = [...projects].sort(
-            (a, b) => (b.priority || 0) - (a.priority || 0),
-          );
-          workCount.textContent = String(sorted.length).padStart(2, "0");
-
-          workIndex.innerHTML = sorted
-            .map((project, position) => {
-              const hasRepo = Boolean(project.repo);
-              const repoAttribute = hasRepo
-                ? `data-github-repo="${escapeHtml(project.repo)}"`
-                : "";
-              const repoState = hasRepo ? "loading" : "unavailable";
-              const unavailableBinding = hasRepo
-                ? ""
-                : 'data-i18n="repo.releaseUnavailable"';
-              const unavailableText = hasRepo
-                ? ""
-                : escapeHtml(getTranslation("repo.releaseUnavailable"));
-              const openLabel = getTranslation(
-                hasRepo ? "work.openOn" : "work.openWebsite",
-              );
-
-              return `
-                <a class="index-row"
-                   href="${escapeHtml(project.href)}"
-                   target="_blank"
-                   rel="noopener noreferrer"
-                   ${repoAttribute}
-                   aria-label="${escapeHtml(project.name)} — ${escapeHtml(openLabel)}">
-                    <span class="index-num">${String(position + 1).padStart(2, "0")}</span>
-                    <span class="index-body">
-                        <span class="index-name">${escapeHtml(project.name)}</span>
-                        <span class="index-desc" data-i18n="${escapeHtml(project.descriptionKey)}">${escapeHtml(getTranslation(project.descriptionKey))}</span>
-                    </span>
-                    <span class="index-meta">
-                        <span class="index-kind">${escapeHtml(project.kind)}</span>
-                        <span class="index-release" data-repo-release data-repo-bare data-repo-release-state="${repoState}" ${unavailableBinding}>${unavailableText}</span>
-                    </span>
-                    <span class="index-gauge">
-                        <span class="gauge-label mono" data-i18n="work.gaugeLabel">Last push</span>
-                        <span class="gauge" data-repo-gauge data-repo-gauge-state="${repoState}" role="img" data-i18n-aria-label="work.gaugeLabel" aria-label="Last push">
-                            <span class="gauge-needle"></span>
-                        </span>
-                        <span class="index-updated" data-repo-update data-repo-bare data-repo-update-state="${repoState}" ${unavailableBinding}>${unavailableText}</span>
-                    </span>
-                    <svg class="index-arrow w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg>
-                </a>`;
-            })
-            .join("");
-        }
-
-        // ---- Skill counts ----
-        const skillCards = [...document.querySelectorAll("#skills .bento-card")];
-        const skillsSlug = document.getElementById("skillsSlug");
-        const skillEntryTotal = skillCards.reduce((total, card) => {
-          const entries = card.querySelectorAll("li").length;
-          card.querySelector("[data-skill-count]").textContent = entries;
-          return total + entries;
-        }, 0);
-
-        function renderSkillsSlug() {
-          skillsSlug.textContent = getTranslation("skills.slug")
-            .replace("{entries}", skillEntryTotal)
-            .replace("{fields}", skillCards.length);
-        }
-
-        // ---- Locale ----
-        const languageButtons = document.querySelectorAll("[data-lang-switch]");
-
-        function getQueryLocale() {
+        async function loadJson(path, fallback) {
           try {
-            const locale = new URL(window.location.href).searchParams.get(
-              "lang",
-            );
-            return supportedLocales.includes(locale) ? locale : null;
-          } catch {
-            return null;
+            const response = await fetch(path);
+            if (!response.ok) throw new Error(`HTTP ${response.status}`);
+            return await response.json();
+          } catch (error) {
+            console.error(`Failed to load ${path}:`, error);
+            return fallback;
           }
         }
+        const [translations, projectData] = await Promise.all([
+          loadJson("translations.json", {}), loadJson("projects.json", []),
+        ]);
+        const projects = Array.isArray(projectData) ? projectData : [];
+        const t = (key) => translations[locale]?.[key] ?? translations.en?.[key] ?? "";
+        const escape = (value) => String(value ?? "").replace(/[&<>"']/g, (char) => ({
+          "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;",
+        })[char]);
 
-        function getStoredLocale() {
-          try {
-            const locale = localStorage.getItem("locale");
-            return supportedLocales.includes(locale) ? locale : null;
-          } catch {
-            return null;
-          }
-        }
-
-        function updateLocaleInUrl(locale) {
-          try {
-            const url = new URL(window.location.href);
-            if (locale === defaultLocale) {
-              url.searchParams.delete("lang");
-            } else {
-              url.searchParams.set("lang", locale);
-            }
-            window.history.replaceState(
-              {},
-              "",
-              `${url.pathname}${url.search}${url.hash}` || "/",
-            );
-          } catch {}
-        }
-
-        function applyLocale(locale, { persist = true, syncUrl = true } = {}) {
-          currentLocale = supportedLocales.includes(locale)
-            ? locale
-            : defaultLocale;
-          root.lang = currentLocale;
-
-          document.title = getTranslation("meta.title");
-          setMeta(
-            'meta[name="description"]',
-            getTranslation("meta.description"),
-          );
-          setMeta(
-            'meta[property="og:image:alt"]',
-            getTranslation("meta.ogImageAlt"),
-          );
-          updateLocaleLinks(currentLocale);
-          setMeta('meta[property="og:title"]', getTranslation("meta.ogTitle"));
-          setMeta(
-            'meta[property="og:description"]',
-            getTranslation("meta.ogDescription"),
-          );
-          setMeta('meta[name="twitter:title"]', getTranslation("meta.ogTitle"));
-          setMeta(
-            'meta[name="twitter:description"]',
-            getTranslation("meta.ogDescription"),
-          );
-
-          applyTextTranslations();
-          renderSkillsSlug();
-          languageButtons.forEach((button) => {
-            button.setAttribute(
-              "aria-pressed",
-              String(button.dataset.langSwitch === currentLocale),
-            );
+        function translate() {
+          // An empty value keeps the HTML fallback, e.g. when translations.json failed to load.
+          document.querySelectorAll("[data-i18n]").forEach((el) => {
+            const value = t(el.dataset.i18n);
+            if (value) el.textContent = value;
           });
-          updateMenuLabel();
-          githubProjectMeta?.refreshLabels();
-
-          if (persist) {
-            try {
-              localStorage.setItem("locale", currentLocale);
-            } catch {}
-          }
-
-          if (syncUrl) {
-            updateLocaleInUrl(currentLocale);
-          }
-        }
-
-        languageButtons.forEach((button) => {
-          button.addEventListener("click", () =>
-            applyLocale(button.dataset.langSwitch),
-          );
-        });
-
-        // ---- Mobile drawer ----
-        const menuToggle = document.getElementById("menuToggle");
-        const drawer = document.getElementById("drawer");
-        const menuOpenIcon = document.getElementById("menuOpenIcon");
-        const menuCloseIcon = document.getElementById("menuCloseIcon");
-        let menuOpen = false;
-
-        function updateMenuLabel() {
-          menuToggle.setAttribute(
-            "aria-label",
-            getTranslation(menuOpen ? "nav.menuClose" : "nav.menuOpen"),
-          );
-        }
-
-        function setMenu(open) {
-          menuOpen = open;
-          drawer.classList.toggle("is-open", open);
-          menuOpenIcon.classList.toggle("hidden", open);
-          menuCloseIcon.classList.toggle("hidden", !open);
-          menuToggle.setAttribute("aria-expanded", String(open));
-          updateMenuLabel();
-        }
-
-        menuToggle.addEventListener("click", () => setMenu(!menuOpen));
-        document.querySelectorAll("[data-drawer-close]").forEach((link) => {
-          link.addEventListener("click", () => setMenu(false));
-        });
-
-        // ---- Boot ----
-        renderWorkIndex();
-        const initialLocale =
-          getQueryLocale() || getStoredLocale() || defaultLocale;
-        applyLocale(initialLocale, {
-          syncUrl: Boolean(getQueryLocale()) || initialLocale !== defaultLocale,
-        });
-
-        githubProjectMeta = window.createGithubProjectMeta({
-          getLocale: () => currentLocale,
-          getTranslation,
-          cacheKey: "github-repo-updates-v3",
-          cacheTtl: 1000 * 60 * 60 * 6,
-        });
-        githubProjectMeta.load();
-
-        // ---- Scroll reveal ----
-        const prefersReducedMotion = window.matchMedia(
-          "(prefers-reduced-motion: reduce)",
-        ).matches;
-        const pathNeedle = document.querySelector(".path-scale-needle");
-        const settlePathNeedle = () => pathNeedle?.classList.add("is-settled");
-
-        if (prefersReducedMotion) {
-          settlePathNeedle();
-        } else {
-          pathNeedle?.addEventListener(
-            "animationend",
-            (event) => {
-              if (event.animationName === "path-needle-travel") {
-                settlePathNeedle();
-              }
-            },
-            { once: true },
-          );
-        }
-
-        const revealObserver = new IntersectionObserver(
-          (entries) => {
-            entries.forEach((entry) => {
-              if (entry.isIntersecting) {
-                entry.target.classList.add("is-revealed");
-                revealObserver.unobserve(entry.target);
-              }
-            });
-          },
-          { threshold: 0.08, rootMargin: "0px 0px -40px 0px" },
-        );
-
-        document
-          .querySelectorAll(".reveal")
-          .forEach((element) => revealObserver.observe(element));
-
-        // ---- Full-height section stack ----
-        const stackPanels = [...document.querySelectorAll(".scroll-panel")];
-        const stackMedia = window.matchMedia(
-          "(prefers-reduced-motion: no-preference)",
-        );
-
-        function updateStackPanels() {
-          const availableHeight = window.innerHeight - 56;
-
-          stackPanels.forEach((panel) => {
-            panel.classList.remove("is-stackable");
-
-            if (!stackMedia.matches) {
-              return;
-            }
-
-            const content = panel.querySelector(":scope > .shell");
-            if (!content) {
-              return;
-            }
-
-            const styles = window.getComputedStyle(panel);
-            const verticalFrame =
-              parseFloat(styles.paddingTop) +
-              parseFloat(styles.paddingBottom) +
-              parseFloat(styles.borderTopWidth) +
-              parseFloat(styles.borderBottomWidth);
-            const requiredHeight =
-              content.getBoundingClientRect().height + verticalFrame;
-            panel.classList.toggle(
-              "is-stackable",
-              requiredHeight <= availableHeight,
-            );
+          document.querySelectorAll("[data-i18n-html]").forEach((el) => {
+            const value = t(el.dataset.i18nHtml);
+            if (value) el.innerHTML = value;
+          });
+          document.querySelectorAll("[data-i18n-aria-label]").forEach((el) => {
+            const value = t(el.dataset.i18nAriaLabel);
+            if (value) el.setAttribute("aria-label", value);
           });
         }
 
-        const stackResizeObserver = new ResizeObserver(updateStackPanels);
-        stackPanels.forEach((panel) => {
-          const content = panel.querySelector(":scope > .shell");
-          if (content) {
-            stackResizeObserver.observe(content);
-          }
+        // Each project takes the next top-bar color, in the bar's own order.
+        const tones = ["red", "orange", "yellow", "green", "blue", "purple"];
+        const tone = (index) => `tone-${tones[index % tones.length]}`;
+
+        // Every new selection advances one color along the top bar.
+        let selectionTone = 0;
+        let selectionWasCollapsed = true;
+        document.addEventListener("selectionchange", () => {
+          const collapsed = document.getSelection()?.isCollapsed ?? true;
+          if (selectionWasCollapsed && !collapsed) root.dataset.sel = tones[selectionTone++ % tones.length];
+          selectionWasCollapsed = collapsed;
         });
-        stackMedia.addEventListener("change", updateStackPanels);
-        window.addEventListener("resize", updateStackPanels, { passive: true });
-        updateStackPanels();
 
-        // ---- Active nav + back to top ----
-        const sections = [...document.querySelectorAll("main section[id]")];
-        const navLinks = [...document.querySelectorAll("[data-nav]")];
-        const toTop = document.getElementById("toTop");
-        const heroArt = document.querySelector(".hero-art");
+        // The cover stays typographic until real project screenshots exist.
+        const cover = (project) => `<span class="cover" aria-hidden="true">${escape(project.cover || project.name)}</span>`;
 
-        function updateHeroArtMotion() {
-          if (!heroArt || prefersReducedMotion) {
+        // The first entry doubles as the featured card on narrow screens.
+        function renderList() {
+          list.innerHTML = projects.map((project, index) => `
+            <li>
+              <a class="project-row ${tone(index)}" href="${escape(project.href)}" target="_blank" rel="noopener noreferrer" data-index="${index}">
+                ${index === 0 ? cover(project) : ""}
+                <span class="row-year">${escape(project.year)}</span>
+                <span class="row-name">${escape(project.name)}</span>
+                <span class="row-kind">${escape(project.kind)}</span>
+                <svg class="row-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
+                ${index === 0 && t(project.descriptionKey) ? `<span class="row-desc">${escape(t(project.descriptionKey))}</span>` : ""}
+              </a>
+            </li>`).join("");
+          document.getElementById("loadMessage").hidden = projects.length > 0;
+          markActive();
+        }
+
+        function markActive() {
+          list.querySelectorAll(".project-row").forEach((row) => {
+            row.classList.toggle("is-active", Number(row.dataset.index) === activeIndex);
+          });
+        }
+
+        function renderPreview() {
+          const project = projects[activeIndex];
+          if (!project) {
+            preview.innerHTML = "";
             return;
           }
-
-          const progress = Math.min(
-            window.scrollY / Math.max(heroArt.offsetHeight, 1),
-            1,
-          );
-          heroArt.style.setProperty(
-            "--relief-shift-a",
-            `${(progress * 14).toFixed(2)}px`,
-          );
-          heroArt.style.setProperty(
-            "--relief-shift-b",
-            `${(-progress * 11).toFixed(2)}px`,
-          );
+          preview.className = `preview ${tone(activeIndex)}`;
+          preview.innerHTML = `
+            ${cover(project)}
+            <div class="preview-title"><span>${escape(project.name)}</span><span class="mono">${escape(project.year)}</span></div>
+            ${t(project.descriptionKey) ? `<p class="preview-desc">${escape(t(project.descriptionKey))}</p>` : ""}
+            <span class="mono">${escape(project.stack)}</span>
+            ${project.repo ? `<div class="repo-meta mono" data-github-repo="${escape(project.repo)}"><span data-repo-release data-repo-release-state="loading"></span><span data-repo-update data-repo-update-state="loading"></span></div>` : ""}
+            <a class="preview-link" href="${escape(project.href)}" target="_blank" rel="noopener noreferrer">${escape(t(project.repo ? "work.openOn" : "work.openWebsite") || project.name)} <span aria-hidden="true">↗</span></a>`;
+          githubMeta?.load();
         }
 
-        let heroArtPointerFrame = null;
-        let heroArtPointerPosition = { x: 0, y: 0 };
-
-        function queueHeroArtPointerMotion(x, y) {
-          if (!heroArt || prefersReducedMotion) {
-            return;
-          }
-
-          heroArtPointerPosition = { x, y };
-          if (heroArtPointerFrame !== null) {
-            return;
-          }
-
-          heroArtPointerFrame = window.requestAnimationFrame(() => {
-            const { x: pointerX, y: pointerY } = heroArtPointerPosition;
-            heroArt.style.setProperty(
-              "--relief-pointer-a-x",
-              `${(pointerX * 12).toFixed(2)}px`,
-            );
-            heroArt.style.setProperty(
-              "--relief-pointer-a-y",
-              `${(pointerY * 9).toFixed(2)}px`,
-            );
-            heroArt.style.setProperty(
-              "--relief-pointer-b-x",
-              `${(pointerX * -9).toFixed(2)}px`,
-            );
-            heroArt.style.setProperty(
-              "--relief-pointer-b-y",
-              `${(pointerY * -7).toFixed(2)}px`,
-            );
-            heroArt.style.setProperty(
-              "--relief-pointer-c-x",
-              `${(pointerX * 6).toFixed(2)}px`,
-            );
-            heroArt.style.setProperty(
-              "--relief-pointer-c-y",
-              `${(pointerY * -8).toFixed(2)}px`,
-            );
-            heroArt.style.setProperty(
-              "--relief-pointer-signal-x",
-              `${(pointerX * 3).toFixed(2)}px`,
-            );
-            heroArt.style.setProperty(
-              "--relief-pointer-signal-y",
-              `${(pointerY * 4).toFixed(2)}px`,
-            );
-            heroArtPointerFrame = null;
+        function select(index) {
+          if (index === activeIndex || !projects[index]) return;
+          activeIndex = index;
+          markActive();
+          renderPreview();
+        }
+        for (const type of ["mouseover", "focusin"]) {
+          list.addEventListener(type, (event) => {
+            const row = event.target.closest(".project-row");
+            if (row) select(Number(row.dataset.index));
           });
         }
 
-        if (heroArt && !prefersReducedMotion) {
-          heroArt.addEventListener(
-            "pointermove",
-            (event) => {
-              if (event.pointerType === "touch") {
-                return;
-              }
-
-              const bounds = heroArt.getBoundingClientRect();
-              const pointerX = Math.max(
-                -1,
-                Math.min(
-                  1,
-                  ((event.clientX - bounds.left) / bounds.width) * 2 - 1,
-                ),
-              );
-              const pointerY = Math.max(
-                -1,
-                Math.min(
-                  1,
-                  ((event.clientY - bounds.top) / bounds.height) * 2 - 1,
-                ),
-              );
-              queueHeroArtPointerMotion(pointerX, pointerY);
-            },
-            { passive: true },
-          );
-          heroArt.addEventListener("pointerleave", () =>
-            queueHeroArtPointerMotion(0, 0),
-          );
-          heroArt.addEventListener("pointercancel", () =>
-            queueHeroArtPointerMotion(0, 0),
-          );
+        function applyLocale(value) {
+          locale = ["en", "de"].includes(value) ? value : "en";
+          root.lang = locale;
+          document.title = t("meta.title") || document.title;
+          const siteUrl = `https://nibraun.de/${locale === "de" ? "?lang=de" : ""}`;
+          document.querySelector('link[rel="canonical"]').href = siteUrl;
+          for (const [selector, value] of [
+            ['meta[name="description"]', t("meta.description")],
+            ['meta[property="og:title"]', t("meta.ogTitle")],
+            ['meta[property="og:description"]', t("meta.ogDescription")],
+            ['meta[property="og:image:alt"]', t("meta.ogImageAlt")],
+            ['meta[property="og:url"]', siteUrl],
+            ['meta[property="og:locale"]', locale === "de" ? "de_DE" : "en_US"],
+            ['meta[property="og:locale:alternate"]', locale === "de" ? "en_US" : "de_DE"],
+            ['meta[name="twitter:title"]', t("meta.ogTitle")],
+            ['meta[name="twitter:description"]', t("meta.ogDescription")],
+          ]) if (value) document.querySelector(selector).setAttribute("content", value);
+          translate();
+          renderList();
+          renderPreview();
+          document.querySelectorAll("[data-lang]").forEach((button) => button.setAttribute("aria-pressed", String(button.dataset.lang === locale)));
+          try { localStorage.setItem("locale", locale); } catch {}
+          const url = new URL(location.href);
+          if (locale === "de") url.searchParams.set("lang", "de"); else url.searchParams.delete("lang");
+          history.replaceState(null, "", url);
         }
+        document.querySelectorAll("[data-lang]").forEach((button) => button.addEventListener("click", () => applyLocale(button.dataset.lang)));
 
-        function onScroll() {
-          updateHeroArtMotion();
-          let active = "";
-          sections.forEach((section) => {
-            if (window.scrollY >= section.offsetTop - 96) {
-              active = section.id;
-            }
-          });
-          navLinks.forEach((link) => {
-            const isActive = link.getAttribute("href") === `#${active}`;
-            link.classList.toggle("is-active", isActive);
-            if (isActive) {
-              link.setAttribute("aria-current", "location");
-            } else {
-              link.removeAttribute("aria-current");
-            }
-          });
-          toTop.classList.toggle("is-visible", window.scrollY > 600);
+        // The head script already set data-theme; this keeps controls and the browser chrome in sync.
+        function applyTheme(theme, store = false) {
+          root.dataset.theme = theme;
+          document.querySelectorAll("[data-theme-choice]").forEach((button) => button.setAttribute("aria-pressed", String(button.dataset.themeChoice === theme)));
+          document.querySelector('meta[name="theme-color"]').setAttribute("content", getComputedStyle(root).getPropertyValue("--c-bg").trim());
+          if (store) try { localStorage.setItem("theme", theme); } catch {}
         }
+        document.querySelectorAll("[data-theme-choice]").forEach((button) => button.addEventListener("click", () => applyTheme(button.dataset.themeChoice, true)));
+        applyTheme(root.dataset.theme === "dark" ? "dark" : "light");
 
-        toTop.addEventListener("click", () =>
-          window.scrollTo({ top: 0, behavior: "smooth" }),
-        );
-        window.addEventListener("scroll", onScroll, { passive: true });
-        onScroll();
+        document.getElementById("year").textContent = new Date().getFullYear();
+        if (window.createGithubProjectMeta) {
+          githubMeta = window.createGithubProjectMeta({ getLocale: () => locale, getTranslation: t, cacheKey: "github-repo-updates-v3", cacheTtl: 1000 * 60 * 60 * 6 });
+        }
+        let storedLocale;
+        try { storedLocale = localStorage.getItem("locale"); } catch {}
+        applyLocale(new URL(location.href).searchParams.get("lang") || storedLocale || "en");
       });
     </script>
   </body>
