@@ -39,7 +39,13 @@
     "footer.warikoda": "Open Source bei <a href=\"https://github.com/WariKoda\" target=\"_blank\" rel=\"noopener noreferrer\">WariKoda</a> mit <a href=\"https://github.com/bdgraue\" target=\"_blank\" rel=\"noopener noreferrer\">@bdgraue</a>",
     "nav.theme": "Theme wählen",
     "theme.light": "Monokai Pro Light Sun",
-    "theme.dark": "Monokai Pro (dunkel)"
+    "theme.dark": "Monokai Pro (dunkel)",
+    "stack.commerce": "E-Commerce",
+    "stack.mobile": "Mobile",
+    "stack.tools": "Tools",
+    "stack.workflow": "Workflow",
+    "stack.piNote": "eigene Extensions",
+    "stack.agents": "Agents"
   },
   "en": {
     "meta.title": "Niklas Braun — Full-Stack Developer",
@@ -81,6 +87,12 @@
     "footer.warikoda": "Open source at <a href=\"https://github.com/WariKoda\" target=\"_blank\" rel=\"noopener noreferrer\">WariKoda</a> with <a href=\"https://github.com/bdgraue\" target=\"_blank\" rel=\"noopener noreferrer\">@bdgraue</a>",
     "nav.theme": "Choose theme",
     "theme.light": "Monokai Pro Light Sun",
-    "theme.dark": "Monokai Pro (dark)"
+    "theme.dark": "Monokai Pro (dark)",
+    "stack.commerce": "E-commerce",
+    "stack.mobile": "Mobile",
+    "stack.tools": "Tools",
+    "stack.workflow": "Workflow",
+    "stack.piNote": "custom extensions",
+    "stack.agents": "Agents"
   }
 }

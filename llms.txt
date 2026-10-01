@@ -12,6 +12,14 @@ German version: https://nibraun.de/de/
 - [Admin Toolbar](https://github.com/WariKoda/WakoPluginAdminToolbar): Shopware 6 plugin that shows an admin toolbar in the storefront — similar to WordPress. Stack: Shopware 6 · PHP · Twig · JavaScript.
 - [Product Hover Image](https://github.com/WariKoda/WakoProductHoverImage): Shopware 6 plugin that shows an alternative product image when hovering over product cards. Stack: Shopware 6 · PHP · Twig · JavaScript.
 
+## Stack
+
+- E-commerce: Shopware 6, PHP, Symfony, Twig, Vue.js, TypeScript, TYPO3
+- Mobile: Flutter, Dart, Riverpod, Drift (SQLite), Supabase, Kotlin
+- Tools: Go, Rust, Node.js
+- Agents: Pi (custom extensions), Claude Code, Codex
+- Workflow: Docker Compose, DDEV, Neovim, Zed, PhpStorm, Git
+
 ## Experience
 
 - 2025 to now: Full-stack developer, Sharpness Solutions

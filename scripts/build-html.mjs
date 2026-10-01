@@ -26,6 +26,7 @@ const PERSON_ID = `${SITE}/#person`;
 const template = read("src/index.html");
 const translations = JSON.parse(read("translations.json"));
 const projects = JSON.parse(read("projects.json"));
+const stack = JSON.parse(read("stack.json"));
 const year = String(new Date().getFullYear());
 
 const escape = (value) => String(value ?? "").replace(/[&<>"']/g, (char) => ({
@@ -86,6 +87,17 @@ function projectPreviews(t) {
   }).join("");
 }
 
+// A stack item is a plain name or { name, noteKey } with a translated note in parentheses.
+const itemName = (item) => (typeof item === "string" ? item : item.name);
+const itemLabel = (item, t) => (typeof item === "string" ? item : `${item.name} (${t(item.noteKey)})`);
+// An item never breaks inside itself ("Claude Code", "Drift (SQLite)"); lines wrap after the commas.
+const nowrapItem = (label) => escape(label).replaceAll(" ", "&nbsp;");
+
+function stackGroups(t) {
+  return stack.map((group) => `
+            <dt>${escape(t(group.labelKey))}</dt><dd>${group.items.map((item) => nowrapItem(itemLabel(item, t))).join(", ")}</dd>`).join("");
+}
+
 function jsonLd(locale, t) {
   const url = SITE + LOCALES[locale].path;
   const works = projects.map((project, index) => {
@@ -131,7 +143,7 @@ function jsonLd(locale, t) {
         worksFor: { "@type": "Organization", name: "Sharpness Solutions GmbH", url: "https://sharpness.de" },
         memberOf: { "@type": "Organization", name: "WariKoda", url: "https://github.com/WariKoda" },
         address: { "@type": "PostalAddress", addressLocality: "Oldenburg", addressRegion: "Niedersachsen", addressCountry: "DE" },
-        knowsAbout: ["Shopware 6", "PHP", "Symfony", "Flutter", "Vue.js", "TypeScript"],
+        knowsAbout: stack.flatMap((group) => group.items.map(itemName)),
         sameAs: ["https://github.com/nibra180", "https://www.instagram.com/nibraun_/"],
       },
       {
@@ -167,6 +179,7 @@ function renderPage(locale) {
       .filter((key) => key.startsWith("repo.")).map((key) => [key, t(key)]))),
     projectRows: projectRows(t),
     projectPreviews: projectPreviews(t),
+    stackGroups: stackGroups(t),
     year,
   };
   const html = template
@@ -208,6 +221,10 @@ German version: ${SITE}/de/
 ## Projects
 
 ${list}
+
+## Stack
+
+${stack.map((group) => `- ${t(group.labelKey)}: ${group.items.map((item) => itemLabel(item, t)).join(", ")}`).join("\n")}
 
 ## Experience
 

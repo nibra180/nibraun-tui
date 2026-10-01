@@ -71,7 +71,13 @@ optional. Without `repo` the preview links to `href` as a website and skips the
 GitHub data. `kind` fills the type column and `stack` the preview. `art` names
 the cover composition in `img/covers.svg`; without it the page shows the `cover`
 word instead. `language` sets `programmingLanguage` in the JSON-LD.
-`descriptionKey` points into `translations.json`. Both files are build inputs
+`descriptionKey` points into `translations.json`.
+
+`stack.json` holds the stack groups: `labelKey` points into
+`translations.json`, `items` are technology names in display order. An item can
+also be `{ "name", "noteKey" }`; the page then shows the name with the
+translated note in parentheses. The build
+also uses them for `knowsAbout` in the JSON-LD and for `llms.txt`. Both files are build inputs
 only; the browser no longer loads them.
 
 ## Deployment
