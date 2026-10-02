@@ -56,7 +56,7 @@ npm run dev       # CSS watch mode (first terminal)
 npm run serve     # static server on http://localhost:8000 (second terminal)
 ```
 
-`index.html`, `de/index.html`, `sitemap.xml` and `llms.txt` are generated.
+`index.html`, `de/index.html`, `photos/`, `de/photos/`, `sitemap.xml` and `llms.txt` are generated.
 Edit `src/index.html`, `translations.json` or `projects.json` and run
 `npm run build:html` (or `npm run build`). The build stops with an error when a
 translation key is missing in either language. Reload the browser after edits;
@@ -80,6 +80,57 @@ translated note in parentheses. The build
 also uses them for `knowsAbout` in the JSON-LD and for `llms.txt`. Both files are build inputs
 only; the browser no longer loads them.
 
+## Photography
+
+`/photos/` (English) and `/de/photos/` (German) are plain link indexes, without
+thumbnails or gallery JavaScript. The portfolio footer links to them. Until
+projects are added, the index shows a short empty-state message.
+
+Add projects in display order to `photos.json`:
+
+```json
+{
+  "projects": [
+    {
+      "slug": "winter-forest",
+      "titleKey": "photos.winter.title",
+      "descriptionKey": "photos.winter.description",
+      "images": [
+        {
+          "file": "winter-forest/tree.jpg",
+          "altKey": "photos.winter.tree.alt",
+          "captionKey": "photos.winter.tree.caption"
+        }
+      ]
+    }
+  ]
+}
+```
+
+Add each translation key to both languages in `translations.json`. `captionKey`
+is optional; descriptive alt text is required. Place the original in
+`photo-originals/winter-forest/tree.jpg`. This directory is gitignored and must
+never be deployed. Keep a separate backup of the originals.
+
+Run `npm run build`. `sharp` (a build-time dependency only) creates AVIF, WebP
+and JPEG copies in `img/photos/`, at 480, 800, 1200, 1800 and 2560 px wide,
+without enlarging smaller sources. It corrects EXIF orientation and removes
+metadata, including GPS. URLs include a content/settings hash; unchanged
+variants are reused on subsequent builds. Publish only the generated copies.
+`img/photos/` is gitignored as well: build it locally before each deployment.
+
+The build writes `/photos/winter-forest/` and `/de/photos/winter-forest/`, adds
+them to the index and sitemap, and renders responsive `picture` elements with
+intrinsic dimensions. Only the first photo loads eagerly; the others lazy-load.
+No lightbox, originals, or full-gallery preload is shipped.
+
+Configure the server to send `Cache-Control: public, max-age=31536000, immutable`
+for `/img/photos/`; HTML should revalidate instead. Removed projects and old
+image variants are not automatically deleted: remove their generated directories
+from the deployment when retiring a series, but retain cached variants during
+rollouts. `npm test` checks the index and image/gallery build using temporary
+fixtures.
+
 ## Deployment
 
 Run `npm run build`, then copy these files to the web server root. The pages
@@ -87,6 +138,7 @@ use root-relative paths, so the site must live at the domain root.
 
 - `index.html`
 - `de/`
+- `photos/`
 - `robots.txt`
 - `sitemap.xml`
 - `llms.txt`

@@ -1,3 +1,9 @@
+# High-resolution photo sources (never deploy)
+photo-originals/
+
+# Generated web copies of the photos; rebuilt by npm run build, deployed but not versioned
+img/photos/
+
 # Dependencies
 node_modules/
 

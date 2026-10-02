@@ -5,6 +5,7 @@
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
+import { buildPhotos, photoPicture, TEASER_SIZES } from "./build-photos.mjs";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const read = (file) => readFileSync(join(root, file), "utf8");
@@ -162,13 +163,33 @@ const LEGACY_REDIRECT = `
       if (new URLSearchParams(location.search).get("lang") === "de") location.replace("/de/");
     </script>`;
 
-function renderPage(locale) {
+// Prominent entry to the photography section; empty when no photo project exists yet.
+function photoTeaser(teaser, locale, t) {
+  if (!teaser) return "";
+  const alt = t(teaser.image.altKey);
+  const picture = photoPicture({ image: teaser.image, sizes: TEASER_SIZES, alt, escape });
+  return `        <!-- ==================== PHOTOGRAPHY ==================== -->
+        <section class="photo-teaser" aria-labelledby="photoTeaserTitle">
+          <h2 class="label photo-teaser-label" id="photoTeaserTitle">${escape(t("photos.title"))}</h2>
+          <a class="photo-teaser-link" href="${locale === "de" ? "/de" : ""}/photos/${teaser.slug}/">
+            ${picture}
+            <span class="photo-teaser-head">
+              <span class="photo-teaser-name">${escape(t(teaser.titleKey))}</span>
+              <span class="photo-teaser-arrow" aria-hidden="true">→</span>
+            </span>
+          </a>
+          <p class="photo-teaser-desc">${escape(t(teaser.descriptionKey))}</p>
+        </section>`;
+}
+
+function renderPage(locale, teaser) {
   const t = translator(locale);
   const other = locale === "en" ? "de" : "en";
   const values = {
     lang: locale,
     url: SITE + LOCALES[locale].path,
     homePath: LOCALES[locale].path,
+    photosPath: locale === "de" ? "/de/photos/" : "/photos/",
     ogLocale: LOCALES[locale].ogLocale,
     ogLocaleAlternate: LOCALES[other].ogLocale,
     enCurrent: locale === "en" ? ' aria-current="page"' : "",
@@ -179,6 +200,7 @@ function renderPage(locale) {
       .filter((key) => key.startsWith("repo.")).map((key) => [key, t(key)]))),
     projectRows: projectRows(t),
     projectPreviews: projectPreviews(t),
+    photoTeaser: photoTeaser(teaser, locale, t),
     stackGroups: stackGroups(t),
     year,
   };
@@ -193,14 +215,15 @@ function renderPage(locale) {
   write(LOCALES[locale].file, html);
 }
 
-function renderSitemap() {
-  const alternates = Object.entries(LOCALES)
-    .map(([locale, { path }]) => `    <xhtml:link rel="alternate" hreflang="${locale}" href="${SITE}${path}"/>`)
-    .concat(`    <xhtml:link rel="alternate" hreflang="x-default" href="${SITE}/"/>`)
-    .join("\n");
-  const urls = Object.values(LOCALES)
-    .map(({ path }) => `  <url>\n    <loc>${SITE}${path}</loc>\n${alternates}\n  </url>`)
-    .join("\n");
+function renderSitemap(photoGroups) {
+  const groups = [{ en: "/", de: "/de/" }, ...photoGroups];
+  const urls = groups.flatMap((group) => {
+    const alternates = Object.entries(group)
+      .map(([locale, path]) => `    <xhtml:link rel="alternate" hreflang="${locale}" href="${SITE}${path}"/>`)
+      .concat(`    <xhtml:link rel="alternate" hreflang="x-default" href="${SITE}${group.en}"/>`)
+      .join("\n");
+    return Object.values(group).map((path) => `  <url>\n    <loc>${SITE}${path}</loc>\n${alternates}\n  </url>`);
+  }).join("\n");
   write("sitemap.xml", `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
 ${urls}
@@ -241,6 +264,7 @@ ${stack.map((group) => `- ${t(group.labelKey)}: ${group.items.map((item) => item
 `);
 }
 
-for (const locale of Object.keys(LOCALES)) renderPage(locale);
-renderSitemap();
+const { groups: photoGroups, teaser } = await buildPhotos({ root, site: SITE, translations, translator, escape, write, year });
+for (const locale of Object.keys(LOCALES)) renderPage(locale, teaser);
+renderSitemap(photoGroups);
 renderLlmsTxt();

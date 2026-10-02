@@ -1,0 +1,20 @@
+{
+  "projects": [
+    {
+      "slug": "dolomiti",
+      "titleKey": "photos.dolomiti.title",
+      "descriptionKey": "photos.dolomiti.description",
+      "images": [
+        { "file": "dolomiti/DSC07083.jpg", "altKey": "photos.dolomiti.DSC07083.alt" },
+        { "file": "dolomiti/DSC07107.jpg", "altKey": "photos.dolomiti.DSC07107.alt" },
+        { "file": "dolomiti/DSC07108.jpg", "altKey": "photos.dolomiti.DSC07108.alt" },
+        { "file": "dolomiti/DSC07117.jpg", "altKey": "photos.dolomiti.DSC07117.alt" },
+        { "file": "dolomiti/DSC07996.jpg", "altKey": "photos.dolomiti.DSC07996.alt", "teaser": true },
+        { "file": "dolomiti/DSC08219.jpg", "altKey": "photos.dolomiti.DSC08219.alt" },
+        { "file": "dolomiti/DSC08272.jpg", "altKey": "photos.dolomiti.DSC08272.alt" },
+        { "file": "dolomiti/DSC08301.jpg", "altKey": "photos.dolomiti.DSC08301.alt" },
+        { "file": "dolomiti/DSC08318.jpg", "altKey": "photos.dolomiti.DSC08318.alt" }
+      ]
+    }
+  ]
+}

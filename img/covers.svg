@@ -46,13 +46,4 @@
       <path style="fill: var(--art-blue)" d="M200 200H300A100 100 0 0 1 200 300Z"/>
       <path style="fill: var(--art-yellow)" d="M300 300V200A100 100 0 0 1 400 300Z"/>
   </symbol>
-
-  <!-- Blue: concentric arcs rising from the lower left -->
-  <symbol id="hover" viewBox="0 0 400 300">
-    <rect width="400" height="300" style="fill: var(--art-blue)"/>
-    <circle cx="60" cy="320" r="220" style="fill: var(--art-purple)"/>
-    <circle cx="60" cy="320" r="160" style="fill: var(--art-red)"/>
-    <circle cx="60" cy="320" r="100" style="fill: var(--art-orange)"/>
-    <circle cx="60" cy="320" r="45" style="fill: var(--art-yellow)"/>
-  </symbol>
 </svg>

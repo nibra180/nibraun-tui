@@ -168,6 +168,29 @@ a:focus-visible, button:focus-visible {
 .site-footer { margin-top: auto; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px; font-size: 13px; color: var(--c-fg-dim); }
 .site-footer a { border-bottom: 1px solid var(--c-rule-strong); }
 
+/* ==================== Photography entry ==================== */
+/* The featured gallery image is the one loud element below the work index. */
+.photo-teaser { display: flex; flex-direction: column; gap: 10px; }
+.photo-teaser-link { display: flex; flex-direction: column; gap: 12px; }
+/* Fixed frame, so the entry keeps its shape whatever the featured image is. */
+.photo-teaser-link img { display: block; aspect-ratio: 3 / 2; object-fit: cover; background: var(--c-cover); }
+/*
+ * On phones photos bleed to the viewport edges while text keeps the column.
+ * max-width: none overrides preflight, which would otherwise clamp the image
+ * and only shift it left. From 640px the page is a centered column, so no bleed.
+ */
+.photo-teaser-link img, .photo-sequence img { width: calc(100% + 48px); max-width: none; margin-inline: -24px; }
+@media (min-width: 640px) {
+    .photo-teaser-link img, .photo-sequence img { width: 100%; margin-inline: 0; }
+    /* Portrait shots would outgrow the screen; contain keeps the box width, so nothing shifts on load. */
+    .photo-sequence img { max-height: calc(100svh - 64px); object-fit: contain; }
+}
+.photo-teaser-head { display: flex; align-items: baseline; justify-content: space-between; gap: 24px; font-size: 22px; letter-spacing: -.3px; }
+.photo-teaser-arrow { transition: transform .15s; }
+.photo-teaser-link:hover .photo-teaser-name { text-decoration: underline; text-underline-offset: 4px; }
+.photo-teaser-link:hover .photo-teaser-arrow { transform: translateX(4px); }
+.photo-teaser-desc { margin: 0; color: var(--c-fg-soft); }
+
 /* ==================== Projects ==================== */
 .tone-red { --tone: var(--c-red); }
 .tone-orange { --tone: var(--c-orange); }
@@ -324,6 +347,11 @@ a:focus-visible, button:focus-visible {
     .preview-link { align-self: flex-start; padding: 4px 0; border-bottom: 2px solid var(--tone, var(--c-fg)); }
 
     .experience, .stack, .contact { grid-row: 3; margin-top: 80px; padding-top: 14px; border-top: 1px solid var(--c-rule); }
+    /* Full-width band across all twelve columns: the one deliberate exception to the column raster. */
+    .photo-teaser { grid-column: 1 / -1; grid-row: 4; margin-top: 80px; padding-top: 14px; gap: 16px; border-top: 1px solid var(--c-rule); }
+    .photo-teaser-link { gap: 20px; }
+    .photo-teaser-head { font-size: 36px; letter-spacing: -.5px; }
+    .photo-teaser-desc { font-size: 17px; max-width: 72ch; }
     .experience { grid-column: 1 / span 4; }
     .stack { grid-column: 5 / span 3; }
     .contact { grid-column: 9 / span 4; }
@@ -336,6 +364,24 @@ a:focus-visible, button:focus-visible {
     .site-footer { margin-top: 80px; }
 }
 
+/* ==================== Photography ==================== */
+/* Grows instead of relying on the footer's auto margin, which the desktop tier fixes at 80px. */
+.photos-main { flex-grow: 1; display: flex; flex-direction: column; gap: 32px; }
+.photos-title { margin: 0; font-size: 28px; font-weight: 400; letter-spacing: -.5px; }
+.photos-description { margin: 0; color: var(--c-fg-soft); max-width: 60ch; }
+.photo-projects { margin: 0; padding: 0; list-style: none; }
+.photo-projects a { display: flex; align-items: center; justify-content: space-between; gap: 24px; min-height: 56px; border-bottom: 1px solid var(--c-rule); }
+.photo-projects a:hover span:first-child { text-decoration: underline; text-underline-offset: 4px; }
+.photo-sequence { display: flex; flex-direction: column; gap: 48px; }
+.photo-sequence figure { margin: 0; }
+.photo-sequence img { display: block; height: auto; }
+.photo-sequence figcaption { margin-top: 12px; font-size: 13px; color: var(--c-fg-dim); }
+@media (min-width: 1100px) {
+    .photos-page { max-width: 1200px; gap: 64px; }
+    .photos-title { font-size: 36px; }
+}
+
 @media (prefers-reduced-motion: reduce) {
-    a, .switch a, .switch button, .project-row { transition: none; }
+    a, .switch a, .switch button, .project-row, .photo-teaser-arrow { transition: none; }
+    .photo-teaser-link:hover .photo-teaser-arrow { transform: none; }
 }
