@@ -160,15 +160,48 @@ variants are reused on subsequent builds. Publish only the generated copies.
 
 The build writes `/photos/winter-forest/` and `/de/photos/winter-forest/`, adds
 them to the index and sitemap, and renders responsive `picture` elements with
-intrinsic dimensions. Only the first photo loads eagerly; the others lazy-load.
-No lightbox, originals, or full-gallery preload is shipped.
+intrinsic dimensions. Only the first photo loads eagerly, with high fetch
+priority and sequence-sized `sizes` so it can start loading before layout or
+JavaScript. Subsequent photos use `loading="lazy"` and `sizes="auto, …"` on all
+AVIF, WebP and JPEG candidates: browsers supporting auto sizes select a variant
+from the actual image width in the grid or sequence, including after resizing
+or changing views. Older browsers use the responsive sequence sizes as a
+fallback. The original image dimensions and CSS widths reserve the layout before
+loading. No lightbox, originals, or full-gallery preload is shipped.
 
 Configure the server to send `Cache-Control: public, max-age=31536000, immutable`
-for `/img/photos/`; HTML should revalidate instead. Removed projects and old
-image variants are not automatically deleted: remove their generated directories
-from the deployment when retiring a series, but retain cached variants during
-rollouts. `npm test` checks the index and image/gallery build using temporary
-fixtures.
+for existing hashed files in `/img/photos/`; HTML should revalidate instead.
+For Caddy, add this inside the existing site block (not the deployed web root):
+
+```caddyfile
+@photoVariants {
+    path_regexp ^/img/photos/[a-f0-9]{20}-[0-9]+\.(avif|webp|jpg)$
+    file
+}
+header @photoVariants Cache-Control "public, max-age=31536000, immutable"
+
+@html path / */ *.html
+header @html Cache-Control "no-cache"
+```
+
+The file matcher prevents caching missing image responses for a year. The
+existing `handle_errors 404` block also sets `header Cache-Control "no-store"`.
+These rules are configured in `/etc/caddy/Caddyfile` on `hafen`; the static build
+and deploy script do not set them. On 2026-10-03, HTTPS checks against Hetzner
+confirmed immutable caching for AVIF/WebP/JPEG, HTML revalidation (including 304
+responses), and non-cacheable 404s. Photo caching was verified over IPv4 and IPv6.
+
+Verify headers after deployment with `curl -I` on an existing photo URL and a
+gallery page. During the DNS migration, stale resolver entries may still reach
+the old netcup/Nginx server without these headers. Google DNS already returned
+Hetzner's addresses on 2026-10-03, while the local resolver still returned netcup.
+Use `curl --resolve` with the current Hetzner address to check the new server
+independently of DNS propagation; do not change the old host based on stale DNS.
+
+Removed projects and old image variants are not automatically deleted: remove
+their generated directories from the deployment when retiring a series, but
+retain cached variants during rollouts. `npm test` checks the index and
+image/gallery build using temporary fixtures.
 
 ## Deployment
 

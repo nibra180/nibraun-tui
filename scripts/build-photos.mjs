@@ -8,6 +8,8 @@ const WIDTHS = [480, 800, 1200, 1800, 2560];
 const FORMATS = { avif: { quality: 55 }, webp: { quality: 80 }, jpeg: { quality: 82, mozjpeg: true } };
 // Below 640px gallery photos bleed to the viewport edges.
 const GALLERY_SIZES = "(min-width: 1100px) min(1312px, calc(100vw - 128px)), (min-width: 640px) 592px, 100vw";
+// Lazy images use their laid-out width in either view; older browsers keep the responsive fallback.
+const GALLERY_LAZY_SIZES = `auto, ${GALLERY_SIZES}`;
 const CARD_SIZES = "(min-width: 640px) 368px, calc(100vw - 80px)";
 const TONES = ["green", "blue", "purple", "orange", "yellow", "red"];
 
@@ -90,7 +92,7 @@ export async function buildPhotos({ root, site, translations, translator, write,
         backPath: project ? pathFor(locale) : locale === "de" ? "/de/" : "/",
         backLabel: t(project ? "photos.back" : "nav.home"),
         images: project ? project.images.map((image, index) => ({
-          captionKey: null, ...image, picture: pictureData(image, { sizes: GALLERY_SIZES, alt: t(image.altKey), eager: index === 0 }),
+          captionKey: null, ...image, picture: pictureData(image, { sizes: index === 0 ? GALLERY_SIZES : GALLERY_LAZY_SIZES, alt: t(image.altKey), eager: index === 0 }),
         })) : [],
         galleries: galleries.map((gallery, index) => {
           const image = gallery.images.find((image) => image.teaser) ?? gallery.images[0];
