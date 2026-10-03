@@ -8,7 +8,7 @@ Photography: https://nibraun.de/photos/
 
 ## Projects
 
-- [CampAlong](https://campalong.de): Local-first Flutter app for turning GPX routes into trip-ready multi-day journeys — with stages, overnight stops, water, and supplies along the route. Stack: Flutter · GPX · Local-first.
+- [CampAlong](https://campalong.de): Native Android app built with Kotlin and a local-first approach for turning GPX routes into trip-ready multi-day journeys — with stages, overnight stops, water, and supplies along the route. Stack: Kotlin · Android · GPX · Local-first.
 - [Drift](https://github.com/WariKoda/drift): TUI for browsing, diffing, and syncing files with remote hosts over SFTP/SSH and FTP, including side-by-side diffs and per-file sync directions. Stack: Go · TUI · SFTP / SSH · FTP.
 - [Admin Toolbar](https://github.com/WariKoda/WakoPluginAdminToolbar): Shopware 6 plugin that shows an admin toolbar in the storefront — similar to WordPress. Stack: Shopware 6 · PHP · Twig · JavaScript.
 - [Sippy](https://github.com/nibra180/sippy): SIP softphone for the Linux desktop built with Rust and GPUI, designed for Omarchy on Hyprland. Controls baresip over D-Bus and includes contacts, call history, and audio settings. Stack: Rust · GPUI · baresip · D-Bus.

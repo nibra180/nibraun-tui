@@ -3,7 +3,7 @@
 {% block content %}
 <main class="index">
   <!-- ==================== INTRO ==================== -->
-  <h1 class="lead"><span class="sr-only">Niklas Braun. </span>{{ t('intro.lead') }}</h1>
+  <h1 class="lead"><span class="sr-only">Niklas Braun. </span>{{ t('intro.lead')|escape|replace({'Sharpness Solutions': '<a href="https://sharpness.de" target="_blank" rel="noopener noreferrer">Sharpness Solutions</a>'})|raw }}</h1>
 
   <!-- ==================== PROJECTS ==================== -->
   <section class="projects" id="work" aria-labelledby="workTitle">

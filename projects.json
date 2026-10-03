@@ -1,10 +1,10 @@
 [
   {
     "name": "CampAlong",
-    "kind": "Flutter · App",
+    "kind": "Kotlin · Android",
     "cover": "Camp Along.",
     "art": "campalong",
-    "stack": "Flutter · GPX · Local-first",
+    "stack": "Kotlin · Android · GPX · Local-first",
     "href": "https://campalong.de",
     "descriptionKey": "work.campAlong.description"
   },
