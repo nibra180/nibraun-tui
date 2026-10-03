@@ -1,0 +1,1 @@
+<span class="cover" aria-hidden="true">{% if project.art is defined and project.art %}<svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice"><use href="/img/covers.svg#{{ project.art }}" width="400" height="300"/></svg>{% else %}{% if project.cover is defined and project.cover %}{{ project.cover }}{% else %}{{ project.name }}{% endif %}{% endif %}</span>

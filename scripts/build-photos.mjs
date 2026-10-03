@@ -2,29 +2,17 @@ import { createHash } from "node:crypto";
 import { existsSync, mkdirSync, readFileSync } from "node:fs";
 import { join, resolve, sep } from "node:path";
 import sharp from "sharp";
+import { pictureData, renderTemplate } from "./templates.mjs";
 
 const WIDTHS = [480, 800, 1200, 1800, 2560];
 const FORMATS = { avif: { quality: 55 }, webp: { quality: 80 }, jpeg: { quality: 82, mozjpeg: true } };
-// Below 640px both bleed to the viewport edges; see the Photography rules in src/tailwind.css.
-const GALLERY_SIZES = "(min-width: 1100px) min(1072px, calc(100vw - 128px)), (min-width: 640px) 592px, 100vw";
-const TEASER_SIZES = "(min-width: 1100px) min(1312px, calc(100vw - 128px)), (min-width: 640px) 592px, 100vw";
+// Below 640px gallery photos bleed to the viewport edges.
+const GALLERY_SIZES = "(min-width: 1100px) min(1312px, calc(100vw - 128px)), (min-width: 640px) 592px, 100vw";
+const CARD_SIZES = "(min-width: 640px) 368px, calc(100vw - 80px)";
+const TONES = ["green", "blue", "purple", "orange", "yellow", "red"];
 
-// Shared by the galleries and the homepage teaser, so both stay in sync.
-export function photoPicture({ image, sizes, alt, escape, eager = false }) {
-  const srcset = (variants) => variants.map(({ url, width }) => `${url} ${width}w`).join(", ");
-  const fallback = image.variants.jpeg.find((item) => item.width >= 1200) ?? image.variants.jpeg.at(-1);
-  return `<picture>
-              <source type="image/avif" srcset="${srcset(image.variants.avif)}" sizes="${sizes}" />
-              <source type="image/webp" srcset="${srcset(image.variants.webp)}" sizes="${sizes}" />
-              <img src="${fallback.url}" srcset="${srcset(image.variants.jpeg)}" sizes="${sizes}" width="${image.width}" height="${image.height}" alt="${escape(alt)}" loading="${eager ? "eager" : "lazy"}"${eager ? ' fetchpriority="high"' : ""} decoding="async" />
-            </picture>`;
-}
-
-export { GALLERY_SIZES, TEASER_SIZES };
-
-export async function buildPhotos({ root, site, translations, translator, escape, write, year }) {
+export async function buildPhotos({ root, site, translations, translator, write, year }) {
   const data = JSON.parse(readFileSync(join(root, "photos.json"), "utf8"));
-  const template = readFileSync(join(root, "src/photos.html"), "utf8");
   const originals = resolve(root, "photo-originals");
   const slugs = new Set();
   const galleries = [];
@@ -90,39 +78,31 @@ export async function buildPhotos({ root, site, translations, translator, escape
       const paths = { en: pathFor("en", project?.slug), de: pathFor("de", project?.slug) };
       const heading = t(project ? project.titleKey : "photos.title");
       const description = t(project ? project.descriptionKey : "photos.description");
-      const content = project
-        ? `<p class="photos-description">${escape(description)}</p>\n<div class="photo-sequence">${project.images.map((image, index) => `<figure>
-            ${photoPicture({ image, sizes: GALLERY_SIZES, alt: t(image.altKey), escape, eager: index === 0 })}${image.captionKey ? `<figcaption>${escape(t(image.captionKey))}</figcaption>` : ""}
-          </figure>`).join("\n")}</div>`
-        : galleries.length
-          ? `<ul class="photo-projects">${galleries.map((item) => `<li><a href="${pathFor(locale, item.slug)}"><span>${escape(t(item.titleKey))}</span><span aria-hidden="true">→</span></a></li>`).join("\n")}</ul>`
-          : `<p class="photos-description">${escape(t("photos.empty"))}</p>`;
       const values = {
-        lang: locale, title: escape(`${heading} — Niklas Braun`), heading: escape(heading),
-        description: escape(description), url: site + paths[locale],
+        t, lang: locale, title: `${heading} — Niklas Braun`, heading,
+        description, url: site + paths[locale],
         enUrl: site + paths.en, deUrl: site + paths.de, enPath: paths.en, dePath: paths.de,
-        homePath: locale === "de" ? "/de/" : "/", year, content,
-        enCurrent: locale === "en" ? ' aria-current="page"' : "",
-        deCurrent: locale === "de" ? ' aria-current="page"' : "",
+        homePath: locale === "de" ? "/de/" : "/", year,
+        photosPath: pathFor(locale),
+        devPath: locale === "de" ? "/de/dev/" : "/dev/",
+        activePage: project ? "gallery" : "photos",
+        mainId: "photos", skipLabel: t("photos.skip"), pageClass: "photos-page",
         backPath: project ? pathFor(locale) : locale === "de" ? "/de/" : "/",
-        backLabel: escape(t(project ? "photos.back" : "nav.home")),
+        backLabel: t(project ? "photos.back" : "nav.home"),
+        images: project ? project.images.map((image, index) => ({
+          captionKey: null, ...image, picture: pictureData(image, { sizes: GALLERY_SIZES, alt: t(image.altKey), eager: index === 0 }),
+        })) : [],
+        galleries: galleries.map((gallery, index) => {
+          const image = gallery.images.find((image) => image.teaser) ?? gallery.images[0];
+          return {
+            ...gallery, href: pathFor(locale, gallery.slug), tone: `tone-${TONES[index % TONES.length]}`,
+            picture: pictureData(image, { sizes: CARD_SIZES, alt: t(image.altKey), eager: index === 0 }),
+          };
+        }),
       };
-      const html = template.replace(/\{\{(?:(t):([\w.]+)|(\w+))\}\}/g, (_, kind, key, name) => {
-        if (kind) return escape(t(key));
-        if (!(name in values)) throw new Error(`Unknown photo placeholder: ${name}`);
-        return values[name];
-      });
+      const html = renderTemplate(`pages/${project ? "gallery" : "photos"}.twig`, values);
       write(paths[locale].slice(1) + "index.html", html);
     }
   }
-  // The homepage teaser features the first project, so a new project takes over by its order alone.
-  // Its image is the flagged one, else the first landscape shot, which suits the 3:2 teaser frame.
-  const featured = galleries[0];
-  const teaserImage = featured && (featured.images.find((image) => image.teaser)
-    ?? featured.images.find((image) => image.width / image.height >= 1.2)
-    ?? featured.images[0]);
-  const teaser = featured
-    ? { slug: featured.slug, titleKey: featured.titleKey, descriptionKey: featured.descriptionKey, image: teaserImage }
-    : null;
-  return { groups, teaser };
+  return { groups, galleries };
 }

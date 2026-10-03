@@ -1,0 +1,5 @@
+<picture>
+  <source type="image/avif" srcset="{{ picture.avif }}" sizes="{{ picture.sizes }}" />
+  <source type="image/webp" srcset="{{ picture.webp }}" sizes="{{ picture.sizes }}" />
+  <img src="{{ picture.src }}" srcset="{{ picture.jpeg }}" sizes="{{ picture.sizes }}" width="{{ picture.width }}" height="{{ picture.height }}" alt="{{ picture.alt }}" loading="{{ picture.eager ? 'eager' : 'lazy' }}"{% if picture.eager %} fetchpriority="high"{% endif %} decoding="async" />
+</picture>

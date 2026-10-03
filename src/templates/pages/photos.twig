@@ -1,0 +1,15 @@
+{% extends '../layout.twig' %}
+
+{% block content %}
+<!-- ==================== PHOTOS ==================== -->
+<main class="photos-main" id="photos">
+  <h1 class="photos-title">{{ heading }}</h1>
+  {% if galleries|length %}
+  <ul class="photo-projects">
+    {% for gallery in galleries %}{% include '../components/photo-card.twig' %}{% endfor %}
+  </ul>
+  {% else %}
+  <p class="photos-description">{{ t('photos.empty') }}</p>
+  {% endif %}
+</main>
+{% endblock %}

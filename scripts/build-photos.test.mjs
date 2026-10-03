@@ -9,9 +9,7 @@ import { buildPhotos } from "./build-photos.mjs";
 async function fixture(run) {
   const root = mkdtempSync(join(tmpdir(), "photo-build-"));
   try {
-    mkdirSync(join(root, "src"));
     mkdirSync(join(root, "photo-originals"));
-    writeFileSync(join(root, "src/photos.html"), readFileSync(new URL("../src/photos.html", import.meta.url)));
     const translations = JSON.parse(readFileSync(new URL("../translations.json", import.meta.url), "utf8"));
     for (const strings of Object.values(translations)) Object.assign(strings, {
       "test.title": "Forest", "test.description": "A forest series.", "test.alt": "A tree.",
@@ -23,7 +21,6 @@ async function fixture(run) {
         if (!translations[locale][key]) throw new Error(`Missing translation: ${key}`);
         return translations[locale][key];
       },
-      escape: (value) => String(value).replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll('"', "&quot;"),
       write: (file, html) => pages.set(file, html),
     };
     await run({ root, pages, options });
@@ -50,6 +47,12 @@ test("gallery produces responsive, stripped, upright variants and localized link
   writeFileSync(join(root, "photos.json"), JSON.stringify({ projects: [project] }));
   const { groups } = await buildPhotos(options);
   assert.equal(groups.length, 2);
+  const overview = pages.get("de/photos/index.html");
+  assert.match(overview, /class="photo-project tone-green" href="\/de\/photos\/forest\/"/);
+  assert.match(overview, /<picture>/);
+  assert.match(overview, /alt="A tree\."/);
+  assert.match(overview, /<h2>Forest<\/h2>/);
+  assert.match(overview, /<p>A forest series\.<\/p>/);
   const html = pages.get("photos/forest/index.html");
   assert.match(html, /width="600" height="900"/);
   assert.match(html, /loading="eager" fetchpriority="high"/);

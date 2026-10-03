@@ -13,6 +13,18 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://nibraun.de/"/>
   </url>
   <url>
+    <loc>https://nibraun.de/dev/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nibraun.de/dev/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://nibraun.de/de/dev/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nibraun.de/dev/"/>
+  </url>
+  <url>
+    <loc>https://nibraun.de/de/dev/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nibraun.de/dev/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://nibraun.de/de/dev/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nibraun.de/dev/"/>
+  </url>
+  <url>
     <loc>https://nibraun.de/photos/</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://nibraun.de/photos/"/>
     <xhtml:link rel="alternate" hreflang="de" href="https://nibraun.de/de/photos/"/>
@@ -35,5 +47,17 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://nibraun.de/photos/dolomiti/"/>
     <xhtml:link rel="alternate" hreflang="de" href="https://nibraun.de/de/photos/dolomiti/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://nibraun.de/photos/dolomiti/"/>
+  </url>
+  <url>
+    <loc>https://nibraun.de/photos/brocken-harz/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nibraun.de/photos/brocken-harz/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://nibraun.de/de/photos/brocken-harz/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nibraun.de/photos/brocken-harz/"/>
+  </url>
+  <url>
+    <loc>https://nibraun.de/de/photos/brocken-harz/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nibraun.de/photos/brocken-harz/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://nibraun.de/de/photos/brocken-harz/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nibraun.de/photos/brocken-harz/"/>
   </url>
 </urlset>

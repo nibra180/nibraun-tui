@@ -1,0 +1,5 @@
+<footer class="site-footer">
+  <span>© {{ year }} Niklas Braun</span>
+  {% if footerWarikoda|default(false) %}<span>{{ t('footer.warikoda')|raw }}</span>{% endif %}
+  {% if backPath|default(false) %}<a href="{{ backPath }}">{{ backLabel }}</a>{% endif %}
+</footer>

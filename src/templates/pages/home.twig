@@ -1,0 +1,22 @@
+{% extends '../layout.twig' %}
+
+{% block content %}
+<!-- ==================== HOME ==================== -->
+<main class="home-main" id="home">
+  <div class="home-copy">
+    <h1>{{ t('home.heading') }}</h1>
+    <p class="home-teaser">{{ t('home.teaser') }}</p>
+    <div class="home-links">
+      {% include '../components/home-card.twig' with {href: devPath, tone: 'blue', label: t('nav.dev'), description: t('home.dev'), project: homeProject, thumbnail: null} %}
+      {% include '../components/home-card.twig' with {href: photosPath, tone: 'green', label: t('nav.photos'), description: t('home.photos'), project: null, thumbnail: homeThumbnail} %}
+    </div>
+  </div>
+  {% if heroFallback %}
+  <figure class="home-hero" id="homePhoto"></figure>
+  <noscript>{% include '../components/home-photo.twig' with {photo: heroFallback} %}</noscript>
+  {% endif %}
+</main>
+{% endblock %}
+
+{% block scripts %}{% include '../partials/home-script.twig' %}{% endblock %}
+{% block scriptData %}<script type="application/json" id="homePhotos">{{ homePhotos|raw }}</script>{% endblock %}

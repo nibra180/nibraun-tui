@@ -1,0 +1,19 @@
+{% extends '../layout.twig' %}
+
+{% block content %}
+<!-- ==================== PHOTOS ==================== -->
+<main class="photos-main" id="photos">
+  <a class="gallery-back" href="{{ backPath }}"><span aria-hidden="true">←</span> {{ t('photos.back') }}</a>
+  <h1 class="photos-title">{{ heading }}</h1>
+  <p class="photos-description">{{ description }}</p>
+  <div class="photo-sequence">
+    {% for image in images %}
+    <figure>
+      {% include '../components/picture.twig' with {picture: image.picture} %}
+      {% if image.captionKey is defined and image.captionKey %}<figcaption>{{ t(image.captionKey) }}</figcaption>{% endif %}
+    </figure>
+    {% endfor %}
+  </div>
+  <a class="gallery-back" href="{{ backPath }}"><span aria-hidden="true">←</span> {{ t('photos.back') }}</a>
+</main>
+{% endblock %}

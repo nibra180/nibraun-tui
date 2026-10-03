@@ -1,0 +1,10 @@
+<div class="preview-panel {{ project.tone }}{% if not first %} is-inactive{% endif %}">
+  {% include 'cover.twig' %}
+  <h3 class="preview-title"><span>{{ project.name }}</span><span class="mono">{% if project.year is defined %}{{ project.year }}{% endif %}</span></h3>
+  <p class="preview-desc">{{ t(project.descriptionKey) }}</p>
+  <span class="mono">{{ project.stack }}</span>
+  {% if project.repo is defined and project.repo %}
+  <div class="repo-meta mono" data-github-repo="{{ project.repo }}"><span data-repo-release data-repo-release-state="loading">{{ t('repo.release') }}: {{ t('repo.releaseLoading') }}</span><span data-repo-update data-repo-update-state="loading">{{ t('repo.update') }}: {{ t('repo.updateLoading') }}</span></div>
+  {% endif %}
+  <a class="preview-link" href="{{ project.href }}" target="_blank" rel="noopener noreferrer">{% if project.repo is defined and project.repo %}{{ t('work.openOn') }}{% else %}{{ t('work.openWebsite') }}{% endif %} <span aria-hidden="true">↗</span></a>
+</div>

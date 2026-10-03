@@ -1,0 +1,9 @@
+<script>
+  // Set the theme before first paint to avoid flashing the wrong theme.
+  (() => {
+    let stored;
+    try { stored = localStorage.getItem("theme"); } catch {}
+    document.documentElement.dataset.theme = ["dark", "light"].includes(stored)
+      ? stored : matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+  })();
+</script>

@@ -1,0 +1,9 @@
+const root = document.documentElement;
+function applyTheme(theme, store = false) {
+  root.dataset.theme = theme;
+  document.querySelectorAll("[data-theme-choice]").forEach((button) => button.setAttribute("aria-pressed", String(button.dataset.themeChoice === theme)));
+  document.querySelector('meta[name="theme-color"]').setAttribute("content", getComputedStyle(root).getPropertyValue("--c-bg").trim());
+  if (store) try { localStorage.setItem("theme", theme); } catch {}
+}
+document.querySelectorAll("[data-theme-choice]").forEach((button) => button.addEventListener("click", () => applyTheme(button.dataset.themeChoice, true)));
+applyTheme(root.dataset.theme === "dark" ? "dark" : "light");

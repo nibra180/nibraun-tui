@@ -1,0 +1,52 @@
+const list = document.getElementById("projectList");
+const rows = [...list.querySelectorAll(".project-row")];
+const panels = [...document.querySelectorAll(".preview-panel")];
+const tones = ["red", "orange", "yellow", "green", "blue", "purple"];
+let activeIndex = 0;
+
+// Selecting only swaps prerendered rows and panels.
+function select(index) {
+  if (index === activeIndex || !panels[index]) return;
+  activeIndex = index;
+  rows.forEach((row, i) => row.classList.toggle("is-active", i === index));
+  panels.forEach((panel, i) => panel.classList.toggle("is-inactive", i !== index));
+}
+// Touch has no hover, so its emulated events are ignored.
+list.addEventListener("pointerover", (event) => {
+  const row = event.target.closest(".project-row");
+  if (row && event.pointerType !== "touch") select(rows.indexOf(row));
+});
+list.addEventListener("focusin", (event) => {
+  const row = event.target.closest(".project-row");
+  if (row) select(rows.indexOf(row));
+});
+// Read at pointerdown before focus can select the row; the first tap opens the card.
+let touch = null;
+list.addEventListener("pointerdown", (event) => {
+  const row = event.target.closest(".project-row");
+  touch = row && event.pointerType !== "mouse" ? { row, wasActive: row.classList.contains("is-active") } : null;
+});
+list.addEventListener("pointercancel", () => { touch = null; });
+list.addEventListener("click", (event) => {
+  const row = event.target.closest(".project-row");
+  const firstTap = touch && touch.row === row && !touch.wasActive;
+  touch = null;
+  if (!firstTap) return;
+  event.preventDefault();
+  select(rows.indexOf(row));
+  row.scrollIntoView({ block: "nearest", behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
+});
+
+// Each new selection advances one color along the top bar.
+let selectionTone = 0;
+let selectionWasCollapsed = true;
+document.addEventListener("selectionchange", () => {
+  const collapsed = document.getSelection()?.isCollapsed ?? true;
+  if (selectionWasCollapsed && !collapsed) root.dataset.sel = tones[selectionTone++ % tones.length];
+  selectionWasCollapsed = collapsed;
+});
+
+if (window.createGithubProjectMeta) {
+  const strings = JSON.parse(document.getElementById("repoStrings").textContent);
+  window.createGithubProjectMeta({ getLocale: () => root.lang, getTranslation: (key) => strings[key] ?? "", cacheKey: "github-repo-updates-v3", cacheTtl: 1000 * 60 * 60 * 6 }).load();
+}

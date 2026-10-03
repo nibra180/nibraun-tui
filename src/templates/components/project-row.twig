@@ -1,0 +1,9 @@
+<li>
+  <a class="project-row {{ project.tone }}{% if first %} is-active{% endif %}" href="{{ project.href }}" target="_blank" rel="noopener noreferrer">
+    {% include 'cover.twig' %}
+    <span class="row-name">{{ project.name }}</span>
+    <span class="row-kind">{{ project.kind }}</span>
+    <svg class="row-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
+    <span class="row-desc">{{ t(project.descriptionKey) }}</span>
+  </a>
+</li>

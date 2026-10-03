@@ -2,127 +2,111 @@
 
 ## Projektübersicht
 
-Persönliche Portfolio-Website für Niklas Braun. Zweck der Seite ist ein
-**Schaufenster für veröffentlichte Software** – der Work-Index steht direkt
-unter dem Hero, alles andere stützt ihn.
+Persönliche Website für Niklas Braun: Softwareentwicklung und Fotografie.
+Navigation auf allen Seiten: **Home – Dev – Photos** (Deutsch: Fotos).
+Gefüllte, abgerundete Icons und aktive Unterstreichung sind farbcodiert:
+Home violett, Dev blau, Photos grün; kleine Beschriftungen behalten die Textfarbe.
+Standard Englisch; deutsche Seiten liegen unter `/de/`.
+
+| Seite | EN / DE | Inhalt |
+|---|---|---|
+| Home | `/` / `/de/` | Große Begrüßung, persönlicher Teaser, Dev/Photos-Vorschaukarten, zufälliges Hero-Foto mit Galerie und Jahr |
+| Dev | `/dev/` / `/de/dev/` | Projektindex mit Previews, Erfahrung, Stack und Kontakt; kein Fotoabschnitt |
+| Photos | `/photos/` / `/de/photos/` | Galerieübersicht mit kompakten Thumbnail-Karten |
+| Galerie | `/photos/<slug>/` / `/de/photos/<slug>/` | Responsive Fotosequenz, optionale Bildunterschriften |
 
 ## Tech Stack
 
-- **Static Deployment**: `index.html`, `translations.json`, `projects.json`, `github-project-meta.js`, `dist/tailwind.css`, `img/`
-- **Styling**: Tailwind CSS v4 (CSS-first, keine `tailwind.config.js`)
-- **Quelle des Designsystems**: `src/tailwind.css`
-- **Typografie**: Instrument Sans (variable, `wdth` 75–100) für Display und Body, Martian Mono für Typenschilder, Skalen und Daten
-- **JavaScript**: Vanilla JS, keine Runtime-Dependencies im Browser
+- Statischer Build mit Node.js; kein PHP oder Twig auf dem Webserver nötig
+- **Twig.js** (`twig`) als Build-Dependency; Templates in `src/templates/`
+- Tailwind CSS v4, CSS-first; Designsystem in `src/tailwind.css`
+- Geist für Fließtext und Headlines, Geist Mono für Labels und Daten; selbst gehostet in `fonts/`
+- Vanilla JS im Browser, keine Browser-Runtime-Dependencies
+- `sharp` erzeugt optimierte AVIF-, WebP- und JPEG-Bilder beim Build
+
+## Templates und Build
+
+- `src/templates/layout.twig`: gemeinsamer Seitenrahmen mit Blocks für Inhalt und Scripts
+- `pages/{home,dev,photos,gallery}.twig`: Seiten via `{% extends %}`
+- `partials/`: gemeinsamer Header, Footer, Theme-Steuerung und Browser-Scripts
+- `components/`: Picture, Projektcover, Projektzeile, Projektpreview und Fotokarte
+- Wiederkehrendes Markup über `{% include %}` teilen, nicht zwischen Seiten kopieren
+- `scripts/templates.mjs`: zentraler Renderer mit Autoescaping und strikter Variablenprüfung
+- `scripts/build-html.mjs`: Home/Dev, strukturierte Daten, Sitemap und `llms.txt`
+- `scripts/build-photos.mjs`: Bildvarianten und Fotoseiten
+- Generiertes HTML niemals direkt bearbeiten; Templates/Daten ändern und neu bauen
+- HTML gehört in Twig, Datenaufbereitung und Bildverarbeitung in Build-Scripts
+- Übersetzungen über `t('key')`; fehlende Übersetzungen müssen den Build abbrechen
+- `|raw` nur für bewusst vertrauenswürdiges HTML und sicher serialisiertes Script-JSON
+- Script-JSON über `scriptJson()` erzeugen, damit Inhalte kein `<script>` schließen können
 
 ## Designrichtung
 
-**BRAUN: Datenblatt.** Ein Theme nach der Formensprache
-klassischer Braun-Geräte: Gehäuse statt Papier, Fugen statt schwerer Linien,
-Skalen statt Ornament und genau eine orange Signalfarbe für aktive Zustände und
-Messwerte.
+**Radikal reduziert, Monokai Pro.** Zwei Themes: Light Sun und Dark.
+Farben ausschließlich aus den bestehenden `--c-*`-Tokens in `src/tailwind.css`.
 
-- Drei Flächenebenen: Gehäuse (`--c-shell`), Baugruppe (`--c-panel`) und
-  vertiefte Blende (`--c-bezel`)
-- Harte Kanten; der runde Sprachregler ist als einziges Bedienelement die einzige
-  Ausnahme
-- Baugruppen werden durch 2px breite Gehäusefugen getrennt, Inhalte durch
-  zurückhaltende Teilstriche und Haarlinien
-- **Keine sichtbaren Spaltenlinien.** Das Layout folgt einem Spaltenraster,
-  zeichnet es aber nicht durch den Fließtext
-- Der Work-Index ist das Messinstrument: Release-Kontrollleuchten und eine aus
-  Live-GitHub-Daten gespeiste Aktivitätsskala
-- Das abstrakte Messfeld im Hero ist bewusst dekorativ, bleibt ohne Scheindaten
-  und konkurriert nicht mit den echten Messwerten im Work-Index
-- Martian Mono dient als Gerätebeschriftung, nicht als Terminal-Farbschema
-
-## Farbtokens
-
-Rohwerte liegen auf `--c-*` in `:root`. Tailwind liest sie über `@theme inline`.
-
-| Token | Wert | Bedeutung |
-|---|---|---|
-| `--c-shell` | `#d6d3cb` | Gehäuse und Seitenhintergrund |
-| `--c-panel` | `#eeece7` | helle Baugruppe und Sektionsfläche |
-| `--c-bezel` | `#c4c0b6` | vertiefte Blende, Tags und Skalengrund |
-| `--c-fg` / `--c-fg-dim` | `#1a1917` / `#6c675e` | Beschriftung / Sekundärtext |
-| `--c-rule` | `#bdb9ae` | Teilstrich und Fuge innerhalb eines Panels |
-| `--c-signal` | `#e8590c` | Kontrollleuchte, Zeiger und aktive Grafik |
-| `--c-signal-text` | `#9a3412` | kontraststarker Signaltext |
-| `--c-on-signal` | `#1a1917` | Vordergrund auf Signalflächen |
-| `--c-invert-bg` / `--c-on-invert` | `#1a1917` / `#e6e3dc` | invertierte Baugruppe und ihr Vordergrund |
-
-**`--c-signal` ist niemals Textfarbe.** Orange erreicht auf `--c-panel` nicht
-den erforderlichen Kontrast für kleine Schrift. Links und Signalbeschriftungen
-verwenden immer `--c-signal-text`. Füll- und Vordergrundrollen bleiben getrennt,
-weil `.on-fill` nur Vordergrundrollen auf `currentColor` umschreibt.
+- Sechs Monokai-Akzente: Rot, Orange, Gelb, Grün, Blau und Violett
+- Topbar: abwechselnde Farbstreifen mit welliger Unterkante
+- Dev: Projektindex mit Hover-/Fokus-Previews auf Desktop; mobile Projektkarten
+- Home: zufälliges Foto aus allen Galerien, verlinkt zur zugehörigen Galerie;
+  gerader, abwechselnd farbiger Rahmen, keine Wellenränder; Galerie/Jahr darunter.
+  Text und Foto erscheinen einmalig leicht versetzt, nur ohne Reduced-Motion-Präferenz
+- Fotoübersicht: kleine Thumbnails mit getöntem Rahmen, ohne `border-top`;
+  dezenter Zoom bei Hover/Fokus
+- Gemeinsame Außenbreite und Headerposition auf allen Seiten; stabiler Scrollbar-Platz
+- Mobil nutzen Fotokarten die volle Inhaltsbreite; Desktop-Karten bleiben kompakt
+- Akzentfarben erreichen nicht immer ausreichenden Kontrast für kleine Schrift;
+  Fließtext und kleine Labels verwenden Vordergrundtokens
 
 ## Konventionen
 
-### CSS
-- Alles Eigene liegt in `src/tailwind.css`, nicht inline in `index.html`
-- Keine neuen Hex-Werte außerhalb des Tokenblocks
-- **Kein `*`-Reset hinzufügen.** Preflight erledigt das bereits; eine ungelayerte
-  Wiederholung schlägt sämtliche Tailwind-Abstandsklassen
-- Flächen (`.band-signal`, `.band-invert`, gefüllte Bento-Karten) tragen
-  zusätzlich `.on-fill`, damit Linien und Sekundärtext aus `currentColor` ableiten
-- `--c-signal` nie über `color` einsetzen; Text nimmt `--c-signal-text`
-- Keine weiteren runden Elemente neben dem Sprachregler hinzufügen
+- Eigene Styles nur in `src/tailwind.css`; keine Inline-Styles oder neuen Hex-Werte außerhalb der Tokens
+- Kein zusätzliches `*`-Reset: Tailwind Preflight übernimmt das
+- Sections mit `<!-- ==================== NAME ==================== -->` markieren
+- Semantisches HTML, sichtbarer Fokus, passende `aria-current`-Zustände und Touch-Ziele
+- `prefers-reduced-motion` respektieren; keine Endlosschleifen oder unnötigen Animationen
+- Browserlogik in den Script-Partials, eingebunden im gemeinsamen `DOMContentLoaded`-Handler;
+  Theme-Initialisierung vor dem ersten Paint ist die Ausnahme
+- Website-Texte ausschließlich in `translations.json`, jeweils Deutsch und Englisch
+- Code-Kommentare und Commit-Messages auf Englisch; keine Emojis in Dokumentationen
+- Kleine, gezielte Änderungen; bestehende Templates und Komponenten wiederverwenden
 
-### HTML
-- Sections mit `<!-- ==================== NAME ==================== -->` markiert
-- Nummerierung nur, wo sie echte Information trägt (Work-Index, Jahreszahlen im Werdegang)
-- Accessibility: semantische Elemente, `aria-*`, sichtbarer Fokus
+## Daten und Fotografie
 
-### Sprache
-- Website-Inhalt: Deutsch und Englisch, Standard Englisch
-- Beide Sprachen ausschließlich über `translations.json` pflegen
-- Code-Kommentare und Commit-Messages: Englisch
+- `projects.json`: Softwareprojekte; `stack.json`: Stack-Gruppen
+- `github-project-meta.js`: Live-GitHub-Metadaten, nur auf Dev benötigt
+- `photos.json`: Galerien in Anzeigereihenfolge; `slug`, Übersetzungsschlüssel und Bildliste
+- Originale in `photo-originals/<slug>/`; gitignored, separat sichern, niemals deployen
+- Bildbeschreibungen (`altKey`) in beiden Sprachen erforderlich; `captionKey` optional
+- Optionales Galerie-Feld `year` liefert das Jahr für die Home-Fotobeschriftung
+- `teaser: true` wählt das Thumbnail, sonst das erste Foto der Galerie
+- Webvarianten in `img/photos/` sind gitignored und müssen vor Deployment gebaut werden
+- EXIF/GPS entfernen, Orientierung korrigieren, kleine Originale nicht hochskalieren
+- Responsive Pictures mit intrinsischen Größen; erstes Galeriebild eager, weitere lazy
+- Neue Galerien automatisch in Übersicht, Sitemap und Home-Hero-Auswahl aufnehmen
 
-### JavaScript
-- Alles im `DOMContentLoaded`-Handler in `index.html`
-- Projektdaten in `projects.json`, GitHub-Metadaten in `github-project-meta.js`
-- Ziele mit `data-repo-bare` drucken Werte ohne Präfix (für Tabellenspalten)
-
-## Sections
-
-| Section | Inhalt |
-|---|---|
-| Hero | Wortmarke, Erfahrungsanreißer, dekoratives Messfeld und Typenschild |
-| Work | Messinstrument mit Live-Release-Leuchten und Last-Push-Skalen aus der GitHub-API |
-| WariKoda | invertierte Open-Source-Baugruppe mit @bdgraue |
-| Skills | Bedienfeld mit 5 Feldern, vertieften Tags und Stack-Kolophon |
-| Path | berufliche Zeitskala und Werdegang |
-| Profile | Kurzprofil, Typenschild und Schwerpunkte |
-| Contact | Signalfläche mit Typenschild und Kontaktdaten |
-
-## Dos & Don'ts
-
-### Do
-- Boldness an einer Stelle bündeln: der Work-Index ist das Signature-Element
-- Mobile-first denken; die Wortmarke darf auf schmalen Viewports umbrechen, nicht auf unlesbare Größe schrumpfen
-- `prefers-reduced-motion` respektieren
-- Animationen nur einmalig und funktional einsetzen: Aufbau, Zeitverlauf oder echte Datenzustände; keine Endlosschleifen
-- Änderungen klein und gezielt halten
-
-### Don't
-- Keine externen JS-Libraries oder Runtime-Dependencies
-- Keine zweite Akzentfarbe einführen
-- Keine Texte außerhalb der i18n-Struktur pflegen
-- Keine Emojis in Dokumentationen
-
-## Build & Deployment
+## Build, Tests und Deployment
 
 ```bash
 npm install
-npx tailwindcss -i ./src/tailwind.css -o ./dist/tailwind.css --minify   # oder: npm run build
-npm run serve                                                            # lokal auf :8000
+npm run build       # CSS, alle lokalisierten HTML-Seiten, Bilder, Sitemap und llms.txt
+npm run build:html  # Nur HTML/Bilder und Metadaten
+npm run build:css   # Nur CSS
+npm test
+npm run serve       # Statischer Server auf http://localhost:8000
 ```
 
-Statisches Deployment – die oben gelisteten Dateien direkt auf einen Webserver kopieren.
+Deploy ins Webserver-Root: `index.html`, `dev/`, `photos/`, `de/`,
+`dist/tailwind.css`, `fonts/`, `img/`, `github-project-meta.js`, `robots.txt`,
+`sitemap.xml` und `llms.txt`.
+
+Nicht deployen: `src/`, `scripts/`, `node_modules/`, `photo-originals/` oder
+Konfigurationsdateien mit Zugangsdaten. Alle Pfade sind domain-root-relativ.
+Weitere Build- und Fotografiehinweise stehen in `README.md`.
 
 ## Kontakt & Links
 
-- **Website**: nibraun.de
-- **GitHub**: github.com/nibra180
-- **WariKoda**: github.com/WariKoda
-- **Arbeitgeber**: Sharpness Solutions GmbH
+- Website: nibraun.de
+- GitHub: github.com/nibra180
+- WariKoda: github.com/WariKoda
+- Arbeitgeber: Sharpness Solutions GmbH

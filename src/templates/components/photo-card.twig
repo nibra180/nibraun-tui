@@ -1,0 +1,5 @@
+<li><a class="photo-project {{ gallery.tone }}" href="{{ gallery.href }}">
+  {% include 'picture.twig' with {picture: gallery.picture} %}
+  <div class="photo-project-head"><h2>{{ t(gallery.titleKey) }}</h2><span aria-hidden="true">→</span></div>
+  <p>{{ t(gallery.descriptionKey) }}</p>
+</a></li>

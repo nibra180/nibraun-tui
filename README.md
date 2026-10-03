@@ -1,12 +1,12 @@
 # nibraun.de – Personal Portfolio
 
-Personal portfolio website for Niklas Braun, built as a showcase for published software.
+Personal website for Niklas Braun, with a Home teaser, a software portfolio under `/dev/`, and photography under `/photos/` (German: `/de/`, `/de/dev/`, `/de/photos/`). Home shows a large welcome heading, compact Dev/Photos preview cards and a random photo with its gallery name and year; Dev holds the previous portfolio. Text and hero enter once with a subtle stagger, respecting reduced motion.
 
 ## Design
 
-"Radically reduced": one page, no dialogs, no carousel. On desktop the page
+The Dev portfolio is "radically reduced": no dialogs, no carousel. On desktop it
 reads top-down in three tiers on a 12-column grid. The intro comes first,
-large and on its own. Below it sit the project index with year, name, and type,
+large and on its own. Below it sit the project index with name and type,
 and a preview of whichever project the pointer or keyboard focus is on. The
 bottom tier puts experience, stack, and contact side by side. On narrow screens
 the first project becomes a card, the rest stay as list rows, and the preview
@@ -31,16 +31,19 @@ the 400x300 canvas to 16:9, so the strip outside y 37.5 to 262.5 may be cut.
 
 - Project index with hover and focus preview on desktop, featured card on mobile
 - Live GitHub release and last push in the preview, cached for six hours
-- Static English and German pages at `/` and `/de/`; old `?lang=de` links redirect
+- Static English and German Home, Dev, photo index and gallery pages; old `?lang=de` links redirect
+- Home teaser with a random photo and links to `/dev/` and `/photos/` (German: `/de/dev/` and `/de/photos/`)
+- Photo index with thumbnail cards linking to individual galleries
 - All content, JSON-LD (`ProfilePage`, `Person`, project list), `sitemap.xml`, `robots.txt` and `llms.txt` ship as static files, so crawlers without JavaScript see the full page
 - Monokai Pro and Monokai Pro Light Sun themes, switchable and stored in `localStorage`
 - Text selection with a tinted ground and a wavy underline; each new selection takes the next top-bar color, project rows keep their own
 - Visible keyboard focus, 44 px touch targets on mobile, reduced-motion support
-- Static deployment and vanilla JavaScript, no browser runtime dependencies; the browser script only swaps previews, sets the theme and loads GitHub data
+- Static deployment and vanilla JavaScript, no browser runtime dependencies; browser logic handles the theme, Home's random photo, Dev previews and GitHub data
 
 ## Tech Stack
 
-- `src/index.html` as the page template, rendered by `scripts/build-html.mjs` (Node, no dependencies)
+- Static Twig.js templates in `src/templates/`, rendered by `scripts/build-html.mjs` with Node; `twig` is an npm dev dependency
+- `sharp` for build-time photo processing; no PHP or Twig runtime is deployed
 - Tailwind CSS v4, with tokens and custom styles in `src/tailwind.css`
 - Geist and Geist Mono, self-hosted in `fonts/` (SIL OFL 1.1)
 - `translations.json` for German and English content
@@ -51,18 +54,35 @@ the 400x300 canvas to 16:9, so the strip outside y 37.5 to 262.5 may be cut.
 
 ```bash
 npm install
-npm run build     # CSS, both HTML pages, sitemap.xml and llms.txt
+npm run build     # CSS, localized HTML pages, photo variants, sitemap.xml and llms.txt
 npm run dev       # CSS watch mode (first terminal)
 npm run serve     # static server on http://localhost:8000 (second terminal)
 ```
 
-`index.html`, `de/index.html`, `photos/`, `de/photos/`, `sitemap.xml` and `llms.txt` are generated.
-Edit `src/index.html`, `translations.json` or `projects.json` and run
-`npm run build:html` (or `npm run build`). The build stops with an error when a
+`index.html`, `de/index.html`, `dev/`, `de/dev/`, `photos/`, `de/photos/`,
+`sitemap.xml` and `llms.txt` are generated, including the individual galleries.
+Edit `src/templates/`, `translations.json` or the relevant data files and run
+`npm run build:html` (or `npm run build`). Both builds use Node and `sharp`;
+Twig.js renders HTML at build time only. The build stops with an error when a
 translation key is missing in either language. Reload the browser after edits;
 the static server does not inject live reload.
 For a background CSS watcher without an interactive terminal, use
 `npm run dev -- --watch=always`.
+
+## Templates
+
+`src/templates/layout.twig` defines the shared document structure. The page
+templates `pages/{home,dev,photos,gallery}.twig` extend it and override blocks
+for page-specific content, metadata and scripts. Includes reuse shared markup:
+
+- `partials/{header,footer,theme-init,theme-controls}.twig` for shared page elements
+- `components/{picture,cover,project-row,project-preview,photo-card}.twig` for images, project displays and photo index cards
+- `partials/{theme-script,home-script,dev-script}.twig` for browser logic, included in the rendered pages
+
+Translations are exposed as `t(key)` with strict validation. Autoescaping is
+enabled; only intentional footer HTML and serialized JSON use `raw`. Keep
+ordinary text and data escaped. Neither templates nor the Twig.js runtime are
+needed on the web server.
 
 ## Project Data
 
@@ -82,9 +102,10 @@ only; the browser no longer loads them.
 
 ## Photography
 
-`/photos/` (English) and `/de/photos/` (German) are plain link indexes, without
-thumbnails or gallery JavaScript. The portfolio footer links to them. Until
-projects are added, the index shows a short empty-state message.
+`/photos/` (English) and `/de/photos/` (German) show thumbnail cards linking to
+individual galleries. Home links to the photo index and uses a random photo as
+its teaser; the portfolio footer also links to the index. Until projects are
+added, the index shows a short empty-state message.
 
 Add projects in display order to `photos.json`:
 
@@ -108,7 +129,8 @@ Add projects in display order to `photos.json`:
 ```
 
 Add each translation key to both languages in `translations.json`. `captionKey`
-is optional; descriptive alt text is required. Place the original in
+is optional; descriptive alt text is required. The optional gallery-level `year`
+field supplies the year beneath Home's random hero photo. Place the original in
 `photo-originals/winter-forest/tree.jpg`. This directory is gitignored and must
 never be deployed. Keep a separate backup of the originals.
 
@@ -137,8 +159,9 @@ Run `npm run build`, then copy these files to the web server root. The pages
 use root-relative paths, so the site must live at the domain root.
 
 - `index.html`
-- `de/`
-- `photos/`
+- `dev/`
+- `de/` (including `de/dev/` and `de/photos/`)
+- `photos/` (including generated galleries)
 - `robots.txt`
 - `sitemap.xml`
 - `llms.txt`

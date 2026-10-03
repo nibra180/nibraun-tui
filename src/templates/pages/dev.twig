@@ -1,0 +1,59 @@
+{% extends '../layout.twig' %}
+
+{% block content %}
+<main class="index">
+  <!-- ==================== INTRO ==================== -->
+  <h1 class="lead"><span class="sr-only">Niklas Braun. </span>{{ t('intro.lead') }}</h1>
+
+  <!-- ==================== PROJECTS ==================== -->
+  <section class="projects" id="work" aria-labelledby="workTitle">
+    <h2 class="label projects-title" id="workTitle">{{ t('work.title') }}</h2>
+    <div class="label project-head" aria-hidden="true">
+      <span>{{ t('work.colProject') }}</span><span>{{ t('work.colKind') }}</span><span></span>
+    </div>
+    <ol class="project-list" id="projectList">
+      {% for project in projects %}{% include '../components/project-row.twig' with {first: loop.first} %}{% endfor %}
+    </ol>
+  </section>
+  <aside class="preview">
+    {% for project in projects %}{% include '../components/project-preview.twig' with {first: loop.first} %}{% endfor %}
+  </aside>
+
+  <!-- ==================== EXPERIENCE ==================== -->
+  <section class="block experience" aria-labelledby="pathTitle">
+    <h2 class="label" id="pathTitle">{{ t('path.title') }}</h2>
+    <dl class="timeline">
+      <dt>2025–{{ t('path.now') }}</dt><dd><span>{{ t('path.role1') }}</span><span class="org">Sharpness Solutions</span></dd>
+      <dt>2021–2025</dt><dd><span>{{ t('path.role2') }}</span><span class="org">WL Online</span></dd>
+      <dt>2018–2021</dt><dd><span>{{ t('path.role3') }}</span><span class="org">WL Online</span></dd>
+    </dl>
+  </section>
+
+  <!-- ==================== STACK ==================== -->
+  <section class="block stack" aria-labelledby="stackTitle">
+    <h2 class="label" id="stackTitle">{{ t('stack.title') }}</h2>
+    <dl class="stack-list">
+      {% for group in stack %}
+      <dt>{{ t(group.labelKey) }}</dt><dd>{% for label in group.labels %}{{ label }}{% if not loop.last %}, {% endif %}{% endfor %}</dd>
+      {% endfor %}
+    </dl>
+  </section>
+
+  <!-- ==================== CONTACT ==================== -->
+  <section class="block contact" aria-labelledby="contactTitle">
+    <h2 class="label" id="contactTitle">{{ t('contact.title') }}</h2>
+    <ul class="contact-links">
+      <li><a href="https://www.sharpness.de/kontakt" target="_blank" rel="noopener noreferrer">{{ t('contact.cta') }}<span class="link-arrow" aria-hidden="true">↗</span></a></li>
+      <li><a href="https://github.com/nibra180" target="_blank" rel="noopener noreferrer me">GitHub<span class="link-arrow" aria-hidden="true">↗</span></a></li>
+      <li><a href="https://github.com/WariKoda" target="_blank" rel="noopener noreferrer">WariKoda<span class="link-arrow" aria-hidden="true">↗</span></a></li>
+      <li><a href="https://www.instagram.com/nibraun_/" target="_blank" rel="noopener noreferrer me">Instagram<span class="link-arrow" aria-hidden="true">↗</span></a></li>
+    </ul>
+  </section>
+</main>
+{% endblock %}
+
+{% block scripts %}{% include '../partials/dev-script.twig' %}{% endblock %}
+{% block scriptData %}
+<script type="application/json" id="repoStrings">{{ repoStrings|raw }}</script>
+<script src="/github-project-meta.js"></script>
+{% endblock %}
