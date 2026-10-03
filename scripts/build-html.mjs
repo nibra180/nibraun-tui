@@ -21,7 +21,7 @@ const LOCALES = {
 };
 const TONES = ["red", "orange", "yellow", "green", "blue", "purple"];
 const PERSON_ID = `${SITE}/#person`;
-const HERO_SIZES = "(min-width: 1100px) min(560px, calc((100vw - 192px) * 560 / 1180)), (min-width: 608px) 560px, calc(100vw - 48px)";
+const HOME_CARD_SIZES = "(min-width: 1100px) 252px, (min-width: 640px) 268px, calc((100vw - 64px) / 2 - 20px)";
 const translations = JSON.parse(read("translations.json"));
 const projects = JSON.parse(read("projects.json"));
 const stack = JSON.parse(read("stack.json"));
@@ -91,13 +91,10 @@ function renderPage(locale, page, galleries) {
   const t = translator(locale);
   const other = locale === "en" ? "de" : "en";
   const suffix = page === "work" ? "work/" : "";
-  const heroPhotos = page === "home" ? galleries.flatMap((gallery) => gallery.images.map((image) => ({
-    href: `${LOCALES[locale].path}photos/${gallery.slug}/`,
-    caption: `${t(gallery.titleKey)}${gallery.year ? ` · ${gallery.year}` : ""}`,
-    picture: pictureData(image, { sizes: HERO_SIZES, alt: t(image.altKey), eager: true }),
-  }))) : [];
-  const featuredGallery = galleries[0];
-  const featuredImage = featuredGallery && (featuredGallery.images.find((image) => image.teaser) ?? featuredGallery.images[0]);
+  const homePhotos = page === "home" ? galleries.map((gallery) => {
+    const image = gallery.images[0];
+    return pictureData(image, { sizes: HOME_CARD_SIZES, alt: t(image.altKey), eager: true });
+  }) : [];
   const values = {
     t, lang: locale, activePage: page,
     title: t(page === "home" ? "home.title" : "meta.title"),
@@ -122,14 +119,10 @@ function renderPage(locale, page, galleries) {
     // Old ?lang=de links must preserve the current section.
     legacyPath: locale === "en" ? scriptJson(`/de/${suffix}`) : null,
     jsonLd: jsonLd(locale, t, page),
-    heroFallback: heroPhotos[0] ?? null,
     homeProject: projects[0] ? { art: null, cover: null, ...projects[0] } : null,
-    homeThumbnail: featuredImage ? pictureData(featuredImage, {
-      sizes: "(min-width: 1100px) 282px, (min-width: 640px) 276px, calc((100vw - 64px) / 2 - 20px)",
-      alt: t(featuredImage.altKey),
-    }) : null,
-    homePhotos: scriptJson(heroPhotos.map((photo) => ({
-      href: photo.href, caption: photo.caption, picture: renderTemplate("components/picture.twig", { picture: photo.picture }),
+    homeThumbnail: homePhotos[0] ?? null,
+    homePhotos: scriptJson(homePhotos.map((picture) => ({
+      picture: renderTemplate("components/picture.twig", { picture }),
     }))),
     projects: projects.map((project, index) => ({ art: null, cover: null, repo: null, year: null, ...project, tone: `tone-${TONES[index % TONES.length]}` })),
     // Non-breaking spaces keep each technology name together without raw HTML.

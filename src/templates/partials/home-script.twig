@@ -1,20 +1,5 @@
-const hero = document.getElementById("homePhoto");
+const thumbnail = document.querySelector("[data-home-photo]");
 const photos = JSON.parse(document.getElementById("homePhotos").textContent);
-if (hero && photos.length) {
-  const photo = photos[Math.floor(Math.random() * photos.length)];
-  const link = document.createElement("a");
-  link.className = "home-photo";
-  link.href = photo.href;
-  link.innerHTML = photo.picture;
-  const caption = document.createElement("figcaption");
-  caption.className = "home-photo-caption";
-  const captionLink = document.createElement("a");
-  captionLink.href = photo.href;
-  captionLink.textContent = photo.caption + " ";
-  const arrow = document.createElement("span");
-  arrow.setAttribute("aria-hidden", "true");
-  arrow.textContent = "↗";
-  captionLink.append(arrow);
-  caption.append(captionLink);
-  hero.append(link, caption);
+if (thumbnail && photos.length) {
+  thumbnail.innerHTML = photos[Math.floor(Math.random() * photos.length)].picture;
 }

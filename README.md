@@ -1,6 +1,6 @@
 # nibraun.de – Personal Portfolio
 
-Personal website for Niklas Braun, with a Home teaser, a software portfolio under `/work/`, and photography under `/photos/` (German: `/de/`, `/de/work/`, `/de/photos/`). Home shows a large welcome heading, compact Work/Photos preview cards and a random photo with its gallery name and year; Work holds the previous portfolio. Text and hero enter once with a subtle stagger, respecting reduced motion.
+Personal website for Niklas Braun, with a Home teaser, a software portfolio under `/work/`, and photography under `/photos/` (German: `/de/`, `/de/work/`, `/de/photos/`). Home shows a large welcome heading and Work/Photos preview cards beside the text on desktop and below it on mobile. The Photos card randomly shows one gallery lead image; there is no separate hero photo. Work holds the previous portfolio.
 
 ## Design
 
@@ -30,13 +30,13 @@ the 400x300 canvas to 16:9, so the strip outside y 37.5 to 262.5 may be cut.
 
 - Project index with hover and focus preview on desktop, featured card on mobile
 - Static English and German Home, Work, photo index and gallery pages; old `?lang=de` links redirect
-- Home teaser with a random photo and links to `/work/` and `/photos/` (German: `/de/work/` and `/de/photos/`)
+- Home with Work/Photos cards; the Photos thumbnail randomly uses one gallery lead image. Links go to `/work/` and `/photos/` (German: `/de/work/` and `/de/photos/`)
 - Photo index with thumbnail cards linking to individual galleries
 - All content, JSON-LD (`ProfilePage`, `Person`, project list), `sitemap.xml`, `robots.txt` and `llms.txt` ship as static files, so crawlers without JavaScript see the full page
 - Monokai Pro and Monokai Pro Light Sun themes, switchable and stored in `localStorage`
 - Text selection with a tinted ground and a wavy underline; each new selection takes the next top-bar color, project rows keep their own
 - Visible keyboard focus, 44 px touch targets on mobile, reduced-motion support
-- Static deployment and vanilla JavaScript, no browser runtime dependencies; browser logic handles the theme, Home's random photo and Work previews
+- Static deployment and vanilla JavaScript, no browser runtime dependencies; browser logic handles the theme, Home's random Photos thumbnail and Work previews
 
 ## Tech Stack
 
@@ -120,9 +120,9 @@ only; the browser no longer loads them.
 ## Photography
 
 `/photos/` (English) and `/de/photos/` (German) show thumbnail cards linking to
-individual galleries. Home links to the photo index and uses a random photo as
-its teaser; the portfolio footer also links to the index. Until projects are
-added, the index shows a short empty-state message.
+individual galleries. Home links to the photo index and randomly chooses one
+of the galleries' lead images for the Photos card. Until projects are added, the index
+shows a short empty-state message.
 
 Add projects in display order to `photos.json`:
 
@@ -137,7 +137,8 @@ Add projects in display order to `photos.json`:
         {
           "file": "winter-forest/tree.jpg",
           "altKey": "photos.winter.tree.alt",
-          "captionKey": "photos.winter.tree.caption"
+          "captionKey": "photos.winter.tree.caption",
+          "teaser": true
         }
       ]
     }
@@ -147,9 +148,16 @@ Add projects in display order to `photos.json`:
 
 Add each translation key to both languages in `translations.json`. `captionKey`
 is optional; descriptive alt text is required. The optional gallery-level `year`
-field supplies the year beneath Home's random hero photo. Place the original in
+field stores the year of the series. Place the original in
 `photo-originals/winter-forest/tree.jpg`. This directory is gitignored and must
 never be deployed. Keep a separate backup of the originals.
+
+Set `teaser: true` on one image per gallery. That image is used for the photo
+index thumbnail, included in the Home Photos card's random selection, and placed first in the
+gallery. All remaining images keep their relative order from `photos.json`.
+With no marked image, the first entry is used; multiple marked images fail the
+build. The Home Photos card selects from one lead image per gallery, not from all
+photos; without JavaScript it shows the first gallery's lead image.
 
 Run `npm run build`. `sharp` (a build-time dependency only) creates AVIF, WebP
 and JPEG copies in `img/photos/`, at 480, 800, 1200, 1800 and 2560 px wide,

@@ -33,24 +33,28 @@ for (const prefix of ["", "de/"]) {
       assert.doesNotMatch(html, /\{\{/);
       assert.doesNotMatch(html, /github-project-meta\.js|api\.github\.com|data-github-repo|id="repoStrings"/);
     }
-    assert.match(home, /class="home-photo"/);
-    const heroPhotos = JSON.parse(home.match(/<script type="application\/json" id="homePhotos">([\s\S]*?)<\/script>/)[1]);
-    assert.equal(heroPhotos.length, projects.reduce((count, project) => count + project.images.length, 0));
-    for (const project of projects) {
-      const galleryPhotos = heroPhotos.filter((photo) => photo.href === `/${prefix}photos/${project.slug}/`);
-      assert.equal(galleryPhotos.length, project.images.length);
-      for (const photo of galleryPhotos) {
-        assert.equal(photo.caption, `${translations[prefix ? 'de' : 'en'][project.titleKey]}${project.year ? ` · ${project.year}` : ''}`);
-      }
-      assert.ok(photos.includes(`href="/${prefix}photos/${project.slug}/"`));
+    assert.doesNotMatch(home, /class="home-hero"|class="home-photo"|home-photo-caption/);
+    assert.equal((home.match(/class="home-links"/g) ?? []).length, 1);
+    assert.equal((home.match(/class="home-card tone-/g) ?? []).length, 2);
+    assert.match(home, /<\/p>\s*<\/div>\s*<div class="home-links">/);
+    const homePhotos = JSON.parse(home.match(/<script type="application\/json" id="homePhotos">([\s\S]*?)<\/script>/)[1]);
+    assert.equal(homePhotos.length, projects.length);
+    for (const [index, project] of projects.entries()) {
+      const gallery = read(`${prefix}photos/${project.slug}/index.html`);
+      const card = photos.match(new RegExp(`<a class="photo-project[^"]*" href="/${prefix}photos/${project.slug}/">([\\s\\S]*?)</a>`))[1];
+      const firstImageSource = (html) => html.match(/<img[^>]* src="([^"]+)"/)[1];
+      assert.equal(firstImageSource(homePhotos[index].picture), firstImageSource(gallery));
+      assert.equal(firstImageSource(card), firstImageSource(gallery));
+      assert.match(card, /<h2>[^<]+<\/h2>/);
+      assert.doesNotMatch(card, /<p\b/);
     }
-    for (const photo of heroPhotos) {
+    for (const photo of homePhotos) {
       assert.match(photo.picture, /<picture>/);
       assert.match(photo.picture, /alt="[^"]+"/);
       assert.match(photo.picture, /fetchpriority="high"/);
     }
-    assert.match(home, /<noscript><figure class="home-hero">/);
-    assert.match(home, /class="home-photo-caption"/);
+    assert.match(home, /<noscript>\s*<picture>/);
+    assert.match(home, /data-home-photo/);
     assert.match(home, new RegExp(`class="home-card tone-blue" href="/${prefix}work/"`));
     assert.match(home, new RegExp(`class="home-card tone-green" href="/${prefix}photos/"`));
     assert.doesNotMatch(home, /class="home-art"/);

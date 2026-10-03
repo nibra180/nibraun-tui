@@ -38,6 +38,46 @@ test("empty index contains no images or gallery links", () => fixture(async ({ r
   assert.match(pages.get("de/photos/index.html"), /Fotografie/);
 }));
 
+test("the teaser leads the gallery and thumbnail without reordering the remaining photos", () => fixture(async ({ root, pages, options }) => {
+  const images = [];
+  for (const color of ["red", "green", "blue"]) {
+    const file = `${color}.jpg`;
+    await sharp({ create: { width: 60, height: 40, channels: 3, background: color } })
+      .jpeg().toFile(join(root, "photo-originals", file));
+    images.push({ file, altKey: "test.alt" });
+  }
+  for (const selected of [1, 2, 0, null]) {
+    const project = { slug: "forest", titleKey: "test.title", descriptionKey: "test.description", images:
+      images.map((image, index) => ({ ...image, ...(index === selected ? { teaser: true } : {}) })),
+    };
+    writeFileSync(join(root, "photos.json"), JSON.stringify({ projects: [project] }));
+    const { galleries: [gallery] } = await buildPhotos(options);
+    const lead = images[selected ?? 0];
+    const expected = [lead, ...images.filter((image) => image !== lead)].map((image) => image.file);
+    assert.deepEqual(gallery.images.map((image) => image.file), expected);
+    const sources = gallery.images.map((image) => image.variants.jpeg[0].url);
+    for (const prefix of ["", "de/"]) {
+      const html = pages.get(`${prefix}photos/forest/index.html`);
+      const renderedSources = [...html.matchAll(/<img[^>]* src="([^"]+)"/g)].map((match) => match[1]);
+      assert.deepEqual(renderedSources, sources);
+      const tags = html.match(/<img[^>]*>/g);
+      assert.match(tags[0], /loading="eager" fetchpriority="high"/);
+      assert.ok(tags.slice(1).every((tag) => tag.includes('loading="lazy"') && !tag.includes("fetchpriority")));
+      const overview = pages.get(`${prefix}photos/index.html`);
+      assert.equal(overview.match(/<img[^>]* src="([^"]+)"/)[1], sources[0]);
+    }
+  }
+}));
+
+test("multiple teaser images fail the build", () => fixture(async ({ root, options }) => {
+  const project = { slug: "forest", titleKey: "test.title", descriptionKey: "test.description", images: [
+    { file: "one.jpg", altKey: "test.alt", teaser: true },
+    { file: "two.jpg", altKey: "test.alt", teaser: true },
+  ] };
+  writeFileSync(join(root, "photos.json"), JSON.stringify({ projects: [project] }));
+  await assert.rejects(buildPhotos(options), /Multiple teaser images for forest/);
+}));
+
 test("gallery produces responsive, stripped, upright variants and localized links", () => fixture(async ({ root, pages, options }) => {
   await sharp({ create: { width: 900, height: 600, channels: 3, background: "green" } })
     .withMetadata({ orientation: 6 }).jpeg().toFile(join(root, "photo-originals/tree.jpg"));
@@ -52,8 +92,9 @@ test("gallery produces responsive, stripped, upright variants and localized link
   assert.match(overview, /<picture>/);
   assert.match(overview, /alt="A tree\."/);
   assert.match(overview, /<h2>Forest<\/h2>/);
-  assert.match(overview, /<p>A forest series\.<\/p>/);
+  assert.doesNotMatch(overview, /<p>A forest series\.<\/p>/);
   const html = pages.get("photos/forest/index.html");
+  assert.match(html, /<p class="photos-description">A forest series\.<\/p>/);
   assert.match(html, /width="600" height="900"/);
   assert.match(html, /loading="eager" fetchpriority="high"/);
   assert.match(html, /loading="lazy"/);

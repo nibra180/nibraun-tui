@@ -62,38 +62,42 @@ test("script JSON stays parseable and cannot close its script element", () => {
   assert.doesNotMatch(serialized, /<\/script>/);
   assert.deepEqual(JSON.parse(serialized), data);
   const html = renderTemplate("pages/home.twig", {
-    ...context, activePage: "home", heroFallback: null, homePhotos: serialized,
+    ...context, activePage: "home", homePhotos: serialized,
     homeProject: null, homeThumbnail: null,
   });
   const emitted = html.match(/id="homePhotos">([\s\S]*?)<\/script>/)[1];
   assert.deepEqual(JSON.parse(emitted), data);
 });
 
-test("random Home hero keeps the selected image, caption and gallery link together", () => {
-  const photos = [
-    { href: "/photos/dolomiti/", caption: "Dolomiti · 2024", picture: "<picture>mountain</picture>" },
-    { href: "/photos/brocken-harz/", caption: "Brocken, Harz · 2021", picture: "<picture>forest</picture>" },
-  ];
-  const element = () => ({
-    children: [], attributes: {},
-    append(...nodes) { this.children.push(...nodes); },
-    setAttribute(name, value) { this.attributes[name] = value; },
-  });
-  const hero = element();
+test("the Home photo tile shows one randomly selected gallery lead image", () => {
+  const photos = [{ picture: "<picture>mountain</picture>" }, { picture: "<picture>forest</picture>" }];
+  const thumbnail = { innerHTML: "fallback" };
   const document = {
-    getElementById: (id) => id === "homePhoto" ? hero : { textContent: scriptJson(photos) },
-    createElement: element,
+    querySelector: (selector) => selector === "[data-home-photo]" ? thumbnail : null,
+    getElementById: () => ({ textContent: scriptJson(photos) }),
   };
   const math = Object.create(Math);
   math.random = () => 0.999;
-  const script = readFileSync(new URL("../src/templates/partials/home-script.twig", import.meta.url), "utf8");
-  new Script(script).runInNewContext({ document, Math: math });
-  const [imageLink, caption] = hero.children;
-  assert.equal(imageLink.href, photos[1].href);
-  assert.equal(imageLink.innerHTML, photos[1].picture);
-  assert.equal(caption.children[0].href, photos[1].href);
-  assert.equal(caption.children[0].textContent, photos[1].caption + " ");
-  assert.equal(caption.children[0].children[0].attributes["aria-hidden"], "true");
+  const script = new Script(readFileSync(new URL("../src/templates/partials/home-script.twig", import.meta.url), "utf8"));
+  script.runInNewContext({ document, Math: math });
+  assert.equal(thumbnail.innerHTML, photos[1].picture);
+  thumbnail.innerHTML = "placeholder";
+  photos.length = 0;
+  script.runInNewContext({ document, Math: math });
+  assert.equal(thumbnail.innerHTML, "placeholder");
+});
+
+test("Home cards work without JavaScript and without galleries", () => {
+  const picture = pictureData(image, { sizes: "252px", alt: "A mountain", eager: true });
+  const values = { ...context, activePage: "home", homeProject: null, homeThumbnail: picture, homePhotos: "[]" };
+  const html = renderTemplate("pages/home.twig", values);
+  assert.match(html, /<noscript>\s*<picture>/);
+  assert.match(html, /data-home-photo/);
+  assert.equal((html.match(/class="home-card tone-/g) ?? []).length, 2);
+  assert.doesNotMatch(html, /class="home-hero"|class="home-photo"/);
+  const empty = renderTemplate("pages/home.twig", { ...values, homeThumbnail: null });
+  assert.equal((empty.match(/class="home-card-placeholder"/g) ?? []).length, 2);
+  assert.doesNotMatch(empty, /<picture>|<noscript>/);
 });
 
 test("all generated inline browser scripts are valid JavaScript", () => {

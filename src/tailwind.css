@@ -208,10 +208,10 @@ html { scrollbar-gutter: stable; }
 .home-copy { max-width: 58ch; }
 .home-copy h1 { margin: 0 0 24px; font-size: clamp(38px, 7vw, 52px); font-weight: 500; line-height: 1.08; letter-spacing: -.04em; text-wrap: balance; }
 .home-teaser { margin: 0; max-width: 48ch; font-size: 18px; line-height: 1.6; text-wrap: pretty; color: var(--c-fg-soft); }
-.home-links { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-top: 32px; }
+.home-links { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
 .home-card { --sel: var(--tone); display: flex; flex-direction: column; gap: 10px; min-width: 0; }
-.home-card-image { display: block; padding: 10px; overflow: hidden; background: color-mix(in srgb, var(--tone) 18%, var(--c-bg)); }
-.home-card-image .cover, .home-card-image picture, .home-card-placeholder { display: block; width: 100%; aspect-ratio: 2 / 1; }
+.home-card-image { display: block; aspect-ratio: 2 / 1; padding: 10px; overflow: hidden; background: color-mix(in srgb, var(--tone) 18%, var(--c-bg)); }
+.home-card-image .cover, .home-card-image picture, .home-card-placeholder { display: block; width: 100%; height: 100%; }
 .home-card-image img { display: block; width: 100%; height: 100%; object-fit: cover; }
 .home-card-placeholder { background: repeating-linear-gradient(135deg, var(--c-cover) 0 16px, color-mix(in srgb, var(--tone) 25%, var(--c-bg)) 16px 32px); }
 .home-card-heading { display: flex; align-items: center; justify-content: space-between; gap: 8px; font-size: 18px; font-weight: 500; }
@@ -219,20 +219,6 @@ html { scrollbar-gutter: stable; }
 .home-card-description { color: var(--c-fg-dim); font-size: 13px; }
 .home-card:is(:hover, :focus-visible) .home-card-heading > :first-child { text-decoration: underline; text-underline-offset: 4px; }
 .home-card:is(:hover, :focus-visible) .home-card-arrow { transform: translateX(4px); }
-.home-hero { margin: 0; width: 100%; max-width: 560px; }
-.home-hero:empty { display: none; }
-.home-photo { display: block; width: 100%; aspect-ratio: 3 / 2; }
-.home-photo picture { display: block; width: 100%; height: 100%; }
-.home-photo-caption { margin-top: 12px; font: 13px var(--font-mono); color: var(--c-fg-dim); }
-.home-photo-caption a { display: inline-flex; align-items: center; gap: 12px; min-height: 44px; }
-.home-photo-caption a:hover { text-decoration: underline; text-underline-offset: 4px; }
-.home-photo img {
-    display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border: 4px solid var(--c-fg);
-}
 @media (min-width: 1100px) {
     .home-main { grid-template-columns: minmax(0, 620px) minmax(0, 560px); justify-content: space-between; align-items: center; gap: 48px; padding-block: 48px; }
     .home-copy h1 { font-size: clamp(52px, 4.5vw, 64px); }
@@ -248,7 +234,7 @@ html { scrollbar-gutter: stable; }
 /*
  * On phones photos bleed to the viewport edges while text keeps the column.
  * max-width: none overrides preflight, which would otherwise clamp the image
- * and only shift it left. From 640px the page is a centered column, so no bleed.
+ * and only shift it left. From 640px the sequence follows the centered column.
  */
 .photo-teaser-link img, .photo-sequence img { width: calc(100% + 48px); max-width: none; margin-inline: -24px; }
 @media (min-width: 640px) {
@@ -469,7 +455,6 @@ html { scrollbar-gutter: stable; }
 .photo-project-head { display: flex; align-items: baseline; justify-content: space-between; gap: 24px; }
 .photo-project-head h2 { margin: 0; font-size: 17px; font-weight: 500; }
 .photo-project-head > span { font-size: 24px; color: var(--tone); }
-.photo-project p { margin: 0; max-width: 60ch; color: var(--c-fg-soft); }
 .photo-project:hover h2 { text-decoration: underline; text-underline-offset: 4px; }
 .photo-sequence { display: flex; flex-direction: column; gap: 32px; }
 .photo-sequence figure { margin: 0; }
@@ -478,6 +463,7 @@ html { scrollbar-gutter: stable; }
 /*
  * Justified grid: each figure grows in proportion to its aspect ratio (--ratio,
  * set by the gallery script), so rows fill the width without cropping.
+ * The width-based row cap keeps several photos together even on tall tablets.
  * The ::after spacer keeps the last row from stretching.
  * Phones only get the sequence view.
  */
@@ -487,12 +473,12 @@ html { scrollbar-gutter: stable; }
     .view-switch svg { fill: currentColor; stroke: none; }
     [data-gallery-view="grid"] .photo-sequence { --row: 40vh; flex-direction: row; flex-wrap: wrap; gap: 4px; }
     [data-gallery-view="grid"] .photo-sequence::after { content: ""; flex-grow: 10; }
-    [data-gallery-view="grid"] .photo-sequence figure { flex: var(--ratio, 1.5) 1 calc(var(--ratio, 1.5) * var(--row)); min-width: 0; }
+    [data-gallery-view="grid"] .photo-sequence figure { flex: var(--ratio, 1.5) 1 calc(var(--ratio, 1.5) * min(var(--row), 24cqw)); min-width: 0; }
     [data-gallery-view="grid"] .photo-sequence img { width: 100%; height: auto; max-height: none; margin: 0; }
     [data-gallery-view="grid"] .photo-sequence figcaption { display: none; }
 }
-/* Desktop grid bleeds to the body edges; cqw excludes the scrollbar gutter, unlike vw. */
-@media (min-width: 1100px) {
+/* Grid bleeds to the body edges from tablet up; cqw excludes the scrollbar gutter, unlike vw. */
+@media (min-width: 640px) {
     [data-gallery-view="grid"] body { container-type: inline-size; }
     [data-gallery-view="grid"] .photo-sequence { width: calc(100cqw - 8px); margin-inline: calc(50% - 50cqw + 4px); }
 }

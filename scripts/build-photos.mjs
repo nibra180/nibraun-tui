@@ -26,6 +26,9 @@ export async function buildPhotos({ root, site, translations, translator, write,
     }
     slugs.add(project.slug);
     if (!Array.isArray(project.images) || !project.images.length) throw new Error(`No images for ${project.slug}`);
+    const teasers = project.images.filter((image) => image.teaser === true);
+    if (teasers.length > 1) throw new Error(`Multiple teaser images for ${project.slug}`);
+    const teaser = teasers[0] ?? project.images[0];
     for (const locale of Object.keys(translations)) {
       const t = translator(locale);
       t(project.titleKey);
@@ -36,7 +39,8 @@ export async function buildPhotos({ root, site, translations, translator, write,
       }
     }
     const images = [];
-    for (const image of project.images) {
+    // One lead image drives the gallery order, index thumbnail and Home selection.
+    for (const image of [teaser, ...project.images.filter((image) => image !== teaser)]) {
       if (typeof image.file !== "string") throw new Error(`Missing image file in ${project.slug}`);
       const input = resolve(originals, image.file);
       if (!input.startsWith(originals + sep)) throw new Error(`Image outside photo-originals: ${image.file}`);
@@ -95,7 +99,7 @@ export async function buildPhotos({ root, site, translations, translator, write,
           captionKey: null, ...image, picture: pictureData(image, { sizes: index === 0 ? GALLERY_SIZES : GALLERY_LAZY_SIZES, alt: t(image.altKey), eager: index === 0 }),
         })) : [],
         galleries: galleries.map((gallery, index) => {
-          const image = gallery.images.find((image) => image.teaser) ?? gallery.images[0];
+          const image = gallery.images[0];
           return {
             ...gallery, href: pathFor(locale, gallery.slug), tone: `tone-${TONES[index % TONES.length]}`,
             picture: pictureData(image, { sizes: CARD_SIZES, alt: t(image.altKey), eager: index === 0 }),

@@ -1,7 +1,9 @@
 <a class="home-card tone-{{ tone }}" href="{{ href }}">
-  <span class="home-card-image" aria-hidden="true">
+  <span class="home-card-image" aria-hidden="true"{% if randomThumbnail %} data-home-photo{% endif %}>
     {% if project %}{% include 'cover.twig' %}
-    {% elseif thumbnail %}{% include 'picture.twig' with {picture: thumbnail} %}
+    {% elseif thumbnail %}
+      {% if randomThumbnail %}<noscript>{% include 'picture.twig' with {picture: thumbnail} %}</noscript>
+      {% else %}{% include 'picture.twig' with {picture: thumbnail} %}{% endif %}
     {% else %}<span class="home-card-placeholder"></span>{% endif %}
   </span>
   <span class="home-card-heading"><span>{{ label }}</span><span class="home-card-arrow" aria-hidden="true">→</span></span>

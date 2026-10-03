@@ -7,9 +7,9 @@
       "descriptionKey": "photos.dolomiti.description",
       "images": [
         { "file": "dolomiti/DSC07083.jpg", "altKey": "photos.dolomiti.DSC07083.alt" },
-        { "file": "dolomiti/DSC07107.jpg", "altKey": "photos.dolomiti.DSC07107.alt" },
+        { "file": "dolomiti/DSC07107.jpg", "altKey": "photos.dolomiti.DSC07107.alt", "teaser": true },
         { "file": "dolomiti/DSC07108.jpg", "altKey": "photos.dolomiti.DSC07108.alt" },
-        { "file": "dolomiti/DSC07117.jpg", "altKey": "photos.dolomiti.DSC07117.alt", "teaser": true },
+        { "file": "dolomiti/DSC07117.jpg", "altKey": "photos.dolomiti.DSC07117.alt" },
         { "file": "dolomiti/DSC07996.jpg", "altKey": "photos.dolomiti.DSC07996.alt" },
         { "file": "dolomiti/DSC08219.jpg", "altKey": "photos.dolomiti.DSC08219.alt" },
         { "file": "dolomiti/DSC08272.jpg", "altKey": "photos.dolomiti.DSC08272.alt" },
@@ -28,12 +28,12 @@
         { "file": "norge/DSC09274.jpg", "altKey": "photos.norge.DSC09274.alt" },
         { "file": "norge/DSC09360.jpg", "altKey": "photos.norge.DSC09360.alt" },
         { "file": "norge/DSC09388.jpg", "altKey": "photos.norge.DSC09388.alt" },
-        { "file": "norge/DSC09561.jpg", "altKey": "photos.norge.DSC09561.alt" },
+        { "file": "norge/DSC09561.jpg", "altKey": "photos.norge.DSC09561.alt", "teaser": true },
         { "file": "norge/DSC09695.jpg", "altKey": "photos.norge.DSC09695.alt" },
         { "file": "norge/DSC09839.jpg", "altKey": "photos.norge.DSC09839.alt" },
         { "file": "norge/DSC09851.jpg", "altKey": "photos.norge.DSC09851.alt" },
         { "file": "norge/DSC09862.jpg", "altKey": "photos.norge.DSC09862.alt" },
-        { "file": "norge/DSC09924.jpg", "altKey": "photos.norge.DSC09924.alt", "teaser": true },
+        { "file": "norge/DSC09924.jpg", "altKey": "photos.norge.DSC09924.alt" },
         { "file": "norge/DSC09966.jpg", "altKey": "photos.norge.DSC09966.alt" }
       ]
     },
@@ -43,11 +43,11 @@
       "titleKey": "photos.brockenHarz.title",
       "descriptionKey": "photos.brockenHarz.description",
       "images": [
-        { "file": "brocken-harz/_DSC9481.jpg", "altKey": "photos.brockenHarz.DSC9481.alt" },
+        { "file": "brocken-harz/_DSC9481.jpg", "altKey": "photos.brockenHarz.DSC9481.alt", "teaser": true },
         { "file": "brocken-harz/_DSC9523.jpg", "altKey": "photos.brockenHarz.DSC9523.alt" },
         { "file": "brocken-harz/_DSC9558.jpg", "altKey": "photos.brockenHarz.DSC9558.alt" },
         { "file": "brocken-harz/_DSC9560-2.jpg", "altKey": "photos.brockenHarz.DSC9560.alt" },
-        { "file": "brocken-harz/DSC09230.jpg", "altKey": "photos.brockenHarz.DSC09230.alt", "teaser": true },
+        { "file": "brocken-harz/DSC09230.jpg", "altKey": "photos.brockenHarz.DSC09230.alt" },
         { "file": "brocken-harz/DSC09237.jpg", "altKey": "photos.brockenHarz.DSC09237.alt" }
       ]
     }

@@ -10,7 +10,7 @@ Standard Englisch; deutsche Seiten liegen unter `/de/`.
 
 | Seite | EN / DE | Inhalt |
 |---|---|---|
-| Home | `/` / `/de/` | Große Begrüßung, persönlicher Teaser, Work/Photos-Vorschaukarten, zufälliges Hero-Foto mit Galerie und Jahr |
+| Home | `/` / `/de/` | Große Begrüßung, persönlicher Teaser, Work/Photos-Vorschaukarten; Fotos-Kachel mit zufälligem Galerie-Titelbild |
 | Work | `/work/` / `/de/work/` | Projektindex mit Previews, Erfahrung, Stack und Kontakt; kein Fotoabschnitt |
 | Photos | `/photos/` / `/de/photos/` | Galerieübersicht mit kompakten Thumbnail-Karten |
 | Galerie | `/photos/<slug>/` / `/de/photos/<slug>/` | Responsive Fotosequenz, optionale Bildunterschriften |
@@ -51,9 +51,9 @@ Farben ausschließlich aus den bestehenden `--c-*`-Tokens in `src/tailwind.css`.
 - Sechs Monokai-Akzente: Rot, Orange, Gelb, Grün, Blau und Violett
 - Topbar: abwechselnde Farbstreifen mit welliger Unterkante
 - Work: Projektindex mit Hover-/Fokus-Previews auf Desktop; mobile Projektkarten
-- Home: zufälliges Foto aus allen Galerien, verlinkt zur zugehörigen Galerie;
-  gerader, abwechselnd farbiger Rahmen, keine Wellenränder; Galerie/Jahr darunter.
-  Keine Einblendanimationen.
+- Home: Work/Photos-Kacheln auf Desktop neben dem Text, mobil darunter; kein separates Hero-Foto.
+  Die Fotos-Kachel zeigt zufällig eines der Galerie-Titelbilder und verlinkt zur Fotoübersicht.
+  Ohne JavaScript erscheint das Titelbild der ersten Galerie. Keine Einblendanimationen.
 - Fotoübersicht: kleine Thumbnails mit getöntem Rahmen, ohne `border-top`;
   dezenter Zoom bei Hover/Fokus
 - Gemeinsame Außenbreite und Headerposition auf allen Seiten; stabiler Scrollbar-Platz
@@ -88,12 +88,14 @@ Farben ausschließlich aus den bestehenden `--c-*`-Tokens in `src/tailwind.css`.
 - `photos.json`: Galerien in Anzeigereihenfolge; `slug`, Übersetzungsschlüssel und Bildliste
 - Originale in `photo-originals/<slug>/`; gitignored, separat sichern, niemals deployen
 - Bildbeschreibungen (`altKey`) in beiden Sprachen erforderlich; `captionKey` optional
-- Optionales Galerie-Feld `year` liefert das Jahr für die Home-Fotobeschriftung
-- `teaser: true` wählt das Thumbnail, sonst das erste Foto der Galerie
+- Optionales Galerie-Feld `year` speichert das Jahr der Serie
+- Maximal ein `teaser: true` pro Galerie wählt Titelbild, Übersichts-Thumbnail und Home-Kandidat;
+  dieses Bild steht automatisch zuerst, die übrige Reihenfolge bleibt erhalten.
+  Ohne Markierung wird das erste Foto verwendet; mehrere Markierungen brechen den Build ab
 - Webvarianten in `img/photos/` sind gitignored und müssen vor Deployment gebaut werden
 - EXIF/GPS entfernen, Orientierung korrigieren, kleine Originale nicht hochskalieren
 - Responsive Pictures mit intrinsischen Größen; erstes Galeriebild eager, weitere lazy
-- Neue Galerien automatisch in Übersicht, Sitemap und Home-Hero-Auswahl aufnehmen
+- Neue Galerien automatisch in Übersicht, Sitemap und Home-Fotokachel-Auswahl aufnehmen
 
 ## Build, Tests und Deployment
 

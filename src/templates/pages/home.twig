@@ -6,15 +6,11 @@
   <div class="home-copy">
     <h1>{{ t('home.heading') }}</h1>
     <p class="home-teaser">{{ t('home.teaser') }}</p>
-    <div class="home-links">
-      {% include '../components/home-card.twig' with {href: workPath, tone: 'blue', label: t('nav.work'), description: t('home.work'), project: homeProject, thumbnail: null} %}
-      {% include '../components/home-card.twig' with {href: photosPath, tone: 'green', label: t('nav.photos'), description: t('home.photos'), project: null, thumbnail: homeThumbnail} %}
-    </div>
   </div>
-  {% if heroFallback %}
-  <figure class="home-hero" id="homePhoto"></figure>
-  <noscript>{% include '../components/home-photo.twig' with {photo: heroFallback} %}</noscript>
-  {% endif %}
+  <div class="home-links">
+    {% include '../components/home-card.twig' with {href: workPath, tone: 'blue', label: t('nav.work'), description: t('home.work'), project: homeProject, thumbnail: null, randomThumbnail: false} %}
+    {% include '../components/home-card.twig' with {href: photosPath, tone: 'green', label: t('nav.photos'), description: t('home.photos'), project: null, thumbnail: homeThumbnail, randomThumbnail: true} %}
+  </div>
 </main>
 {% endblock %}
 
