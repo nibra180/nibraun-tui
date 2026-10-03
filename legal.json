@@ -1,0 +1,19 @@
+{
+  "operator": {
+    "name": "Niklas Braun",
+    "street": "Sandloher Straße 19A",
+    "postalCode": "49632",
+    "city": "Essen (Oldenburg)",
+    "email": "hello@nibraun.de"
+  },
+  "hosting": {
+    "name": "netcup GmbH",
+    "street": "Emmy-Noether-Straße 10",
+    "postalCode": "76131",
+    "city": "Karlsruhe",
+    "privacyUrl": "https://www.netcup.com/de/kontakt/datenschutzerklaerung",
+    "logPolicyUrl": "https://www.netcup.com/en/helpcenter/documentation/security/log-policy",
+    "logRetentionDays": 14
+  },
+  "updatedAt": "2026-10-03"
+}

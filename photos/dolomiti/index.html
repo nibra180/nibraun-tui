@@ -30,7 +30,11 @@
       ? stored : matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
   })();
 </script>
-              </head>
+            <script>
+  // Apply the stored gallery view before first paint to avoid a layout jump.
+  try { if (localStorage.getItem("galleryView") === "grid") document.documentElement.dataset.galleryView = "grid"; } catch {}
+</script>
+  </head>
   <body>
     <a class="skip-link" href="#photos">Skip to photos</a>
     <div class="top-bar" aria-hidden="true"></div>
@@ -42,9 +46,9 @@
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10.7 2.7a2 2 0 0 1 2.6 0l8 6.8a1.2 1.2 0 0 1-.8 2.1H20V19a2 2 0 0 1-2 2h-4v-6a1 1 0 0 0-1-1h-2a1 1 0 0 0-1 1v6H6a2 2 0 0 1-2-2v-7.4h-.5a1.2 1.2 0 0 1-.8-2.1Z"/></svg>
       <span>Home</span>
     </a>
-    <a class="tone-blue" href="/dev/">
+    <a class="tone-blue" href="/work/">
       <svg viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M6 3h12a3 3 0 0 1 3 3v12a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3V6a3 3 0 0 1 3-3Zm3 4.7L5.4 11.3a1 1 0 0 0 0 1.4L9 16.3l1.4-1.4L7.5 12l2.9-2.9Zm6 0-1.4 1.4 2.9 2.9-2.9 2.9 1.4 1.4 3.6-3.6a1 1 0 0 0 0-1.4Z"/></svg>
-      <span>Dev</span>
+      <span>Work</span>
     </a>
     <a class="tone-green" href="/photos/" aria-current="location">
       <svg viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M6 3h12a3 3 0 0 1 3 3v12a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3V6a3 3 0 0 1 3-3Zm2 3a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm-2 12h12l-3.7-5.5a1 1 0 0 0-1.6 0L10 16l-1.3-1.3a1 1 0 0 0-1.4 0Z"/></svg>
@@ -71,6 +75,14 @@
   <a class="gallery-back" href="/photos/"><span aria-hidden="true">←</span> Back</a>
   <h1 class="photos-title">Dolomiti</h1>
   <p class="photos-description">2024 - Among clouds, rock and mountain lakes.</p>
+  <div class="switch view-switch" role="group" aria-label="Choose view" hidden>
+    <button type="button" data-gallery-view="sequence" aria-pressed="true" aria-label="Single">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="3" width="16" height="11" rx="1.5"/><path d="M4 18h16M4 21h16"/></svg>
+    </button>
+    <button type="button" data-gallery-view="grid" aria-pressed="false" aria-label="Grid">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="8" height="8" rx="1.5"/><rect x="13" y="3" width="8" height="8" rx="1.5"/><rect x="3" y="13" width="8" height="8" rx="1.5"/><rect x="13" y="13" width="8" height="8" rx="1.5"/></svg>
+    </button>
+  </div>
   <div class="photo-sequence">
         <figure>
       <picture>
@@ -141,6 +153,10 @@
       <!-- ==================== FOOTER ==================== -->
       <footer class="site-footer">
   <span>© 2026 Niklas Braun</span>
+  <nav class="footer-legal" aria-label="Legal information">
+    <a href="/imprint/">Legal notice</a>
+    <a href="/privacy/">Privacy</a>
+  </nav>
     <a href="/photos/">Back</a></footer>
     </div>
     <script>
@@ -154,7 +170,21 @@ function applyTheme(theme, store = false) {
 }
 document.querySelectorAll("[data-theme-choice]").forEach((button) => button.addEventListener("click", () => applyTheme(button.dataset.themeChoice, true)));
 applyTheme(root.dataset.theme === "dark" ? "dark" : "light");
-              });
+        const viewSwitch = document.querySelector(".view-switch");
+document.querySelectorAll(".photo-sequence figure").forEach((figure) => {
+  const image = figure.querySelector("img");
+  figure.style.setProperty("--ratio", image.getAttribute("width") / image.getAttribute("height"));
+});
+function applyGalleryView(view, store = false) {
+  if (view === "grid") document.documentElement.dataset.galleryView = "grid";
+  else delete document.documentElement.dataset.galleryView;
+  viewSwitch.querySelectorAll("[data-gallery-view]").forEach((button) => button.setAttribute("aria-pressed", String(button.dataset.galleryView === view)));
+  if (store) try { localStorage.setItem("galleryView", view); } catch {}
+}
+viewSwitch.querySelectorAll("[data-gallery-view]").forEach((button) => button.addEventListener("click", () => applyGalleryView(button.dataset.galleryView, true)));
+applyGalleryView(document.documentElement.dataset.galleryView === "grid" ? "grid" : "sequence");
+viewSwitch.hidden = false;
+      });
     </script>
       </body>
 </html>

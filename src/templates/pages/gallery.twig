@@ -1,11 +1,26 @@
 {% extends '../layout.twig' %}
 
+{% block head %}
+<script>
+  // Apply the stored gallery view before first paint to avoid a layout jump.
+  try { if (localStorage.getItem("galleryView") === "grid") document.documentElement.dataset.galleryView = "grid"; } catch {}
+</script>
+{% endblock %}
+
 {% block content %}
 <!-- ==================== PHOTOS ==================== -->
 <main class="photos-main" id="photos">
   <a class="gallery-back" href="{{ backPath }}"><span aria-hidden="true">←</span> {{ t('photos.back') }}</a>
   <h1 class="photos-title">{{ heading }}</h1>
   <p class="photos-description">{{ description }}</p>
+  <div class="switch view-switch" role="group" aria-label="{{ t('photos.view') }}" hidden>
+    <button type="button" data-gallery-view="sequence" aria-pressed="true" aria-label="{{ t('photos.view.sequence') }}">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="3" width="16" height="11" rx="1.5"/><path d="M4 18h16M4 21h16"/></svg>
+    </button>
+    <button type="button" data-gallery-view="grid" aria-pressed="false" aria-label="{{ t('photos.view.grid') }}">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="8" height="8" rx="1.5"/><rect x="13" y="3" width="8" height="8" rx="1.5"/><rect x="3" y="13" width="8" height="8" rx="1.5"/><rect x="13" y="13" width="8" height="8" rx="1.5"/></svg>
+    </button>
+  </div>
   <div class="photo-sequence">
     {% for image in images %}
     <figure>
@@ -17,3 +32,5 @@
   <a class="gallery-back" href="{{ backPath }}"><span aria-hidden="true">←</span> {{ t('photos.back') }}</a>
 </main>
 {% endblock %}
+
+{% block scripts %}{% include '../partials/gallery-script.twig' %}{% endblock %}

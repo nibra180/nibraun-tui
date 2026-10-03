@@ -52,8 +52,4 @@
 </main>
 {% endblock %}
 
-{% block scripts %}{% include '../partials/dev-script.twig' %}{% endblock %}
-{% block scriptData %}
-<script type="application/json" id="repoStrings">{{ repoStrings|raw }}</script>
-<script src="/github-project-meta.js"></script>
-{% endblock %}
+{% block scripts %}{% include '../partials/work-script.twig' %}{% endblock %}

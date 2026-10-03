@@ -1,10 +1,10 @@
 # nibraun.de – Personal Portfolio
 
-Personal website for Niklas Braun, with a Home teaser, a software portfolio under `/dev/`, and photography under `/photos/` (German: `/de/`, `/de/dev/`, `/de/photos/`). Home shows a large welcome heading, compact Dev/Photos preview cards and a random photo with its gallery name and year; Dev holds the previous portfolio. Text and hero enter once with a subtle stagger, respecting reduced motion.
+Personal website for Niklas Braun, with a Home teaser, a software portfolio under `/work/`, and photography under `/photos/` (German: `/de/`, `/de/work/`, `/de/photos/`). Home shows a large welcome heading, compact Work/Photos preview cards and a random photo with its gallery name and year; Work holds the previous portfolio. Text and hero enter once with a subtle stagger, respecting reduced motion.
 
 ## Design
 
-The Dev portfolio is "radically reduced": no dialogs, no carousel. On desktop it
+The Work portfolio is "radically reduced": no dialogs, no carousel. On desktop it
 reads top-down in three tiers on a 12-column grid. The intro comes first,
 large and on its own. Below it sit the project index with name and type,
 and a preview of whichever project the pointer or keyboard focus is on. The
@@ -17,8 +17,7 @@ first visit picks one from `prefers-color-scheme`, a switch in the header
 overrides it, and `localStorage` keeps the choice. The six Monokai accents paint
 the top bar, alternating stripes with a wavy lower edge. Each project takes the
 next color in that order, and the active project shows it in three places only:
-the row arrow, the cover word, and the link underline. Green also marks live
-GitHub data. Some accents only reach about 3:1, so they never color small text. Geist sets the text, Geist Mono the labels and dates.
+the row arrow, the cover word, and the link underline. Some accents only reach about 3:1, so they never color small text. Geist sets the text, Geist Mono the labels and dates.
 
 Each project cover is a full-bleed color composition from `img/covers.svg`, a
 sprite of one `<symbol>` per project. The compositions do not depict the
@@ -30,15 +29,14 @@ the 400x300 canvas to 16:9, so the strip outside y 37.5 to 262.5 may be cut.
 ## Features
 
 - Project index with hover and focus preview on desktop, featured card on mobile
-- Live GitHub release and last push in the preview, cached for six hours
-- Static English and German Home, Dev, photo index and gallery pages; old `?lang=de` links redirect
-- Home teaser with a random photo and links to `/dev/` and `/photos/` (German: `/de/dev/` and `/de/photos/`)
+- Static English and German Home, Work, photo index and gallery pages; old `?lang=de` links redirect
+- Home teaser with a random photo and links to `/work/` and `/photos/` (German: `/de/work/` and `/de/photos/`)
 - Photo index with thumbnail cards linking to individual galleries
 - All content, JSON-LD (`ProfilePage`, `Person`, project list), `sitemap.xml`, `robots.txt` and `llms.txt` ship as static files, so crawlers without JavaScript see the full page
 - Monokai Pro and Monokai Pro Light Sun themes, switchable and stored in `localStorage`
 - Text selection with a tinted ground and a wavy underline; each new selection takes the next top-bar color, project rows keep their own
 - Visible keyboard focus, 44 px touch targets on mobile, reduced-motion support
-- Static deployment and vanilla JavaScript, no browser runtime dependencies; browser logic handles the theme, Home's random photo, Dev previews and GitHub data
+- Static deployment and vanilla JavaScript, no browser runtime dependencies; browser logic handles the theme, Home's random photo and Work previews
 
 ## Tech Stack
 
@@ -48,7 +46,7 @@ the 400x300 canvas to 16:9, so the strip outside y 37.5 to 262.5 may be cut.
 - Geist and Geist Mono, self-hosted in `fonts/` (SIL OFL 1.1)
 - `translations.json` for German and English content
 - `projects.json` for project links, order, and labels
-- `github-project-meta.js` for GitHub release and update metadata
+- No automatic GitHub API requests or repository caches in the visitor's browser
 
 ## Development
 
@@ -59,8 +57,9 @@ npm run dev       # CSS watch mode (first terminal)
 npm run serve     # static server on http://localhost:8000 (second terminal)
 ```
 
-`index.html`, `de/index.html`, `dev/`, `de/dev/`, `photos/`, `de/photos/`,
-`sitemap.xml` and `llms.txt` are generated, including the individual galleries.
+`index.html`, `de/index.html`, `work/`, `de/work/`, `photos/`, `de/photos/`,
+`imprint/`, `privacy/`, `de/impressum/`, `de/datenschutz/`, `sitemap.xml` and
+`llms.txt` are generated, including the individual galleries.
 Edit `src/templates/`, `translations.json` or the relevant data files and run
 `npm run build:html` (or `npm run build`). Both builds use Node and `sharp`;
 Twig.js renders HTML at build time only. The build stops with an error when a
@@ -72,23 +71,39 @@ For a background CSS watcher without an interactive terminal, use
 ## Templates
 
 `src/templates/layout.twig` defines the shared document structure. The page
-templates `pages/{home,dev,photos,gallery}.twig` extend it and override blocks
+templates `pages/{home,work,photos,gallery,legal}.twig` extend it and override blocks
 for page-specific content, metadata and scripts. Includes reuse shared markup:
 
 - `partials/{header,footer,theme-init,theme-controls}.twig` for shared page elements
 - `components/{picture,cover,project-row,project-preview,photo-card}.twig` for images, project displays and photo index cards
-- `partials/{theme-script,home-script,dev-script}.twig` for browser logic, included in the rendered pages
+- `partials/{theme-script,home-script,work-script}.twig` for browser logic, included in the rendered pages
 
 Translations are exposed as `t(key)` with strict validation. Autoescaping is
 enabled; only intentional footer HTML and serialized JSON use `raw`. Keep
 ordinary text and data escaped. Neither templates nor the Twig.js runtime are
 needed on the web server.
 
+## Legal Pages
+
+Legal notice and privacy policy are available at `/imprint/` and `/privacy/`,
+with German versions at `/de/impressum/` and `/de/datenschutz/`. The shared footer
+links to them on every page. `legal.json` holds operator and hosting details,
+access-log retention and the review date; text remains in `translations.json`.
+Update both when hosting or data processing changes, and rebuild. `legal.json`
+is a build input and does not need to be deployed.
+
+The operator confirmed netcup WCP/Plesk webhosting, access logs retained for at
+most 14 days, disabled hosting visitor statistics and email hosting at netcup.
+Fonts, images and scripts are self-hosted. Theme preference is the only browser
+storage currently used; there are no automatic GitHub API requests or analytics.
+Check the data processing agreement with netcup and obtain legal review before
+publication; the templates do not guarantee legal compliance.
+
 ## Project Data
 
 `projects.json` lists projects in display order. `year` and `repo` are
-optional. Without `repo` the preview links to `href` as a website and skips the
-GitHub data. `kind` fills the type column and `stack` the preview. `art` names
+optional. `repo` distinguishes GitHub links from website links and supplies
+repository information for structured data; no live metadata is requested. `kind` fills the type column and `stack` the preview. `art` names
 the cover composition in `img/covers.svg`; without it the page shows the `cover`
 word instead. `language` sets `programmingLanguage` in the JSON-LD.
 `descriptionKey` points into `translations.json`.
@@ -159,13 +174,14 @@ Run `npm run build`, then copy these files to the web server root. The pages
 use root-relative paths, so the site must live at the domain root.
 
 - `index.html`
-- `dev/`
-- `de/` (including `de/dev/` and `de/photos/`)
+- `work/`
+- `de/` (including Work, Photos, legal notice and privacy policy)
+- `imprint/`
+- `privacy/`
 - `photos/` (including generated galleries)
 - `robots.txt`
 - `sitemap.xml`
 - `llms.txt`
-- `github-project-meta.js`
 - `dist/tailwind.css`
 - `fonts/`
 - `img/`

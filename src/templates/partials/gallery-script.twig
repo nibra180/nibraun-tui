@@ -1,0 +1,14 @@
+const viewSwitch = document.querySelector(".view-switch");
+document.querySelectorAll(".photo-sequence figure").forEach((figure) => {
+  const image = figure.querySelector("img");
+  figure.style.setProperty("--ratio", image.getAttribute("width") / image.getAttribute("height"));
+});
+function applyGalleryView(view, store = false) {
+  if (view === "grid") document.documentElement.dataset.galleryView = "grid";
+  else delete document.documentElement.dataset.galleryView;
+  viewSwitch.querySelectorAll("[data-gallery-view]").forEach((button) => button.setAttribute("aria-pressed", String(button.dataset.galleryView === view)));
+  if (store) try { localStorage.setItem("galleryView", view); } catch {}
+}
+viewSwitch.querySelectorAll("[data-gallery-view]").forEach((button) => button.addEventListener("click", () => applyGalleryView(button.dataset.galleryView, true)));
+applyGalleryView(document.documentElement.dataset.galleryView === "grid" ? "grid" : "sequence");
+viewSwitch.hidden = false;

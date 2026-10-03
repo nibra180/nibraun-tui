@@ -4,6 +4,7 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { buildPhotos } from "./build-photos.mjs";
 import { pictureData, renderTemplate, scriptJson } from "./templates.mjs";
+import { LEGAL_ROUTES } from "./paths.mjs";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const read = (file) => readFileSync(join(root, file), "utf8");
@@ -24,15 +25,19 @@ const HERO_SIZES = "(min-width: 1100px) min(560px, calc((100vw - 192px) * 560 / 
 const translations = JSON.parse(read("translations.json"));
 const projects = JSON.parse(read("projects.json"));
 const stack = JSON.parse(read("stack.json"));
+const legal = JSON.parse(read("legal.json"));
 const year = String(new Date().getFullYear());
 
 function translator(locale) {
-  return (key) => {
+  return (key, replacements = {}) => {
     const value = translations[locale]?.[key];
     if (typeof value !== "string" || value === "") {
       throw new Error(`Missing translation "${key}" for locale "${locale}"`);
     }
-    return value;
+    return value.replace(/\{(\w+)\}/g, (_, name) => {
+      if (!Object.hasOwn(replacements, name)) throw new Error(`Missing replacement "${name}" for "${key}"`);
+      return String(replacements[name]);
+    });
   };
 }
 
@@ -40,7 +45,7 @@ const itemName = (item) => typeof item === "string" ? item : item.name;
 const itemLabel = (item, t) => typeof item === "string" ? item : `${item.name} (${t(item.noteKey)})`;
 
 function jsonLd(locale, t, page) {
-  const url = SITE + LOCALES[locale].path + (page === "dev" ? "dev/" : "");
+  const url = SITE + LOCALES[locale].path + (page === "work" ? "work/" : "");
   const works = projects.map((project, index) => ({
     "@type": "ListItem",
     position: index + 1,
@@ -75,7 +80,7 @@ function jsonLd(locale, t, page) {
         knowsAbout: stack.flatMap((group) => group.items.map(itemName)),
         sameAs: ["https://github.com/nibra180", "https://www.instagram.com/nibraun_/"],
       },
-      ...(page === "dev" ? [{
+      ...(page === "work" ? [{
         "@type": "ItemList", "@id": `${url}#projects`, name: t("work.title"), itemListElement: works,
       }] : []),
     ],
@@ -85,7 +90,7 @@ function jsonLd(locale, t, page) {
 function renderPage(locale, page, galleries) {
   const t = translator(locale);
   const other = locale === "en" ? "de" : "en";
-  const suffix = page === "dev" ? "dev/" : "";
+  const suffix = page === "work" ? "work/" : "";
   const heroPhotos = page === "home" ? galleries.flatMap((gallery) => gallery.images.map((image) => ({
     href: `${LOCALES[locale].path}photos/${gallery.slug}/`,
     caption: `${t(gallery.titleKey)}${gallery.year ? ` · ${gallery.year}` : ""}`,
@@ -97,9 +102,9 @@ function renderPage(locale, page, galleries) {
     t, lang: locale, activePage: page,
     title: t(page === "home" ? "home.title" : "meta.title"),
     description: t(page === "home" ? "home.teaser" : "meta.description"),
-    ogType: page === "dev" ? "profile" : "website",
-    ogTitle: t(page === "dev" ? "meta.ogTitle" : "home.title"),
-    ogDescription: t(page === "dev" ? "meta.ogDescription" : "home.teaser"),
+    ogType: page === "work" ? "profile" : "website",
+    ogTitle: t(page === "work" ? "meta.ogTitle" : "home.title"),
+    ogDescription: t(page === "work" ? "meta.ogDescription" : "home.teaser"),
     ogImage: true,
     url: SITE + LOCALES[locale].path + suffix,
     enUrl: SITE + LOCALES.en.path + suffix,
@@ -107,7 +112,7 @@ function renderPage(locale, page, galleries) {
     enPath: LOCALES.en.path + suffix,
     dePath: LOCALES.de.path + suffix,
     homePath: LOCALES[locale].path,
-    devPath: LOCALES[locale].path + "dev/",
+    workPath: LOCALES[locale].path + "work/",
     photosPath: LOCALES[locale].path + "photos/",
     ogLocale: LOCALES[locale].ogLocale,
     ogLocaleAlternate: LOCALES[other].ogLocale,
@@ -126,19 +131,49 @@ function renderPage(locale, page, galleries) {
     homePhotos: scriptJson(heroPhotos.map((photo) => ({
       href: photo.href, caption: photo.caption, picture: renderTemplate("components/picture.twig", { picture: photo.picture }),
     }))),
-    repoStrings: scriptJson(Object.fromEntries(Object.keys(translations[locale])
-      .filter((key) => key.startsWith("repo.")).map((key) => [key, t(key)]))),
     projects: projects.map((project, index) => ({ art: null, cover: null, repo: null, year: null, ...project, tone: `tone-${TONES[index % TONES.length]}` })),
     // Non-breaking spaces keep each technology name together without raw HTML.
     stack: stack.map((group) => ({ ...group, labels: group.items.map((item) => itemLabel(item, t).replaceAll(" ", "\u00a0")) })),
-    footerWarikoda: page === "dev", year,
+    footerWarikoda: page === "work", year,
   };
-  write(page === "dev" ? `${LOCALES[locale].path.slice(1)}dev/index.html` : LOCALES[locale].file,
+  write(page === "work" ? `${LOCALES[locale].path.slice(1)}work/index.html` : LOCALES[locale].file,
     renderTemplate(`pages/${page}.twig`, values));
 }
 
+function renderLegalPage(locale, page) {
+  const t = translator(locale);
+  const routes = LEGAL_ROUTES[page];
+  const sections = page === "privacy" ? [
+    { key: "overview", paragraphs: ["text"] },
+    { key: "hosting", paragraphs: ["intro", "logs", "purpose", "retention"], hosting: true },
+    { key: "theme", paragraphs: ["storage", "purpose", "retention"] },
+    { key: "contact", paragraphs: ["data", "basis", "retention"] },
+    { key: "links", paragraphs: ["local", "external"] },
+    { key: "rights", paragraphs: ["general", "objection", "complaint"], authority: true },
+    { key: "provision", paragraphs: ["text"] },
+  ].map((section) => ({
+    heading: t(`privacy.${section.key}.heading`),
+    hosting: section.hosting ?? false,
+    authority: section.authority ?? false,
+    paragraphs: section.paragraphs.map((key) => t(`privacy.${section.key}.${key}`, { days: legal.hosting.logRetentionDays })),
+  })) : [];
+  const values = {
+    t, legal, sections, lang: locale, activePage: page, year,
+    heading: t(`${page}.title`), title: `${t(`${page}.title`)} — ${legal.operator.name}`,
+    description: t(`${page}.description`),
+    url: SITE + routes[locale], enUrl: SITE + routes.en, deUrl: SITE + routes.de,
+    enPath: routes.en, dePath: routes.de,
+    homePath: LOCALES[locale].path, workPath: LOCALES[locale].path + "work/",
+    photosPath: LOCALES[locale].path + "photos/",
+    mainId: "legal", skipLabel: t("home.skip"), pageClass: "legal-page",
+    updatedAt: new Intl.DateTimeFormat(locale === "de" ? "de-DE" : "en-GB", { dateStyle: "long", timeZone: "UTC" }).format(new Date(legal.updatedAt)),
+    authorityUrl: "https://www.lfd.niedersachsen.de/",
+  };
+  write(routes[locale].slice(1) + "index.html", renderTemplate("pages/legal.twig", values));
+}
+
 function renderSitemap(photoGroups) {
-  const groups = [{ en: "/", de: "/de/" }, { en: "/dev/", de: "/de/dev/" }, ...photoGroups];
+  const groups = [{ en: "/", de: "/de/" }, { en: "/work/", de: "/de/work/" }, ...Object.values(LEGAL_ROUTES), ...photoGroups];
   const urls = groups.flatMap((group) => {
     const alternates = Object.entries(group)
       .map(([locale, path]) => `    <xhtml:link rel="alternate" hreflang="${locale}" href="${SITE}${path}"/>`)
@@ -161,7 +196,7 @@ function renderLlmsTxt() {
 > ${t("home.teaser")}
 
 German version: ${SITE}/de/
-Development portfolio: ${SITE}/dev/
+Work portfolio: ${SITE}/work/
 Photography: ${SITE}/photos/
 
 ## Projects
@@ -190,7 +225,8 @@ ${stack.map((group) => `- ${t(group.labelKey)}: ${group.items.map((item) => item
 const { groups: photoGroups, galleries } = await buildPhotos({ root, site: SITE, translations, translator, write, year });
 for (const locale of Object.keys(LOCALES)) {
   renderPage(locale, "home", galleries);
-  renderPage(locale, "dev", galleries);
+  renderPage(locale, "work", galleries);
+  for (const page of Object.keys(LEGAL_ROUTES)) renderLegalPage(locale, page);
 }
 renderSitemap(photoGroups);
 renderLlmsTxt();

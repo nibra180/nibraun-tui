@@ -1,0 +1,28 @@
+{% extends '../layout.twig' %}
+
+{% block content %}
+<!-- ==================== LEGAL ==================== -->
+<main class="legal-main" id="legal">
+  <a class="gallery-back" href="{{ homePath }}"><span aria-hidden="true">←</span> {{ t('nav.homeLabel') }}</a>
+  <h1 class="legal-title">{{ heading }}</h1>
+  {% if activePage == 'imprint' %}<p>{{ t('imprint.intro') }}</p>{% endif %}
+  <section class="legal-section">
+    <h2>{{ t(activePage == 'imprint' ? 'imprint.operator' : 'privacy.controller') }}</h2>
+    {% include '../components/legal-contact.twig' %}
+  </section>
+  {% for section in sections %}
+  <section class="legal-section">
+    <h2>{{ section.heading }}</h2>
+    {% if section.hosting %}
+    <p>{{ legal.hosting.name }}<br />{{ legal.hosting.street }}<br />{{ legal.hosting.postalCode }} {{ legal.hosting.city }}<br />{{ t('legal.country') }}</p>
+    {% endif %}
+    {% for paragraph in section.paragraphs %}<p>{{ paragraph }}</p>{% endfor %}
+    {% if section.hosting %}
+    <p><a href="{{ legal.hosting.privacyUrl }}">{{ t('privacy.hosting.providerLink') }}</a> · <a href="{{ legal.hosting.logPolicyUrl }}">{{ t('privacy.hosting.logsLink') }}</a></p>
+    {% endif %}
+    {% if section.authority %}<p><a href="{{ authorityUrl }}">{{ t('privacy.rights.authority') }}</a></p>{% endif %}
+  </section>
+  {% endfor %}
+  {% if activePage == 'privacy' %}<p class="legal-updated">{{ t('legal.updated') }}: {{ updatedAt }}</p>{% endif %}
+</main>
+{% endblock %}

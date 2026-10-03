@@ -13,16 +13,40 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://nibraun.de/"/>
   </url>
   <url>
-    <loc>https://nibraun.de/dev/</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://nibraun.de/dev/"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://nibraun.de/de/dev/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://nibraun.de/dev/"/>
+    <loc>https://nibraun.de/work/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nibraun.de/work/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://nibraun.de/de/work/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nibraun.de/work/"/>
   </url>
   <url>
-    <loc>https://nibraun.de/de/dev/</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://nibraun.de/dev/"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://nibraun.de/de/dev/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://nibraun.de/dev/"/>
+    <loc>https://nibraun.de/de/work/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nibraun.de/work/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://nibraun.de/de/work/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nibraun.de/work/"/>
+  </url>
+  <url>
+    <loc>https://nibraun.de/imprint/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nibraun.de/imprint/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://nibraun.de/de/impressum/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nibraun.de/imprint/"/>
+  </url>
+  <url>
+    <loc>https://nibraun.de/de/impressum/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nibraun.de/imprint/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://nibraun.de/de/impressum/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nibraun.de/imprint/"/>
+  </url>
+  <url>
+    <loc>https://nibraun.de/privacy/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nibraun.de/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://nibraun.de/de/datenschutz/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nibraun.de/privacy/"/>
+  </url>
+  <url>
+    <loc>https://nibraun.de/de/datenschutz/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nibraun.de/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://nibraun.de/de/datenschutz/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nibraun.de/privacy/"/>
   </url>
   <url>
     <loc>https://nibraun.de/photos/</loc>
@@ -47,6 +71,18 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://nibraun.de/photos/dolomiti/"/>
     <xhtml:link rel="alternate" hreflang="de" href="https://nibraun.de/de/photos/dolomiti/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://nibraun.de/photos/dolomiti/"/>
+  </url>
+  <url>
+    <loc>https://nibraun.de/photos/norge/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nibraun.de/photos/norge/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://nibraun.de/de/photos/norge/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nibraun.de/photos/norge/"/>
+  </url>
+  <url>
+    <loc>https://nibraun.de/de/photos/norge/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nibraun.de/photos/norge/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://nibraun.de/de/photos/norge/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nibraun.de/photos/norge/"/>
   </url>
   <url>
     <loc>https://nibraun.de/photos/brocken-harz/</loc>

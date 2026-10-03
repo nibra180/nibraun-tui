@@ -1,0 +1,7 @@
+<address class="legal-contact">
+  {{ legal.operator.name }}<br />
+  {{ legal.operator.street }}<br />
+  {{ legal.operator.postalCode }} {{ legal.operator.city }}<br />
+  {{ t('legal.country') }}
+</address>
+<p>{{ t('legal.email') }}: <a href="mailto:{{ legal.operator.email }}">{{ legal.operator.email }}</a></p>

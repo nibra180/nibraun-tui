@@ -3,17 +3,19 @@
 ## Projektübersicht
 
 Persönliche Website für Niklas Braun: Softwareentwicklung und Fotografie.
-Navigation auf allen Seiten: **Home – Dev – Photos** (Deutsch: Fotos).
+Navigation auf allen Seiten: **Home – Work – Photos** (Deutsch: Arbeit, Fotos).
 Gefüllte, abgerundete Icons und aktive Unterstreichung sind farbcodiert:
-Home violett, Dev blau, Photos grün; kleine Beschriftungen behalten die Textfarbe.
+Home violett, Work blau, Photos grün; kleine Beschriftungen behalten die Textfarbe.
 Standard Englisch; deutsche Seiten liegen unter `/de/`.
 
 | Seite | EN / DE | Inhalt |
 |---|---|---|
-| Home | `/` / `/de/` | Große Begrüßung, persönlicher Teaser, Dev/Photos-Vorschaukarten, zufälliges Hero-Foto mit Galerie und Jahr |
-| Dev | `/dev/` / `/de/dev/` | Projektindex mit Previews, Erfahrung, Stack und Kontakt; kein Fotoabschnitt |
+| Home | `/` / `/de/` | Große Begrüßung, persönlicher Teaser, Work/Photos-Vorschaukarten, zufälliges Hero-Foto mit Galerie und Jahr |
+| Work | `/work/` / `/de/work/` | Projektindex mit Previews, Erfahrung, Stack und Kontakt; kein Fotoabschnitt |
 | Photos | `/photos/` / `/de/photos/` | Galerieübersicht mit kompakten Thumbnail-Karten |
 | Galerie | `/photos/<slug>/` / `/de/photos/<slug>/` | Responsive Fotosequenz, optionale Bildunterschriften |
+| Impressum | `/imprint/` / `/de/impressum/` | Betreiber und Kontakt |
+| Datenschutz | `/privacy/` / `/de/datenschutz/` | Hosting, Browser-Speicher, E-Mail, Rechte |
 
 ## Tech Stack
 
@@ -27,12 +29,13 @@ Standard Englisch; deutsche Seiten liegen unter `/de/`.
 ## Templates und Build
 
 - `src/templates/layout.twig`: gemeinsamer Seitenrahmen mit Blocks für Inhalt und Scripts
-- `pages/{home,dev,photos,gallery}.twig`: Seiten via `{% extends %}`
+- `pages/{home,work,photos,gallery,legal}.twig`: Seiten via `{% extends %}`
 - `partials/`: gemeinsamer Header, Footer, Theme-Steuerung und Browser-Scripts
 - `components/`: Picture, Projektcover, Projektzeile, Projektpreview und Fotokarte
 - Wiederkehrendes Markup über `{% include %}` teilen, nicht zwischen Seiten kopieren
 - `scripts/templates.mjs`: zentraler Renderer mit Autoescaping und strikter Variablenprüfung
-- `scripts/build-html.mjs`: Home/Dev, strukturierte Daten, Sitemap und `llms.txt`
+- `scripts/build-html.mjs`: Home/Work, Rechtstexte, strukturierte Daten, Sitemap und `llms.txt`
+- `scripts/paths.mjs`: Sprachabhängige Rechtstext-Routen; Footer-Links auf allen Seiten
 - `scripts/build-photos.mjs`: Bildvarianten und Fotoseiten
 - Generiertes HTML niemals direkt bearbeiten; Templates/Daten ändern und neu bauen
 - HTML gehört in Twig, Datenaufbereitung und Bildverarbeitung in Build-Scripts
@@ -47,10 +50,10 @@ Farben ausschließlich aus den bestehenden `--c-*`-Tokens in `src/tailwind.css`.
 
 - Sechs Monokai-Akzente: Rot, Orange, Gelb, Grün, Blau und Violett
 - Topbar: abwechselnde Farbstreifen mit welliger Unterkante
-- Dev: Projektindex mit Hover-/Fokus-Previews auf Desktop; mobile Projektkarten
+- Work: Projektindex mit Hover-/Fokus-Previews auf Desktop; mobile Projektkarten
 - Home: zufälliges Foto aus allen Galerien, verlinkt zur zugehörigen Galerie;
   gerader, abwechselnd farbiger Rahmen, keine Wellenränder; Galerie/Jahr darunter.
-  Text und Foto erscheinen einmalig leicht versetzt, nur ohne Reduced-Motion-Präferenz
+  Keine Einblendanimationen.
 - Fotoübersicht: kleine Thumbnails mit getöntem Rahmen, ohne `border-top`;
   dezenter Zoom bei Hover/Fokus
 - Gemeinsame Außenbreite und Headerposition auf allen Seiten; stabiler Scrollbar-Platz
@@ -74,7 +77,12 @@ Farben ausschließlich aus den bestehenden `--c-*`-Tokens in `src/tailwind.css`.
 ## Daten und Fotografie
 
 - `projects.json`: Softwareprojekte; `stack.json`: Stack-Gruppen
-- `github-project-meta.js`: Live-GitHub-Metadaten, nur auf Dev benötigt
+- `legal.json`: bestätigte Betreiber-/Hosterdaten, Logfrist und Prüfdatum; Build-Input
+- Rechtstexte in beiden Sprachen in `translations.json`; keine unbekannten Angaben erfinden
+- Bestätigt: netcup-Webhosting/WCP, Zugriffslogs bis 14 Tage, Besucherstatistik aus,
+  Kontakt-E-Mail ebenfalls bei netcup. Bei Änderungen die Datenschutzerklärung prüfen
+- Keine automatischen GitHub-API-Abrufe oder Repository-Caches im Besucher-Browser;
+  Projektlinks zu GitHub bleiben normale externe Links
 - `photos.json`: Galerien in Anzeigereihenfolge; `slug`, Übersetzungsschlüssel und Bildliste
 - Originale in `photo-originals/<slug>/`; gitignored, separat sichern, niemals deployen
 - Bildbeschreibungen (`altKey`) in beiden Sprachen erforderlich; `captionKey` optional
@@ -96,8 +104,8 @@ npm test
 npm run serve       # Statischer Server auf http://localhost:8000
 ```
 
-Deploy ins Webserver-Root: `index.html`, `dev/`, `photos/`, `de/`,
-`dist/tailwind.css`, `fonts/`, `img/`, `github-project-meta.js`, `robots.txt`,
+Deploy ins Webserver-Root: `index.html`, `work/`, `photos/`, `imprint/`, `privacy/`, `de/`,
+`dist/tailwind.css`, `fonts/`, `img/`, `robots.txt`,
 `sitemap.xml` und `llms.txt`.
 
 Nicht deployen: `src/`, `scripts/`, `node_modules/`, `photo-originals/` oder

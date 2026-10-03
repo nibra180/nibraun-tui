@@ -3,6 +3,7 @@ import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { Script } from "node:vm";
 import { pictureData, renderTemplate, scriptJson } from "./templates.mjs";
+import { LEGAL_ROUTES } from "./paths.mjs";
 
 const translations = JSON.parse(readFileSync(new URL("../translations.json", import.meta.url), "utf8"));
 const t = (key) => {
@@ -13,7 +14,7 @@ const context = {
   t, lang: "en", activePage: "photos", title: "Photography", heading: "Photography",
   description: "Photo projects", url: "https://example.com/photos/",
   enUrl: "https://example.com/photos/", deUrl: "https://example.com/de/photos/",
-  enPath: "/photos/", dePath: "/de/photos/", homePath: "/", devPath: "/dev/", photosPath: "/photos/",
+  enPath: "/photos/", dePath: "/de/photos/", homePath: "/", workPath: "/work/", photosPath: "/photos/",
   mainId: "photos", skipLabel: "Skip to photos", year: "2026", galleries: [],
 };
 const image = {
@@ -98,7 +99,9 @@ test("random Home hero keeps the selected image, caption and gallery link togeth
 test("all generated inline browser scripts are valid JavaScript", () => {
   const projects = JSON.parse(readFileSync(new URL("../photos.json", import.meta.url), "utf8")).projects;
   for (const prefix of ["", "de/"]) {
-    const files = ["index.html", "dev/index.html", "photos/index.html", ...projects.map((project) => `photos/${project.slug}/index.html`)];
+    const locale = prefix ? "de" : "en";
+    const legalFiles = Object.values(LEGAL_ROUTES).map((routes) => routes[locale].slice(1 + prefix.length) + "index.html");
+    const files = ["index.html", "work/index.html", "photos/index.html", ...legalFiles, ...projects.map((project) => `photos/${project.slug}/index.html`)];
     for (const file of files) {
       const html = readFileSync(new URL(`../${prefix}${file}`, import.meta.url), "utf8");
       for (const match of html.matchAll(/<script([^>]*)>([\s\S]*?)<\/script>/g)) {

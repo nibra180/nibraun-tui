@@ -1,30 +1,37 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
+import { LEGAL_ROUTES } from "./paths.mjs";
 
 const read = (path) => readFileSync(new URL(`../${path}`, import.meta.url), "utf8");
 const projects = JSON.parse(read("photos.json")).projects;
 const translations = JSON.parse(read("translations.json"));
+const legal = JSON.parse(read("legal.json"));
 
 for (const prefix of ["", "de/"]) {
-  test(`${prefix || "en/"}home, dev and photos have localized navigation and distinct content`, () => {
+  test(`${prefix || "en/"}home, work and photos have localized navigation and distinct content`, () => {
     const home = read(`${prefix}index.html`);
-    const dev = read(`${prefix}dev/index.html`);
+    const work = read(`${prefix}work/index.html`);
     const photos = read(`${prefix}photos/index.html`);
     const galleries = projects.map((project) => read(`${prefix}photos/${project.slug}/index.html`));
     for (const gallery of galleries) {
       assert.equal(gallery.split(`class="gallery-back" href="/${prefix}photos/"`).length - 1, 2);
     }
-    for (const html of [home, dev, photos, ...galleries]) {
+    for (const html of [home, work, photos, ...galleries]) {
+      const footer = html.match(/<footer class="site-footer"[\s\S]*?<\/footer>/)[0];
+      for (const routes of Object.values(LEGAL_ROUTES)) {
+        assert.ok(footer.includes(`href="${routes[prefix ? 'de' : 'en']}"`));
+      }
       const nav = html.match(/<nav class="site-nav"[\s\S]*?<\/nav>/)[0];
       assert.equal((nav.match(/<svg viewBox="0 0 24 24" aria-hidden="true">/g) ?? []).length, 3);
       assert.ok(nav.includes(`class="tone-purple" href="/${prefix}"`));
-      assert.ok(nav.includes(`class="tone-blue" href="/${prefix}dev/"`));
+      assert.ok(nav.includes(`class="tone-blue" href="/${prefix}work/"`));
       assert.ok(nav.includes(`class="tone-green" href="/${prefix}photos/"`));
-      for (const path of [`/${prefix}`, `/${prefix}dev/`, `/${prefix}photos/`]) {
+      for (const path of [`/${prefix}`, `/${prefix}work/`, `/${prefix}photos/`]) {
         assert.ok(nav.includes(`href="${path}"`), `Missing navigation link: ${path}`);
       }
       assert.doesNotMatch(html, /\{\{/);
+      assert.doesNotMatch(html, /github-project-meta\.js|api\.github\.com|data-github-repo|id="repoStrings"/);
     }
     assert.match(home, /class="home-photo"/);
     const heroPhotos = JSON.parse(home.match(/<script type="application\/json" id="homePhotos">([\s\S]*?)<\/script>/)[1]);
@@ -44,25 +51,59 @@ for (const prefix of ["", "de/"]) {
     }
     assert.match(home, /<noscript><figure class="home-hero">/);
     assert.match(home, /class="home-photo-caption"/);
-    assert.match(home, new RegExp(`class="home-card tone-blue" href="/${prefix}dev/"`));
+    assert.match(home, new RegExp(`class="home-card tone-blue" href="/${prefix}work/"`));
     assert.match(home, new RegExp(`class="home-card tone-green" href="/${prefix}photos/"`));
     assert.doesNotMatch(home, /class="home-art"/);
     assert.doesNotMatch(home, /id="projectList"|github-project-meta\.js/);
     assert.match(home, new RegExp(`href="/${prefix}" aria-current="page"`));
-    assert.match(dev, /id="projectList"/);
-    assert.doesNotMatch(dev, /class="photo-teaser"/);
-    assert.doesNotMatch(dev, /class="row-year"/);
-    assert.match(dev, /class="preview-panel/);
-    assert.match(dev, new RegExp(`href="/${prefix}dev/" aria-current="page"`));
-    assert.match(dev, new RegExp(`rel="canonical" href="https://nibraun.de/${prefix}dev/"`));
-    assert.match(dev, /href="\/dev\/" hreflang="en"/);
-    assert.match(dev, /href="\/de\/dev\/" hreflang="de"/);
+    assert.match(work, /id="projectList"/);
+    assert.doesNotMatch(work, /class="photo-teaser"/);
+    assert.doesNotMatch(work, /class="row-year"/);
+    assert.match(work, /class="preview-panel/);
+    assert.match(work, new RegExp(`href="/${prefix}work/" aria-current="page"`));
+    assert.match(work, new RegExp(`rel="canonical" href="https://nibraun.de/${prefix}work/"`));
+    assert.match(work, /href="\/work\/" hreflang="en"/);
+    assert.match(work, /href="\/de\/work\/" hreflang="de"/);
     assert.match(photos, /class="photo-project tone-green"/);
   });
 }
 
-test("sitemap includes both development pages", () => {
+for (const locale of ["en", "de"]) {
+  test(`${locale}legal pages contain confirmed operator and hosting information`, () => {
+    for (const [page, routes] of Object.entries(LEGAL_ROUTES)) {
+      const html = read(routes[locale].slice(1) + "index.html");
+      assert.ok(html.includes(legal.operator.name));
+      assert.ok(html.includes(legal.operator.street));
+      assert.ok(html.includes(`${legal.operator.postalCode} ${legal.operator.city}`));
+      assert.ok(html.includes(`href="mailto:${legal.operator.email}"`));
+      assert.ok(html.includes(`rel="canonical" href="https://nibraun.de${routes[locale]}"`));
+      assert.ok(html.includes(`href="${routes.en}" hreflang="en"`));
+      assert.ok(html.includes(`href="${routes.de}" hreflang="de"`));
+      assert.doesNotMatch(html, /\{\{|\{%|api\.github\.com|github-project-meta\.js/);
+      if (page === "privacy") {
+        assert.ok(html.includes(legal.hosting.name));
+        assert.ok(html.includes(legal.hosting.street));
+        assert.ok(html.includes(legal.hosting.privacyUrl));
+        assert.ok(html.includes('localStorage'));
+        assert.match(html, locale === "de" ? /nach 14 Tagen/ : /within 14 days/);
+        assert.ok(html.includes("https://www.lfd.niedersachsen.de/"));
+      }
+    }
+  });
+}
+
+test("sitemap includes legal pages and their language alternates", () => {
   const sitemap = read("sitemap.xml");
-  assert.match(sitemap, /<loc>https:\/\/nibraun.de\/dev\/<\/loc>/);
-  assert.match(sitemap, /<loc>https:\/\/nibraun.de\/de\/dev\/<\/loc>/);
+  for (const routes of Object.values(LEGAL_ROUTES)) {
+    for (const [locale, path] of Object.entries(routes)) {
+      assert.ok(sitemap.includes(`<loc>https://nibraun.de${path}</loc>`));
+      assert.ok(sitemap.includes(`hreflang="${locale}" href="https://nibraun.de${path}"`));
+    }
+  }
+});
+
+test("sitemap includes both work pages", () => {
+  const sitemap = read("sitemap.xml");
+  assert.match(sitemap, /<loc>https:\/\/nibraun.de\/work\/<\/loc>/);
+  assert.match(sitemap, /<loc>https:\/\/nibraun.de\/de\/work\/<\/loc>/);
 });

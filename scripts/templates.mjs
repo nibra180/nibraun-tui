@@ -1,6 +1,7 @@
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import Twig from "twig";
+import { legalPaths } from "./paths.mjs";
 
 const templateRoot = join(dirname(fileURLToPath(import.meta.url)), "../src/templates");
 
@@ -20,6 +21,7 @@ export function renderTemplate(name, context) {
       ogImage: false, ogLocale: null, ogLocaleAlternate: null,
       pageClass: "", legacyPath: null, jsonLd: null,
       footerWarikoda: false, backPath: null,
+      ...legalPaths(context.lang ?? "en"),
       ...context,
     }));
   } catch (error) {

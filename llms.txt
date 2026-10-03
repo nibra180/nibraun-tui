@@ -3,7 +3,7 @@
 > I'm Niklas, a developer based in Oldenburg. I build software for the web and mobile. Away from the screen, I take my camera outside — preferably into the mountains.
 
 German version: https://nibraun.de/de/
-Development portfolio: https://nibraun.de/dev/
+Work portfolio: https://nibraun.de/work/
 Photography: https://nibraun.de/photos/
 
 ## Projects

@@ -45,8 +45,3 @@ document.addEventListener("selectionchange", () => {
   if (selectionWasCollapsed && !collapsed) root.dataset.sel = tones[selectionTone++ % tones.length];
   selectionWasCollapsed = collapsed;
 });
-
-if (window.createGithubProjectMeta) {
-  const strings = JSON.parse(document.getElementById("repoStrings").textContent);
-  window.createGithubProjectMeta({ getLocale: () => root.lang, getTranslation: (key) => strings[key] ?? "", cacheKey: "github-repo-updates-v3", cacheTtl: 1000 * 60 * 60 * 6 }).load();
-}
