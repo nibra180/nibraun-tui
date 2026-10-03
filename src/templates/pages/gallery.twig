@@ -12,6 +12,7 @@
 <main class="photos-main" id="photos">
   <a class="gallery-back" href="{{ backPath }}"><span aria-hidden="true">←</span> {{ t('photos.back') }}</a>
   <h1 class="photos-title">{{ heading }}</h1>
+  <div class="photos-toolbar">
   <p class="photos-description">{{ description }}</p>
   <div class="switch view-switch" role="group" aria-label="{{ t('photos.view') }}" hidden>
     <button type="button" data-gallery-view="sequence" aria-pressed="true" aria-label="{{ t('photos.view.sequence') }}">
@@ -20,6 +21,7 @@
     <button type="button" data-gallery-view="grid" aria-pressed="false" aria-label="{{ t('photos.view.grid') }}">
       <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="8" height="8" rx="1.5"/><rect x="13" y="3" width="8" height="8" rx="1.5"/><rect x="3" y="13" width="8" height="8" rx="1.5"/><rect x="13" y="13" width="8" height="8" rx="1.5"/></svg>
     </button>
+  </div>
   </div>
   <div class="photo-sequence">
     {% for image in images %}

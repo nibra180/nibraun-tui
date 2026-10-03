@@ -19,7 +19,7 @@ export function renderTemplate(name, context) {
     return String(template.render({
       ogType: "website", ogTitle: context.title, ogDescription: context.description,
       ogImage: false, ogLocale: null, ogLocaleAlternate: null,
-      pageClass: "", legacyPath: null, jsonLd: null,
+      indexable: true, pageClass: "", legacyPath: null, jsonLd: null,
       footerWarikoda: false, backPath: null,
       ...legalPaths(context.lang ?? "en"),
       ...context,

@@ -162,7 +162,8 @@ html { scrollbar-gutter: stable; }
     transition: color .15s;
 }
 .switch a:hover, .switch button:hover, .switch button[aria-pressed="true"], .switch [aria-current="page"] { color: var(--c-fg); }
-.language-switch [aria-current="page"] { text-decoration: underline; text-underline-offset: 4px; }
+.switch button[aria-pressed="false"] { display: none; }
+.language-switch a { color: var(--c-fg); }
 .site-nav svg, .theme-switch svg, .view-switch svg { display: block; width: 18px; height: 18px; flex-shrink: 0; }
 .site-nav svg { fill: currentColor; stroke: none; }
 .site-nav a:hover svg, .site-nav a[aria-current] svg { color: var(--tone); }
@@ -172,7 +173,7 @@ html { scrollbar-gutter: stable; }
 /* ==================== Mobile: tab bar navigation ==================== */
 @media (max-width: 479px) {
     .site-header { gap: 4px; }
-    .header-controls { order: -1; width: 100%; justify-content: center; margin: 0; }
+    .header-controls { order: -1; width: 100%; justify-content: flex-end; margin: 0; }
     .site-nav { order: 1; width: 100%; gap: 0; margin: 0; }
     .site-nav a {
         flex: 1;
@@ -438,6 +439,9 @@ html { scrollbar-gutter: stable; }
 }
 
 /* ==================== Legal ==================== */
+.not-found-main { display: flex; flex-direction: column; justify-content: center; gap: 16px; flex-grow: 1; max-width: 60ch; }
+.not-found-code { margin: 0; font: 13px var(--font-mono); color: var(--c-fg-dim); }
+.not-found-main p:not(.not-found-code) { margin: 0; color: var(--c-fg-soft); }
 .legal-page { gap: 48px; }
 .legal-main { display: flex; flex-direction: column; gap: 32px; flex-grow: 1; width: 100%; max-width: 76ch; overflow-wrap: anywhere; }
 .legal-title { margin: 0; font-size: clamp(28px, 4vw, 40px); line-height: 1.2; font-weight: 500; letter-spacing: -.03em; hyphens: auto; }
@@ -453,7 +457,10 @@ html { scrollbar-gutter: stable; }
 
 /* ==================== Photography ==================== */
 /* Grows instead of relying on the footer's auto margin, which the desktop tier fixes at 56px. */
-.photos-main { flex-grow: 1; display: flex; flex-direction: column; gap: 24px; }
+.photos-main { flex-grow: 1; display: flex; flex-direction: column; gap: 8px; }
+.photos-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.photos-toolbar .photos-description { min-width: 0; }
+.photos-toolbar .view-switch { flex-shrink: 0; margin-left: auto; }
 .gallery-back { display: inline-flex; align-items: center; align-self: flex-start; gap: 8px; min-height: 44px; font: 13px var(--font-mono); color: var(--c-fg-dim); }
 .gallery-back:hover { color: var(--c-fg); text-decoration: underline; text-underline-offset: 4px; }
 .photos-title { margin: 0; font-size: 28px; font-weight: 400; letter-spacing: -.5px; }
@@ -462,7 +469,7 @@ html { scrollbar-gutter: stable; }
 @media (min-width: 640px) {
     .photo-projects { grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 400px)); }
 }
-.photo-project { --sel: var(--tone); display: flex; flex-direction: column; gap: 12px; }
+.photo-project { --sel: var(--tone); display: flex; flex-direction: column; gap: 4px; }
 .photo-project picture { display: block; overflow: hidden; padding: 16px; background: color-mix(in srgb, var(--tone) 18%, var(--c-bg)); }
 .photo-project img { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; transition: transform .35s cubic-bezier(.2, .7, .3, 1), filter .35s; }
 .photo-project:is(:hover, :focus-visible) img { transform: scale(1.045); filter: saturate(1.15) contrast(1.03); }
@@ -483,7 +490,7 @@ html { scrollbar-gutter: stable; }
  */
 .view-switch { display: none; }
 @media (min-width: 640px) {
-    .view-switch { display: flex; align-self: flex-start; margin: -8px 0 -8px -10px; }
+    .view-switch { display: flex; margin-right: -10px; }
     .view-switch button[aria-pressed="true"] svg { fill: currentColor; }
     [data-gallery-view="grid"] .photo-sequence { --row: 40vh; flex-direction: row; flex-wrap: wrap; gap: 4px; }
     [data-gallery-view="grid"] .photo-sequence::after { content: ""; flex-grow: 10; }

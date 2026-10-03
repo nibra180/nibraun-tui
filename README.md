@@ -88,16 +88,18 @@ needed on the web server.
 Legal notice and privacy policy are available at `/imprint/` and `/privacy/`,
 with German versions at `/de/impressum/` and `/de/datenschutz/`. The shared footer
 links to them on every page. `legal.json` holds operator and hosting details,
-access-log retention and the review date; text remains in `translations.json`.
+error-log retention and the review date; text remains in `translations.json`.
 Update both when hosting or data processing changes, and rebuild. `legal.json`
 is a build input and does not need to be deployed.
 
-The operator confirmed netcup WCP/Plesk webhosting, access logs retained for at
-most 14 days, disabled hosting visitor statistics and email hosting at netcup.
+The site runs on the operator's Hetzner server `hafen` (Falkenstein, Germany)
+behind Caddy. Caddy writes no access logs; error messages that may contain IP
+addresses end up in the system journal, which must keep at most 14 days. Email
+stays with netcup.
 Fonts, images and scripts are self-hosted. Theme preference is the only browser
 storage currently used; there are no automatic GitHub API requests or analytics.
-Check the data processing agreement with netcup and obtain legal review before
-publication; the templates do not guarantee legal compliance.
+Check the data processing agreements with Hetzner and netcup and obtain legal
+review before publication; the templates do not guarantee legal compliance.
 
 ## Project Data
 
@@ -174,6 +176,7 @@ Run `npm run build`, then copy these files to the web server root. The pages
 use root-relative paths, so the site must live at the domain root.
 
 - `index.html`
+- `404.html` (German version in `de/404.html`)
 - `work/`
 - `de/` (including Work, Photos, legal notice and privacy policy)
 - `imprint/`
@@ -185,6 +188,10 @@ use root-relative paths, so the site must live at the domain root.
 - `dist/tailwind.css`
 - `fonts/`
 - `img/`
+
+`npm run deploy` builds, tests and uploads these paths with `rsync` to
+`hafen:/srv/nibraun.de` (override with `DEPLOY_HOST` and `DEPLOY_DIR`). It does
+not delete files on the server, so old image variants survive rollouts.
 
 ## Links
 

@@ -7,7 +7,7 @@
     <title>{{ title }}</title>
     <meta name="description" content="{{ description }}" />
     <meta name="author" content="Niklas Braun" />
-    <meta name="robots" content="index, follow" />
+    <meta name="robots" content="{{ indexable ? 'index, follow' : 'noindex' }}" />
     <meta name="theme-color" content="#f8efe7" />
     <meta property="og:type" content="{{ ogType|default('website') }}" />
     <meta property="og:title" content="{{ ogTitle|default(title) }}" />
@@ -27,10 +27,12 @@
     <meta name="twitter:description" content="{{ ogDescription|default(description) }}" />
     <meta name="twitter:image" content="https://nibraun.de/img/og-image.png" />
     {% endif %}
+    {% if indexable %}
     <link rel="canonical" href="{{ url }}" />
     <link rel="alternate" hreflang="en" href="{{ enUrl }}" />
     <link rel="alternate" hreflang="de" href="{{ deUrl }}" />
     <link rel="alternate" hreflang="x-default" href="{{ enUrl }}" />
+    {% endif %}
     <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23171717'/%3E%3Ctext x='50' y='72' font-family='Arial' font-size='64' fill='%23f7f7f4' text-anchor='middle'%3EN%3C/text%3E%3C/svg%3E" />
     <link rel="preload" href="/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin />

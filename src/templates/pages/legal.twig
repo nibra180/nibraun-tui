@@ -18,7 +18,7 @@
     {% endif %}
     {% for paragraph in section.paragraphs %}<p>{{ paragraph }}</p>{% endfor %}
     {% if section.hosting %}
-    <p><a href="{{ legal.hosting.privacyUrl }}">{{ t('privacy.hosting.providerLink') }}</a> · <a href="{{ legal.hosting.logPolicyUrl }}">{{ t('privacy.hosting.logsLink') }}</a></p>
+    <p><a href="{{ legal.hosting.privacyUrl }}">{{ t('privacy.hosting.providerLink') }}</a></p>
     {% endif %}
     {% if section.authority %}<p><a href="{{ authorityUrl }}">{{ t('privacy.rights.authority') }}</a></p>{% endif %}
   </section>

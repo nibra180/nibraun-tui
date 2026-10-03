@@ -155,7 +155,7 @@ function renderLegalPage(locale, page) {
     heading: t(`privacy.${section.key}.heading`),
     hosting: section.hosting ?? false,
     authority: section.authority ?? false,
-    paragraphs: section.paragraphs.map((key) => t(`privacy.${section.key}.${key}`, { days: legal.hosting.logRetentionDays })),
+    paragraphs: section.paragraphs.map((key) => t(`privacy.${section.key}.${key}`, { days: legal.hosting.errorLogRetentionDays })),
   })) : [];
   const values = {
     t, legal, sections, lang: locale, activePage: page, year,
@@ -170,6 +170,22 @@ function renderLegalPage(locale, page) {
     authorityUrl: "https://www.lfd.niedersachsen.de/",
   };
   write(routes[locale].slice(1) + "index.html", renderTemplate("pages/legal.twig", values));
+}
+
+// Served by the web server for unknown paths, so it stays out of the index and the sitemap.
+function renderNotFoundPage(locale) {
+  const t = translator(locale);
+  const base = LOCALES[locale].path;
+  const values = {
+    t, lang: locale, activePage: "not-found", year, indexable: false,
+    heading: t("notFound.title"), title: `${t("notFound.title")} — Niklas Braun`,
+    description: t("notFound.description"),
+    url: `${SITE}${base}404.html`, enUrl: SITE + LOCALES.en.path, deUrl: SITE + LOCALES.de.path,
+    enPath: LOCALES.en.path, dePath: LOCALES.de.path,
+    homePath: base, workPath: base + "work/", photosPath: base + "photos/",
+    mainId: "not-found", skipLabel: t("home.skip"), pageClass: "not-found-page",
+  };
+  write(`${base.slice(1)}404.html`, renderTemplate("pages/not-found.twig", values));
 }
 
 function renderSitemap(photoGroups) {
@@ -227,6 +243,7 @@ for (const locale of Object.keys(LOCALES)) {
   renderPage(locale, "home", galleries);
   renderPage(locale, "work", galleries);
   for (const page of Object.keys(LEGAL_ROUTES)) renderLegalPage(locale, page);
+  renderNotFoundPage(locale);
 }
 renderSitemap(photoGroups);
 renderLlmsTxt();

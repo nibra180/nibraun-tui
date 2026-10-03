@@ -1,0 +1,11 @@
+{% extends '../layout.twig' %}
+
+{% block content %}
+<!-- ==================== NOT FOUND ==================== -->
+<main class="not-found-main" id="not-found">
+  <p class="not-found-code">404</p>
+  <h1 class="legal-title">{{ heading }}</h1>
+  <p>{{ t('notFound.text') }}</p>
+  <a class="gallery-back" href="{{ homePath }}"><span aria-hidden="true">←</span> {{ t('notFound.home') }}</a>
+</main>
+{% endblock %}

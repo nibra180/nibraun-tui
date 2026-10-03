@@ -9,7 +9,8 @@
     "build:html": "node scripts/build-html.mjs",
     "test": "node --test scripts/*.test.mjs",
     "dev": "tailwindcss -i ./src/tailwind.css -o ./dist/tailwind.css --watch",
-    "serve": "python3 -m http.server 8000"
+    "serve": "python3 -m http.server 8000",
+    "deploy": "scripts/deploy.sh"
   },
   "repository": {
     "type": "git",

@@ -62,8 +62,8 @@ for (const prefix of ["", "de/"]) {
     assert.match(work, /class="preview-panel/);
     assert.match(work, new RegExp(`href="/${prefix}work/" aria-current="page"`));
     assert.match(work, new RegExp(`rel="canonical" href="https://nibraun.de/${prefix}work/"`));
-    assert.match(work, /href="\/work\/" hreflang="en"/);
-    assert.match(work, /href="\/de\/work\/" hreflang="de"/);
+    assert.match(work, prefix === "" ? /href="\/de\/work\/" hreflang="de"/ : /href="\/work\/" hreflang="en"/);
+    assert.equal((work.match(/<a[^>]+hreflang=/g) || []).length, 1);
     assert.match(photos, /class="photo-project tone-green"/);
   });
 }
@@ -77,15 +77,18 @@ for (const locale of ["en", "de"]) {
       assert.ok(html.includes(`${legal.operator.postalCode} ${legal.operator.city}`));
       assert.ok(html.includes(`href="mailto:${legal.operator.email}"`));
       assert.ok(html.includes(`rel="canonical" href="https://nibraun.de${routes[locale]}"`));
-      assert.ok(html.includes(`href="${routes.en}" hreflang="en"`));
-      assert.ok(html.includes(`href="${routes.de}" hreflang="de"`));
+      const targetLocale = locale === "en" ? "de" : "en";
+      assert.ok(html.includes(`href="${routes[targetLocale]}" hreflang="${targetLocale}"`));
+      assert.equal((html.match(/<a[^>]+hreflang=/g) || []).length, 1);
       assert.doesNotMatch(html, /\{\{|\{%|api\.github\.com|github-project-meta\.js/);
       if (page === "privacy") {
         assert.ok(html.includes(legal.hosting.name));
         assert.ok(html.includes(legal.hosting.street));
         assert.ok(html.includes(legal.hosting.privacyUrl));
         assert.ok(html.includes('localStorage'));
+        assert.ok(html.includes('galleryView'));
         assert.match(html, locale === "de" ? /nach 14 Tagen/ : /within 14 days/);
+        assert.doesNotMatch(html, /netcup GmbH|log-policy/);
         assert.ok(html.includes("https://www.lfd.niedersachsen.de/"));
       }
     }
@@ -107,3 +110,15 @@ test("sitemap includes both work pages", () => {
   assert.match(sitemap, /<loc>https:\/\/nibraun.de\/work\/<\/loc>/);
   assert.match(sitemap, /<loc>https:\/\/nibraun.de\/de\/work\/<\/loc>/);
 });
+
+for (const [locale, file] of [["en", "404.html"], ["de", "de/404.html"]]) {
+  test(`${locale} not-found page is localized and kept out of the index`, () => {
+    const html = read(file);
+    assert.ok(html.includes(`<html lang="${locale}">`));
+    assert.ok(html.includes(translations[locale]["notFound.title"]));
+    assert.ok(html.includes(`href="${locale === "de" ? "/de/" : "/"}"`));
+    assert.match(html, /<meta name="robots" content="noindex" \/>/);
+    assert.doesNotMatch(html, /rel="canonical"|rel="alternate" hreflang/);
+    assert.doesNotMatch(read("sitemap.xml"), /404/);
+  });
+}

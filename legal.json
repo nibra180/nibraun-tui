@@ -7,13 +7,12 @@
     "email": "hello@nibraun.de"
   },
   "hosting": {
-    "name": "netcup GmbH",
-    "street": "Emmy-Noether-Straße 10",
-    "postalCode": "76131",
-    "city": "Karlsruhe",
-    "privacyUrl": "https://www.netcup.com/de/kontakt/datenschutzerklaerung",
-    "logPolicyUrl": "https://www.netcup.com/en/helpcenter/documentation/security/log-policy",
-    "logRetentionDays": 14
+    "name": "Hetzner Online GmbH",
+    "street": "Industriestr. 25",
+    "postalCode": "91710",
+    "city": "Gunzenhausen",
+    "privacyUrl": "https://www.hetzner.com/de/legal/privacy-policy/",
+    "errorLogRetentionDays": 14
   },
   "updatedAt": "2026-10-03"
 }

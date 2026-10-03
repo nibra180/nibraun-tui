@@ -77,10 +77,12 @@ Farben ausschließlich aus den bestehenden `--c-*`-Tokens in `src/tailwind.css`.
 ## Daten und Fotografie
 
 - `projects.json`: Softwareprojekte; `stack.json`: Stack-Gruppen
-- `legal.json`: bestätigte Betreiber-/Hosterdaten, Logfrist und Prüfdatum; Build-Input
+- `legal.json`: bestätigte Betreiber-/Hosterdaten, Fehlerlog-Frist und Prüfdatum; Build-Input
 - Rechtstexte in beiden Sprachen in `translations.json`; keine unbekannten Angaben erfinden
-- Bestätigt: netcup-Webhosting/WCP, Zugriffslogs bis 14 Tage, Besucherstatistik aus,
-  Kontakt-E-Mail ebenfalls bei netcup. Bei Änderungen die Datenschutzerklärung prüfen
+- Hosting: Hetzner-Server `hafen` (Falkenstein) mit Caddy, keine Zugriffslogs,
+  Fehlerlogs im System-Journal höchstens 14 Tage; Kontakt-E-Mail bei netcup.
+  Bei Änderungen an Hosting, Logs oder `localStorage` die Datenschutzerklärung prüfen
+- `404.html` und `de/404.html` liefert Caddy für unbekannte Pfade aus; `noindex`, nicht in der Sitemap
 - Keine automatischen GitHub-API-Abrufe oder Repository-Caches im Besucher-Browser;
   Projektlinks zu GitHub bleiben normale externe Links
 - `photos.json`: Galerien in Anzeigereihenfolge; `slug`, Übersetzungsschlüssel und Bildliste
@@ -102,6 +104,7 @@ npm run build:html  # Nur HTML/Bilder und Metadaten
 npm run build:css   # Nur CSS
 npm test
 npm run serve       # Statischer Server auf http://localhost:8000
+npm run deploy      # Build, Tests und rsync nach hafen:/srv/nibraun.de
 ```
 
 Deploy ins Webserver-Root: `index.html`, `work/`, `photos/`, `imprint/`, `privacy/`, `de/`,

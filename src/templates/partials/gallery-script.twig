@@ -9,6 +9,6 @@ function applyGalleryView(view, store = false) {
   viewSwitch.querySelectorAll("[data-gallery-view]").forEach((button) => button.setAttribute("aria-pressed", String(button.dataset.galleryView === view)));
   if (store) try { localStorage.setItem("galleryView", view); } catch {}
 }
-viewSwitch.querySelectorAll("[data-gallery-view]").forEach((button) => button.addEventListener("click", () => applyGalleryView(button.dataset.galleryView, true)));
+viewSwitch.querySelectorAll("[data-gallery-view]").forEach((button) => button.addEventListener("click", () => applyGalleryView(document.documentElement.dataset.galleryView === "grid" ? "sequence" : "grid", true)));
 applyGalleryView(document.documentElement.dataset.galleryView === "grid" ? "grid" : "sequence");
 viewSwitch.hidden = false;
