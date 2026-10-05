@@ -10,7 +10,7 @@ const FORMATS = { avif: { quality: 55 }, webp: { quality: 80 }, jpeg: { quality:
 const GALLERY_SIZES = "(min-width: 1100px) min(1312px, calc(100vw - 128px)), (min-width: 640px) 592px, 100vw";
 // Lazy images use their laid-out width in either view; older browsers keep the responsive fallback.
 const GALLERY_LAZY_SIZES = `auto, ${GALLERY_SIZES}`;
-const CARD_SIZES = "(min-width: 640px) 368px, calc(100vw - 80px)";
+const CARD_SIZES = "(min-width: 640px) 388px, calc(100vw - 60px)";
 const TONES = ["green", "blue", "purple", "orange", "yellow", "red"];
 
 export async function buildPhotos({ root, site, translations, translator, write, year }) {

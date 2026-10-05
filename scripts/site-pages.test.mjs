@@ -30,6 +30,12 @@ for (const prefix of ["", "de/"]) {
       for (const path of [`/${prefix}`, `/${prefix}work/`, `/${prefix}photos/`]) {
         assert.ok(nav.includes(`href="${path}"`), `Missing navigation link: ${path}`);
       }
+      assert.match(html, /<\/footer>\s*<div class="footer-controls">/);
+      const footerControls = html.match(/<div class="footer-controls">[\s\S]*?<\/nav>/)[0];
+      const languagePath = html.match(/<div class="header-controls">[\s\S]*?<a href="([^"]+)"/)[1];
+      assert.ok(footerControls.includes(`href="${languagePath}"`));
+      assert.equal((html.match(/data-theme-choice="light"/g) ?? []).length, 2);
+      assert.equal((html.match(/data-theme-choice="dark"/g) ?? []).length, 2);
       assert.doesNotMatch(html, /\{\{/);
       assert.doesNotMatch(html, /github-project-meta\.js|api\.github\.com|data-github-repo|id="repoStrings"/);
     }
@@ -43,6 +49,10 @@ for (const prefix of ["", "de/"]) {
       const gallery = read(`${prefix}photos/${project.slug}/index.html`);
       const card = photos.match(new RegExp(`<a class="photo-project[^"]*" href="/${prefix}photos/${project.slug}/">([\\s\\S]*?)</a>`))[1];
       const firstImageSource = (html) => html.match(/<img[^>]* src="([^"]+)"/)[1];
+      const leadImage = project.images.find((image) => image.teaser) ?? project.images[0];
+      const leadAlt = translations[prefix ? "de" : "en"][leadImage.altKey];
+      assert.equal(gallery.match(/<img[^>]* alt="([^"]+)"/)[1], leadAlt);
+      assert.equal((gallery.match(/<picture>/g) ?? []).length, project.images.length);
       assert.equal(firstImageSource(homePhotos[index].picture), firstImageSource(gallery));
       assert.equal(firstImageSource(card), firstImageSource(gallery));
       assert.match(card, /<h2>[^<]+<\/h2>/);
@@ -52,6 +62,8 @@ for (const prefix of ["", "de/"]) {
       assert.match(photo.picture, /<picture>/);
       assert.match(photo.picture, /alt="[^"]+"/);
       assert.match(photo.picture, /fetchpriority="high"/);
+      const sizes = [...photo.picture.matchAll(/ sizes="([^"]+)"/g)].map((match) => match[1]);
+      assert.deepEqual(sizes, Array(3).fill("(min-width: 1440px) 620px, (min-width: 1100px) calc((100vw - 160px) / 2 - 20px), (min-width: 640px) 572px, calc(100vw - 68px)"));
     }
     assert.match(home, /<noscript>\s*<picture>/);
     assert.match(home, /data-home-photo/);
@@ -67,7 +79,7 @@ for (const prefix of ["", "de/"]) {
     assert.match(work, new RegExp(`href="/${prefix}work/" aria-current="page"`));
     assert.match(work, new RegExp(`rel="canonical" href="https://nibraun.de/${prefix}work/"`));
     assert.match(work, prefix === "" ? /href="\/de\/work\/" hreflang="de"/ : /href="\/work\/" hreflang="en"/);
-    assert.equal((work.match(/<a[^>]+hreflang=/g) || []).length, 1);
+    assert.equal((work.match(/<a[^>]+hreflang=/g) || []).length, 2);
     assert.match(photos, /class="photo-project tone-green"/);
   });
 }
@@ -83,7 +95,8 @@ for (const locale of ["en", "de"]) {
       assert.ok(html.includes(`rel="canonical" href="https://nibraun.de${routes[locale]}"`));
       const targetLocale = locale === "en" ? "de" : "en";
       assert.ok(html.includes(`href="${routes[targetLocale]}" hreflang="${targetLocale}"`));
-      assert.equal((html.match(/<a[^>]+hreflang=/g) || []).length, 1);
+      assert.equal((html.match(/<a[^>]+hreflang=/g) || []).length, 2);
+      assert.match(html, /<\/footer>\s*<div class="footer-controls">/);
       assert.doesNotMatch(html, /\{\{|\{%|api\.github\.com|github-project-meta\.js/);
       if (page === "privacy") {
         assert.ok(html.includes(legal.hosting.name));

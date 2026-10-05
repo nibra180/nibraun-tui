@@ -21,7 +21,7 @@ const LOCALES = {
 };
 const TONES = ["red", "orange", "yellow", "green", "blue", "purple"];
 const PERSON_ID = `${SITE}/#person`;
-const HOME_CARD_SIZES = "(min-width: 1100px) 252px, (min-width: 640px) 268px, calc((100vw - 64px) / 2 - 20px)";
+const HOME_CARD_SIZES = "(min-width: 1440px) 620px, (min-width: 1100px) calc((100vw - 160px) / 2 - 20px), (min-width: 640px) 572px, calc(100vw - 68px)";
 const translations = JSON.parse(read("translations.json"));
 const projects = JSON.parse(read("projects.json"));
 const stack = JSON.parse(read("stack.json"));

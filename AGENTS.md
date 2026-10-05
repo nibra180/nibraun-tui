@@ -51,12 +51,14 @@ Farben ausschließlich aus den bestehenden `--c-*`-Tokens in `src/tailwind.css`.
 - Sechs Monokai-Akzente: Rot, Orange, Gelb, Grün, Blau und Violett
 - Topbar: abwechselnde Farbstreifen mit welliger Unterkante
 - Work: Projektindex mit Hover-/Fokus-Previews auf Desktop; mobile Projektkarten
-- Home: Work/Photos-Kacheln auf Desktop neben dem Text, mobil darunter; kein separates Hero-Foto.
+- Home: Große Work/Photos-Kacheln unter dem Intro, auf Desktop nebeneinander, mobil untereinander; kein separates Hero-Foto.
   Die Fotos-Kachel zeigt zufällig eines der Galerie-Titelbilder und verlinkt zur Fotoübersicht.
   Ohne JavaScript erscheint das Titelbild der ersten Galerie. Keine Einblendanimationen.
 - Fotoübersicht: kleine Thumbnails mit getöntem Rahmen, ohne `border-top`;
   dezenter Zoom bei Hover/Fokus
 - Gemeinsame Außenbreite und Headerposition auf allen Seiten; stabiler Scrollbar-Platz
+- Unter 480 px: Sprach-/Theme-Controls in einer eigenen Zeile unter dem Footer, nicht im Header;
+  auf größeren Ansichten bleiben die Controls im Header. Gemeinsames Markup per Partial wiederverwenden.
 - Mobil nutzen Fotokarten die volle Inhaltsbreite; Desktop-Karten bleiben kompakt
 - Akzentfarben erreichen nicht immer ausreichenden Kontrast für kleine Schrift;
   Fließtext und kleine Labels verwenden Vordergrundtokens

@@ -18,6 +18,21 @@
       ]
     },
     {
+      "slug": "sylt",
+      "year": 2023,
+      "titleKey": "photos.sylt.title",
+      "descriptionKey": "photos.sylt.description",
+      "images": [
+        { "file": "sylt/DSC04078.jpg", "altKey": "photos.sylt.DSC04078.alt" },
+        { "file": "sylt/DSC04195.jpg", "altKey": "photos.sylt.DSC04195.alt" },
+        { "file": "sylt/DSC04254.jpg", "altKey": "photos.sylt.DSC04254.alt" },
+        { "file": "sylt/DSC04396.jpg", "altKey": "photos.sylt.DSC04396.alt" },
+        { "file": "sylt/DSC04420.jpg", "altKey": "photos.sylt.DSC04420.alt", "teaser": true },
+        { "file": "sylt/DSC04438.jpg", "altKey": "photos.sylt.DSC04438.alt" },
+        { "file": "sylt/DSC04488.jpg", "altKey": "photos.sylt.DSC04488.alt" }
+      ]
+    },
+    {
       "slug": "norge",
       "year": 2022,
       "titleKey": "photos.norge.title",

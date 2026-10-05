@@ -73,6 +73,18 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://nibraun.de/photos/dolomiti/"/>
   </url>
   <url>
+    <loc>https://nibraun.de/photos/sylt/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nibraun.de/photos/sylt/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://nibraun.de/de/photos/sylt/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nibraun.de/photos/sylt/"/>
+  </url>
+  <url>
+    <loc>https://nibraun.de/de/photos/sylt/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nibraun.de/photos/sylt/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://nibraun.de/de/photos/sylt/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nibraun.de/photos/sylt/"/>
+  </url>
+  <url>
     <loc>https://nibraun.de/photos/norge/</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://nibraun.de/photos/norge/"/>
     <xhtml:link rel="alternate" hreflang="de" href="https://nibraun.de/de/photos/norge/"/>

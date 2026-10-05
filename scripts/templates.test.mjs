@@ -30,6 +30,7 @@ test("Twig inheritance and shared includes produce the page layout", () => {
   assert.equal((html.match(/class="site-header"/g) ?? []).length, 1);
   assert.equal((html.match(/class="site-footer"/g) ?? []).length, 1);
   assert.equal((html.match(/function applyTheme/g) ?? []).length, 1);
+  assert.doesNotMatch(html, /updateHeaderControls|is-away-from-top/);
   assert.match(html, /href="\/photos\/" aria-current="page"/);
   assert.match(html, /My photography projects will appear here soon\./);
   assert.doesNotMatch(html, /\{%|\{\{/);

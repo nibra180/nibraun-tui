@@ -1,6 +1,6 @@
 # nibraun.de – Personal Portfolio
 
-Personal website for Niklas Braun, with a Home teaser, a software portfolio under `/work/`, and photography under `/photos/` (German: `/de/`, `/de/work/`, `/de/photos/`). Home shows a large welcome heading and Work/Photos preview cards beside the text on desktop and below it on mobile. The Photos card randomly shows one gallery lead image; there is no separate hero photo. Work holds the previous portfolio.
+Personal website for Niklas Braun, with a Home teaser, a software portfolio under `/work/`, and photography under `/photos/` (German: `/de/`, `/de/work/`, `/de/photos/`). Home shows a large welcome heading above full-width Work/Photos previews, side by side on desktop and stacked on mobile. The Photos card randomly shows one gallery lead image; there is no separate hero photo. Work holds the previous portfolio.
 
 ## Design
 
@@ -35,6 +35,7 @@ the 400x300 canvas to 16:9, so the strip outside y 37.5 to 262.5 may be cut.
 - All content, JSON-LD (`ProfilePage`, `Person`, project list), `sitemap.xml`, `robots.txt` and `llms.txt` ship as static files, so crawlers without JavaScript see the full page
 - Monokai Pro and Monokai Pro Light Sun themes, switchable and stored in `localStorage`
 - Text selection with a tinted ground and a wavy underline; each new selection takes the next top-bar color, project rows keep their own
+- Language/theme controls in the desktop header; below 480 px, a separate row below the footer keeps controls out of the mobile navigation
 - Visible keyboard focus, 44 px touch targets on mobile, reduced-motion support
 - Static deployment and vanilla JavaScript, no browser runtime dependencies; browser logic handles the theme, Home's random Photos thumbnail and Work previews
 
@@ -74,7 +75,7 @@ For a background CSS watcher without an interactive terminal, use
 templates `pages/{home,work,photos,gallery,legal}.twig` extend it and override blocks
 for page-specific content, metadata and scripts. Includes reuse shared markup:
 
-- `partials/{header,footer,theme-init,theme-controls}.twig` for shared page elements
+- `partials/{header,footer,theme-init,language-theme-controls,theme-controls}.twig` for shared page elements
 - `components/{picture,cover,project-row,project-preview,photo-card}.twig` for images, project displays and photo index cards
 - `partials/{theme-script,home-script,work-script}.twig` for browser logic, included in the rendered pages
 

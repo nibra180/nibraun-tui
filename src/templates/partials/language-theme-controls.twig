@@ -1,0 +1,8 @@
+<nav class="switch language-switch" aria-label="{{ t('nav.language') }}">
+  {% if lang == 'en' %}
+  <a href="{{ dePath }}" hreflang="de" lang="en" aria-label="{{ t('nav.language') }}: DE">EN</a>
+  {% else %}
+  <a href="{{ enPath }}" hreflang="en" lang="de" aria-label="{{ t('nav.language') }}: EN">DE</a>
+  {% endif %}
+</nav>
+{% include 'theme-controls.twig' %}
