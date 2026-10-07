@@ -5,5 +5,9 @@
     try { stored = localStorage.getItem("theme"); } catch {}
     document.documentElement.dataset.theme = ["dark", "light"].includes(stored)
       ? stored : matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    // Match the browser UI color to the theme before first paint. The stylesheet is applied here.
+    const meta = document.querySelector('meta[name="theme-color"]');
+    const background = getComputedStyle(document.documentElement).getPropertyValue("--c-bg").trim();
+    if (meta && background) meta.setAttribute("content", background);
   })();
 </script>

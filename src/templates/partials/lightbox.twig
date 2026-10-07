@@ -1,0 +1,20 @@
+<!-- ==================== LIGHTBOX ==================== -->
+<dialog class="lightbox" aria-label="{{ t('photos.lightbox.title') }}" aria-describedby="lightbox-dismiss-hint" data-position-label="{{ t('photos.lightbox.position', {current: '{current}', total: '{total}'}) }}">
+  <div class="lightbox-header">
+    {% include 'theme-controls.twig' %}
+    <button type="button" class="lightbox-close" aria-label="{{ t('photos.lightbox.close') }}" autofocus><span aria-hidden="true">×</span></button>
+  </div>
+  <div class="lightbox-stage">
+    <p class="lightbox-error" hidden>{{ t('photos.lightbox.error') }}</p>
+  </div>
+  <div class="lightbox-footer">
+    <div class="lightbox-navigation">
+      <button type="button" class="lightbox-previous" aria-label="{{ t('photos.lightbox.previous') }}"><span aria-hidden="true">←</span></button>
+      <span class="lightbox-counter" aria-hidden="true"></span>
+      <button type="button" class="lightbox-next" aria-label="{{ t('photos.lightbox.next') }}"><span aria-hidden="true">→</span></button>
+    </div>
+    <p class="lightbox-caption" hidden></p>
+    <p class="lightbox-hint" id="lightbox-dismiss-hint">{{ t('photos.lightbox.dismissHint') }}</p>
+  </div>
+  <p class="lightbox-announcement" role="status" aria-atomic="true"></p>
+</dialog>

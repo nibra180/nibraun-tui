@@ -15,7 +15,7 @@ for (const prefix of ["", "de/"]) {
     const photos = read(`${prefix}photos/index.html`);
     const galleries = projects.map((project) => read(`${prefix}photos/${project.slug}/index.html`));
     for (const gallery of galleries) {
-      assert.equal(gallery.split(`class="gallery-back" href="/${prefix}photos/"`).length - 1, 2);
+      assert.equal(gallery.split(`class="gallery-back button" href="/${prefix}photos/"`).length - 1, 2);
     }
     for (const html of [home, work, photos, ...galleries]) {
       const footer = html.match(/<footer class="site-footer"[\s\S]*?<\/footer>/)[0];
@@ -34,8 +34,9 @@ for (const prefix of ["", "de/"]) {
       const footerControls = html.match(/<div class="footer-controls">[\s\S]*?<\/nav>/)[0];
       const languagePath = html.match(/<div class="header-controls">[\s\S]*?<a href="([^"]+)"/)[1];
       assert.ok(footerControls.includes(`href="${languagePath}"`));
-      assert.equal((html.match(/data-theme-choice="light"/g) ?? []).length, 2);
-      assert.equal((html.match(/data-theme-choice="dark"/g) ?? []).length, 2);
+      const themeControls = html.includes('<dialog class="lightbox"') ? 3 : 2;
+      assert.equal((html.match(/data-theme-choice="light"/g) ?? []).length, themeControls);
+      assert.equal((html.match(/data-theme-choice="dark"/g) ?? []).length, themeControls);
       assert.doesNotMatch(html, /\{\{/);
       assert.doesNotMatch(html, /github-project-meta\.js|api\.github\.com|data-github-repo|id="repoStrings"/);
     }
@@ -83,6 +84,26 @@ for (const prefix of ["", "de/"]) {
     assert.match(photos, /class="photo-project tone-green"/);
   });
 }
+
+test("all back links reuse button styling while remaining navigation links", () => {
+  for (const locale of ["en", "de"]) {
+    const prefix = locale === "de" ? "de/" : "";
+    const files = [
+      ...projects.map((project) => `${prefix}photos/${project.slug}/index.html`),
+      ...Object.values(LEGAL_ROUTES).map((routes) => routes[locale].slice(1) + "index.html"),
+      `${prefix}404.html`,
+    ];
+    for (const file of files) {
+      const backLinks = [...read(file).matchAll(/<a class="([^"]*\bgallery-back\b[^"]*)"([^>]*)>/g)];
+      assert.ok(backLinks.length > 0, `Missing back link in ${file}`);
+      for (const [, classes, attributes] of backLinks) {
+        assert.ok(classes.split(/\s+/).includes("button"), `Missing button styling in ${file}`);
+        assert.match(attributes, /href="\/[^"]*"/);
+        assert.doesNotMatch(attributes, /role="button"/);
+      }
+    }
+  }
+});
 
 for (const locale of ["en", "de"]) {
   test(`${locale}legal pages contain confirmed operator and hosting information`, () => {

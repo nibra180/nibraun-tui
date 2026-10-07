@@ -20,6 +20,7 @@
         <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23171717'/%3E%3Ctext x='50' y='72' font-family='Arial' font-size='64' fill='%23f7f7f4' text-anchor='middle'%3EN%3C/text%3E%3C/svg%3E" />
     <link rel="preload" href="/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/GeistMono-Variable.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="stylesheet" href="/dist/tailwind.css" />
     <script>
   // Set the theme before first paint to avoid flashing the wrong theme.
@@ -28,6 +29,10 @@
     try { stored = localStorage.getItem("theme"); } catch {}
     document.documentElement.dataset.theme = ["dark", "light"].includes(stored)
       ? stored : matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    // Match the browser UI color to the theme before first paint. The stylesheet is applied here.
+    const meta = document.querySelector('meta[name="theme-color"]');
+    const background = getComputedStyle(document.documentElement).getPropertyValue("--c-bg").trim();
+    if (meta && background) meta.setAttribute("content", background);
   })();
 </script>
               </head>
@@ -68,7 +73,7 @@
 </header>
       <!-- ==================== LEGAL ==================== -->
 <main class="legal-main" id="legal">
-  <a class="gallery-back" href="/de/"><span aria-hidden="true">←</span> Home</a>
+  <a class="gallery-back button" href="/de/"><span aria-hidden="true">←</span> Home</a>
   <h1 class="legal-title">Impressum</h1>
   <p>Angaben gemäß § 5 Digitale-Dienste-Gesetz (DDG) und § 18 Absatz 1 Medienstaatsvertrag (MStV).</p>  <section class="legal-section">
     <h2>Betreiber und Kontakt</h2>
@@ -112,7 +117,10 @@ function applyTheme(theme, store = false) {
   document.querySelector('meta[name="theme-color"]').setAttribute("content", getComputedStyle(root).getPropertyValue("--c-bg").trim());
   if (store) try { localStorage.setItem("theme", theme); } catch {}
 }
-document.querySelectorAll("[data-theme-choice]").forEach((button) => button.addEventListener("click", () => applyTheme(root.dataset.theme === "dark" ? "light" : "dark", true)));
+document.querySelectorAll("[data-theme-choice]").forEach((button) => button.addEventListener("click", () => {
+  applyTheme(root.dataset.theme === "dark" ? "light" : "dark", true);
+  button.closest(".theme-switch").querySelector('[aria-pressed="true"]').focus({ preventScroll: true });
+}));
 applyTheme(root.dataset.theme === "dark" ? "dark" : "light");
               });
     </script>

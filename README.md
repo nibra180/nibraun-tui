@@ -32,6 +32,7 @@ the 400x300 canvas to 16:9, so the strip outside y 37.5 to 262.5 may be cut.
 - Static English and German Home, Work, photo index and gallery pages; old `?lang=de` links redirect
 - Home with Work/Photos cards; the Photos thumbnail randomly uses one gallery lead image. Links go to `/work/` and `/photos/` (German: `/de/work/` and `/de/photos/`)
 - Photo index with thumbnail cards linking to individual galleries
+- Minimal gallery lightbox with keyboard navigation, image counter and optional captions; no animations or runtime dependencies
 - All content, JSON-LD (`ProfilePage`, `Person`, project list), `sitemap.xml`, `robots.txt` and `llms.txt` ship as static files, so crawlers without JavaScript see the full page
 - Monokai Pro and Monokai Pro Light Sun themes, switchable and stored in `localStorage`
 - Text selection with a tinted ground and a wavy underline; each new selection takes the next top-bar color, project rows keep their own
@@ -176,7 +177,26 @@ AVIF, WebP and JPEG candidates: browsers supporting auto sizes select a variant
 from the actual image width in the grid or sequence, including after resizing
 or changing views. Older browsers use the responsive sequence sizes as a
 fallback. The original image dimensions and CSS widths reserve the layout before
-loading. No lightbox, originals, or full-gallery preload is shipped.
+loading. Originals and full-gallery preloads are never shipped.
+
+Click or tap a gallery photo in either view to open the lightbox. Previous/next
+buttons and the left/right arrow keys navigate. Clicking or tapping the left half
+of the displayed photo goes back, the right half goes forward; navigation stops
+at the ends. Only the photo itself is a navigation target, not the empty area
+around it. Close with the top-right button, Escape, or a click on the empty area around the
+photo. Images fit the available screen without cropping or animations. Optional
+captions and an image counter sit below the photo. Native modal dialog behavior
+keeps focus inside and the background inert; closing returns focus to the image
+link without changing the gallery's scroll position. The background cannot scroll
+while the lightbox is open. The theme switch immediately left of the close button
+uses the same saved preference as the header and footer controls.
+
+The lightbox only loads the selected photo using the existing responsive variants
+and sizing based on the available width and height. No zoom, autoplay, swipe
+controls, thumbnail strip or full-screen API is used. Without JavaScript or modal
+dialog support, the image links open the largest optimized JPEG variant directly.
+`partials/lightbox.twig` contains the shared dialog, and `gallery-script.twig`
+handles its behavior within the common `DOMContentLoaded` handler.
 
 Configure the server to send `Cache-Control: public, max-age=31536000, immutable`
 for existing hashed files in `/img/photos/`; HTML should revalidate instead.

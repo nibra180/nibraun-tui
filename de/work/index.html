@@ -30,6 +30,7 @@
         <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23171717'/%3E%3Ctext x='50' y='72' font-family='Arial' font-size='64' fill='%23f7f7f4' text-anchor='middle'%3EN%3C/text%3E%3C/svg%3E" />
     <link rel="preload" href="/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/GeistMono-Variable.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="stylesheet" href="/dist/tailwind.css" />
     <script>
   // Set the theme before first paint to avoid flashing the wrong theme.
@@ -38,6 +39,10 @@
     try { stored = localStorage.getItem("theme"); } catch {}
     document.documentElement.dataset.theme = ["dark", "light"].includes(stored)
       ? stored : matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    // Match the browser UI color to the theme before first paint. The stylesheet is applied here.
+    const meta = document.querySelector('meta[name="theme-color"]');
+    const background = getComputedStyle(document.documentElement).getPropertyValue("--c-bg").trim();
+    if (meta && background) meta.setAttribute("content", background);
   })();
 </script>
         <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"ProfilePage","@id":"https://nibraun.de/de/work/#page","url":"https://nibraun.de/de/work/","name":"Niklas Braun — Full-Stack Developer","description":"Niklas Braun ist Full-Stack Developer mit 7+ Jahren Erfahrung in Shopware 6, Flutter, Vue.js, TypeScript, PHP/Symfony und individuellen E-Commerce-Lösungen.","inLanguage":"de","mainEntity":{"@id":"https://nibraun.de/#person"}},{"@type":"Person","@id":"https://nibraun.de/#person","name":"Niklas Braun","url":"https://nibraun.de/","jobTitle":"Full-Stack-Entwickler","description":"Ich bin Full-Stack Developer mit Fokus auf Shopware 6. Ich entwickle Plugins, Themes und Schnittstellen, derzeit bei Sharpness Solutions. In meiner Freizeit arbeite ich an mobilen Apps und Open-Source-Projekten. Hier ist eine Auswahl meiner Projekte:","worksFor":{"@type":"Organization","name":"Sharpness Solutions GmbH","url":"https://sharpness.de"},"memberOf":{"@type":"Organization","name":"WariKoda","url":"https://github.com/WariKoda"},"address":{"@type":"PostalAddress","addressLocality":"Oldenburg","addressRegion":"Niedersachsen","addressCountry":"DE"},"knowsAbout":["Shopware 6","PHP","Symfony","Twig","Vue.js","TypeScript","TYPO3","Flutter","Dart","Riverpod","Drift (SQLite)","Supabase","Kotlin","Go","Rust","Node.js","Pi","Claude Code","Codex","Herdr","Docker Compose","DDEV","Neovim","Zed","PhpStorm","Git"],"sameAs":["https://github.com/nibra180","https://www.instagram.com/nibraun_/"]},{"@type":"ItemList","@id":"https://nibraun.de/de/work/#projects","name":"Projekte","itemListElement":[{"@type":"ListItem","position":1,"item":{"@type":"SoftwareApplication","name":"CampAlong","description":"Native Android-App in Kotlin mit Local-first-Ansatz zur Planung reisefertiger Mehrtagestouren aus GPX-Routen — mit Etappen, Übernachtungen, Wasser und Versorgung entlang der Route.","url":"https://campalong.de","author":{"@id":"https://nibraun.de/#person"}}},{"@type":"ListItem","position":2,"item":{"@type":"SoftwareSourceCode","codeRepository":"https://github.com/WariKoda/drift","programmingLanguage":"Go","name":"Drift","description":"TUI zum Browsen, Vergleichen und Synchronisieren von Dateien mit Remote-Hosts via SFTP/SSH und FTP, inklusive Diff-Ansicht und Sync-Richtung pro Datei.","url":"https://github.com/WariKoda/drift","dateCreated":"2026","author":{"@id":"https://nibraun.de/#person"}}},{"@type":"ListItem","position":3,"item":{"@type":"SoftwareSourceCode","codeRepository":"https://github.com/WariKoda/WakoPluginAdminToolbar","programmingLanguage":"PHP","name":"Admin Toolbar","description":"Shopware 6 Plugin, das im Storefront eine Admin-Toolbar einblendet — ähnlich wie bei WordPress.","url":"https://github.com/WariKoda/WakoPluginAdminToolbar","dateCreated":"2026","author":{"@id":"https://nibraun.de/#person"}}},{"@type":"ListItem","position":4,"item":{"@type":"SoftwareSourceCode","codeRepository":"https://github.com/nibra180/sippy","programmingLanguage":"Rust","name":"Sippy","description":"SIP-Softphone für den Linux-Desktop mit Rust und GPUI, entwickelt für Omarchy auf Hyprland. Steuert baresip über D-Bus und bietet Kontakte, Anrufverlauf und Audioeinstellungen.","url":"https://github.com/nibra180/sippy","dateCreated":"2026","author":{"@id":"https://nibraun.de/#person"}}}]}]}</script>      </head>
@@ -220,7 +225,10 @@ function applyTheme(theme, store = false) {
   document.querySelector('meta[name="theme-color"]').setAttribute("content", getComputedStyle(root).getPropertyValue("--c-bg").trim());
   if (store) try { localStorage.setItem("theme", theme); } catch {}
 }
-document.querySelectorAll("[data-theme-choice]").forEach((button) => button.addEventListener("click", () => applyTheme(root.dataset.theme === "dark" ? "light" : "dark", true)));
+document.querySelectorAll("[data-theme-choice]").forEach((button) => button.addEventListener("click", () => {
+  applyTheme(root.dataset.theme === "dark" ? "light" : "dark", true);
+  button.closest(".theme-switch").querySelector('[aria-pressed="true"]').focus({ preventScroll: true });
+}));
 applyTheme(root.dataset.theme === "dark" ? "dark" : "light");
         const list = document.getElementById("projectList");
 const rows = [...list.querySelectorAll(".project-row")];

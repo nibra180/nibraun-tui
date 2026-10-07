@@ -56,10 +56,17 @@ test("the teaser leads the gallery and thumbnail without reordering the remainin
     const expected = [lead, ...images.filter((image) => image !== lead)].map((image) => image.file);
     assert.deepEqual(gallery.images.map((image) => image.file), expected);
     const sources = gallery.images.map((image) => image.variants.jpeg[0].url);
+    const fullSources = gallery.images.map((image) => image.variants.jpeg.at(-1).url);
     for (const prefix of ["", "de/"]) {
       const html = pages.get(`${prefix}photos/forest/index.html`);
       const renderedSources = [...html.matchAll(/<img[^>]* src="([^"]+)"/g)].map((match) => match[1]);
       assert.deepEqual(renderedSources, sources);
+      const imageLinks = [...html.matchAll(/<a class="photo-open" href="([^"]+)" aria-label="([^"]+)"/g)];
+      assert.deepEqual(imageLinks.map((match) => match[1]), fullSources);
+      assert.ok(imageLinks.every((match) => match[2].includes("A tree.")));
+      assert.match(html, /<dialog class="lightbox"/);
+      assert.match(html, /class="lightbox-announcement" role="status" aria-atomic="true"/);
+      assert.doesNotMatch(pages.get(`${prefix}photos/index.html`), /<dialog/);
       const tags = html.match(/<img[^>]*>/g);
       assert.match(tags[0], /loading="eager" fetchpriority="high"/);
       assert.ok(tags.slice(1).every((tag) => tag.includes('loading="lazy"') && !tag.includes("fetchpriority")));

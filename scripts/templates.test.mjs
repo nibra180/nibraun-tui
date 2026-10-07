@@ -36,6 +36,58 @@ test("Twig inheritance and shared includes produce the page layout", () => {
   assert.doesNotMatch(html, /\{%|\{\{/);
 });
 
+test("the lightbox reuses theme controls immediately before the close button", () => {
+  const html = renderTemplate("partials/lightbox.twig", { t });
+  const header = html.match(/<div class="lightbox-header">([\s\S]*?)<\/div>\s*<div class="lightbox-stage">/)[1];
+  assert.match(header, /class="switch theme-switch"/);
+  assert.equal((header.match(/data-theme-choice=/g) ?? []).length, 2);
+  assert.ok(header.indexOf('class="switch theme-switch"') < header.indexOf('class="lightbox-close"'));
+});
+
+test("the lightbox visibly explains backdrop dismissal in both languages", () => {
+  for (const locale of ["en", "de"]) {
+    const html = renderTemplate("partials/lightbox.twig", { t: (key) => translations[locale][key] });
+    assert.match(html, /aria-describedby="lightbox-dismiss-hint"/);
+    const hint = html.match(/<p class="lightbox-hint" id="lightbox-dismiss-hint">([^<]+)<\/p>/)[1];
+    assert.equal(hint, translations[locale]["photos.lightbox.dismissHint"]);
+  }
+});
+
+test("theme switches stay synchronized, persist the preference and retain focus", () => {
+  const root = { dataset: { theme: "light" } };
+  const stored = {};
+  let focused;
+  const groups = Array.from({ length: 3 }, () => {
+    const buttons = ["light", "dark"].map((theme) => ({
+      dataset: { themeChoice: theme }, attributes: {},
+      setAttribute(name, value) { this.attributes[name] = value; },
+      addEventListener(type, listener) { this.click = listener; },
+      focus(options) { focused = { button: this, options }; },
+    }));
+    const group = { querySelector: () => buttons.find((button) => button.attributes["aria-pressed"] === "true") };
+    for (const button of buttons) button.closest = () => group;
+    return buttons;
+  });
+  const meta = { setAttribute() {} };
+  const themeScript = new Script(readFileSync(new URL("../src/templates/partials/theme-script.twig", import.meta.url), "utf8"));
+  themeScript.runInNewContext({
+    document: { documentElement: root, querySelectorAll: () => groups.flat(), querySelector: () => meta },
+    getComputedStyle: () => ({ getPropertyValue: () => "background" }),
+    localStorage: { setItem: (key, value) => { stored[key] = value; } },
+  });
+  assert.equal(stored.theme, undefined, "initialization does not store a preference");
+  groups[2][0].click();
+  assert.equal(root.dataset.theme, "dark");
+  assert.equal(stored.theme, "dark");
+  assert.ok(groups.every(([light, dark]) => light.attributes["aria-pressed"] === "false" && dark.attributes["aria-pressed"] === "true"));
+  assert.equal(focused.button, groups[2][1]);
+  assert.equal(focused.options.preventScroll, true);
+  groups[2][1].click();
+  assert.equal(root.dataset.theme, "light");
+  assert.equal(stored.theme, "light");
+  assert.equal(focused.button, groups[2][0]);
+});
+
 test("Twig autoescapes text and attributes without double escaping", () => {
   const malicious = '<script>alert("x")</script> & snow';
   const html = renderTemplate("pages/photos.twig", { ...context, title: malicious, heading: malicious });

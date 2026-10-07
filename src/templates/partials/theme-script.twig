@@ -5,5 +5,8 @@ function applyTheme(theme, store = false) {
   document.querySelector('meta[name="theme-color"]').setAttribute("content", getComputedStyle(root).getPropertyValue("--c-bg").trim());
   if (store) try { localStorage.setItem("theme", theme); } catch {}
 }
-document.querySelectorAll("[data-theme-choice]").forEach((button) => button.addEventListener("click", () => applyTheme(root.dataset.theme === "dark" ? "light" : "dark", true)));
+document.querySelectorAll("[data-theme-choice]").forEach((button) => button.addEventListener("click", () => {
+  applyTheme(root.dataset.theme === "dark" ? "light" : "dark", true);
+  button.closest(".theme-switch").querySelector('[aria-pressed="true"]').focus({ preventScroll: true });
+}));
 applyTheme(root.dataset.theme === "dark" ? "dark" : "light");

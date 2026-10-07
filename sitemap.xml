@@ -108,4 +108,16 @@
     <xhtml:link rel="alternate" hreflang="de" href="https://nibraun.de/de/photos/brocken-harz/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://nibraun.de/photos/brocken-harz/"/>
   </url>
+  <url>
+    <loc>https://nibraun.de/photos/misc/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nibraun.de/photos/misc/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://nibraun.de/de/photos/misc/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nibraun.de/photos/misc/"/>
+  </url>
+  <url>
+    <loc>https://nibraun.de/de/photos/misc/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nibraun.de/photos/misc/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://nibraun.de/de/photos/misc/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nibraun.de/photos/misc/"/>
+  </url>
 </urlset>

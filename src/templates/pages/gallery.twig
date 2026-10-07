@@ -11,7 +11,7 @@
 {% block content %}
 <!-- ==================== PHOTOS ==================== -->
 <main class="photos-main" id="photos">
-  <a class="gallery-back" href="{{ backPath }}"><span aria-hidden="true">←</span> {{ t('photos.back') }}</a>
+  <a class="gallery-back button" href="{{ backPath }}"><span aria-hidden="true">←</span> {{ t('photos.back') }}</a>
   <h1 class="photos-title">{{ heading }}</h1>
   <div class="photos-toolbar">
   <p class="photos-description">{{ description }}</p>
@@ -27,13 +27,17 @@
   <div class="photo-sequence">
     {% for image in images %}
     <figure>
-      {% include '../components/picture.twig' with {picture: image.picture} %}
+      <a class="photo-open" href="{{ image.fullImageUrl }}" aria-label="{{ t('photos.lightbox.open') ~ ': ' ~ image.picture.alt }}">
+        {% include '../components/picture.twig' with {picture: image.picture} %}
+      </a>
       {% if image.captionKey is defined and image.captionKey %}<figcaption>{{ t(image.captionKey) }}</figcaption>{% endif %}
     </figure>
     {% endfor %}
   </div>
-  <a class="gallery-back" href="{{ backPath }}"><span aria-hidden="true">←</span> {{ t('photos.back') }}</a>
+  <a class="gallery-back button" href="{{ backPath }}"><span aria-hidden="true">←</span> {{ t('photos.back') }}</a>
 </main>
 {% endblock %}
 
 {% block scripts %}{% include '../partials/gallery-script.twig' %}{% endblock %}
+
+{% block scriptData %}{% include '../partials/lightbox.twig' %}{% endblock %}

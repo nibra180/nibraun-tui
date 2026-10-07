@@ -2,7 +2,7 @@ import { createHash } from "node:crypto";
 import { existsSync, mkdirSync, readFileSync } from "node:fs";
 import { join, resolve, sep } from "node:path";
 import sharp from "sharp";
-import { pictureData, renderTemplate } from "./templates.mjs";
+import { pictureData, renderTemplate, scriptJson } from "./templates.mjs";
 
 const WIDTHS = [480, 800, 1200, 1800, 2560];
 const FORMATS = { avif: { quality: 55 }, webp: { quality: 80 }, jpeg: { quality: 82, mozjpeg: true } };
@@ -12,6 +12,54 @@ const GALLERY_SIZES = "(min-width: 1100px) min(1312px, calc(100vw - 128px)), (mi
 const GALLERY_LAZY_SIZES = `auto, ${GALLERY_SIZES}`;
 const CARD_SIZES = "(min-width: 640px) 388px, calc(100vw - 60px)";
 const TONES = ["green", "blue", "purple", "orange", "yellow", "red"];
+
+function galleryStructuredData(site, locale, url, heading, description, project, t) {
+  return scriptJson({
+    "@context": "https://schema.org",
+    "@type": "ImageGallery",
+    "@id": `${url}#gallery`,
+    url,
+    name: heading,
+    description,
+    inLanguage: locale,
+    ...(project.year ? { dateCreated: String(project.year) } : {}),
+    author: { "@type": "Person", name: "Niklas Braun", url: `${site}/` },
+    image: project.images.map((image) => ({
+      "@type": "ImageObject",
+      contentUrl: site + image.variants.jpeg.at(-1).url,
+      width: image.width,
+      height: image.height,
+      name: t(image.altKey),
+      ...(image.captionKey ? { caption: t(image.captionKey) } : {}),
+    })),
+  });
+}
+
+function photosStructuredData(site, locale, url, heading, description, galleries, pathFor, t) {
+  return scriptJson({
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "@id": `${url}#page`,
+    url,
+    name: heading,
+    description,
+    inLanguage: locale,
+    author: { "@type": "Person", name: "Niklas Braun", url: `${site}/` },
+    mainEntity: {
+      "@type": "ItemList",
+      itemListElement: galleries.map((gallery, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        item: {
+          "@type": "ImageGallery",
+          name: t(gallery.titleKey),
+          description: t(gallery.descriptionKey),
+          url: site + pathFor(locale, gallery.slug),
+        },
+      })),
+    },
+  });
+}
 
 export async function buildPhotos({ root, site, translations, translator, write, year }) {
   const data = JSON.parse(readFileSync(join(root, "photos.json"), "utf8"));
@@ -84,9 +132,10 @@ export async function buildPhotos({ root, site, translations, translator, write,
       const paths = { en: pathFor("en", project?.slug), de: pathFor("de", project?.slug) };
       const heading = t(project ? project.titleKey : "photos.title");
       const description = t(project ? project.descriptionKey : "photos.description");
+      const pageUrl = site + paths[locale];
       const values = {
         t, lang: locale, title: `${heading} — Niklas Braun`, heading,
-        description, url: site + paths[locale],
+        description, url: pageUrl,
         enUrl: site + paths.en, deUrl: site + paths.de, enPath: paths.en, dePath: paths.de,
         homePath: locale === "de" ? "/de/" : "/", year,
         photosPath: pathFor(locale),
@@ -96,7 +145,8 @@ export async function buildPhotos({ root, site, translations, translator, write,
         backPath: project ? pathFor(locale) : locale === "de" ? "/de/" : "/",
         backLabel: t(project ? "photos.back" : "nav.home"),
         images: project ? project.images.map((image, index) => ({
-          captionKey: null, ...image, picture: pictureData(image, { sizes: index === 0 ? GALLERY_SIZES : GALLERY_LAZY_SIZES, alt: t(image.altKey), eager: index === 0 }),
+          captionKey: null, ...image, fullImageUrl: image.variants.jpeg.at(-1).url,
+          picture: pictureData(image, { sizes: index === 0 ? GALLERY_SIZES : GALLERY_LAZY_SIZES, alt: t(image.altKey), eager: index === 0 }),
         })) : [],
         galleries: galleries.map((gallery, index) => {
           const image = gallery.images[0];
@@ -105,6 +155,9 @@ export async function buildPhotos({ root, site, translations, translator, write,
             picture: pictureData(image, { sizes: CARD_SIZES, alt: t(image.altKey), eager: index === 0 }),
           };
         }),
+        jsonLd: project
+          ? galleryStructuredData(site, locale, pageUrl, heading, description, project, t)
+          : photosStructuredData(site, locale, pageUrl, heading, description, galleries, pathFor, t),
       };
       const html = renderTemplate(`pages/${project ? "gallery" : "photos"}.twig`, values);
       write(paths[locale].slice(1) + "index.html", html);

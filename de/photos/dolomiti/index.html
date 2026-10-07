@@ -20,6 +20,7 @@
         <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23171717'/%3E%3Ctext x='50' y='72' font-family='Arial' font-size='64' fill='%23f7f7f4' text-anchor='middle'%3EN%3C/text%3E%3C/svg%3E" />
     <link rel="preload" href="/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/GeistMono-Variable.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="stylesheet" href="/dist/tailwind.css" />
     <script>
   // Set the theme before first paint to avoid flashing the wrong theme.
@@ -28,9 +29,13 @@
     try { stored = localStorage.getItem("theme"); } catch {}
     document.documentElement.dataset.theme = ["dark", "light"].includes(stored)
       ? stored : matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    // Match the browser UI color to the theme before first paint. The stylesheet is applied here.
+    const meta = document.querySelector('meta[name="theme-color"]');
+    const background = getComputedStyle(document.documentElement).getPropertyValue("--c-bg").trim();
+    if (meta && background) meta.setAttribute("content", background);
   })();
 </script>
-            <script>
+        <script type="application/ld+json">{"@context":"https://schema.org","@type":"ImageGallery","@id":"https://nibraun.de/de/photos/dolomiti/#gallery","url":"https://nibraun.de/de/photos/dolomiti/","name":"Dolomiti","description":"2024 - Zwischen Wolken, Fels und Bergseen.","inLanguage":"de","dateCreated":"2024","author":{"@type":"Person","name":"Niklas Braun","url":"https://nibraun.de/"},"image":[{"@type":"ImageObject","contentUrl":"https://nibraun.de/img/photos/b8dcf9caf687e96a7e10-2560.jpg","width":6000,"height":4000,"name":"Ein Wanderweg führt über einen grasigen Hang zu Felsgipfeln im Nebel."},{"@type":"ImageObject","contentUrl":"https://nibraun.de/img/photos/48102bfcdc3728ca8095-2560.jpg","width":4000,"height":6000,"name":"Zwei Hütten auf einer Alm unter wolkenverhangenen Felsspitzen."},{"@type":"ImageObject","contentUrl":"https://nibraun.de/img/photos/9251c71599b35d7452a1-2560.jpg","width":4000,"height":6000,"name":"Grasiger Bergrücken vor steilen Felswänden, die teilweise in Wolken verschwinden."},{"@type":"ImageObject","contentUrl":"https://nibraun.de/img/photos/add16ec0f87367567c4a-2560.jpg","width":6000,"height":4000,"name":"Sonnenlicht auf einer Alm mit geschwungenen Wegen unter dichten Wolken und dunklen Bergflanken."},{"@type":"ImageObject","contentUrl":"https://nibraun.de/img/photos/54213e88fa35e422ed25-2560.jpg","width":5559,"height":3706,"name":"Eine Person steht auf einem Felsen an einem klaren Bergsee, in dem sich Wald und Gipfel spiegeln."},{"@type":"ImageObject","contentUrl":"https://nibraun.de/img/photos/a7827d7994b40c2ee2b8-2560.jpg","width":6000,"height":4000,"name":"Holzhütten auf einer kargen Hochebene zwischen steilen Felswänden unter bewölktem Himmel."},{"@type":"ImageObject","contentUrl":"https://nibraun.de/img/photos/fde6340822de728fb136-2560.jpg","width":4000,"height":6000,"name":"Zwei kleine Bergseen zwischen hellen Felsen und goldbraunen Wiesen unter dunklen Wolken."},{"@type":"ImageObject","contentUrl":"https://nibraun.de/img/photos/c5aa53cc73abc536c96b-2560.jpg","width":6000,"height":4000,"name":"Ein Bergsee in einer weiten, felsigen Senke mit grasigen Hängen und hohen Felswänden."},{"@type":"ImageObject","contentUrl":"https://nibraun.de/img/photos/8e11eccce19f1e552e0f-2560.jpg","width":6000,"height":4000,"name":"Sonnenbeschienene Almwiese vor einer mächtigen grauen Felswand mit schroffen Türmen."}]}</script>    <script>
   // Apply the stored gallery view before first paint to avoid a layout jump.
   document.documentElement.dataset.galleryView = "grid";
   try { if (localStorage.getItem("galleryView") === "sequence") delete document.documentElement.dataset.galleryView; } catch {}
@@ -73,7 +78,7 @@
 </header>
       <!-- ==================== PHOTOS ==================== -->
 <main class="photos-main" id="photos">
-  <a class="gallery-back" href="/de/photos/"><span aria-hidden="true">←</span> Zurück</a>
+  <a class="gallery-back button" href="/de/photos/"><span aria-hidden="true">←</span> Zurück</a>
   <h1 class="photos-title">Dolomiti</h1>
   <div class="photos-toolbar">
   <p class="photos-description">2024 - Zwischen Wolken, Fels und Bergseen.</p>
@@ -88,70 +93,88 @@
   </div>
   <div class="photo-sequence">
         <figure>
-      <picture>
+      <a class="photo-open" href="/img/photos/b8dcf9caf687e96a7e10-2560.jpg" aria-label="Bild vergrößern: Ein Wanderweg führt über einen grasigen Hang zu Felsgipfeln im Nebel.">
+        <picture>
   <source type="image/avif" srcset="/img/photos/b8dcf9caf687e96a7e10-480.avif 480w, /img/photos/b8dcf9caf687e96a7e10-800.avif 800w, /img/photos/b8dcf9caf687e96a7e10-1200.avif 1200w, /img/photos/b8dcf9caf687e96a7e10-1800.avif 1800w, /img/photos/b8dcf9caf687e96a7e10-2560.avif 2560w" sizes="(min-width: 1100px) min(1312px, calc(100vw - 128px)), (min-width: 640px) 592px, 100vw" />
   <source type="image/webp" srcset="/img/photos/b8dcf9caf687e96a7e10-480.webp 480w, /img/photos/b8dcf9caf687e96a7e10-800.webp 800w, /img/photos/b8dcf9caf687e96a7e10-1200.webp 1200w, /img/photos/b8dcf9caf687e96a7e10-1800.webp 1800w, /img/photos/b8dcf9caf687e96a7e10-2560.webp 2560w" sizes="(min-width: 1100px) min(1312px, calc(100vw - 128px)), (min-width: 640px) 592px, 100vw" />
   <img src="/img/photos/b8dcf9caf687e96a7e10-1200.jpg" srcset="/img/photos/b8dcf9caf687e96a7e10-480.jpg 480w, /img/photos/b8dcf9caf687e96a7e10-800.jpg 800w, /img/photos/b8dcf9caf687e96a7e10-1200.jpg 1200w, /img/photos/b8dcf9caf687e96a7e10-1800.jpg 1800w, /img/photos/b8dcf9caf687e96a7e10-2560.jpg 2560w" sizes="(min-width: 1100px) min(1312px, calc(100vw - 128px)), (min-width: 640px) 592px, 100vw" width="6000" height="4000" alt="Ein Wanderweg führt über einen grasigen Hang zu Felsgipfeln im Nebel." loading="eager" fetchpriority="high" decoding="async" />
 </picture>
+      </a>
           </figure>
         <figure>
-      <picture>
+      <a class="photo-open" href="/img/photos/48102bfcdc3728ca8095-2560.jpg" aria-label="Bild vergrößern: Zwei Hütten auf einer Alm unter wolkenverhangenen Felsspitzen.">
+        <picture>
   <source type="image/avif" srcset="/img/photos/48102bfcdc3728ca8095-480.avif 480w, /img/photos/48102bfcdc3728ca8095-800.avif 800w, /img/photos/48102bfcdc3728ca8095-1200.avif 1200w, /img/photos/48102bfcdc3728ca8095-1800.avif 1800w, /img/photos/48102bfcdc3728ca8095-2560.avif 2560w" sizes="auto, (min-width: 1100px) min(1312px, calc(100vw - 128px)), (min-width: 640px) 592px, 100vw" />
   <source type="image/webp" srcset="/img/photos/48102bfcdc3728ca8095-480.webp 480w, /img/photos/48102bfcdc3728ca8095-800.webp 800w, /img/photos/48102bfcdc3728ca8095-1200.webp 1200w, /img/photos/48102bfcdc3728ca8095-1800.webp 1800w, /img/photos/48102bfcdc3728ca8095-2560.webp 2560w" sizes="auto, (min-width: 1100px) min(1312px, calc(100vw - 128px)), (min-width: 640px) 592px, 100vw" />
   <img src="/img/photos/48102bfcdc3728ca8095-1200.jpg" srcset="/img/photos/48102bfcdc3728ca8095-480.jpg 480w, /img/photos/48102bfcdc3728ca8095-800.jpg 800w, /img/photos/48102bfcdc3728ca8095-1200.jpg 1200w, /img/photos/48102bfcdc3728ca8095-1800.jpg 1800w, /img/photos/48102bfcdc3728ca8095-2560.jpg 2560w" sizes="auto, (min-width: 1100px) min(1312px, calc(100vw - 128px)), (min-width: 640px) 592px, 100vw" width="4000" height="6000" alt="Zwei Hütten auf einer Alm unter wolkenverhangenen Felsspitzen." loading="lazy" decoding="async" />
 </picture>
+      </a>
           </figure>
         <figure>
-      <picture>
+      <a class="photo-open" href="/img/photos/9251c71599b35d7452a1-2560.jpg" aria-label="Bild vergrößern: Grasiger Bergrücken vor steilen Felswänden, die teilweise in Wolken verschwinden.">
+        <picture>
   <source type="image/avif" srcset="/img/photos/9251c71599b35d7452a1-480.avif 480w, /img/photos/9251c71599b35d7452a1-800.avif 800w, /img/photos/9251c71599b35d7452a1-1200.avif 1200w, /img/photos/9251c71599b35d7452a1-1800.avif 1800w, /img/photos/9251c71599b35d7452a1-2560.avif 2560w" sizes="auto, (min-width: 1100px) min(1312px, calc(100vw - 128px)), (min-width: 640px) 592px, 100vw" />
   <source type="image/webp" srcset="/img/photos/9251c71599b35d7452a1-480.webp 480w, /img/photos/9251c71599b35d7452a1-800.webp 800w, /img/photos/9251c71599b35d7452a1-1200.webp 1200w, /img/photos/9251c71599b35d7452a1-1800.webp 1800w, /img/photos/9251c71599b35d7452a1-2560.webp 2560w" sizes="auto, (min-width: 1100px) min(1312px, calc(100vw - 128px)), (min-width: 640px) 592px, 100vw" />
   <img src="/img/photos/9251c71599b35d7452a1-1200.jpg" srcset="/img/photos/9251c71599b35d7452a1-480.jpg 480w, /img/photos/9251c71599b35d7452a1-800.jpg 800w, /img/photos/9251c71599b35d7452a1-1200.jpg 1200w, /img/photos/9251c71599b35d7452a1-1800.jpg 1800w, /img/photos/9251c71599b35d7452a1-2560.jpg 2560w" sizes="auto, (min-width: 1100px) min(1312px, calc(100vw - 128px)), (min-width: 640px) 592px, 100vw" width="4000" height="6000" alt="Grasiger Bergrücken vor steilen Felswänden, die teilweise in Wolken verschwinden." loading="lazy" decoding="async" />
 </picture>
+      </a>
           </figure>
         <figure>
-      <picture>
+      <a class="photo-open" href="/img/photos/add16ec0f87367567c4a-2560.jpg" aria-label="Bild vergrößern: Sonnenlicht auf einer Alm mit geschwungenen Wegen unter dichten Wolken und dunklen Bergflanken.">
+        <picture>
   <source type="image/avif" srcset="/img/photos/add16ec0f87367567c4a-480.avif 480w, /img/photos/add16ec0f87367567c4a-800.avif 800w, /img/photos/add16ec0f87367567c4a-1200.avif 1200w, /img/photos/add16ec0f87367567c4a-1800.avif 1800w, /img/photos/add16ec0f87367567c4a-2560.avif 2560w" sizes="auto, (min-width: 1100px) min(1312px, calc(100vw - 128px)), (min-width: 640px) 592px, 100vw" />
   <source type="image/webp" srcset="/img/photos/add16ec0f87367567c4a-480.webp 480w, /img/photos/add16ec0f87367567c4a-800.webp 800w, /img/photos/add16ec0f87367567c4a-1200.webp 1200w, /img/photos/add16ec0f87367567c4a-1800.webp 1800w, /img/photos/add16ec0f87367567c4a-2560.webp 2560w" sizes="auto, (min-width: 1100px) min(1312px, calc(100vw - 128px)), (min-width: 640px) 592px, 100vw" />
   <img src="/img/photos/add16ec0f87367567c4a-1200.jpg" srcset="/img/photos/add16ec0f87367567c4a-480.jpg 480w, /img/photos/add16ec0f87367567c4a-800.jpg 800w, /img/photos/add16ec0f87367567c4a-1200.jpg 1200w, /img/photos/add16ec0f87367567c4a-1800.jpg 1800w, /img/photos/add16ec0f87367567c4a-2560.jpg 2560w" sizes="auto, (min-width: 1100px) min(1312px, calc(100vw - 128px)), (min-width: 640px) 592px, 100vw" width="6000" height="4000" alt="Sonnenlicht auf einer Alm mit geschwungenen Wegen unter dichten Wolken und dunklen Bergflanken." loading="lazy" decoding="async" />
 </picture>
+      </a>
           </figure>
         <figure>
-      <picture>
+      <a class="photo-open" href="/img/photos/54213e88fa35e422ed25-2560.jpg" aria-label="Bild vergrößern: Eine Person steht auf einem Felsen an einem klaren Bergsee, in dem sich Wald und Gipfel spiegeln.">
+        <picture>
   <source type="image/avif" srcset="/img/photos/54213e88fa35e422ed25-480.avif 480w, /img/photos/54213e88fa35e422ed25-800.avif 800w, /img/photos/54213e88fa35e422ed25-1200.avif 1200w, /img/photos/54213e88fa35e422ed25-1800.avif 1800w, /img/photos/54213e88fa35e422ed25-2560.avif 2560w" sizes="auto, (min-width: 1100px) min(1312px, calc(100vw - 128px)), (min-width: 640px) 592px, 100vw" />
   <source type="image/webp" srcset="/img/photos/54213e88fa35e422ed25-480.webp 480w, /img/photos/54213e88fa35e422ed25-800.webp 800w, /img/photos/54213e88fa35e422ed25-1200.webp 1200w, /img/photos/54213e88fa35e422ed25-1800.webp 1800w, /img/photos/54213e88fa35e422ed25-2560.webp 2560w" sizes="auto, (min-width: 1100px) min(1312px, calc(100vw - 128px)), (min-width: 640px) 592px, 100vw" />
   <img src="/img/photos/54213e88fa35e422ed25-1200.jpg" srcset="/img/photos/54213e88fa35e422ed25-480.jpg 480w, /img/photos/54213e88fa35e422ed25-800.jpg 800w, /img/photos/54213e88fa35e422ed25-1200.jpg 1200w, /img/photos/54213e88fa35e422ed25-1800.jpg 1800w, /img/photos/54213e88fa35e422ed25-2560.jpg 2560w" sizes="auto, (min-width: 1100px) min(1312px, calc(100vw - 128px)), (min-width: 640px) 592px, 100vw" width="5559" height="3706" alt="Eine Person steht auf einem Felsen an einem klaren Bergsee, in dem sich Wald und Gipfel spiegeln." loading="lazy" decoding="async" />
 </picture>
+      </a>
           </figure>
         <figure>
-      <picture>
+      <a class="photo-open" href="/img/photos/a7827d7994b40c2ee2b8-2560.jpg" aria-label="Bild vergrößern: Holzhütten auf einer kargen Hochebene zwischen steilen Felswänden unter bewölktem Himmel.">
+        <picture>
   <source type="image/avif" srcset="/img/photos/a7827d7994b40c2ee2b8-480.avif 480w, /img/photos/a7827d7994b40c2ee2b8-800.avif 800w, /img/photos/a7827d7994b40c2ee2b8-1200.avif 1200w, /img/photos/a7827d7994b40c2ee2b8-1800.avif 1800w, /img/photos/a7827d7994b40c2ee2b8-2560.avif 2560w" sizes="auto, (min-width: 1100px) min(1312px, calc(100vw - 128px)), (min-width: 640px) 592px, 100vw" />
   <source type="image/webp" srcset="/img/photos/a7827d7994b40c2ee2b8-480.webp 480w, /img/photos/a7827d7994b40c2ee2b8-800.webp 800w, /img/photos/a7827d7994b40c2ee2b8-1200.webp 1200w, /img/photos/a7827d7994b40c2ee2b8-1800.webp 1800w, /img/photos/a7827d7994b40c2ee2b8-2560.webp 2560w" sizes="auto, (min-width: 1100px) min(1312px, calc(100vw - 128px)), (min-width: 640px) 592px, 100vw" />
   <img src="/img/photos/a7827d7994b40c2ee2b8-1200.jpg" srcset="/img/photos/a7827d7994b40c2ee2b8-480.jpg 480w, /img/photos/a7827d7994b40c2ee2b8-800.jpg 800w, /img/photos/a7827d7994b40c2ee2b8-1200.jpg 1200w, /img/photos/a7827d7994b40c2ee2b8-1800.jpg 1800w, /img/photos/a7827d7994b40c2ee2b8-2560.jpg 2560w" sizes="auto, (min-width: 1100px) min(1312px, calc(100vw - 128px)), (min-width: 640px) 592px, 100vw" width="6000" height="4000" alt="Holzhütten auf einer kargen Hochebene zwischen steilen Felswänden unter bewölktem Himmel." loading="lazy" decoding="async" />
 </picture>
+      </a>
           </figure>
         <figure>
-      <picture>
+      <a class="photo-open" href="/img/photos/fde6340822de728fb136-2560.jpg" aria-label="Bild vergrößern: Zwei kleine Bergseen zwischen hellen Felsen und goldbraunen Wiesen unter dunklen Wolken.">
+        <picture>
   <source type="image/avif" srcset="/img/photos/fde6340822de728fb136-480.avif 480w, /img/photos/fde6340822de728fb136-800.avif 800w, /img/photos/fde6340822de728fb136-1200.avif 1200w, /img/photos/fde6340822de728fb136-1800.avif 1800w, /img/photos/fde6340822de728fb136-2560.avif 2560w" sizes="auto, (min-width: 1100px) min(1312px, calc(100vw - 128px)), (min-width: 640px) 592px, 100vw" />
   <source type="image/webp" srcset="/img/photos/fde6340822de728fb136-480.webp 480w, /img/photos/fde6340822de728fb136-800.webp 800w, /img/photos/fde6340822de728fb136-1200.webp 1200w, /img/photos/fde6340822de728fb136-1800.webp 1800w, /img/photos/fde6340822de728fb136-2560.webp 2560w" sizes="auto, (min-width: 1100px) min(1312px, calc(100vw - 128px)), (min-width: 640px) 592px, 100vw" />
   <img src="/img/photos/fde6340822de728fb136-1200.jpg" srcset="/img/photos/fde6340822de728fb136-480.jpg 480w, /img/photos/fde6340822de728fb136-800.jpg 800w, /img/photos/fde6340822de728fb136-1200.jpg 1200w, /img/photos/fde6340822de728fb136-1800.jpg 1800w, /img/photos/fde6340822de728fb136-2560.jpg 2560w" sizes="auto, (min-width: 1100px) min(1312px, calc(100vw - 128px)), (min-width: 640px) 592px, 100vw" width="4000" height="6000" alt="Zwei kleine Bergseen zwischen hellen Felsen und goldbraunen Wiesen unter dunklen Wolken." loading="lazy" decoding="async" />
 </picture>
+      </a>
           </figure>
         <figure>
-      <picture>
+      <a class="photo-open" href="/img/photos/c5aa53cc73abc536c96b-2560.jpg" aria-label="Bild vergrößern: Ein Bergsee in einer weiten, felsigen Senke mit grasigen Hängen und hohen Felswänden.">
+        <picture>
   <source type="image/avif" srcset="/img/photos/c5aa53cc73abc536c96b-480.avif 480w, /img/photos/c5aa53cc73abc536c96b-800.avif 800w, /img/photos/c5aa53cc73abc536c96b-1200.avif 1200w, /img/photos/c5aa53cc73abc536c96b-1800.avif 1800w, /img/photos/c5aa53cc73abc536c96b-2560.avif 2560w" sizes="auto, (min-width: 1100px) min(1312px, calc(100vw - 128px)), (min-width: 640px) 592px, 100vw" />
   <source type="image/webp" srcset="/img/photos/c5aa53cc73abc536c96b-480.webp 480w, /img/photos/c5aa53cc73abc536c96b-800.webp 800w, /img/photos/c5aa53cc73abc536c96b-1200.webp 1200w, /img/photos/c5aa53cc73abc536c96b-1800.webp 1800w, /img/photos/c5aa53cc73abc536c96b-2560.webp 2560w" sizes="auto, (min-width: 1100px) min(1312px, calc(100vw - 128px)), (min-width: 640px) 592px, 100vw" />
   <img src="/img/photos/c5aa53cc73abc536c96b-1200.jpg" srcset="/img/photos/c5aa53cc73abc536c96b-480.jpg 480w, /img/photos/c5aa53cc73abc536c96b-800.jpg 800w, /img/photos/c5aa53cc73abc536c96b-1200.jpg 1200w, /img/photos/c5aa53cc73abc536c96b-1800.jpg 1800w, /img/photos/c5aa53cc73abc536c96b-2560.jpg 2560w" sizes="auto, (min-width: 1100px) min(1312px, calc(100vw - 128px)), (min-width: 640px) 592px, 100vw" width="6000" height="4000" alt="Ein Bergsee in einer weiten, felsigen Senke mit grasigen Hängen und hohen Felswänden." loading="lazy" decoding="async" />
 </picture>
+      </a>
           </figure>
         <figure>
-      <picture>
+      <a class="photo-open" href="/img/photos/8e11eccce19f1e552e0f-2560.jpg" aria-label="Bild vergrößern: Sonnenbeschienene Almwiese vor einer mächtigen grauen Felswand mit schroffen Türmen.">
+        <picture>
   <source type="image/avif" srcset="/img/photos/8e11eccce19f1e552e0f-480.avif 480w, /img/photos/8e11eccce19f1e552e0f-800.avif 800w, /img/photos/8e11eccce19f1e552e0f-1200.avif 1200w, /img/photos/8e11eccce19f1e552e0f-1800.avif 1800w, /img/photos/8e11eccce19f1e552e0f-2560.avif 2560w" sizes="auto, (min-width: 1100px) min(1312px, calc(100vw - 128px)), (min-width: 640px) 592px, 100vw" />
   <source type="image/webp" srcset="/img/photos/8e11eccce19f1e552e0f-480.webp 480w, /img/photos/8e11eccce19f1e552e0f-800.webp 800w, /img/photos/8e11eccce19f1e552e0f-1200.webp 1200w, /img/photos/8e11eccce19f1e552e0f-1800.webp 1800w, /img/photos/8e11eccce19f1e552e0f-2560.webp 2560w" sizes="auto, (min-width: 1100px) min(1312px, calc(100vw - 128px)), (min-width: 640px) 592px, 100vw" />
   <img src="/img/photos/8e11eccce19f1e552e0f-1200.jpg" srcset="/img/photos/8e11eccce19f1e552e0f-480.jpg 480w, /img/photos/8e11eccce19f1e552e0f-800.jpg 800w, /img/photos/8e11eccce19f1e552e0f-1200.jpg 1200w, /img/photos/8e11eccce19f1e552e0f-1800.jpg 1800w, /img/photos/8e11eccce19f1e552e0f-2560.jpg 2560w" sizes="auto, (min-width: 1100px) min(1312px, calc(100vw - 128px)), (min-width: 640px) 592px, 100vw" width="6000" height="4000" alt="Sonnenbeschienene Almwiese vor einer mächtigen grauen Felswand mit schroffen Türmen." loading="lazy" decoding="async" />
 </picture>
+      </a>
           </figure>
       </div>
-  <a class="gallery-back" href="/de/photos/"><span aria-hidden="true">←</span> Zurück</a>
+  <a class="gallery-back button" href="/de/photos/"><span aria-hidden="true">←</span> Zurück</a>
 </main>
       <!-- ==================== FOOTER ==================== -->
       <footer class="site-footer">
@@ -184,7 +207,10 @@ function applyTheme(theme, store = false) {
   document.querySelector('meta[name="theme-color"]').setAttribute("content", getComputedStyle(root).getPropertyValue("--c-bg").trim());
   if (store) try { localStorage.setItem("theme", theme); } catch {}
 }
-document.querySelectorAll("[data-theme-choice]").forEach((button) => button.addEventListener("click", () => applyTheme(root.dataset.theme === "dark" ? "light" : "dark", true)));
+document.querySelectorAll("[data-theme-choice]").forEach((button) => button.addEventListener("click", () => {
+  applyTheme(root.dataset.theme === "dark" ? "light" : "dark", true);
+  button.closest(".theme-switch").querySelector('[aria-pressed="true"]').focus({ preventScroll: true });
+}));
 applyTheme(root.dataset.theme === "dark" ? "dark" : "light");
         const viewSwitch = document.querySelector(".view-switch");
 document.querySelectorAll(".photo-sequence figure").forEach((figure) => {
@@ -200,7 +226,143 @@ function applyGalleryView(view, store = false) {
 viewSwitch.querySelectorAll("[data-gallery-view]").forEach((button) => button.addEventListener("click", () => applyGalleryView(document.documentElement.dataset.galleryView === "grid" ? "sequence" : "grid", true)));
 applyGalleryView(document.documentElement.dataset.galleryView === "grid" ? "grid" : "sequence");
 viewSwitch.hidden = false;
+
+const lightbox = document.querySelector(".lightbox");
+if (lightbox && typeof lightbox.showModal === "function") {
+  const links = [...document.querySelectorAll(".photo-open")];
+  const stage = lightbox.querySelector(".lightbox-stage");
+  const closeButton = lightbox.querySelector(".lightbox-close");
+  const previousButton = lightbox.querySelector(".lightbox-previous");
+  const nextButton = lightbox.querySelector(".lightbox-next");
+  const counter = lightbox.querySelector(".lightbox-counter");
+  const caption = lightbox.querySelector(".lightbox-caption");
+  const error = lightbox.querySelector(".lightbox-error");
+  const announcement = lightbox.querySelector(".lightbox-announcement");
+  let currentIndex = 0;
+  let opener = null;
+  let currentPicture = null;
+  let blankPointerDown = false;
+
+  function positionLabel() {
+    return lightbox.dataset.positionLabel.replace("{current}", currentIndex + 1).replace("{total}", links.length);
+  }
+
+  function updateLightboxSizes() {
+    if (!lightbox.open || !currentPicture) return;
+    const image = currentPicture.querySelector("img");
+    const width = Number(image.getAttribute("width"));
+    const height = Number(image.getAttribute("height"));
+    const size = Math.max(1, Math.ceil(Math.min(width, stage.clientWidth, stage.clientHeight * width / height)));
+    currentPicture.querySelectorAll("source, img").forEach((element) => element.setAttribute("sizes", `${size}px`));
+  }
+
+  function showLightboxImage(index) {
+    if (index < 0 || index >= links.length) return;
+    currentIndex = index;
+    currentPicture?.remove();
+    currentPicture = null;
+    error.hidden = true;
+    counter.textContent = `${index + 1} / ${links.length}`;
+    previousButton.disabled = index === 0;
+    nextButton.disabled = index === links.length - 1;
+    caption.textContent = links[index].closest("figure").querySelector("figcaption")?.textContent ?? "";
+    caption.hidden = !caption.textContent;
+
+    const picture = links[index].querySelector("picture").cloneNode(true);
+    const image = picture.querySelector("img");
+    image.setAttribute("loading", "eager");
+    image.removeAttribute("fetchpriority");
+    currentPicture = picture;
+    updateLightboxSizes();
+    stage.setAttribute("aria-busy", "true");
+    announcement.textContent = `${positionLabel()}: ${image.alt}`;
+
+    function finishLoading(failed) {
+      // A response from an earlier photo must not change the current photo's state.
+      if (!lightbox.open || currentPicture !== picture) return;
+      stage.setAttribute("aria-busy", "false");
+      error.hidden = !failed;
+      picture.hidden = failed;
+      if (failed) announcement.textContent = `${positionLabel()}: ${error.textContent}`;
+    }
+    image.addEventListener("load", () => finishLoading(false), { once: true });
+    image.addEventListener("error", () => finishLoading(true), { once: true });
+    stage.append(picture);
+    if (image.complete) finishLoading(image.naturalWidth === 0);
+  }
+
+  links.forEach((link, index) => {
+    link.setAttribute("aria-haspopup", "dialog");
+    link.addEventListener("click", (event) => {
+      if (event.button !== 0 || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
+      event.preventDefault();
+      opener = link;
+      document.documentElement.classList.add("lightbox-open");
+      lightbox.showModal();
+      showLightboxImage(index);
+      closeButton.focus({ preventScroll: true });
+    });
+  });
+  closeButton.addEventListener("click", () => lightbox.close());
+  previousButton.addEventListener("click", () => showLightboxImage(currentIndex - 1));
+  nextButton.addEventListener("click", () => showLightboxImage(currentIndex + 1));
+  lightbox.addEventListener("keydown", (event) => {
+    if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return;
+    if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
+      event.preventDefault();
+      showLightboxImage(currentIndex + (event.key === "ArrowRight" ? 1 : -1));
+    }
+  });
+  const isBlank = (target) => target === lightbox || target === stage;
+  lightbox.addEventListener("pointerdown", (event) => { blankPointerDown = isBlank(event.target); });
+  lightbox.addEventListener("click", (event) => {
+    const image = currentPicture?.querySelector("img");
+    if (event.button === 0 && image && event.target === image) {
+      const bounds = image.getBoundingClientRect();
+      showLightboxImage(currentIndex + (event.clientX < bounds.left + bounds.width / 2 ? -1 : 1));
+    } else if (blankPointerDown && isBlank(event.target)) lightbox.close();
+    blankPointerDown = false;
+  });
+  lightbox.addEventListener("close", () => {
+    document.documentElement.classList.remove("lightbox-open");
+    currentPicture?.remove();
+    currentPicture = null;
+    announcement.textContent = "";
+    stage.setAttribute("aria-busy", "false");
+    opener?.focus({ preventScroll: true });
+    opener = null;
+  });
+  if (typeof ResizeObserver === "function") new ResizeObserver(updateLightboxSizes).observe(stage);
+  else window.addEventListener("resize", updateLightboxSizes);
+}
       });
     </script>
-      </body>
+    <!-- ==================== LIGHTBOX ==================== -->
+<dialog class="lightbox" aria-label="Bildansicht" aria-describedby="lightbox-dismiss-hint" data-position-label="Bild {current} von {total}">
+  <div class="lightbox-header">
+    <div class="switch theme-switch" role="group" aria-label="Theme wählen">
+  <button type="button" data-theme-choice="light" aria-pressed="false" aria-label="Monokai Pro Light Sun">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+  </button>
+  <button type="button" data-theme-choice="dark" aria-pressed="false" aria-label="Monokai Pro (dunkel)">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5Z"/></svg>
+  </button>
+</div>
+    <button type="button" class="lightbox-close" aria-label="Schließen" autofocus><span aria-hidden="true">×</span></button>
+  </div>
+  <div class="lightbox-stage">
+    <p class="lightbox-error" hidden>Das Bild konnte nicht geladen werden.</p>
+  </div>
+  <div class="lightbox-footer">
+    <div class="lightbox-navigation">
+      <button type="button" class="lightbox-previous" aria-label="Vorheriges Bild"><span aria-hidden="true">←</span></button>
+      <span class="lightbox-counter" aria-hidden="true"></span>
+      <button type="button" class="lightbox-next" aria-label="Nächstes Bild"><span aria-hidden="true">→</span></button>
+    </div>
+    <p class="lightbox-caption" hidden></p>
+    <p class="lightbox-hint" id="lightbox-dismiss-hint">Auf die freie Fläche um das Bild klicken oder tippen, um zu schließen.</p>
+  </div>
+  <p class="lightbox-announcement" role="status" aria-atomic="true"></p>
+</dialog>
+  </body>
 </html>

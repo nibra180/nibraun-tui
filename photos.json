@@ -65,6 +65,20 @@
         { "file": "brocken-harz/DSC09230.jpg", "altKey": "photos.brockenHarz.DSC09230.alt" },
         { "file": "brocken-harz/DSC09237.jpg", "altKey": "photos.brockenHarz.DSC09237.alt" }
       ]
+    },
+    {
+      "slug": "misc",
+      "titleKey": "photos.misc.title",
+      "descriptionKey": "photos.misc.description",
+      "images": [
+        { "file": "misc/_DSC3773.jpg", "altKey": "photos.misc.DSC3773.alt", "teaser": true },
+        { "file": "misc/_DSC4455.jpg", "altKey": "photos.misc.DSC4455.alt" },
+        { "file": "misc/_DSC6048.jpg", "altKey": "photos.misc.DSC6048.alt" },
+        { "file": "misc/_DSC6156.jpg", "altKey": "photos.misc.DSC6156.alt" },
+        { "file": "misc/9F76D49E-9067-444D-B90C-5F0ADF5C50D9.jpg", "altKey": "photos.misc.photographer.alt" },
+        { "file": "misc/IMG_4862.JPG", "altKey": "photos.misc.IMG4862.alt" },
+        { "file": "misc/regenbogen-2-3.jpg", "altKey": "photos.misc.rainbow.alt" }
+      ]
     }
   ]
 }

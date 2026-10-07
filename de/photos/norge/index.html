@@ -20,6 +20,7 @@
         <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23171717'/%3E%3Ctext x='50' y='72' font-family='Arial' font-size='64' fill='%23f7f7f4' text-anchor='middle'%3EN%3C/text%3E%3C/svg%3E" />
     <link rel="preload" href="/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/GeistMono-Variable.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="stylesheet" href="/dist/tailwind.css" />
     <script>
   // Set the theme before first paint to avoid flashing the wrong theme.
@@ -28,9 +29,13 @@
     try { stored = localStorage.getItem("theme"); } catch {}
     document.documentElement.dataset.theme = ["dark", "light"].includes(stored)
       ? stored : matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    // Match the browser UI color to the theme before first paint. The stylesheet is applied here.
+    const meta = document.querySelector('meta[name="theme-color"]');
+    const background = getComputedStyle(document.documentElement).getPropertyValue("--c-bg").trim();
+    if (meta && background) meta.setAttribute("content", background);
   })();
 </script>
-            <script>
+        <script type="application/ld+json">{"@context":"https://schema.org","@type":"ImageGallery","@id":"https://nibraun.de/de/photos/norge/#gallery","url":"https://nibraun.de/de/photos/norge/","name":"Norge","description":"2022 - Zwischen Fjorden, Wäldern und langen Sommerabenden.","inLanguage":"de","dateCreated":"2022","author":{"@type":"Person","name":"Niklas Braun","url":"https://nibraun.de/"},"image":[{"@type":"ImageObject","contentUrl":"https://nibraun.de/img/photos/ebdda74a6e14dc92f21c-2560.jpg","width":6000,"height":4000,"name":"Hohe Kiefern an einem grasbewachsenen Hang mit Blick durch die Stämme auf Wasser und Berge."},{"@type":"ImageObject","contentUrl":"https://nibraun.de/img/photos/ebcc8aa69c817308322e-2560.jpg","width":6000,"height":4000,"name":"Zwei Personen blicken vom Heck einer Fähre über die Kielwasserspur auf eine ferne Küste unter weißen Wolken."},{"@type":"ImageObject","contentUrl":"https://nibraun.de/img/photos/86850227196d129e97fe-2560.jpg","width":6000,"height":4000,"name":"Blick entlang der gelb-weißen Bordwand einer Fähre auf schäumendes türkisfarbenes Wasser."},{"@type":"ImageObject","contentUrl":"https://nibraun.de/img/photos/57ddbf94e6f7be5be57a-2560.jpg","width":5922,"height":3948,"name":"Ein Ruderboot liegt an einem Holzsteg am stillen See, umgeben von Schilf und bewaldeten Ufern im Abendlicht."},{"@type":"ImageObject","contentUrl":"https://nibraun.de/img/photos/a312577df418b237ffbe-2560.jpg","width":6000,"height":4000,"name":"Grüne Weiden mit verstreuten Felsen und Bäumen vor einer weiten Berglandschaft unter grauen Wolken."},{"@type":"ImageObject","contentUrl":"https://nibraun.de/img/photos/236946fc4b7419b557a1-2560.jpg","width":5770,"height":3847,"name":"Kleine menschliche Silhouetten auf einer steilen Felsplattform, die im dichten Nebel verschwindet."},{"@type":"ImageObject","contentUrl":"https://nibraun.de/img/photos/faaefff6d853efb7b974-2560.jpg","width":4000,"height":6000,"name":"Abendsonne beleuchtet einen grünen Berghang über einer schattigen Wiese mit Holzzaun."},{"@type":"ImageObject","contentUrl":"https://nibraun.de/img/photos/7055fee281a34cdd16e3-2560.jpg","width":6000,"height":4000,"name":"Tief stehende Sonne hinter einer geschichteten Felswand mit Lichtreflexen über der felsigen Landschaft."},{"@type":"ImageObject","contentUrl":"https://nibraun.de/img/photos/c7d13acec0c81be0ee6b-2560.jpg","width":5815,"height":3877,"name":"Ein rotes Zelt auf einer Wiese am Wasser, mit Kiefern, Picknickbänken und hohen Felswänden im Sonnenlicht."},{"@type":"ImageObject","contentUrl":"https://nibraun.de/img/photos/2ee9b52adba52cf73a7e-2560.jpg","width":4000,"height":6000,"name":"Wasser fließt zwischen glatten Felsen unter einer steilen Felswand und einem wolkigen Abendhimmel."},{"@type":"ImageObject","contentUrl":"https://nibraun.de/img/photos/6e9bd99c983c6b6c8409-2560.jpg","width":6000,"height":4000,"name":"Rosa und orange leuchtende Wolken über dunklen, zerklüfteten Felswänden bei Sonnenuntergang."},{"@type":"ImageObject","contentUrl":"https://nibraun.de/img/photos/031100169ebb3dd98839-2560.jpg","width":4000,"height":6000,"name":"Eine gerade Straße mit gelber Mittellinie führt zwischen grünen Berghängen unter einem blauen Himmel mit weißen Wolken hindurch."}]}</script>    <script>
   // Apply the stored gallery view before first paint to avoid a layout jump.
   document.documentElement.dataset.galleryView = "grid";
   try { if (localStorage.getItem("galleryView") === "sequence") delete document.documentElement.dataset.galleryView; } catch {}
@@ -73,7 +78,7 @@
 </header>
       <!-- ==================== PHOTOS ==================== -->
 <main class="photos-main" id="photos">
-  <a class="gallery-back" href="/de/photos/"><span aria-hidden="true">←</span> Zurück</a>
+  <a class="gallery-back button" href="/de/photos/"><span aria-hidden="true">←</span> Zurück</a>
   <h1 class="photos-title">Norge</h1>
   <div class="photos-toolbar">
   <p class="photos-description">2022 - Zwischen Fjorden, Wäldern und langen Sommerabenden.</p>
@@ -88,91 +93,115 @@
   </div>
   <div class="photo-sequence">
         <figure>
-      <picture>
+      <a class="photo-open" href="/img/photos/ebdda74a6e14dc92f21c-2560.jpg" aria-label="Bild vergrößern: Hohe Kiefern an einem grasbewachsenen Hang mit Blick durch die Stämme auf Wasser und Berge.">
+        <picture>
   <source type="image/avif" srcset="/img/photos/ebdda74a6e14dc92f21c-480.avif 480w, /img/photos/ebdda74a6e14dc92f21c-800.avif 800w, /img/photos/ebdda74a6e14dc92f21c-1200.avif 1200w, /img/photos/ebdda74a6e14dc92f21c-1800.avif 1800w, /img/photos/ebdda74a6e14dc92f21c-2560.avif 2560w" sizes="(min-width: 1100px) min(1312px, calc(100vw - 128px)), (min-width: 640px) 592px, 100vw" />
   <source type="image/webp" srcset="/img/photos/ebdda74a6e14dc92f21c-480.webp 480w, /img/photos/ebdda74a6e14dc92f21c-800.webp 800w, /img/photos/ebdda74a6e14dc92f21c-1200.webp 1200w, /img/photos/ebdda74a6e14dc92f21c-1800.webp 1800w, /img/photos/ebdda74a6e14dc92f21c-2560.webp 2560w" sizes="(min-width: 1100px) min(1312px, calc(100vw - 128px)), (min-width: 640px) 592px, 100vw" />
   <img src="/img/photos/ebdda74a6e14dc92f21c-1200.jpg" srcset="/img/photos/ebdda74a6e14dc92f21c-480.jpg 480w, /img/photos/ebdda74a6e14dc92f21c-800.jpg 800w, /img/photos/ebdda74a6e14dc92f21c-1200.jpg 1200w, /img/photos/ebdda74a6e14dc92f21c-1800.jpg 1800w, /img/photos/ebdda74a6e14dc92f21c-2560.jpg 2560w" sizes="(min-width: 1100px) min(1312px, calc(100vw - 128px)), (min-width: 640px) 592px, 100vw" width="6000" height="4000" alt="Hohe Kiefern an einem grasbewachsenen Hang mit Blick durch die Stämme auf Wasser und Berge." loading="eager" fetchpriority="high" decoding="async" />
 </picture>
+      </a>
           </figure>
         <figure>
-      <picture>
+      <a class="photo-open" href="/img/photos/ebcc8aa69c817308322e-2560.jpg" aria-label="Bild vergrößern: Zwei Personen blicken vom Heck einer Fähre über die Kielwasserspur auf eine ferne Küste unter weißen Wolken.">
+        <picture>
   <source type="image/avif" srcset="/img/photos/ebcc8aa69c817308322e-480.avif 480w, /img/photos/ebcc8aa69c817308322e-800.avif 800w, /img/photos/ebcc8aa69c817308322e-1200.avif 1200w, /img/photos/ebcc8aa69c817308322e-1800.avif 1800w, /img/photos/ebcc8aa69c817308322e-2560.avif 2560w" sizes="auto, (min-width: 1100px) min(1312px, calc(100vw - 128px)), (min-width: 640px) 592px, 100vw" />
   <source type="image/webp" srcset="/img/photos/ebcc8aa69c817308322e-480.webp 480w, /img/photos/ebcc8aa69c817308322e-800.webp 800w, /img/photos/ebcc8aa69c817308322e-1200.webp 1200w, /img/photos/ebcc8aa69c817308322e-1800.webp 1800w, /img/photos/ebcc8aa69c817308322e-2560.webp 2560w" sizes="auto, (min-width: 1100px) min(1312px, calc(100vw - 128px)), (min-width: 640px) 592px, 100vw" />
   <img src="/img/photos/ebcc8aa69c817308322e-1200.jpg" srcset="/img/photos/ebcc8aa69c817308322e-480.jpg 480w, /img/photos/ebcc8aa69c817308322e-800.jpg 800w, /img/photos/ebcc8aa69c817308322e-1200.jpg 1200w, /img/photos/ebcc8aa69c817308322e-1800.jpg 1800w, /img/photos/ebcc8aa69c817308322e-2560.jpg 2560w" sizes="auto, (min-width: 1100px) min(1312px, calc(100vw - 128px)), (min-width: 640px) 592px, 100vw" width="6000" height="4000" alt="Zwei Personen blicken vom Heck einer Fähre über die Kielwasserspur auf eine ferne Küste unter weißen Wolken." loading="lazy" decoding="async" />
 </picture>
+      </a>
           </figure>
         <figure>
-      <picture>
+      <a class="photo-open" href="/img/photos/86850227196d129e97fe-2560.jpg" aria-label="Bild vergrößern: Blick entlang der gelb-weißen Bordwand einer Fähre auf schäumendes türkisfarbenes Wasser.">
+        <picture>
   <source type="image/avif" srcset="/img/photos/86850227196d129e97fe-480.avif 480w, /img/photos/86850227196d129e97fe-800.avif 800w, /img/photos/86850227196d129e97fe-1200.avif 1200w, /img/photos/86850227196d129e97fe-1800.avif 1800w, /img/photos/86850227196d129e97fe-2560.avif 2560w" sizes="auto, (min-width: 1100px) min(1312px, calc(100vw - 128px)), (min-width: 640px) 592px, 100vw" />
   <source type="image/webp" srcset="/img/photos/86850227196d129e97fe-480.webp 480w, /img/photos/86850227196d129e97fe-800.webp 800w, /img/photos/86850227196d129e97fe-1200.webp 1200w, /img/photos/86850227196d129e97fe-1800.webp 1800w, /img/photos/86850227196d129e97fe-2560.webp 2560w" sizes="auto, (min-width: 1100px) min(1312px, calc(100vw - 128px)), (min-width: 640px) 592px, 100vw" />
   <img src="/img/photos/86850227196d129e97fe-1200.jpg" srcset="/img/photos/86850227196d129e97fe-480.jpg 480w, /img/photos/86850227196d129e97fe-800.jpg 800w, /img/photos/86850227196d129e97fe-1200.jpg 1200w, /img/photos/86850227196d129e97fe-1800.jpg 1800w, /img/photos/86850227196d129e97fe-2560.jpg 2560w" sizes="auto, (min-width: 1100px) min(1312px, calc(100vw - 128px)), (min-width: 640px) 592px, 100vw" width="6000" height="4000" alt="Blick entlang der gelb-weißen Bordwand einer Fähre auf schäumendes türkisfarbenes Wasser." loading="lazy" decoding="async" />
 </picture>
+      </a>
           </figure>
         <figure>
-      <picture>
+      <a class="photo-open" href="/img/photos/57ddbf94e6f7be5be57a-2560.jpg" aria-label="Bild vergrößern: Ein Ruderboot liegt an einem Holzsteg am stillen See, umgeben von Schilf und bewaldeten Ufern im Abendlicht.">
+        <picture>
   <source type="image/avif" srcset="/img/photos/57ddbf94e6f7be5be57a-480.avif 480w, /img/photos/57ddbf94e6f7be5be57a-800.avif 800w, /img/photos/57ddbf94e6f7be5be57a-1200.avif 1200w, /img/photos/57ddbf94e6f7be5be57a-1800.avif 1800w, /img/photos/57ddbf94e6f7be5be57a-2560.avif 2560w" sizes="auto, (min-width: 1100px) min(1312px, calc(100vw - 128px)), (min-width: 640px) 592px, 100vw" />
   <source type="image/webp" srcset="/img/photos/57ddbf94e6f7be5be57a-480.webp 480w, /img/photos/57ddbf94e6f7be5be57a-800.webp 800w, /img/photos/57ddbf94e6f7be5be57a-1200.webp 1200w, /img/photos/57ddbf94e6f7be5be57a-1800.webp 1800w, /img/photos/57ddbf94e6f7be5be57a-2560.webp 2560w" sizes="auto, (min-width: 1100px) min(1312px, calc(100vw - 128px)), (min-width: 640px) 592px, 100vw" />
   <img src="/img/photos/57ddbf94e6f7be5be57a-1200.jpg" srcset="/img/photos/57ddbf94e6f7be5be57a-480.jpg 480w, /img/photos/57ddbf94e6f7be5be57a-800.jpg 800w, /img/photos/57ddbf94e6f7be5be57a-1200.jpg 1200w, /img/photos/57ddbf94e6f7be5be57a-1800.jpg 1800w, /img/photos/57ddbf94e6f7be5be57a-2560.jpg 2560w" sizes="auto, (min-width: 1100px) min(1312px, calc(100vw - 128px)), (min-width: 640px) 592px, 100vw" width="5922" height="3948" alt="Ein Ruderboot liegt an einem Holzsteg am stillen See, umgeben von Schilf und bewaldeten Ufern im Abendlicht." loading="lazy" decoding="async" />
 </picture>
+      </a>
           </figure>
         <figure>
-      <picture>
+      <a class="photo-open" href="/img/photos/a312577df418b237ffbe-2560.jpg" aria-label="Bild vergrößern: Grüne Weiden mit verstreuten Felsen und Bäumen vor einer weiten Berglandschaft unter grauen Wolken.">
+        <picture>
   <source type="image/avif" srcset="/img/photos/a312577df418b237ffbe-480.avif 480w, /img/photos/a312577df418b237ffbe-800.avif 800w, /img/photos/a312577df418b237ffbe-1200.avif 1200w, /img/photos/a312577df418b237ffbe-1800.avif 1800w, /img/photos/a312577df418b237ffbe-2560.avif 2560w" sizes="auto, (min-width: 1100px) min(1312px, calc(100vw - 128px)), (min-width: 640px) 592px, 100vw" />
   <source type="image/webp" srcset="/img/photos/a312577df418b237ffbe-480.webp 480w, /img/photos/a312577df418b237ffbe-800.webp 800w, /img/photos/a312577df418b237ffbe-1200.webp 1200w, /img/photos/a312577df418b237ffbe-1800.webp 1800w, /img/photos/a312577df418b237ffbe-2560.webp 2560w" sizes="auto, (min-width: 1100px) min(1312px, calc(100vw - 128px)), (min-width: 640px) 592px, 100vw" />
   <img src="/img/photos/a312577df418b237ffbe-1200.jpg" srcset="/img/photos/a312577df418b237ffbe-480.jpg 480w, /img/photos/a312577df418b237ffbe-800.jpg 800w, /img/photos/a312577df418b237ffbe-1200.jpg 1200w, /img/photos/a312577df418b237ffbe-1800.jpg 1800w, /img/photos/a312577df418b237ffbe-2560.jpg 2560w" sizes="auto, (min-width: 1100px) min(1312px, calc(100vw - 128px)), (min-width: 640px) 592px, 100vw" width="6000" height="4000" alt="Grüne Weiden mit verstreuten Felsen und Bäumen vor einer weiten Berglandschaft unter grauen Wolken." loading="lazy" decoding="async" />
 </picture>
+      </a>
           </figure>
         <figure>
-      <picture>
+      <a class="photo-open" href="/img/photos/236946fc4b7419b557a1-2560.jpg" aria-label="Bild vergrößern: Kleine menschliche Silhouetten auf einer steilen Felsplattform, die im dichten Nebel verschwindet.">
+        <picture>
   <source type="image/avif" srcset="/img/photos/236946fc4b7419b557a1-480.avif 480w, /img/photos/236946fc4b7419b557a1-800.avif 800w, /img/photos/236946fc4b7419b557a1-1200.avif 1200w, /img/photos/236946fc4b7419b557a1-1800.avif 1800w, /img/photos/236946fc4b7419b557a1-2560.avif 2560w" sizes="auto, (min-width: 1100px) min(1312px, calc(100vw - 128px)), (min-width: 640px) 592px, 100vw" />
   <source type="image/webp" srcset="/img/photos/236946fc4b7419b557a1-480.webp 480w, /img/photos/236946fc4b7419b557a1-800.webp 800w, /img/photos/236946fc4b7419b557a1-1200.webp 1200w, /img/photos/236946fc4b7419b557a1-1800.webp 1800w, /img/photos/236946fc4b7419b557a1-2560.webp 2560w" sizes="auto, (min-width: 1100px) min(1312px, calc(100vw - 128px)), (min-width: 640px) 592px, 100vw" />
   <img src="/img/photos/236946fc4b7419b557a1-1200.jpg" srcset="/img/photos/236946fc4b7419b557a1-480.jpg 480w, /img/photos/236946fc4b7419b557a1-800.jpg 800w, /img/photos/236946fc4b7419b557a1-1200.jpg 1200w, /img/photos/236946fc4b7419b557a1-1800.jpg 1800w, /img/photos/236946fc4b7419b557a1-2560.jpg 2560w" sizes="auto, (min-width: 1100px) min(1312px, calc(100vw - 128px)), (min-width: 640px) 592px, 100vw" width="5770" height="3847" alt="Kleine menschliche Silhouetten auf einer steilen Felsplattform, die im dichten Nebel verschwindet." loading="lazy" decoding="async" />
 </picture>
+      </a>
           </figure>
         <figure>
-      <picture>
+      <a class="photo-open" href="/img/photos/faaefff6d853efb7b974-2560.jpg" aria-label="Bild vergrößern: Abendsonne beleuchtet einen grünen Berghang über einer schattigen Wiese mit Holzzaun.">
+        <picture>
   <source type="image/avif" srcset="/img/photos/faaefff6d853efb7b974-480.avif 480w, /img/photos/faaefff6d853efb7b974-800.avif 800w, /img/photos/faaefff6d853efb7b974-1200.avif 1200w, /img/photos/faaefff6d853efb7b974-1800.avif 1800w, /img/photos/faaefff6d853efb7b974-2560.avif 2560w" sizes="auto, (min-width: 1100px) min(1312px, calc(100vw - 128px)), (min-width: 640px) 592px, 100vw" />
   <source type="image/webp" srcset="/img/photos/faaefff6d853efb7b974-480.webp 480w, /img/photos/faaefff6d853efb7b974-800.webp 800w, /img/photos/faaefff6d853efb7b974-1200.webp 1200w, /img/photos/faaefff6d853efb7b974-1800.webp 1800w, /img/photos/faaefff6d853efb7b974-2560.webp 2560w" sizes="auto, (min-width: 1100px) min(1312px, calc(100vw - 128px)), (min-width: 640px) 592px, 100vw" />
   <img src="/img/photos/faaefff6d853efb7b974-1200.jpg" srcset="/img/photos/faaefff6d853efb7b974-480.jpg 480w, /img/photos/faaefff6d853efb7b974-800.jpg 800w, /img/photos/faaefff6d853efb7b974-1200.jpg 1200w, /img/photos/faaefff6d853efb7b974-1800.jpg 1800w, /img/photos/faaefff6d853efb7b974-2560.jpg 2560w" sizes="auto, (min-width: 1100px) min(1312px, calc(100vw - 128px)), (min-width: 640px) 592px, 100vw" width="4000" height="6000" alt="Abendsonne beleuchtet einen grünen Berghang über einer schattigen Wiese mit Holzzaun." loading="lazy" decoding="async" />
 </picture>
+      </a>
           </figure>
         <figure>
-      <picture>
+      <a class="photo-open" href="/img/photos/7055fee281a34cdd16e3-2560.jpg" aria-label="Bild vergrößern: Tief stehende Sonne hinter einer geschichteten Felswand mit Lichtreflexen über der felsigen Landschaft.">
+        <picture>
   <source type="image/avif" srcset="/img/photos/7055fee281a34cdd16e3-480.avif 480w, /img/photos/7055fee281a34cdd16e3-800.avif 800w, /img/photos/7055fee281a34cdd16e3-1200.avif 1200w, /img/photos/7055fee281a34cdd16e3-1800.avif 1800w, /img/photos/7055fee281a34cdd16e3-2560.avif 2560w" sizes="auto, (min-width: 1100px) min(1312px, calc(100vw - 128px)), (min-width: 640px) 592px, 100vw" />
   <source type="image/webp" srcset="/img/photos/7055fee281a34cdd16e3-480.webp 480w, /img/photos/7055fee281a34cdd16e3-800.webp 800w, /img/photos/7055fee281a34cdd16e3-1200.webp 1200w, /img/photos/7055fee281a34cdd16e3-1800.webp 1800w, /img/photos/7055fee281a34cdd16e3-2560.webp 2560w" sizes="auto, (min-width: 1100px) min(1312px, calc(100vw - 128px)), (min-width: 640px) 592px, 100vw" />
   <img src="/img/photos/7055fee281a34cdd16e3-1200.jpg" srcset="/img/photos/7055fee281a34cdd16e3-480.jpg 480w, /img/photos/7055fee281a34cdd16e3-800.jpg 800w, /img/photos/7055fee281a34cdd16e3-1200.jpg 1200w, /img/photos/7055fee281a34cdd16e3-1800.jpg 1800w, /img/photos/7055fee281a34cdd16e3-2560.jpg 2560w" sizes="auto, (min-width: 1100px) min(1312px, calc(100vw - 128px)), (min-width: 640px) 592px, 100vw" width="6000" height="4000" alt="Tief stehende Sonne hinter einer geschichteten Felswand mit Lichtreflexen über der felsigen Landschaft." loading="lazy" decoding="async" />
 </picture>
+      </a>
           </figure>
         <figure>
-      <picture>
+      <a class="photo-open" href="/img/photos/c7d13acec0c81be0ee6b-2560.jpg" aria-label="Bild vergrößern: Ein rotes Zelt auf einer Wiese am Wasser, mit Kiefern, Picknickbänken und hohen Felswänden im Sonnenlicht.">
+        <picture>
   <source type="image/avif" srcset="/img/photos/c7d13acec0c81be0ee6b-480.avif 480w, /img/photos/c7d13acec0c81be0ee6b-800.avif 800w, /img/photos/c7d13acec0c81be0ee6b-1200.avif 1200w, /img/photos/c7d13acec0c81be0ee6b-1800.avif 1800w, /img/photos/c7d13acec0c81be0ee6b-2560.avif 2560w" sizes="auto, (min-width: 1100px) min(1312px, calc(100vw - 128px)), (min-width: 640px) 592px, 100vw" />
   <source type="image/webp" srcset="/img/photos/c7d13acec0c81be0ee6b-480.webp 480w, /img/photos/c7d13acec0c81be0ee6b-800.webp 800w, /img/photos/c7d13acec0c81be0ee6b-1200.webp 1200w, /img/photos/c7d13acec0c81be0ee6b-1800.webp 1800w, /img/photos/c7d13acec0c81be0ee6b-2560.webp 2560w" sizes="auto, (min-width: 1100px) min(1312px, calc(100vw - 128px)), (min-width: 640px) 592px, 100vw" />
   <img src="/img/photos/c7d13acec0c81be0ee6b-1200.jpg" srcset="/img/photos/c7d13acec0c81be0ee6b-480.jpg 480w, /img/photos/c7d13acec0c81be0ee6b-800.jpg 800w, /img/photos/c7d13acec0c81be0ee6b-1200.jpg 1200w, /img/photos/c7d13acec0c81be0ee6b-1800.jpg 1800w, /img/photos/c7d13acec0c81be0ee6b-2560.jpg 2560w" sizes="auto, (min-width: 1100px) min(1312px, calc(100vw - 128px)), (min-width: 640px) 592px, 100vw" width="5815" height="3877" alt="Ein rotes Zelt auf einer Wiese am Wasser, mit Kiefern, Picknickbänken und hohen Felswänden im Sonnenlicht." loading="lazy" decoding="async" />
 </picture>
+      </a>
           </figure>
         <figure>
-      <picture>
+      <a class="photo-open" href="/img/photos/2ee9b52adba52cf73a7e-2560.jpg" aria-label="Bild vergrößern: Wasser fließt zwischen glatten Felsen unter einer steilen Felswand und einem wolkigen Abendhimmel.">
+        <picture>
   <source type="image/avif" srcset="/img/photos/2ee9b52adba52cf73a7e-480.avif 480w, /img/photos/2ee9b52adba52cf73a7e-800.avif 800w, /img/photos/2ee9b52adba52cf73a7e-1200.avif 1200w, /img/photos/2ee9b52adba52cf73a7e-1800.avif 1800w, /img/photos/2ee9b52adba52cf73a7e-2560.avif 2560w" sizes="auto, (min-width: 1100px) min(1312px, calc(100vw - 128px)), (min-width: 640px) 592px, 100vw" />
   <source type="image/webp" srcset="/img/photos/2ee9b52adba52cf73a7e-480.webp 480w, /img/photos/2ee9b52adba52cf73a7e-800.webp 800w, /img/photos/2ee9b52adba52cf73a7e-1200.webp 1200w, /img/photos/2ee9b52adba52cf73a7e-1800.webp 1800w, /img/photos/2ee9b52adba52cf73a7e-2560.webp 2560w" sizes="auto, (min-width: 1100px) min(1312px, calc(100vw - 128px)), (min-width: 640px) 592px, 100vw" />
   <img src="/img/photos/2ee9b52adba52cf73a7e-1200.jpg" srcset="/img/photos/2ee9b52adba52cf73a7e-480.jpg 480w, /img/photos/2ee9b52adba52cf73a7e-800.jpg 800w, /img/photos/2ee9b52adba52cf73a7e-1200.jpg 1200w, /img/photos/2ee9b52adba52cf73a7e-1800.jpg 1800w, /img/photos/2ee9b52adba52cf73a7e-2560.jpg 2560w" sizes="auto, (min-width: 1100px) min(1312px, calc(100vw - 128px)), (min-width: 640px) 592px, 100vw" width="4000" height="6000" alt="Wasser fließt zwischen glatten Felsen unter einer steilen Felswand und einem wolkigen Abendhimmel." loading="lazy" decoding="async" />
 </picture>
+      </a>
           </figure>
         <figure>
-      <picture>
+      <a class="photo-open" href="/img/photos/6e9bd99c983c6b6c8409-2560.jpg" aria-label="Bild vergrößern: Rosa und orange leuchtende Wolken über dunklen, zerklüfteten Felswänden bei Sonnenuntergang.">
+        <picture>
   <source type="image/avif" srcset="/img/photos/6e9bd99c983c6b6c8409-480.avif 480w, /img/photos/6e9bd99c983c6b6c8409-800.avif 800w, /img/photos/6e9bd99c983c6b6c8409-1200.avif 1200w, /img/photos/6e9bd99c983c6b6c8409-1800.avif 1800w, /img/photos/6e9bd99c983c6b6c8409-2560.avif 2560w" sizes="auto, (min-width: 1100px) min(1312px, calc(100vw - 128px)), (min-width: 640px) 592px, 100vw" />
   <source type="image/webp" srcset="/img/photos/6e9bd99c983c6b6c8409-480.webp 480w, /img/photos/6e9bd99c983c6b6c8409-800.webp 800w, /img/photos/6e9bd99c983c6b6c8409-1200.webp 1200w, /img/photos/6e9bd99c983c6b6c8409-1800.webp 1800w, /img/photos/6e9bd99c983c6b6c8409-2560.webp 2560w" sizes="auto, (min-width: 1100px) min(1312px, calc(100vw - 128px)), (min-width: 640px) 592px, 100vw" />
   <img src="/img/photos/6e9bd99c983c6b6c8409-1200.jpg" srcset="/img/photos/6e9bd99c983c6b6c8409-480.jpg 480w, /img/photos/6e9bd99c983c6b6c8409-800.jpg 800w, /img/photos/6e9bd99c983c6b6c8409-1200.jpg 1200w, /img/photos/6e9bd99c983c6b6c8409-1800.jpg 1800w, /img/photos/6e9bd99c983c6b6c8409-2560.jpg 2560w" sizes="auto, (min-width: 1100px) min(1312px, calc(100vw - 128px)), (min-width: 640px) 592px, 100vw" width="6000" height="4000" alt="Rosa und orange leuchtende Wolken über dunklen, zerklüfteten Felswänden bei Sonnenuntergang." loading="lazy" decoding="async" />
 </picture>
+      </a>
           </figure>
         <figure>
-      <picture>
+      <a class="photo-open" href="/img/photos/031100169ebb3dd98839-2560.jpg" aria-label="Bild vergrößern: Eine gerade Straße mit gelber Mittellinie führt zwischen grünen Berghängen unter einem blauen Himmel mit weißen Wolken hindurch.">
+        <picture>
   <source type="image/avif" srcset="/img/photos/031100169ebb3dd98839-480.avif 480w, /img/photos/031100169ebb3dd98839-800.avif 800w, /img/photos/031100169ebb3dd98839-1200.avif 1200w, /img/photos/031100169ebb3dd98839-1800.avif 1800w, /img/photos/031100169ebb3dd98839-2560.avif 2560w" sizes="auto, (min-width: 1100px) min(1312px, calc(100vw - 128px)), (min-width: 640px) 592px, 100vw" />
   <source type="image/webp" srcset="/img/photos/031100169ebb3dd98839-480.webp 480w, /img/photos/031100169ebb3dd98839-800.webp 800w, /img/photos/031100169ebb3dd98839-1200.webp 1200w, /img/photos/031100169ebb3dd98839-1800.webp 1800w, /img/photos/031100169ebb3dd98839-2560.webp 2560w" sizes="auto, (min-width: 1100px) min(1312px, calc(100vw - 128px)), (min-width: 640px) 592px, 100vw" />
   <img src="/img/photos/031100169ebb3dd98839-1200.jpg" srcset="/img/photos/031100169ebb3dd98839-480.jpg 480w, /img/photos/031100169ebb3dd98839-800.jpg 800w, /img/photos/031100169ebb3dd98839-1200.jpg 1200w, /img/photos/031100169ebb3dd98839-1800.jpg 1800w, /img/photos/031100169ebb3dd98839-2560.jpg 2560w" sizes="auto, (min-width: 1100px) min(1312px, calc(100vw - 128px)), (min-width: 640px) 592px, 100vw" width="4000" height="6000" alt="Eine gerade Straße mit gelber Mittellinie führt zwischen grünen Berghängen unter einem blauen Himmel mit weißen Wolken hindurch." loading="lazy" decoding="async" />
 </picture>
+      </a>
           </figure>
       </div>
-  <a class="gallery-back" href="/de/photos/"><span aria-hidden="true">←</span> Zurück</a>
+  <a class="gallery-back button" href="/de/photos/"><span aria-hidden="true">←</span> Zurück</a>
 </main>
       <!-- ==================== FOOTER ==================== -->
       <footer class="site-footer">
@@ -205,7 +234,10 @@ function applyTheme(theme, store = false) {
   document.querySelector('meta[name="theme-color"]').setAttribute("content", getComputedStyle(root).getPropertyValue("--c-bg").trim());
   if (store) try { localStorage.setItem("theme", theme); } catch {}
 }
-document.querySelectorAll("[data-theme-choice]").forEach((button) => button.addEventListener("click", () => applyTheme(root.dataset.theme === "dark" ? "light" : "dark", true)));
+document.querySelectorAll("[data-theme-choice]").forEach((button) => button.addEventListener("click", () => {
+  applyTheme(root.dataset.theme === "dark" ? "light" : "dark", true);
+  button.closest(".theme-switch").querySelector('[aria-pressed="true"]').focus({ preventScroll: true });
+}));
 applyTheme(root.dataset.theme === "dark" ? "dark" : "light");
         const viewSwitch = document.querySelector(".view-switch");
 document.querySelectorAll(".photo-sequence figure").forEach((figure) => {
@@ -221,7 +253,143 @@ function applyGalleryView(view, store = false) {
 viewSwitch.querySelectorAll("[data-gallery-view]").forEach((button) => button.addEventListener("click", () => applyGalleryView(document.documentElement.dataset.galleryView === "grid" ? "sequence" : "grid", true)));
 applyGalleryView(document.documentElement.dataset.galleryView === "grid" ? "grid" : "sequence");
 viewSwitch.hidden = false;
+
+const lightbox = document.querySelector(".lightbox");
+if (lightbox && typeof lightbox.showModal === "function") {
+  const links = [...document.querySelectorAll(".photo-open")];
+  const stage = lightbox.querySelector(".lightbox-stage");
+  const closeButton = lightbox.querySelector(".lightbox-close");
+  const previousButton = lightbox.querySelector(".lightbox-previous");
+  const nextButton = lightbox.querySelector(".lightbox-next");
+  const counter = lightbox.querySelector(".lightbox-counter");
+  const caption = lightbox.querySelector(".lightbox-caption");
+  const error = lightbox.querySelector(".lightbox-error");
+  const announcement = lightbox.querySelector(".lightbox-announcement");
+  let currentIndex = 0;
+  let opener = null;
+  let currentPicture = null;
+  let blankPointerDown = false;
+
+  function positionLabel() {
+    return lightbox.dataset.positionLabel.replace("{current}", currentIndex + 1).replace("{total}", links.length);
+  }
+
+  function updateLightboxSizes() {
+    if (!lightbox.open || !currentPicture) return;
+    const image = currentPicture.querySelector("img");
+    const width = Number(image.getAttribute("width"));
+    const height = Number(image.getAttribute("height"));
+    const size = Math.max(1, Math.ceil(Math.min(width, stage.clientWidth, stage.clientHeight * width / height)));
+    currentPicture.querySelectorAll("source, img").forEach((element) => element.setAttribute("sizes", `${size}px`));
+  }
+
+  function showLightboxImage(index) {
+    if (index < 0 || index >= links.length) return;
+    currentIndex = index;
+    currentPicture?.remove();
+    currentPicture = null;
+    error.hidden = true;
+    counter.textContent = `${index + 1} / ${links.length}`;
+    previousButton.disabled = index === 0;
+    nextButton.disabled = index === links.length - 1;
+    caption.textContent = links[index].closest("figure").querySelector("figcaption")?.textContent ?? "";
+    caption.hidden = !caption.textContent;
+
+    const picture = links[index].querySelector("picture").cloneNode(true);
+    const image = picture.querySelector("img");
+    image.setAttribute("loading", "eager");
+    image.removeAttribute("fetchpriority");
+    currentPicture = picture;
+    updateLightboxSizes();
+    stage.setAttribute("aria-busy", "true");
+    announcement.textContent = `${positionLabel()}: ${image.alt}`;
+
+    function finishLoading(failed) {
+      // A response from an earlier photo must not change the current photo's state.
+      if (!lightbox.open || currentPicture !== picture) return;
+      stage.setAttribute("aria-busy", "false");
+      error.hidden = !failed;
+      picture.hidden = failed;
+      if (failed) announcement.textContent = `${positionLabel()}: ${error.textContent}`;
+    }
+    image.addEventListener("load", () => finishLoading(false), { once: true });
+    image.addEventListener("error", () => finishLoading(true), { once: true });
+    stage.append(picture);
+    if (image.complete) finishLoading(image.naturalWidth === 0);
+  }
+
+  links.forEach((link, index) => {
+    link.setAttribute("aria-haspopup", "dialog");
+    link.addEventListener("click", (event) => {
+      if (event.button !== 0 || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
+      event.preventDefault();
+      opener = link;
+      document.documentElement.classList.add("lightbox-open");
+      lightbox.showModal();
+      showLightboxImage(index);
+      closeButton.focus({ preventScroll: true });
+    });
+  });
+  closeButton.addEventListener("click", () => lightbox.close());
+  previousButton.addEventListener("click", () => showLightboxImage(currentIndex - 1));
+  nextButton.addEventListener("click", () => showLightboxImage(currentIndex + 1));
+  lightbox.addEventListener("keydown", (event) => {
+    if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return;
+    if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
+      event.preventDefault();
+      showLightboxImage(currentIndex + (event.key === "ArrowRight" ? 1 : -1));
+    }
+  });
+  const isBlank = (target) => target === lightbox || target === stage;
+  lightbox.addEventListener("pointerdown", (event) => { blankPointerDown = isBlank(event.target); });
+  lightbox.addEventListener("click", (event) => {
+    const image = currentPicture?.querySelector("img");
+    if (event.button === 0 && image && event.target === image) {
+      const bounds = image.getBoundingClientRect();
+      showLightboxImage(currentIndex + (event.clientX < bounds.left + bounds.width / 2 ? -1 : 1));
+    } else if (blankPointerDown && isBlank(event.target)) lightbox.close();
+    blankPointerDown = false;
+  });
+  lightbox.addEventListener("close", () => {
+    document.documentElement.classList.remove("lightbox-open");
+    currentPicture?.remove();
+    currentPicture = null;
+    announcement.textContent = "";
+    stage.setAttribute("aria-busy", "false");
+    opener?.focus({ preventScroll: true });
+    opener = null;
+  });
+  if (typeof ResizeObserver === "function") new ResizeObserver(updateLightboxSizes).observe(stage);
+  else window.addEventListener("resize", updateLightboxSizes);
+}
       });
     </script>
-      </body>
+    <!-- ==================== LIGHTBOX ==================== -->
+<dialog class="lightbox" aria-label="Bildansicht" aria-describedby="lightbox-dismiss-hint" data-position-label="Bild {current} von {total}">
+  <div class="lightbox-header">
+    <div class="switch theme-switch" role="group" aria-label="Theme wählen">
+  <button type="button" data-theme-choice="light" aria-pressed="false" aria-label="Monokai Pro Light Sun">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+  </button>
+  <button type="button" data-theme-choice="dark" aria-pressed="false" aria-label="Monokai Pro (dunkel)">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5Z"/></svg>
+  </button>
+</div>
+    <button type="button" class="lightbox-close" aria-label="Schließen" autofocus><span aria-hidden="true">×</span></button>
+  </div>
+  <div class="lightbox-stage">
+    <p class="lightbox-error" hidden>Das Bild konnte nicht geladen werden.</p>
+  </div>
+  <div class="lightbox-footer">
+    <div class="lightbox-navigation">
+      <button type="button" class="lightbox-previous" aria-label="Vorheriges Bild"><span aria-hidden="true">←</span></button>
+      <span class="lightbox-counter" aria-hidden="true"></span>
+      <button type="button" class="lightbox-next" aria-label="Nächstes Bild"><span aria-hidden="true">→</span></button>
+    </div>
+    <p class="lightbox-caption" hidden></p>
+    <p class="lightbox-hint" id="lightbox-dismiss-hint">Auf die freie Fläche um das Bild klicken oder tippen, um zu schließen.</p>
+  </div>
+  <p class="lightbox-announcement" role="status" aria-atomic="true"></p>
+</dialog>
+  </body>
 </html>
