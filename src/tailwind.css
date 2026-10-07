@@ -233,9 +233,6 @@ html { scrollbar-gutter: stable; }
 
 /* ==================== Home ==================== */
 .home-main { flex-grow: 1; display: grid; align-content: center; gap: 40px; padding-block: 16px; }
-.home-copy { max-width: 58ch; }
-.home-copy h1 { margin: 0 0 24px; font-size: clamp(38px, 7vw, 52px); font-weight: 500; line-height: 1.08; letter-spacing: -.04em; text-wrap: balance; }
-.home-teaser { margin: 0; max-width: 48ch; font-size: 18px; line-height: 1.6; text-wrap: pretty; color: var(--c-fg-soft); }
 .home-links { display: grid; grid-template-columns: minmax(0, 1fr); gap: 32px; }
 .home-card { --sel: var(--tone); display: flex; flex-direction: column; gap: 10px; min-width: 0; }
 .home-card-image { display: block; aspect-ratio: 3 / 2; padding: 10px; overflow: hidden; background: color-mix(in srgb, var(--tone) 18%, var(--c-bg)); }
@@ -250,8 +247,6 @@ html { scrollbar-gutter: stable; }
 @media (min-width: 1100px) {
     .home-main { gap: 48px; padding-block: 48px; }
     .home-links { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .home-copy h1 { font-size: clamp(52px, 4.5vw, 64px); }
-    .home-teaser { font-size: 20px; }
 }
 
 /* ==================== Photography entry ==================== */

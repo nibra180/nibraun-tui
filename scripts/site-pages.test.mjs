@@ -43,7 +43,7 @@ for (const prefix of ["", "de/"]) {
     assert.doesNotMatch(home, /class="home-hero"|class="home-photo"|home-photo-caption/);
     assert.equal((home.match(/class="home-links"/g) ?? []).length, 1);
     assert.equal((home.match(/class="home-card tone-/g) ?? []).length, 2);
-    assert.match(home, /<\/p>\s*<\/div>\s*<div class="home-links">/);
+    assert.match(home, /<main class="home-main" id="home">\s*<div class="home-links">/);
     const homePhotos = JSON.parse(home.match(/<script type="application\/json" id="homePhotos">([\s\S]*?)<\/script>/)[1]);
     assert.equal(homePhotos.length, projects.length);
     for (const [index, project] of projects.entries()) {

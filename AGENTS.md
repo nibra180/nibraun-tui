@@ -10,7 +10,7 @@ Standard Englisch; deutsche Seiten liegen unter `/de/`.
 
 | Seite | EN / DE | Inhalt |
 |---|---|---|
-| Home | `/` / `/de/` | Große Begrüßung, persönlicher Teaser, Work/Photos-Vorschaukarten; Fotos-Kachel mit zufälligem Galerie-Titelbild |
+| Home | `/` / `/de/` | Work/Photos-Vorschaukarten; Fotos-Kachel mit zufälligem Galerie-Titelbild |
 | Work | `/work/` / `/de/work/` | Projektindex mit Previews, Erfahrung, Stack und Kontakt; kein Fotoabschnitt |
 | Photos | `/photos/` / `/de/photos/` | Galerieübersicht mit kompakten Thumbnail-Karten |
 | Galerie | `/photos/<slug>/` / `/de/photos/<slug>/` | Responsive Fotosequenz, optionale Bildunterschriften |
@@ -51,7 +51,7 @@ Farben ausschließlich aus den bestehenden `--c-*`-Tokens in `src/tailwind.css`.
 - Sechs Monokai-Akzente: Rot, Orange, Gelb, Grün, Blau und Violett
 - Topbar: abwechselnde Farbstreifen mit welliger Unterkante
 - Work: Projektindex mit Hover-/Fokus-Previews auf Desktop; mobile Projektkarten
-- Home: Große Work/Photos-Kacheln unter dem Intro, auf Desktop nebeneinander, mobil untereinander; kein separates Hero-Foto.
+- Home: Große Work/Photos-Kacheln, auf Desktop nebeneinander, mobil untereinander; kein separates Hero-Foto und kein sichtbarer Intro-Text.
   Die Fotos-Kachel zeigt zufällig eines der Galerie-Titelbilder und verlinkt zur Fotoübersicht.
   Ohne JavaScript erscheint das Titelbild der ersten Galerie. Keine Einblendanimationen.
 - Fotoübersicht: kleine Thumbnails mit getöntem Rahmen, ohne `border-top`;
